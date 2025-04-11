@@ -29,11 +29,12 @@ camera limit left bottom and the value you give can be relative to its current p
 you now be able to see without touching another door. Its set up so that the opposite side of the camera (in this example
 the right side) will be set to what the left side WAS, after the camera transition has occurred. Another example, if you want
 to place a door on the top side of the camera box you would put a NEGATIVE value in the camera limit right top y value
-(because in computers negative y value means up obv) and then in the throw camera you would put -277/1.1/2 in the y value
-for left right transitions put negative or positive 490/1.1/2 in the x value of throw camera
+(because in computers negative y value means up obv) and then in the throw camera you would put -300/1.1/2 in the y value
+for left right transitions put negative or positive 510/1.1/2 in the x value of throw camera
 also you have to be particular about your door placement so that the player cant touch it on the edge to go somewhere
-where they shouldnt, also put the door and its compliment like 1 pixel apart doesnt really matter, just overshoot past the door
-in the throw\"\"\"
+where they shouldnt, also put the door and its compliment like 4 pixels apart to make sure the player cant 'teleport' 
+past the first one with high dash movespeed and touch the compliment first. and make sure to throw the player about 30 
+pixel past so that the margin is wide enough that the camera limit logic can clamp it properly and not get stuck\"\"\"
 "
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_it3lg"]

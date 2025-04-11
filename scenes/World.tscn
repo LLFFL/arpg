@@ -66,10 +66,6 @@ func room_transition(throw_player, cam_limit_LB, cam_limit_RT, throw_camera, LEF
 	#how fast the player is and what the cameras positions actually gets set to, so 
 	#you have to use predefined values or overshoot/undershoot
 	# if you're trying to understand the code youll notice Im doing overshoot/undershoot 
-	# with the 1 frame step catch on loop I think its the same as the undershoot pattern from before
-	# ok so solution to 1 frame step problem is way overshoot the throw and try not to be super marginal about the value
-	# spamming through problem idk it keeps freezing on return but the idea is that only extra calls to transition
-	# should be kicked out 
 	print('a')
 	if (cam_limit_LB.x < 0): 
 		while (camera.get_screen_center_position().x >= previousXY.x - 479/1.1): #all code drops decimals at some point so undershoot
