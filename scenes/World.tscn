@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=4 uid="uid://njpan3u5qqgf"]
+[gd_scene load_steps=36 format=4 uid="uid://njpan3u5qqgf"]
 
 [ext_resource type="Texture2D" uid="uid://b3vtv64rk6efr" path="res://assets/Action RPG Resources/World/GrassBackground.png" id="1_a6pgu"]
 [ext_resource type="Texture2D" uid="uid://dvf6p7tw15gji" path="res://assets/Pixel Crawler - Free Pack/Environment/Dungeon Prison/Assets/DungeonProps.png" id="2_10fit"]
@@ -18,7 +18,6 @@
 [ext_resource type="PackedScene" uid="uid://u8p537kx4tlp" path="res://scenes/Bat.tscn" id="14_uwcyx"]
 [ext_resource type="PackedScene" uid="uid://bbv2akewmeqfu" path="res://assets/UI/HealthUI.tscn" id="15_c0d7e"]
 [ext_resource type="PackedScene" uid="uid://c7qfihnyo70k4" path="res://scenes/UIComponents/uimanager.tscn" id="18_44lqw"]
-[ext_resource type="PackedScene" uid="uid://c8bw2fe8wh8sj" path="res://scenes/components/Door.tscn" id="18_nthub"]
 
 [sub_resource type="GDScript" id="GDScript_ep6ma"]
 script/source = "extends Node2D
@@ -26,82 +25,6 @@ script/source = "extends Node2D
 @onready var camera = $Camera2D
 @onready var door = $DoorContainer/Door
 @onready var remoteTransform = $Player/RemoteTransform2D
-@onready var doors = $DoorContainer.get_children()
-
-var o = 120
-func _ready() -> void:
-	for i in doors.size():
-		doors[i].door_entered.connect(room_transition)
-		
-#func _process(float):
-	#print(camera.get_screen_center_position().y)
-# remember the magic number is 510/1.1/2 for x and (310/1.1/2) for y as a comfortable non jittery overshoot
-
-
-func room_transition(throw_player, cam_limit_LB, cam_limit_RT, throw_camera, LEFT, RIGHT, BOTTOM, TOP):
-	print('room transition')
-	if(PlayerStats.in_transition):
-		print('returning')
-		return
-	PlayerStats.in_transition = true
-	print('transition toggled', PlayerStats.in_transition)
-	var previous_bot_limit = camera.limit_bottom
-	var previous_top_limit = camera.limit_top
-	var previous_left_limit = camera.limit_left
-	var previous_right_limit = camera.limit_right
-	#print(throw_player, cam_limit_LB, cam_limit_RT, throw_camera)
-	$Player.position.x += throw_player.x
-	$Player.position.y += throw_player.y
-	remoteTransform.update_position = false
-	var previousXY = camera.get_screen_center_position()
-	camera.limit_left += cam_limit_LB.x
-	camera.limit_bottom += cam_limit_LB.y
-	camera.limit_right += cam_limit_RT.x 
-	camera.limit_top += cam_limit_RT.y
-	camera.global_position.x += throw_camera.x
-	camera.global_position.y += throw_camera.y
-	# in its current state changing the movement speed of the player to be higher will most likely screw
-	# with the current setup of the doors
-	# the cameras POSITION follows you so fast moving characters creates race conditions with when the frame ends and 
-	#how fast the player is and what the cameras positions actually gets set to, so 
-	#you have to use predefined values or overshoot/undershoot
-	# if you're trying to understand the code youll notice Im doing overshoot/undershoot 
-	print('a')
-	if (cam_limit_LB.x < 0): 
-		while (camera.get_screen_center_position().x >= previousXY.x - 479/1.1): #all code drops decimals at some point so undershoot
-			await get_tree().create_timer(1/60).timeout
-			#print(camera.get_screen_center_position().x)
-		camera.limit_right += previous_left_limit - previous_right_limit
-	print('b')
-	if (cam_limit_LB.y > 0):
-		while (camera.get_screen_center_position().y <= previousXY.y + 269/1.1): #all code drops decimals at some point so undershoot
-			await get_tree().create_timer(1/60).timeout
-			print('here')
-			print(camera.get_screen_center_position().y)
-			print(previousXY.y + 249/1.1)
-		camera.limit_top += previous_bot_limit - previous_top_limit
-	print('c')
-	if (cam_limit_RT.x > 0):
-		while (camera.get_screen_center_position().x <= previousXY.x + 479/1.1): #all code drops decimals at some point so undershoot
-			await get_tree().create_timer(1/60).timeout
-		camera.limit_left += previous_right_limit - previous_left_limit
-	print('d')
-	if (cam_limit_RT.y < 0):
-		while (camera.get_screen_center_position().y >= previousXY.y - 269/1.1): #all code drops decimals at some point so undershoot
-			await get_tree().create_timer(1/60).timeout
-			print('here')
-			print(camera.get_screen_center_position().y)
-			print(previousXY.y - 249/1.1)
-		camera.limit_bottom += previous_top_limit - previous_bot_limit
-
-	remoteTransform.update_position = true
-
-	PlayerStats.in_transition = false
-	print('transition toggeled to false ', PlayerStats.in_transition)
-	print(7)
-	await get_tree().create_timer(0.3).timeout
-
-	
 "
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rx4gy"]
@@ -2753,16 +2676,6 @@ texture = ExtResource("5_mearg")
 sources/0 = SubResource("TileSetAtlasSource_xetcc")
 sources/1 = SubResource("TileSetAtlasSource_m8u4s")
 
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_nthub"]
-a = Vector2(0, -24)
-
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_44lqw"]
-a = Vector2(-8.34465e-07, -18)
-b = Vector2(4.76837e-06, 108)
-
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_dwmkc"]
-b = Vector2(5.48363e-06, 128)
-
 [node name="world" type="Node2D"]
 process_mode = 3
 y_sort_enabled = true
@@ -2789,10 +2702,6 @@ tile_set = SubResource("TileSet_qsads")
 process_mode = 3
 position = Vector2(97, 183)
 zoom = Vector2(1.1, 1.1)
-limit_left = 0
-limit_top = 0
-limit_right = 530
-limit_bottom = 370
 
 [node name="Player" parent="." instance=ExtResource("12_jbfv0")]
 process_mode = 1
@@ -2927,53 +2836,3 @@ offset_right = 164.0
 offset_bottom = 43.0
 
 [node name="UIManager" parent="CanvasLayer" instance=ExtResource("18_44lqw")]
-
-[node name="DoorContainer" type="Node2D" parent="."]
-process_mode = 3
-
-[node name="Door2" parent="DoorContainer" instance=ExtResource("18_nthub")]
-position = Vector2(-5, 93)
-throw_player = Vector2(35, 0)
-camera_limit_right_top = Vector2(1000, 0)
-throw_camera_direction = Vector2(231.818, 0)
-
-[node name="CollisionShape2D" parent="DoorContainer/Door2" index="0"]
-one_way_collision = false
-
-[node name="Door" parent="DoorContainer" instance=ExtResource("18_nthub")]
-position = Vector2(3, 119)
-throw_player = Vector2(-35, 0)
-camera_limit_left_bottom = Vector2(-1000, 0)
-throw_camera_direction = Vector2(-231.818, 0)
-
-[node name="CollisionShape2D" parent="DoorContainer/Door" index="0"]
-shape = SubResource("SegmentShape2D_nthub")
-one_way_collision = false
-
-[node name="Door3" parent="DoorContainer" instance=ExtResource("18_nthub")]
-position = Vector2(110, 6)
-throw_player = Vector2(0, -25)
-camera_limit_right_top = Vector2(0, -1000)
-throw_camera_direction = Vector2(0, -140.909)
-T = true
-
-[node name="CollisionShape2D" parent="DoorContainer/Door3" index="0"]
-rotation = 1.5708
-shape = SubResource("SegmentShape2D_44lqw")
-one_way_collision = false
-
-[node name="Door4" parent="DoorContainer" instance=ExtResource("18_nthub")]
-position = Vector2(128, -2)
-throw_player = Vector2(0, 25)
-camera_limit_left_bottom = Vector2(0, 1000)
-throw_camera_direction = Vector2(0, 140.909)
-
-[node name="CollisionShape2D" parent="DoorContainer/Door4" index="0"]
-rotation = 1.5708
-shape = SubResource("SegmentShape2D_dwmkc")
-one_way_collision = false
-
-[editable path="DoorContainer/Door2"]
-[editable path="DoorContainer/Door"]
-[editable path="DoorContainer/Door3"]
-[editable path="DoorContainer/Door4"]
