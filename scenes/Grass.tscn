@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://dh2854qq0xx2a"]
+
+[ext_resource type="Texture2D" uid="uid://btbmuoukkjmq4" path="res://assets/Action RPG Resources/World/Grass.png" id="1_pcm8c"]
+[ext_resource type="PackedScene" uid="uid://8q2xropak2sp" path="res://scenes/components/HurtBox.tscn" id="2_qrq8r"]
+
+[sub_resource type="GDScript" id="GDScript_424kd"]
+script/source = "extends Node2D
+
+const GrassEffect = preload(\"res://assets/Action RPG Resources/Effects/GrassEffect.tscn\")
+
+func grass_death_animate():
+	var GrassEffectInstance = GrassEffect.instantiate()
+	get_parent().add_child(GrassEffectInstance)
+	GrassEffectInstance.position = position
+
+func _on_hurt_box_area_entered(area: Area2D) -> void:
+	grass_death_animate()
+	queue_free()
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b1e6s"]
+size = Vector2(15, 14)
+
+[node name="Grass" type="Node2D"]
+script = SubResource("GDScript_424kd")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_pcm8c")
+offset = Vector2(8, 8)
+
+[node name="HurtBox" parent="." instance=ExtResource("2_qrq8r")]
+collision_mask = 8
+
+[node name="CollisionShape2D" parent="HurtBox" index="0"]
+position = Vector2(8, 8)
+shape = SubResource("RectangleShape2D_b1e6s")
+
+[connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]
+
+[editable path="HurtBox"]

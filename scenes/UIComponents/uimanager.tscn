@@ -1,0 +1,93 @@
+[gd_scene load_steps=8 format=3 uid="uid://c7qfihnyo70k4"]
+
+[ext_resource type="PackedScene" uid="uid://d282ssyvd6lv5" path="res://scenes/UIComponents/conversation.tscn" id="1_kqu5t"]
+[ext_resource type="PackedScene" uid="uid://b3nkife0hdpvh" path="res://scenes/UIComponents/Pause.tscn" id="4_cpx51"]
+[ext_resource type="PackedScene" uid="uid://dcq4ft7y5ad56" path="res://scenes/UIComponents/HUD.tscn" id="5_kinla"]
+[ext_resource type="PackedScene" uid="uid://dtc2vgg6tmnp0" path="res://scenes/UIComponents/OptionsScreen.tscn" id="6_dvqeu"]
+[ext_resource type="PackedScene" uid="uid://v5snv6wy1hx1" path="res://scenes/UIComponents/shop.tscn" id="6_jilow"]
+[ext_resource type="PackedScene" uid="uid://buf50hfrk1l08" path="res://scenes/UIComponents/StartScreen.tscn" id="7_tbluj"]
+
+[sub_resource type="GDScript" id="GDScript_u1mbo"]
+script/source = "extends Node
+var DEBUG_DEV_STATE = true
+var is_talking_debug_only = false
+var game_start = false
+var flavor_text
+
+func _ready():
+	%Conversation.is_talking.connect(_on_is_talking) 
+	%StartScreen.options_pressed.connect(_on_options_pressed)
+	
+	
+func _process(_delta: float) -> void:
+	\"\"\"if (game_start):
+		if(Input.is_action_just_pressed('DEBUG_KEY')):
+			_call_level_complete(1,2,3)
+		if(Input.is_action_just_pressed('pause')):
+			%Pause.pause()\"\"\"
+	\"\"\"if (not game_start):
+		if(Input.is_action_just_pressed('interact')):
+			game_start = true
+			_start_game()\"\"\"
+
+func _on_options_pressed():
+	$OptionsScreen.show()
+
+func _call_conversation(text):
+	%Conversation.initialize_conversation(text)
+	
+func _on_is_talking(value: bool):
+	is_talking_debug_only = value
+
+func _call_level_complete(data1, data2, data3):
+	%LevelComplete._on_level_complete(data1, data2, data3)
+	
+func _update_HUD(data1, data2, data3):
+	$HUD._update_HUD(data1, data2, data3)
+
+func _start_game():
+	%StartScreen.begin_game()
+	
+"
+
+[node name="UIManager" type="Node"]
+process_mode = 3
+script = SubResource("GDScript_u1mbo")
+
+[node name="Conversation" parent="." instance=ExtResource("1_kqu5t")]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(300, 200)
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 1282.0
+offset_bottom = 722.0
+grow_horizontal = 1
+grow_vertical = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="StartScreen" parent="." instance=ExtResource("7_tbluj")]
+unique_name_in_owner = true
+visible = false
+
+[node name="Pause" parent="." instance=ExtResource("4_cpx51")]
+unique_name_in_owner = true
+process_mode = 3
+visible = false
+light_mask = 2
+visibility_layer = 2
+
+[node name="Shop" parent="." instance=ExtResource("6_jilow")]
+visible = false
+
+[node name="HUD" parent="." instance=ExtResource("5_kinla")]
+visible = false
+
+[node name="OptionsScreen" parent="." instance=ExtResource("6_dvqeu")]
+visible = false

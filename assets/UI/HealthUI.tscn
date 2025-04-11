@@ -1,0 +1,52 @@
+[gd_scene load_steps=4 format=3 uid="uid://bbv2akewmeqfu"]
+
+[ext_resource type="Texture2D" uid="uid://xiulugixebfw" path="res://assets/Action RPG Resources/UI/HeartUIEmpty.png" id="1_lw7nu"]
+[ext_resource type="Texture2D" uid="uid://87advcenrc7e" path="res://assets/Action RPG Resources/UI/HeartUIFull.png" id="2_bl0be"]
+
+[sub_resource type="GDScript" id="GDScript_yni5s"]
+script/source = "extends Control
+
+var hearts = 4: set = set_hearts
+var max_hearts = 4: set = set_max_hearts
+@onready var heartUIFull = $HeartUIFull
+@onready var heartUIEmpty = $HeartUIEmpty
+
+func set_hearts(value):
+	hearts = clamp(value, 0, max_hearts)
+	if heartUIFull != null:
+		heartUIFull.size.x = hearts * 15
+		
+func set_max_hearts(value):
+	max_hearts = max(value, 1)
+	hearts = min(hearts, max_hearts)
+	if heartUIEmpty != null:
+		heartUIEmpty.size.x = value * 15
+
+func _ready():
+	max_hearts = PlayerStats.max_health
+	hearts = PlayerStats.health
+	PlayerStats.health_changed.connect(set_hearts)
+	PlayerStats.max_health_changed.connect(set_max_hearts)
+"
+
+[node name="HealthUI" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 161.0
+offset_bottom = 40.0
+script = SubResource("GDScript_yni5s")
+
+[node name="HeartUIEmpty" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 73.0
+offset_bottom = 11.0
+texture = ExtResource("1_lw7nu")
+stretch_mode = 1
+
+[node name="HeartUIFull" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 15.0
+offset_bottom = 11.0
+texture = ExtResource("2_bl0be")
+expand_mode = 1
+stretch_mode = 1

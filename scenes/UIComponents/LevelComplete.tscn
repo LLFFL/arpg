@@ -1,0 +1,147 @@
+[gd_scene load_steps=6 format=3 uid="uid://b0k7suxo1n0ok"]
+
+[ext_resource type="Theme" uid="uid://be8fu88chioyx" path="res://Scenes/UIComponents/DefaultTheme.tres" id="1_lpri0"]
+[ext_resource type="Texture2D" uid="uid://cj1761e5xv68f" path="res://Assets/police_officer_front.png" id="2_l8yki"]
+
+[sub_resource type="GDScript" id="GDScript_yxnxh"]
+script/source = "extends Control
+
+var DEBUG = true
+var press_key = false
+signal key_press
+
+func _ready() -> void:
+	hide()
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+	
+
+
+func _on_level_complete(data1, data2, data3):
+	show()
+	print('level complete showing', data1, data2, data3)
+	#%Data1.set_text(str(data1))
+	#%Data2.set_text(str(data2))
+	#%Data3.set_text(str(data3))
+	print(12)
+	print(321)
+	await wait_for_key_press()
+	print(3)
+	hide()
+
+
+
+func wait_for_key_press() -> void:
+	press_key = false
+	while not press_key:
+		await get_tree().create_timer(0.1).timeout
+	press_key = false
+	
+
+func on_button_continuance_press() -> void:
+	if(get_tree().paused):
+		print(get_tree().paused)
+		return
+	press_key = true
+"
+
+[sub_resource type="InputEventKey" id="InputEventKey_j3uyq"]
+device = -1
+keycode = 69
+unicode = 101
+
+[sub_resource type="Shortcut" id="Shortcut_jxjse"]
+events = [SubResource("InputEventKey_j3uyq")]
+
+[node name="LevelComplete" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_lpri0")
+script = SubResource("GDScript_yxnxh")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="HeaderContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="header" type="RichTextLabel" parent="PanelContainer/MarginContainer/VBoxContainer/HeaderContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+text = "GOOD JOB LEVEL COMPLETE"
+fit_content = true
+autowrap_mode = 0
+
+[node name="GridContainer" type="GridContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+columns = 2
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+texture = ExtResource("2_l8yki")
+expand_mode = 2
+
+[node name="Data1" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 80
+text = "100"
+
+[node name="TextureRect2" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+texture = ExtResource("2_l8yki")
+expand_mode = 2
+
+[node name="Data2" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 80
+text = "200"
+
+[node name="TextureRect3" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+texture = ExtResource("2_l8yki")
+expand_mode = 2
+
+[node name="Data3" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 80
+text = "100"
+
+[node name="Continuance" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+shortcut = SubResource("Shortcut_jxjse")
+text = "Next"
+
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Continuance" to="." method="on_button_continuance_press"]

@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://cdurod5g5jibs"]
+
+[ext_resource type="Texture2D" uid="uid://4e2mh5doylk8" path="res://assets/Action RPG Resources/Effects/HitEffect.png" id="1_nof8l"]
+[ext_resource type="Script" uid="uid://b3xd3ghlcw5qa" path="res://assets/Action RPG Resources/Effects/Effect.gd" id="2_ndl6f"]
+[ext_resource type="AudioStream" uid="uid://b5gt3hdpxu5wf" path="res://assets/Action RPG Resources/Music and Sounds/Hit.wav" id="3_ndl6f"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n0svm"]
+atlas = ExtResource("1_nof8l")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4qut4"]
+atlas = ExtResource("1_nof8l")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vvm88"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n0svm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4qut4")
+}],
+"loop": false,
+"name": &"Animate",
+"speed": 10.0
+}]
+
+[node name="HitEffect" type="AnimatedSprite2D"]
+position = Vector2(0, -8)
+sprite_frames = SubResource("SpriteFrames_vvm88")
+animation = &"Animate"
+script = ExtResource("2_ndl6f")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_ndl6f")
+volume_db = -25.0
+autoplay = true
+bus = &"SFX"

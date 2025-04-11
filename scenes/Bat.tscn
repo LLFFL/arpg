@@ -1,0 +1,291 @@
+[gd_scene load_steps=27 format=3 uid="uid://u8p537kx4tlp"]
+
+[ext_resource type="Texture2D" uid="uid://dpyovvjl3gtjo" path="res://assets/Action RPG Resources/Enemies/Bat.png" id="1_o3dp2"]
+[ext_resource type="Shader" uid="uid://1jid57xhh638" path="res://scenes/components/white_shader.gdshader" id="1_x4yqx"]
+[ext_resource type="Texture2D" uid="uid://dut8v3w2o1gy7" path="res://assets/Action RPG Resources/Shadows/SmallShadow.png" id="2_b5g3g"]
+[ext_resource type="PackedScene" uid="uid://8q2xropak2sp" path="res://scenes/components/HurtBox.tscn" id="3_uib2p"]
+[ext_resource type="PackedScene" uid="uid://d0p2l0q3nrsls" path="res://scenes/components/StatsComponent.tscn" id="4_206o2"]
+[ext_resource type="PackedScene" uid="uid://cxaaujmkidxlq" path="res://scenes/components/PlayerDetectionZone.tscn" id="5_unrfy"]
+[ext_resource type="PackedScene" uid="uid://s01804hl3iwb" path="res://scenes/components/HitBox.tscn" id="6_wduit"]
+[ext_resource type="PackedScene" uid="uid://buxuqmbof2cao" path="res://scenes/components/SoftCollision.tscn" id="7_5rmwj"]
+[ext_resource type="PackedScene" uid="uid://dkfhu1r5rdxjk" path="res://scenes/components/WanderController.tscn" id="8_scn2q"]
+
+[sub_resource type="GDScript" id="GDScript_br6pc"]
+script/source = "extends CharacterBody2D
+var knockback = Vector2.ZERO
+const EnemyDeathEffect = preload('res://assets/Action RPG Resources/Effects/EnemyDeathEffect.tscn')
+@onready var stats = $Stats
+@export var ACCELERATION = 7
+@export var MAX_SPEED = 70
+@export var FRICTION = 3
+@onready var sprite = $AnimatedSprite2D
+@onready var hurtbox = $HurtBox
+@onready var softCollision = $SoftCollision
+@onready var wanderController = $WanderController
+@onready var MAGIC_ARBITRARY_NUMBER = 10
+@onready var animationPlayer = $AnimationPlayer
+
+func _ready():
+	randomize()
+	state = pick_random_state([IDLE, WANDER])
+	sprite.frame = randf_range(0, 4)
+
+enum {
+	IDLE,
+	WANDER,
+	CHASE
+}
+var state = CHASE
+
+func _physics_process(delta: float) -> void:
+	velocity = velocity.move_toward(Vector2.ZERO, FRICTION)
+	
+	\"\"\"the bat uses a randomized timer to switch between idling and wandering while always 'seeking' the player in a zone.
+	its initial state and starting animation frame is randomized so that they arent all doing the exact same thing on spawn
+	\"\"\"
+	match state:
+		IDLE:
+			velocity = velocity.move_toward(Vector2.ZERO, FRICTION)
+			seek_player()
+			if wanderController.get_time_left() == 0:
+				update_wander()
+		WANDER:
+			seek_player()
+			if wanderController.get_time_left() == 0:
+				update_wander()
+			accelerate_toward_point(wanderController.target_position)
+
+			sprite.flip_h = velocity.x < 0
+			if global_position.distance_to(wanderController.target_position) <= MAGIC_ARBITRARY_NUMBER:
+				update_wander()
+				#the magic number thing is to give the wander state a margin so that its not jittering back and forth
+				# because its hard to make the bat stop at an exact number when accelerating/deccelerating to a point
+		CHASE: 
+			var player = $PlayerDetectionZone.player
+			if player != null:
+				accelerate_toward_point(player.global_position)
+				
+			else:
+				state = IDLE
+				
+	if softCollision.is_colliding():
+		velocity += softCollision.get_push_vector() * delta * 700
+	move_and_slide()
+
+func seek_player():
+	if $PlayerDetectionZone.can_see_player():
+		state = CHASE
+		
+func update_wander():
+	state = pick_random_state([IDLE, WANDER])
+	wanderController.start_wander_timer(randf_range(1, 3))
+
+func accelerate_toward_point(point):
+	var direction = position.direction_to(point)
+	velocity = velocity.move_toward(direction * MAX_SPEED, ACCELERATION)
+	sprite.flip_h = velocity.x < 0
+
+func pick_random_state(state_list:Array):
+	state_list.shuffle()
+	return state_list.pop_front()
+
+func _on_hurt_box_area_entered(area: Area2D) -> void:
+	hurtbox.start_invincibility(0.4)
+	hurtbox.create_hit_effect()
+	var direction = (position - area.owner.position).normalized()
+	stats.health -= area.damage
+	knockback = direction * 240
+	velocity = knockback      
+		# this knocks back the bat on damage
+		 # can ask area.owner for the knockback value or a global state script if you want it to be dynamic
+
+func _on_stats_no_health() -> void:
+	await get_tree().create_timer(0.3).timeout
+	queue_free()
+	var enemyDeathEffect = EnemyDeathEffect.instantiate()
+	get_parent().add_child(enemyDeathEffect)
+	enemyDeathEffect.position = position
+
+
+func _on_hurt_box_invincibility_started() -> void:
+	animationPlayer.play('Start')
+
+
+func _on_hurt_box_invincibility_ended() -> void:
+	
+	animationPlayer.play('Stop')
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_abmhg"]
+resource_local_to_scene = true
+shader = ExtResource("1_x4yqx")
+shader_parameter/active = false
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k6vl6"]
+atlas = ExtResource("1_o3dp2")
+region = Rect2(0, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h73i3"]
+atlas = ExtResource("1_o3dp2")
+region = Rect2(16, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g3kr4"]
+atlas = ExtResource("1_o3dp2")
+region = Rect2(32, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wa8v0"]
+atlas = ExtResource("1_o3dp2")
+region = Rect2(48, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xkqs8"]
+atlas = ExtResource("1_o3dp2")
+region = Rect2(64, 0, 16, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_76wvm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k6vl6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h73i3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g3kr4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wa8v0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xkqs8")
+}],
+"loop": true,
+"name": &"Fly",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8x8wn"]
+radius = 5.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_me0vy"]
+radius = 6.0
+height = 16.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wduit"]
+radius = 111.018
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5rmwj"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_scn2q"]
+radius = 8.0
+
+[sub_resource type="Animation" id="Animation_lwl61"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_rejdr"]
+resource_name = "Start"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/active")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_njp2l"]
+resource_name = "Stop"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/active")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6ynp7"]
+_data = {
+&"RESET": SubResource("Animation_lwl61"),
+&"Start": SubResource("Animation_rejdr"),
+&"Stop": SubResource("Animation_njp2l")
+}
+
+[node name="Bat" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 9
+script = SubResource("GDScript_br6pc")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_abmhg")
+sprite_frames = SubResource("SpriteFrames_76wvm")
+animation = &"Fly"
+autoplay = "Fly"
+frame_progress = 0.037029
+offset = Vector2(0, -12)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_b5g3g")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_8x8wn")
+
+[node name="HurtBox" parent="." instance=ExtResource("3_uib2p")]
+collision_mask = 8
+
+[node name="CollisionShape2D" parent="HurtBox" index="0"]
+position = Vector2(0, -14)
+shape = SubResource("CapsuleShape2D_me0vy")
+
+[node name="Stats" parent="." instance=ExtResource("4_206o2")]
+max_health = 2
+
+[node name="PlayerDetectionZone" parent="." instance=ExtResource("5_unrfy")]
+
+[node name="CollisionShape2D" parent="PlayerDetectionZone" index="0"]
+visible = false
+shape = SubResource("CircleShape2D_wduit")
+
+[node name="HitBox" parent="." instance=ExtResource("6_wduit")]
+visible = false
+collision_layer = 4
+
+[node name="CollisionShape2D" parent="HitBox" index="0"]
+position = Vector2(0, -15)
+shape = SubResource("CircleShape2D_5rmwj")
+
+[node name="SoftCollision" parent="." instance=ExtResource("7_5rmwj")]
+
+[node name="CollisionShape2D" parent="SoftCollision" index="0"]
+shape = SubResource("CircleShape2D_scn2q")
+
+[node name="WanderController" parent="." instance=ExtResource("8_scn2q")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_6ynp7")
+}
+autoplay = "Stop"
+
+[connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]
+[connection signal="invincibility_ended" from="HurtBox" to="." method="_on_hurt_box_invincibility_ended"]
+[connection signal="invincibility_started" from="HurtBox" to="." method="_on_hurt_box_invincibility_started"]
+[connection signal="no_health" from="Stats" to="." method="_on_stats_no_health"]
+
+[editable path="HurtBox"]
+[editable path="PlayerDetectionZone"]
+[editable path="HitBox"]
+[editable path="SoftCollision"]

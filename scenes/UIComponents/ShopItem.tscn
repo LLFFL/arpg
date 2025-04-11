@@ -1,0 +1,67 @@
+[gd_scene load_steps=3 format=3 uid="uid://eiab34a5jbgh"]
+
+[ext_resource type="Texture2D" uid="uid://cj1761e5xv68f" path="res://Assets/police_officer_front.png" id="1_im1sd"]
+
+[sub_resource type="GDScript" id="GDScript_6rvca"]
+script/source = "extends PanelContainer
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	var new_stylebox_normal = get_theme_stylebox('').duplicate()
+	print(get_theme_stylebox(''))
+	new_stylebox_normal.border_width_top = 30
+	new_stylebox_normal.border_color = Color(0, 0, 0)
+	add_theme_stylebox_override(\"\", new_stylebox_normal)
+	# Remove the stylebox override.
+	
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+
+func _populate_item_data(picture, item_name, price):
+	%ItemPicture.set_texture('res://Assets/police_officer_front.png')
+	%ItemName.set_text(str(item_name))
+	%Price.set_text(str(price))
+
+
+func _on_focus_entered() -> void:
+	#new_stylebox_normal.border_width_top = 3
+	pass
+"
+
+[node name="CustomItemButton3" type="PanelContainer"]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 2
+mouse_filter = 2
+script = SubResource("GDScript_6rvca")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="ItemPicture" type="TextureRect" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("1_im1sd")
+expand_mode = 2
+
+[node name="ItemName" type="RichTextLabel" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 40
+text = "uygfouyg"
+fit_content = true
+autowrap_mode = 0
+
+[node name="Price" type="Label" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_font_sizes/font_size = 40
+text = "1000"
+
+[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]

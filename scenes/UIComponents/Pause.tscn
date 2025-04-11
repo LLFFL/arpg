@@ -1,0 +1,80 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3nkife0hdpvh"]
+
+[ext_resource type="Theme" uid="uid://be8fu88chioyx" path="res://scenes/UIComponents/DefaultTheme.tres" id="1_fi23u"]
+
+[sub_resource type="GDScript" id="GDScript_d1b0y"]
+script/source = "extends Control
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	hide()
+
+
+func pause():
+	if (get_tree().paused == true):
+		hide()
+		get_tree().paused = false
+	else:
+		show()
+		get_tree().paused = true
+		
+
+
+func _on_go_back_pressed() -> void:
+	get_tree().create_timer(1).timeout.connect(Callable(self, \"despawn_player_room\"))
+	get_tree().change_scene_to_file('res://Scenes/levels/player_room.tscn')
+	
+	
+"
+
+[node name="Pause" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_fi23u")
+script = SubResource("GDScript_d1b0y")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(1280, 720)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="TopMargin" type="Control" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme = ExtResource("1_fi23u")
+theme_type_variation = &"TitleHeader"
+bbcode_enabled = true
+text = "press ESC to unpause"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="GoBack" type="Button" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(250, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+text = "Back to Home"
+
+[node name="BottomMargin" type="Control" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+size_flags_vertical = 10
+
+[connection signal="pressed" from="PanelContainer/VBoxContainer/GoBack" to="." method="_on_go_back_pressed"]

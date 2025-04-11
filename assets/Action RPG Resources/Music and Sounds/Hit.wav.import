@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b5gt3hdpxu5wf"
+path="res://.godot/imported/Hit.wav-db5d51cae973e371796e927744ca312c.sample"
+
+[deps]
+
+source_file="res://assets/Action RPG Resources/Music and Sounds/Hit.wav"
+dest_files=["res://.godot/imported/Hit.wav-db5d51cae973e371796e927744ca312c.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

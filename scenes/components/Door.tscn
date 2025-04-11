@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=3 uid="uid://c8bw2fe8wh8sj"]
+
+[sub_resource type="GDScript" id="GDScript_it3lg"]
+script/source = "extends Area2D
+
+signal door_entered
+@export var throw_player: Vector2
+@export var camera_limit_left_bottom: Vector2
+@export var camera_limit_right_top: Vector2
+@export var throw_camera_direction = Vector2(0,0)
+@export var L:bool = false
+@export var R:bool = false
+@export var B:bool = false
+@export var T:bool = false
+
+func _on_body_entered(body: Node2D) -> void:
+	print('body entered')
+	door_entered.emit(throw_player, camera_limit_left_bottom, camera_limit_right_top, throw_camera_direction, L, R, B, T)
+	
+\"\"\"Maybe I will change doors later\"\"\"
+
+\"\"\"IMPORTANT SETTINGS DOORS GUIDE
+there are only 3 values to set, the direction to throw the player so that they end up just past the door,
+only one of the 4 camera limit values
+and one of the throw camera values
+for the camera limit think of each side of the box that the camera currently 'sees' and think about where that side
+should go, so if a door is on the left side of the camera viewing box you would give a negative x value to 
+camera limit left bottom and the value you give can be relative to its current position, just think how much further should
+you now be able to see without touching another door. Its set up so that the opposite side of the camera (in this example
+the right side) will be set to what the left side WAS, after the camera transition has occurred. Another example, if you want
+to place a door on the top side of the camera box you would put a NEGATIVE value in the camera limit right top y value
+(because in computers negative y value means up obv) and then in the throw camera you would put -277/1.1/2 in the y value
+for left right transitions put negative or positive 490/1.1/2 in the x value of throw camera
+also you have to be particular about your door placement so that the player cant touch it on the edge to go somewhere
+where they shouldnt, also put the door and its compliment like 1 pixel apart doesnt really matter, just overshoot past the door
+in the throw\"\"\"
+"
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_it3lg"]
+a = Vector2(1, 0)
+b = Vector2(1, 36)
+
+[node name="Door" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = SubResource("GDScript_it3lg")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("SegmentShape2D_it3lg")
+one_way_collision = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

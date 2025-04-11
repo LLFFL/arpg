@@ -1,0 +1,142 @@
+[gd_scene load_steps=7 format=3 uid="uid://d282ssyvd6lv5"]
+
+[ext_resource type="Theme" uid="uid://be8fu88chioyx" path="res://scenes/UIComponents/DefaultTheme.tres" id="1_asqip"]
+
+[sub_resource type="GDScript" id="GDScript_3oa5w"]
+script/source = "extends Control
+var check
+signal is_talking # town should receive this signal with a true value to stop sending
+				 # conversation signals until this state variable is false. for debug testing i am sending to uimanager
+signal key_press
+var press_key = false
+
+func _ready():
+	hide()
+	
+func initialize_conversation(text: String):
+	is_talking.emit(true)
+	%Text.clear()
+	var limit = 400
+	var count = 0
+	var array_text = text.split('')
+	show()
+	%PressInteractToContinue.hide()
+	for char in array_text:
+		if(count == limit):
+			%PressInteractToContinue.show()
+			await wait_for_key_press()
+			%PressInteractToContinue.hide()
+			%Text.clear()
+			count = 0
+		%Text.append_text(char)
+		await get_tree().create_timer(0.01).timeout
+		count += 1
+	%PressInteractToContinue.show()
+	await wait_for_key_press()
+	%Text.clear()
+	hide()
+	is_talking.emit(false)
+
+
+func wait_for_key_press() -> void:
+	press_key = false
+	while not press_key:
+		await get_tree().create_timer(0.1).timeout
+		
+	press_key = false
+# these 2 functions above and below are needed to solve a key register stuttering bug that requires you to spam
+# to continue conversation SOMETIMES i think its literally based on if your input is lucky to be registered
+# or if it gets eaten DURING the timer creation wait and loop repeat
+func on_button_continuance_press() -> void:
+	if(get_tree().paused):
+		print(get_tree().paused)
+		return
+	press_key = true
+"
+
+[sub_resource type="InputEventKey" id="InputEventKey_emto6"]
+device = -1
+keycode = 69
+unicode = 101
+
+[sub_resource type="InputEventKey" id="InputEventKey_bwihj"]
+
+[sub_resource type="Shortcut" id="Shortcut_viwcs"]
+events = [SubResource("InputEventKey_emto6"), SubResource("InputEventKey_bwihj")]
+
+[sub_resource type="GDScript" id="GDScript_35dg1"]
+script/source = "extends Button
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass
+"
+
+[node name="Conversation" type="Control"]
+process_mode = 3
+custom_minimum_size = Vector2(1280, 200)
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -640.0
+offset_top = -200.0
+offset_right = 640.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 2
+size_flags_vertical = 10
+theme = ExtResource("1_asqip")
+script = SubResource("GDScript_3oa5w")
+
+[node name="ConversationBox" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -83.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("1_asqip")
+
+[node name="MarginContainer" type="MarginContainer" parent="ConversationBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ConversationBox/MarginContainer"]
+layout_mode = 2
+
+[node name="Text" type="RichTextLabel" parent="ConversationBox/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("1_asqip")
+fit_content = true
+
+[node name="PressInteractToContinue" type="RichTextLabel" parent="ConversationBox/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 10
+text = "Press \"E\" to Continue"
+fit_content = true
+autowrap_mode = 0
+
+[node name="continuance" type="Button" parent="."]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+theme = ExtResource("1_asqip")
+theme_type_variation = &"ConversationButton"
+shortcut = SubResource("Shortcut_viwcs")
+script = SubResource("GDScript_35dg1")
+
+[connection signal="is_talking" from="." to="." method="_on_is_talking"]
+[connection signal="pressed" from="continuance" to="." method="on_button_continuance_press"]
