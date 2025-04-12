@@ -3,18 +3,18 @@
 [sub_resource type="GDScript" id="GDScript_yvqed"]
 script/source = "extends Area2D
 
-var player = null 
+var enemy = null 
 	
-func can_see_player():
-	return player != null
+func can_see_enemy():
+	return enemy != null
 	
 func _on_body_entered(body: Node2D) -> void:
-	player = body 
+	enemy = body 
 	
-# this only detects the player because the mask (that which detects) is set on the player level
+# this only detects the enemy side because the mask (that which detects) is set on the p opposing layers
 
 func _on_body_exited(body: Node2D) -> void:
-	player = null
+	enemy = null
 "
 
 [node name="PlayerDetectionZone" type="Area2D"]
