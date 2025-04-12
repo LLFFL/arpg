@@ -1,5 +1,6 @@
 [gd_scene load_steps=27 format=3 uid="uid://u8p537kx4tlp"]
 
+[ext_resource type="Script" uid="uid://b57pjuubfodad" path="res://kharus room/bat.gd" id="1_abmhg"]
 [ext_resource type="Texture2D" uid="uid://dpyovvjl3gtjo" path="res://assets/Action RPG Resources/Enemies/Bat.png" id="1_o3dp2"]
 [ext_resource type="Shader" uid="uid://1jid57xhh638" path="res://scenes/components/white_shader.gdshader" id="1_x4yqx"]
 [ext_resource type="Texture2D" uid="uid://dut8v3w2o1gy7" path="res://assets/Action RPG Resources/Shadows/SmallShadow.png" id="2_b5g3g"]
@@ -183,7 +184,7 @@ radius = 6.0
 height = 16.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wduit"]
-radius = 111.018
+radius = 190.042
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5rmwj"]
 radius = 8.0
@@ -237,7 +238,7 @@ _data = {
 [node name="Bat" type="CharacterBody2D"]
 collision_layer = 0
 collision_mask = 9
-script = SubResource("GDScript_br6pc")
+script = ExtResource("1_abmhg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_abmhg")
@@ -266,6 +267,7 @@ shape = SubResource("CapsuleShape2D_me0vy")
 max_health = 2
 
 [node name="PlayerDetectionZone" parent="." instance=ExtResource("5_unrfy")]
+collision_mask = 0
 
 [node name="CollisionShape2D" parent="PlayerDetectionZone" index="0"]
 visible = false
@@ -273,7 +275,6 @@ shape = SubResource("CircleShape2D_wduit")
 
 [node name="HitBox" parent="." instance=ExtResource("6_wduit")]
 visible = false
-collision_layer = 4
 
 [node name="CollisionShape2D" parent="HitBox" index="0"]
 position = Vector2(0, -15)
