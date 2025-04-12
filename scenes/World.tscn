@@ -25,6 +25,21 @@ script/source = "extends Node2D
 @onready var camera = $Camera2D
 @onready var door = $DoorContainer/Door
 @onready var remoteTransform = $Player/RemoteTransform2D
+@onready var base_container: Node2D = %BaseContainer
+
+var base_coords
+
+func _ready():
+	base_coords = base_container.get_children()
+	give_coords()
+	
+	
+func give_coords():
+	print(base_coords[0].global_position)
+	$BaseContainer/Base.initialize(base_coords[1].global_position, true)
+	$BaseContainer/Base2.initialize(base_coords[0].global_position, false)
+	#give base1 base2's coords and vice versa, the bases will give minions the coords so that theyre behavior
+	#will be set properly
 "
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rx4gy"]
@@ -2700,7 +2715,7 @@ tile_set = SubResource("TileSet_qsads")
 
 [node name="Camera2D" parent="." instance=ExtResource("6_rpuxp")]
 process_mode = 3
-position = Vector2(97, 183)
+position = Vector2(98, 267)
 zoom = Vector2(1.1, 1.1)
 
 [node name="forest" type="TileMapLayer" parent="."]
@@ -2832,3 +2847,9 @@ offset_bottom = 43.0
 
 [node name="Player" parent="." instance=ExtResource("18_nthub")]
 position = Vector2(98, 267)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
+remote_path = NodePath("../../Camera2D")
+
+[node name="BaseContainer" type="Node2D" parent="."]
+unique_name_in_owner = true
