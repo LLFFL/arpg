@@ -11,6 +11,7 @@ const EnemyDeathEffect = preload('res://assets/Action RPG Resources/Effects/Enem
 @onready var wanderController = $WanderController
 @onready var MAGIC_ARBITRARY_NUMBER = 10
 @onready var animationPlayer = $AnimationPlayer
+var enemy_base_position: Vector2
 
 func _ready():
 	randomize()
@@ -31,9 +32,12 @@ func _physics_process(delta: float) -> void:
 			var enemy = $PlayerDetectionZone.enemy
 			if enemy != null:
 				accelerate_toward_point(enemy.global_position)
-				
+			else:
+				state = DEFAULT
 		DEFAULT:
-			pass
+			seek_enemy()
+			accelerate_toward_point(enemy_base_position)
+			
 	if softCollision.is_colliding():
 		velocity += softCollision.get_push_vector() * delta * 700
 	move_and_slide()
@@ -41,8 +45,6 @@ func _physics_process(delta: float) -> void:
 func seek_enemy():
 	if $PlayerDetectionZone.can_see_enemy():
 		state = CHASE
-	else:
-		state = DEFAULT
 		
 
 func accelerate_toward_point(point):
@@ -60,15 +62,17 @@ func _on_hurt_box_area_entered(area: Area2D) -> void:
 		# this knocks back the bat on damage
 		 # can ask area.owner for the knockback value or a global state script if you want it to be dynamic
 
-func initialize(side: bool):
+func initialize(side: bool, enemy_base_coords: Vector2):
 	if side:
 		#player side
+		enemy_base_position = enemy_base_coords
 		$HurtBox.set_collision_mask_value(3, true)
 		$HitBox.set_collision_layer_value(4, true)
 		$PlayerDetectionZone.set_collision_mask_value(5, true)
 		set_collision_layer_value(2, true)
 	else:
 		#enemy
+		enemy_base_position = enemy_base_coords
 		$HurtBox.set_collision_mask_value(4, true)
 		$HitBox.set_collision_layer_value(3, true)
 		$PlayerDetectionZone.set_collision_mask_value(2, true)

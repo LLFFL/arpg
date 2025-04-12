@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=4 uid="uid://njpan3u5qqgf"]
+[gd_scene load_steps=36 format=4 uid="uid://njpan3u5qqgf"]
 
 [ext_resource type="Texture2D" uid="uid://b3vtv64rk6efr" path="res://assets/Action RPG Resources/World/GrassBackground.png" id="1_a6pgu"]
 [ext_resource type="Texture2D" uid="uid://dvf6p7tw15gji" path="res://assets/Pixel Crawler - Free Pack/Environment/Dungeon Prison/Assets/DungeonProps.png" id="2_10fit"]
@@ -15,7 +15,6 @@
 [ext_resource type="PackedScene" uid="uid://bnxe2nox1j5u4" path="res://scenes/Player.tscn" id="12_jbfv0"]
 [ext_resource type="PackedScene" uid="uid://6d3ilg47yss3" path="res://scenes/Tree.tscn" id="13_o1tcx"]
 [ext_resource type="PackedScene" uid="uid://dh2854qq0xx2a" path="res://scenes/Grass.tscn" id="13_ysqay"]
-[ext_resource type="PackedScene" uid="uid://u8p537kx4tlp" path="res://scenes/Bat.tscn" id="14_uwcyx"]
 [ext_resource type="PackedScene" uid="uid://bbv2akewmeqfu" path="res://assets/UI/HealthUI.tscn" id="15_c0d7e"]
 [ext_resource type="PackedScene" uid="uid://c7qfihnyo70k4" path="res://scenes/UIComponents/uimanager.tscn" id="18_44lqw"]
 [ext_resource type="PackedScene" uid="uid://cqfgoae6a2efh" path="res://kharus room/base.tscn" id="19_44lqw"]
@@ -36,7 +35,7 @@ func _ready():
 	
 	
 func give_coords():
-	print(base_coords)
+	print(base_coords[0].global_position)
 	$BaseContainer/Base.initialize(base_coords[1].global_position, true)
 	$BaseContainer/Base2.initialize(base_coords[0].global_position, false)
 	#give base1 base2's coords and vice versa, the bases will give minions the coords so that theyre behavior
@@ -2798,12 +2797,6 @@ visible = false
 offset_right = 40.0
 offset_bottom = 23.0
 
-[node name="Bat3" parent="." instance=ExtResource("14_uwcyx")]
-position = Vector2(456, 136)
-
-[node name="Bat" parent="." instance=ExtResource("14_uwcyx")]
-position = Vector2(382, 178)
-
 [node name="Label" type="Label" parent="."]
 offset_left = -2.0
 offset_top = 49.0
@@ -2829,3 +2822,4 @@ position = Vector2(64, -298)
 
 [node name="Base2" parent="BaseContainer" instance=ExtResource("19_44lqw")]
 position = Vector2(67, 527)
+SpawnOver = true

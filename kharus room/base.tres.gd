@@ -4,9 +4,8 @@ var enemy_base_position: Vector2
 var resource_rate: int = 10
 var minion_rate: int = 1
 var player_side: bool = false
-
+@export var SpawnOver: bool = false
 const BAT = preload("res://scenes/Bat.tscn")
-# its a random augment right? so should we just have levels that resource needs to reach
 
 func _ready():
 	$SpawnTimer.start(minion_rate)
@@ -19,9 +18,13 @@ func initialize(coords, side):
 func spawn_minion(player_side:bool):
 	var bat_spawn = BAT.instantiate()
 	print(player_side)
-	bat_spawn.initialize(player_side)
+	bat_spawn.initialize(player_side, enemy_base_position)
 	get_parent().add_child(bat_spawn)
-	bat_spawn.position = position
+	if(not SpawnOver):
+		bat_spawn.position = position
+	else:
+		bat_spawn.position = Vector2(position.x, position.y - 50)
+	
 	
 
 func _on_spawn_timer_timeout() -> void:
