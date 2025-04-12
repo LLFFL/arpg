@@ -1,8 +1,9 @@
 class_name AbilityStateMachine extends Node
 
-const GCD: float = 0.5
+const GCD: float = 1
 
 var states: Array[AbilityState]
+#Track states, set when state is changed
 var prev_state: AbilityState
 var current_state: AbilityState
 
@@ -11,14 +12,13 @@ var cooldown_manager: CooldownManager
 var global_cooldown: float = GCD
 var is_on_gcd: bool = false
 
+@onready var cast_ability: CastAbilityState = $CastAbility
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_DISABLED
-
+	#current_state = cast_ability
 func _process(delta: float) -> void:
 	#current_state.player.label.text = str(current_state.name)
-	if prev_state:
-		current_state.player.label.text = str(current_state.name) + "\n" + str(prev_state.name)
 		
 	if is_on_gcd:
 		global_cooldown -= delta
@@ -29,6 +29,8 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	change_state( current_state.physics(delta) )
+	
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	#if event.is_action_pressed("dash"):
@@ -68,6 +70,7 @@ func trigger_gcd() -> void:
 	global_cooldown = GCD
 	is_on_gcd = true
 
+#validate if new state is new, not to infinitely loop current
 func change_state( new_state: AbilityState ) -> void:
 	if new_state == current_state || new_state == null:
 		return

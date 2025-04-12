@@ -12,7 +12,7 @@ var current_pierce_count := 0
 func _ready():
 	if hurtbox:
 		hurtbox.projectile_hit_enemy.connect(on_enemy_hit)
-
+	#Check stats of character for modifiers
 func _physics_process(delta: float) -> void:
 	var direction = Vector2.RIGHT.rotated(rotation)
 	

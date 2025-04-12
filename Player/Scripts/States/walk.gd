@@ -7,6 +7,7 @@ class_name State_Walk extends State
 
 
 func enter() -> void:
+	print("walking")
 	player.update_animation("Run")
 
 

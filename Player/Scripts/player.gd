@@ -6,19 +6,27 @@ const DIR_4 = [Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT, Vector2.UP]
 #const LOOK_DIR = ["R", "RD", "D", "LD", "L", "LU", "U", "RU"]
 const LOOK_DIR = [Vector2(1,0), Vector2(1,-1), Vector2(0,-1), Vector2(-1,-1), Vector2(-1,0), Vector2(-1,1), Vector2(0,1), Vector2(1,1)]
 
-@onready var move_state_machine: PlayerMoveStateMachine = $MoveStateMachine
-
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var sprite_2d: Sprite2D = $Sprite2D
-
 var cardinal_direction: Vector2 = Vector2.DOWN
 var look_direction: Vector2 = Vector2.ZERO
 var direction: Vector2 = Vector2.ZERO
 var mouse_direction: Vector2 = Vector2.ZERO
 
-func _ready() -> void:
-	move_state_machine.initialize(self)
+@onready var move_state_machine: PlayerMoveStateMachine = $MoveStateMachine
+@onready var ability_state_machine: AbilityStateMachine = $AbilityStateMachine
 
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var sprite_2d: Sprite2D = $Sprite2D
+
+
+
+
+func _ready() -> void:
+	print(PlayerStats.movement_speed)
+	PlayerStats.movement_speed_modifier = 2
+	print(PlayerStats.movement_speed)
+	move_state_machine.initialize(self)
+	ability_state_machine.initialize(self)
+	
 func _process(delta: float) -> void:
 	direction = Vector2(
 		Input.get_axis("left", "right"),

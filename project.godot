@@ -17,7 +17,7 @@ config/icon="res://scenes/icon.svg"
 
 [autoload]
 
-PlayerStats="*res://scenes/components/PlayerStats.tscn"
+PlayerStats="*res://Player/Scripts/PlayerStats.gd"
 
 [display]
 
