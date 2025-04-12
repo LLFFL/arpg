@@ -2700,7 +2700,7 @@ tile_set = SubResource("TileSet_qsads")
 
 [node name="Camera2D" parent="." instance=ExtResource("6_rpuxp")]
 process_mode = 3
-position = Vector2(97, 183)
+position = Vector2(98, 267)
 zoom = Vector2(1.1, 1.1)
 
 [node name="forest" type="TileMapLayer" parent="."]
@@ -2832,3 +2832,6 @@ offset_bottom = 43.0
 
 [node name="Player" parent="." instance=ExtResource("18_nthub")]
 position = Vector2(98, 267)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
+remote_path = NodePath("../../Camera2D")
