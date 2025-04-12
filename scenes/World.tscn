@@ -14,10 +14,10 @@
 [ext_resource type="PackedScene" uid="uid://b2focnkaxwfe1" path="res://scenes/Bush.tscn" id="12_bmr65"]
 [ext_resource type="PackedScene" uid="uid://6d3ilg47yss3" path="res://scenes/Tree.tscn" id="13_o1tcx"]
 [ext_resource type="PackedScene" uid="uid://dh2854qq0xx2a" path="res://scenes/Grass.tscn" id="13_ysqay"]
-[ext_resource type="PackedScene" uid="uid://u8p537kx4tlp" path="res://scenes/Bat.tscn" id="14_uwcyx"]
 [ext_resource type="PackedScene" uid="uid://bbv2akewmeqfu" path="res://assets/UI/HealthUI.tscn" id="15_c0d7e"]
 [ext_resource type="PackedScene" uid="uid://c7qfihnyo70k4" path="res://scenes/UIComponents/uimanager.tscn" id="18_44lqw"]
 [ext_resource type="PackedScene" uid="uid://b02g8s3f7cg4a" path="res://Player/Player.tscn" id="18_nthub"]
+[ext_resource type="PackedScene" uid="uid://cqfgoae6a2efh" path="res://kharus room/base.tscn" id="19_44lqw"]
 
 [sub_resource type="GDScript" id="GDScript_ep6ma"]
 script/source = "extends Node2D
@@ -25,6 +25,21 @@ script/source = "extends Node2D
 @onready var camera = $Camera2D
 @onready var door = $DoorContainer/Door
 @onready var remoteTransform = $Player/RemoteTransform2D
+@onready var base_container: Node = %BaseContainer
+
+var base_coords
+
+func _ready():
+	base_coords = base_container.get_children()
+	give_coords()
+	
+	
+func give_coords():
+	print(base_coords[0].global_position)
+	$BaseContainer/AllyBase.initialize(base_coords[1].global_position, true)
+	$BaseContainer/EnemyBase.initialize(base_coords[0].global_position, false)
+	#give base1 base2's coords and vice versa, the bases will give minions the coords so that theyre behavior
+	#will be set properly
 "
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rx4gy"]
@@ -2700,7 +2715,7 @@ tile_set = SubResource("TileSet_qsads")
 
 [node name="Camera2D" parent="." instance=ExtResource("6_rpuxp")]
 process_mode = 3
-position = Vector2(97, 183)
+position = Vector2(98, 267)
 zoom = Vector2(1.1, 1.1)
 
 [node name="forest" type="TileMapLayer" parent="."]
@@ -2775,45 +2790,6 @@ visible = false
 offset_right = 40.0
 offset_bottom = 23.0
 
-[node name="Bat3" parent="." instance=ExtResource("14_uwcyx")]
-position = Vector2(456, 136)
-
-[node name="Bat" parent="." instance=ExtResource("14_uwcyx")]
-position = Vector2(382, 178)
-
-[node name="Bat15" parent="." instance=ExtResource("14_uwcyx")]
-position = Vector2(243, 141)
-
-[node name="Bat16" parent="." instance=ExtResource("14_uwcyx")]
-position = Vector2(289, 151)
-
-[node name="Bat17" parent="." instance=ExtResource("14_uwcyx")]
-position = Vector2(343, 134)
-
-[node name="Bat18" parent="." instance=ExtResource("14_uwcyx")]
-position = Vector2(294, 117)
-
-[node name="Bat19" parent="." instance=ExtResource("14_uwcyx")]
-position = Vector2(319, 157)
-
-[node name="Bat20" parent="." instance=ExtResource("14_uwcyx")]
-position = Vector2(256, 116)
-
-[node name="Bat21" parent="." instance=ExtResource("14_uwcyx")]
-position = Vector2(267, 136)
-
-[node name="Bat22" parent="." instance=ExtResource("14_uwcyx")]
-position = Vector2(343, 97)
-
-[node name="Bat23" parent="." instance=ExtResource("14_uwcyx")]
-position = Vector2(374, 85)
-
-[node name="Bat24" parent="." instance=ExtResource("14_uwcyx")]
-position = Vector2(237, 92)
-
-[node name="Bat25" parent="." instance=ExtResource("14_uwcyx")]
-position = Vector2(209, 108)
-
 [node name="Label" type="Label" parent="."]
 offset_left = -2.0
 offset_top = 49.0
@@ -2832,3 +2808,16 @@ offset_bottom = 43.0
 
 [node name="Player" parent="." instance=ExtResource("18_nthub")]
 position = Vector2(98, 267)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
+remote_path = NodePath("../../Camera2D")
+
+[node name="BaseContainer" type="Node" parent="."]
+unique_name_in_owner = true
+
+[node name="AllyBase" parent="BaseContainer" instance=ExtResource("19_44lqw")]
+position = Vector2(40, -309)
+
+[node name="EnemyBase" parent="BaseContainer" instance=ExtResource("19_44lqw")]
+position = Vector2(57, 441)
+SpawnOver = true

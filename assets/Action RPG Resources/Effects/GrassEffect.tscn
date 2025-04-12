@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://bvinlc2as44mt"]
 
 [ext_resource type="Texture2D" uid="uid://dunpha3a44ks2" path="res://assets/Action RPG Resources/Effects/GrassEffect.png" id="1_pdsqp"]
-[ext_resource type="Script" uid="uid://b3xd3ghlcw5qa" path="res://assets/Action RPG Resources/Effects/Effect.gd" id="2_rkg50"]
+[ext_resource type="Script" uid="uid://b1hklw7nmlwv3" path="res://assets/Action RPG Resources/Effects/Effect.gd" id="2_rkg50"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oi80a"]
 atlas = ExtResource("1_pdsqp")
