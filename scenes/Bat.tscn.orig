@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://buxuqmbof2cao" path="res://scenes/components/SoftCollision.tscn" id="7_5rmwj"]
 [ext_resource type="PackedScene" uid="uid://dkfhu1r5rdxjk" path="res://scenes/components/WanderController.tscn" id="8_scn2q"]
 
+<<<<<<< HEAD
 [sub_resource type="GDScript" id="GDScript_br6pc"]
 script/source = "extends CharacterBody2D
 var knockback = Vector2.ZERO
@@ -134,6 +135,8 @@ func _on_hurt_box_invincibility_ended() -> void:
 	animationPlayer.play('Stop')
 "
 
+=======
+>>>>>>> kharus-merge-attempt
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_abmhg"]
 resource_local_to_scene = true
 shader = ExtResource("1_x4yqx")
@@ -190,7 +193,7 @@ radius = 6.0
 height = 16.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wduit"]
-radius = 111.018
+radius = 190.042
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5rmwj"]
 radius = 8.0
@@ -244,7 +247,7 @@ _data = {
 [node name="Bat" type="CharacterBody2D"]
 collision_layer = 0
 collision_mask = 9
-script = SubResource("GDScript_br6pc")
+script = ExtResource("1_abmhg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_abmhg")
@@ -262,7 +265,11 @@ visible = false
 shape = SubResource("CircleShape2D_8x8wn")
 
 [node name="HurtBox" parent="." instance=ExtResource("3_uib2p")]
+<<<<<<< HEAD
+collision_layer = 8
 collision_mask = 8
+=======
+>>>>>>> kharus-merge-attempt
 
 [node name="CollisionShape2D" parent="HurtBox" index="0"]
 position = Vector2(0, -14)
@@ -272,6 +279,7 @@ shape = SubResource("CapsuleShape2D_me0vy")
 max_health = 2
 
 [node name="PlayerDetectionZone" parent="." instance=ExtResource("5_unrfy")]
+collision_mask = 0
 
 [node name="CollisionShape2D" parent="PlayerDetectionZone" index="0"]
 visible = false
@@ -279,7 +287,6 @@ shape = SubResource("CircleShape2D_wduit")
 
 [node name="HitBox" parent="." instance=ExtResource("6_wduit")]
 visible = false
-collision_layer = 4
 
 [node name="CollisionShape2D" parent="HitBox" index="0"]
 position = Vector2(0, -15)

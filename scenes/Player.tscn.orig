@@ -1,5 +1,10 @@
-[gd_scene load_steps=66 format=3 uid="uid://bnxe2nox1j5u4"]
+[gd_scene load_steps=67 format=3 uid="uid://bnxe2nox1j5u4"]
 
+<<<<<<< HEAD
+[ext_resource type="Script" uid="uid://bfvk0mbcprh0l" path="res://scenes/XPlayer.gd" id="1_bruh7"]
+=======
+[ext_resource type="Script" uid="uid://deu5be7b44d4p" path="res://kharus room/Player..gd" id="1_khinc"]
+>>>>>>> kharus-merge-attempt
 [ext_resource type="Texture2D" uid="uid://dvk4an6m4e3j0" path="res://assets/Action RPG Resources/Shadows/MediumShadow.png" id="1_mdl7e"]
 [ext_resource type="Texture2D" uid="uid://dshd0sg42ohe1" path="res://assets/Action RPG Resources/Player/Player.png" id="1_p4jph"]
 [ext_resource type="Shader" uid="uid://1jid57xhh638" path="res://scenes/components/white_shader.gdshader" id="2_cw2d6"]
@@ -7,7 +12,10 @@
 [ext_resource type="PackedScene" uid="uid://8q2xropak2sp" path="res://scenes/components/HurtBox.tscn" id="3_3li8b"]
 [ext_resource type="AudioStream" uid="uid://cjhun5bkrbepq" path="res://assets/Action RPG Resources/Music and Sounds/Swipe.wav" id="3_qu4a1"]
 [ext_resource type="AudioStream" uid="uid://dmj1g6728skrg" path="res://assets/Action RPG Resources/Music and Sounds/Evade.wav" id="4_70d11"]
+<<<<<<< HEAD
 [ext_resource type="Script" uid="uid://cfk080cn8r8ix" path="res://Objects/Scripts/player_projectile_weapon.gd" id="8_khinc"]
+=======
+>>>>>>> kharus-merge-attempt
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cw2d6"]
 shader = ExtResource("2_cw2d6")
@@ -871,7 +879,11 @@ _data = {
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
+<<<<<<< HEAD
 script = ExtResource("1_bruh7")
+=======
+script = ExtResource("1_khinc")
+>>>>>>> kharus-merge-attempt
 
 [node name="shadow" type="Sprite2D" parent="."]
 position = Vector2(0, 2)
@@ -884,7 +896,6 @@ texture = ExtResource("1_p4jph")
 hframes = 60
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(0, -1)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_lflfv")
@@ -908,7 +919,6 @@ parameters/Run/blend_position = Vector2(0, 1)
 position = Vector2(0, -4)
 
 [node name="HitBox" parent="HitBoxPivot" instance=ExtResource("2_frysp")]
-visible = false
 collision_layer = 8
 script = SubResource("GDScript_1obj2")
 
@@ -918,7 +928,6 @@ shape = SubResource("CapsuleShape2D_dtn3s")
 disabled = true
 
 [node name="HurtBox" parent="." instance=ExtResource("3_3li8b")]
-visible = false
 collision_mask = 4
 
 [node name="CollisionShape2D" parent="HurtBox" index="0"]

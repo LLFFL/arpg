@@ -34,8 +34,13 @@ folder_colors={
 "res://Objects/": "purple",
 "res://assets/": "green",
 "res://assets/Pixel Crawler - Free Pack/": "green",
+<<<<<<< HEAD
 "res://scenes/": "red",
 "res://util/": "yellow"
+=======
+"res://kharus room/": "purple",
+"res://scenes/": "red"
+>>>>>>> kharus-merge-attempt
 }
 
 [global_group]
