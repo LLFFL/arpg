@@ -94,9 +94,12 @@ func _on_hurt_box_area_entered(area: Area2D) -> void:
 	hurtbox.start_invincibility(0.4)
 	hurtbox.create_hit_effect()
 	var direction = (position - area.owner.position).normalized()
-	stats.health -= area.damage
-	knockback = direction * 240
-	velocity = knockback      
+	if area.is_in_group(\"projectile\"):
+		print(\"projectile hit\")
+	else:
+		stats.health -= area.damage
+		knockback = direction * 240
+		velocity = knockback      
 		# this knocks back the bat on damage
 		 # can ask area.owner for the knockback value or a global state script if you want it to be dynamic
 

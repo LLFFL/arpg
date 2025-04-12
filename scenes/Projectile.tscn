@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://cd1qjcbkqx7de"]
+
+[ext_resource type="Script" uid="uid://dioym6i4xdkux" path="res://scenes/projectile.gd" id="1_dprbf"]
+[ext_resource type="Texture2D" uid="uid://cbccnvcjdwv6i" path="res://scenes/icon.svg" id="2_kdm4f"]
+[ext_resource type="Script" uid="uid://bwoforyfamces" path="res://scenes/components/Projectile_HurtBox.gd" id="3_13obt"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_du7tx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qjnh8"]
+radius = 8.0
+
+[node name="Projectile" type="CharacterBody2D"]
+script = ExtResource("1_dprbf")
+
+[node name="Icon" type="Sprite2D" parent="."]
+scale = Vector2(0.148438, 0.148438)
+texture = ExtResource("2_kdm4f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_du7tx")
+
+[node name="ProjectileHurtbox" type="Area2D" parent="." groups=["projectile"]]
+collision_layer = 9
+script = ExtResource("3_13obt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ProjectileHurtbox"]
+shape = SubResource("CircleShape2D_qjnh8")
