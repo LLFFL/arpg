@@ -43,6 +43,11 @@ func _on_invincibility_started() -> void:
 
 func _on_invincibility_ended() -> void:
 	collisionShape.disabled = false
+
+#take damage function, to call parent and do damage
+#Added bat to layer 4 so its seen by projectile on layer 4
+func damage(attack: Attack) -> void:
+	get_parent().damage(attack)
 "
 
 [node name="HurtBox" type="Area2D"]

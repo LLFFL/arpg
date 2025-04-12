@@ -90,18 +90,31 @@ func pick_random_state(state_list:Array):
 	state_list.shuffle()
 	return state_list.pop_front()
 
+#This current set up is we are having the receiving target take the damage from the incoming bullet
+#But I think the bullet calling to give damage will make more sense
 func _on_hurt_box_area_entered(area: Area2D) -> void:
-	hurtbox.start_invincibility(0.4)
-	hurtbox.create_hit_effect()
-	var direction = (position - area.owner.position).normalized()
-	if area.is_in_group(\"projectile\"):
-		print(\"projectile hit\")
-	else:
-		stats.health -= area.damage
-		knockback = direction * 240
-		velocity = knockback      
+	pass
+	#hurtbox.start_invincibility(0.4)
+	#hurtbox.create_hit_effect()
+	#var direction = (position - area.owner.position).normalized()
+	#if area.is_in_group(\"projectile\"):
+		#print(\"projectile hit\")
+		#stats.health -= 
+	#stats.health -= area.damage
+	#knockback = direction * 240
+	#velocity = knockback      
 		# this knocks back the bat on damage
 		 # can ask area.owner for the knockback value or a global state script if you want it to be dynamic
+#refactored the take damage from \"_on_hurt_box_area_entered\"
+func damage(attack: Attack) -> void:
+	print(attack.damage)
+	stats.health -= attack.damage
+	hurtbox.start_invincibility(0.4)
+	hurtbox.create_hit_effect()
+	var direction = (position - get_global_mouse_position()).normalized()
+	knockback = direction * 240
+	velocity = knockback
+
 
 func _on_stats_no_health() -> void:
 	await get_tree().create_timer(0.3).timeout
@@ -248,6 +261,7 @@ visible = false
 shape = SubResource("CircleShape2D_8x8wn")
 
 [node name="HurtBox" parent="." instance=ExtResource("3_uib2p")]
+collision_layer = 8
 collision_mask = 8
 
 [node name="CollisionShape2D" parent="HurtBox" index="0"]

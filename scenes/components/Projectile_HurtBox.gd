@@ -11,11 +11,14 @@ func _ready() -> void:
 	
 	
 func on_area_entered(area: Area2D):
-	if area is Hitbox:
+	if area.has_method("damage"):
 		var attack := Attack.new()
-		
 		attack.damage = projectile.damage
-		
 		area.damage(attack)
-		
+		print("area.damage(attack) called for ", attack)
 		projectile_hit_enemy.emit()
+	#if area is Hitbox:
+		#var attack := Attack.new()
+		#attack.damage = projectile.damage
+		#area.damage(attack)
+		#projectile_hit_enemy.emit()
