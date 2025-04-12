@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://ci3m1jn4vgjkt"]
+
+[ext_resource type="PackedScene" uid="uid://u8p537kx4tlp" path="res://scenes/Bat.tscn" id="1_0e48y"]
+[ext_resource type="PackedScene" uid="uid://b02g8s3f7cg4a" path="res://Player/Player.tscn" id="2_epypp"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Bat" parent="." instance=ExtResource("1_0e48y")]
+
+[node name="Player" parent="." instance=ExtResource("2_epypp")]

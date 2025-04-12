@@ -11,7 +11,9 @@ func _ready() -> void:
 	
 	
 func on_area_entered(area: Area2D):
+	print(area)
 	if area.has_method("damage"):
+		print('a')
 		var attack := Attack.new()
 		attack.damage = projectile.damage
 		area.damage(attack)

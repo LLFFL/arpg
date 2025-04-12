@@ -91,6 +91,7 @@ func damage(attack: Attack) -> void:
 
 func initialize(side: bool, enemy_base_coords: Vector2):
 	if side:
+		
 		#player side
 		enemy_base_position = enemy_base_coords
 		$HurtBox.set_collision_mask_value(3, true)
@@ -250,8 +251,6 @@ visible = false
 shape = SubResource("CircleShape2D_8x8wn")
 
 [node name="HurtBox" parent="." instance=ExtResource("3_uib2p")]
-collision_layer = 8
-collision_mask = 8
 
 [node name="CollisionShape2D" parent="HurtBox" index="0"]
 position = Vector2(0, -14)
@@ -261,6 +260,7 @@ shape = SubResource("CapsuleShape2D_me0vy")
 max_health = 2
 
 [node name="PlayerDetectionZone" parent="." instance=ExtResource("5_unrfy")]
+collision_mask = 0
 
 [node name="CollisionShape2D" parent="PlayerDetectionZone" index="0"]
 visible = false
@@ -268,7 +268,6 @@ shape = SubResource("CircleShape2D_wduit")
 
 [node name="HitBox" parent="." instance=ExtResource("6_wduit")]
 visible = false
-collision_layer = 4
 
 [node name="CollisionShape2D" parent="HitBox" index="0"]
 position = Vector2(0, -15)
