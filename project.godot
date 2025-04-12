@@ -31,11 +31,18 @@ window/stretch/aspect="keep_width"
 [file_customization]
 
 folder_colors={
+"res://Objects/": "purple",
 "res://assets/": "green",
 "res://assets/Pixel Crawler - Free Pack/": "green",
 "res://kharus room/": "purple",
 "res://scenes/": "red"
+"res://scenes/": "red",
+"res://util/": "yellow"
 }
+
+[global_group]
+
+projectile=""
 
 [gui]
 

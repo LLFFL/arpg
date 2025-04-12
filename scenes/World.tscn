@@ -12,12 +12,12 @@
 [ext_resource type="Texture2D" uid="uid://btbmuoukkjmq4" path="res://assets/Action RPG Resources/World/Grass.png" id="10_o01r7"]
 [ext_resource type="Texture2D" uid="uid://b82mq60vt8ayj" path="res://assets/Action RPG Resources/World/CliffTileset.png" id="11_bw5r0"]
 [ext_resource type="PackedScene" uid="uid://b2focnkaxwfe1" path="res://scenes/Bush.tscn" id="12_bmr65"]
-[ext_resource type="PackedScene" uid="uid://bnxe2nox1j5u4" path="res://scenes/Player.tscn" id="12_jbfv0"]
 [ext_resource type="PackedScene" uid="uid://6d3ilg47yss3" path="res://scenes/Tree.tscn" id="13_o1tcx"]
 [ext_resource type="PackedScene" uid="uid://dh2854qq0xx2a" path="res://scenes/Grass.tscn" id="13_ysqay"]
 [ext_resource type="PackedScene" uid="uid://bbv2akewmeqfu" path="res://assets/UI/HealthUI.tscn" id="15_c0d7e"]
 [ext_resource type="PackedScene" uid="uid://c7qfihnyo70k4" path="res://scenes/UIComponents/uimanager.tscn" id="18_44lqw"]
 [ext_resource type="PackedScene" uid="uid://cqfgoae6a2efh" path="res://kharus room/base.tscn" id="19_44lqw"]
+[ext_resource type="PackedScene" uid="uid://b02g8s3f7cg4a" path="res://Player/Player.tscn" id="18_nthub"]
 
 [sub_resource type="GDScript" id="GDScript_ep6ma"]
 script/source = "extends Node2D
@@ -2715,15 +2715,8 @@ tile_set = SubResource("TileSet_qsads")
 
 [node name="Camera2D" parent="." instance=ExtResource("6_rpuxp")]
 process_mode = 3
-position = Vector2(97, 183)
+position = Vector2(98, 267)
 zoom = Vector2(1.1, 1.1)
-
-[node name="Player" parent="." instance=ExtResource("12_jbfv0")]
-process_mode = 1
-position = Vector2(97, 183)
-
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
-remote_path = NodePath("../../Camera2D")
 
 [node name="forest" type="TileMapLayer" parent="."]
 visible = false
@@ -2813,13 +2806,11 @@ offset_bottom = 43.0
 
 [node name="UIManager" parent="CanvasLayer" instance=ExtResource("18_44lqw")]
 
+[node name="Player" parent="." instance=ExtResource("18_nthub")]
+position = Vector2(98, 267)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
+remote_path = NodePath("../../Camera2D")
+
 [node name="BaseContainer" type="Node2D" parent="."]
 unique_name_in_owner = true
-
-[node name="Base" parent="BaseContainer" instance=ExtResource("19_44lqw")]
-z_index = -1
-position = Vector2(64, -298)
-
-[node name="Base2" parent="BaseContainer" instance=ExtResource("19_44lqw")]
-position = Vector2(67, 527)
-SpawnOver = true
