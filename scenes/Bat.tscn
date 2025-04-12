@@ -1,6 +1,5 @@
 [gd_scene load_steps=27 format=3 uid="uid://u8p537kx4tlp"]
 
-[ext_resource type="Script" uid="uid://b57pjuubfodad" path="res://kharus room/bat.gd" id="1_abmhg"]
 [ext_resource type="Texture2D" uid="uid://dpyovvjl3gtjo" path="res://assets/Action RPG Resources/Enemies/Bat.png" id="1_o3dp2"]
 [ext_resource type="Shader" uid="uid://1jid57xhh638" path="res://scenes/components/white_shader.gdshader" id="1_x4yqx"]
 [ext_resource type="Texture2D" uid="uid://dut8v3w2o1gy7" path="res://assets/Action RPG Resources/Shadows/SmallShadow.png" id="2_b5g3g"]
