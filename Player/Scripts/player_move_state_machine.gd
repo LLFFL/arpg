@@ -4,6 +4,8 @@ var states: Array[State]
 var prev_state: State
 var current_state: State
 
+#ranged, ranged, into cast ability and it knows its ranged
+
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_DISABLED
 

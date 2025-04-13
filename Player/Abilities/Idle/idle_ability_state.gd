@@ -17,6 +17,7 @@ func process( _delta: float ) -> AbilityState:
 func physics( _delta: float ) -> AbilityState:
 	return null
 
+#If in combo attack, check if in combo attack then decide if Ability is melee or ability
 func handle_input( _event: InputEvent ) -> AbilityState:
 	if combo_attack != null:
 		if _event.is_action_pressed(combo_attack.input):

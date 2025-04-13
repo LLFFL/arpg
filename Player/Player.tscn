@@ -878,7 +878,7 @@ _data = {
 &"Stop": SubResource("Animation_bruh7")
 }
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_layer = 2
 script = ExtResource("6_s1rgi")
 

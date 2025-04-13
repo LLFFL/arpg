@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://dxw4ybjxdsnso"]
+
+[ext_resource type="Script" uid="uid://bccm83vw7wdgl" path="res://Objects/upgrade.gd" id="1_hgitt"]
+[ext_resource type="Resource" uid="uid://dsuump1vwa2el" path="res://Objects/Scripts/spells/Fireball.tres" id="2_50jy6"]
+[ext_resource type="Texture2D" uid="uid://bmhu4xa7gfdrw" path="res://assets/Ninja Adventure - Asset Pack/Items/Potion/MilkPot.png" id="2_hj5gr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_50jy6"]
+
+[node name="Upgrade" type="Area2D" node_paths=PackedStringArray("sprite")]
+collision_mask = 3
+script = ExtResource("1_hgitt")
+sprite = NodePath("Sprite2D")
+spell = ExtResource("2_50jy6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_50jy6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_hj5gr")

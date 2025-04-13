@@ -6,7 +6,10 @@ static var player: Player
 static var state_machine: AbilityStateMachine
 
 var is_on_cooldown: bool = false
-
+#Combos here, state and input
+#Every state has access to combo attack
+#when exit melee state, create new ComboAttack,new in melee_ability_state
+#half second window aftter slash that stores next attack IF you click it.
 class ComboAttack:
 	var state: AbilityState
 	var input: String

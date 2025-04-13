@@ -43,6 +43,7 @@ extends Node
 		return base_movement_speed*movement_speed_modifier
 		
 @onready var health = max_health: set = set_health
+
 signal no_health
 signal health_changed(value)
 signal max_health_changed(value)
@@ -60,6 +61,16 @@ func set_health(value):
 	if health <= 0:
 		emit_signal("no_health")
 
+#Upgrade spells
+@export var projectile_scene: PackedScene = preload("res://scenes/Projectile.tscn")
+
+var upgrades : Array = []
+#setter function
+func add_upgrade(spell):
+	#if upgrades.size() < 4:
+		upgrades.append(spell)
+
+	
 
 #Spell Dictionairy
 #Cast time, Base Damage, Projectile speed, ext

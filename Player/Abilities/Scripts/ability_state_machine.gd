@@ -3,7 +3,6 @@ class_name AbilityStateMachine extends Node
 const GCD: float = 1
 
 var states: Array[AbilityState]
-#Track states, set when state is changed
 var prev_state: AbilityState
 var current_state: AbilityState
 
@@ -13,6 +12,9 @@ var global_cooldown: float = GCD
 var is_on_gcd: bool = false
 
 @onready var cast_ability: CastAbilityState = $CastAbility
+
+
+#Each child node should be its own specific move.
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_DISABLED

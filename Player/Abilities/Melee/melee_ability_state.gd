@@ -13,7 +13,11 @@ func enter() -> void:
 	timer.timeout.connect(_on_timer_timeout)
 	add_child(timer)
 	pass
-
+#Combos here, state and input
+#Every state has access to combo attack
+#when exit melee state, create new ComboAttack,new in melee_ability_state
+#half second window aftter slash that stores next attack IF you click it.
+#When timer above ends, it exits the combo attack
 func exit() -> void:
 	print("Exit")
 	combo_attack = ComboAttack.new()
