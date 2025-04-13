@@ -1,7 +1,7 @@
 extends Area2D
 
 @export var sprite : Sprite2D
-@export var spell: Spell
+@export var pickup: Pickup
 
 
 func _ready() -> void:
@@ -14,5 +14,5 @@ func on_body_entered(body: Node) -> void:
 	print("Upgrade has ", body, " entered")
 	if body.is_in_group("player"):
 		print("Body is in player group")
-		PlayerStats.add_upgrade(spell)
+		PlayerStats.add_upgrade(pickup)
 		queue_free()

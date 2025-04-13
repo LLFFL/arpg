@@ -32,7 +32,7 @@ window/stretch/aspect="keep_width"
 [file_customization]
 
 folder_colors={
-"res://Objects/": "purple",
+"res://Upgrades/": "purple",
 "res://assets/": "green",
 "res://assets/Pixel Crawler - Free Pack/": "green",
 "res://scenes/": "red",
