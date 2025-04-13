@@ -21,6 +21,7 @@ var mouse_direction: Vector2 = Vector2.ZERO
 
 
 func _ready() -> void:
+	PlayerManager.player = self
 	move_state_machine.initialize(self)
 	ability_state_machine.initialize(self)
 	
