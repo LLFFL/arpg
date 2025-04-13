@@ -2,7 +2,7 @@ extends Node2D
 
 var enemy_base_position: Vector2
 var resource_rate: int = 10
-var minion_rate: int = 1
+var minion_rate: int = 2
 var player_side: bool = false
 @export var SpawnOver: bool = false
 const BAT = preload("res://scenes/Bat.tscn")
@@ -17,7 +17,6 @@ func initialize(coords, side):
 
 func spawn_minion(player_side:bool):
 	var bat_spawn = BAT.instantiate()
-	print(player_side)
 	bat_spawn.initialize(player_side, enemy_base_position)
 	get_parent().add_child(bat_spawn)
 	if(not SpawnOver):

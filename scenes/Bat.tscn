@@ -27,6 +27,7 @@ const EnemyDeathEffect = preload('res://assets/Action RPG Resources/Effects/Enem
 var enemy_base_position: Vector2
 
 func _ready():
+	hurtbox.damaged.connect(damage)
 	randomize()
 	sprite.frame = randf_range(0, 4)
 
@@ -94,15 +95,16 @@ func initialize(side: bool, enemy_base_coords: Vector2):
 		
 		#player side
 		enemy_base_position = enemy_base_coords
-		$HurtBox.set_collision_mask_value(3, true)
-		$HitBox.set_collision_layer_value(4, true)
+		$HurtBox.set_collision_layer_value(3, true)
+		$HitBox.set_collision_mask_value(4, true) # hitbox is for detecting and hitting, hurtbox is for existing and getting hurt
 		$PlayerDetectionZone.set_collision_mask_value(5, true)
 		set_collision_layer_value(2, true)
 	else:
+		
 		#enemy
 		enemy_base_position = enemy_base_coords
-		$HurtBox.set_collision_mask_value(4, true)
-		$HitBox.set_collision_layer_value(3, true)
+		$HurtBox.set_collision_layer_value(4, true)
+		$HitBox.set_collision_mask_value(3, true)
 		$PlayerDetectionZone.set_collision_mask_value(2, true)
 		set_collision_layer_value(5, true)
 		
@@ -290,6 +292,7 @@ autoplay = "Stop"
 [connection signal="invincibility_ended" from="HurtBox" to="." method="_on_hurt_box_invincibility_ended"]
 [connection signal="invincibility_started" from="HurtBox" to="." method="_on_hurt_box_invincibility_started"]
 [connection signal="no_health" from="Stats" to="." method="_on_stats_no_health"]
+[connection signal="area_entered" from="HitBox" to="HitBox" method="_on_area_entered"]
 
 [editable path="HurtBox"]
 [editable path="PlayerDetectionZone"]

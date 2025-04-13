@@ -6,8 +6,8 @@ signal projectile_hit_enemy
 @onready var projectile : Projectile = get_owner()
 
 func _ready() -> void:
-	self.add_to_group("projectiles")
 	area_entered.connect(on_area_entered)
+	self.add_to_group("projectiles")
 	
 	
 func on_area_entered(area: Area2D):
