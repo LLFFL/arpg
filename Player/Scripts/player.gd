@@ -10,7 +10,8 @@ var cardinal_direction: Vector2 = Vector2.DOWN
 var look_direction: Vector2 = Vector2.ZERO
 var direction: Vector2 = Vector2.ZERO
 var mouse_direction: Vector2 = Vector2.ZERO
-
+var knockback = Vector2.ZERO
+@onready var hurtbox = %HurtBox 
 @onready var move_state_machine: PlayerMoveStateMachine = $MoveStateMachine
 @onready var ability_state_machine: AbilityStateMachine = $AbilityStateMachine
 
@@ -22,6 +23,7 @@ func _ready() -> void:
 	PlayerManager.player = self
 	move_state_machine.initialize(self)
 	ability_state_machine.initialize(self)
+	hurtbox.damaged.connect(damage)
 	
 func _process(delta: float) -> void:
 	direction = Vector2(
@@ -101,3 +103,11 @@ func cast_spell(index: int, cast_position: Vector2, mouse_direction: Vector2):
 	projectile.speed = spell.speed
 	projectile.max_pierce = spell.max_pierce
 	projectile.icon.texture = spell.icon_texture
+
+func damage(attack: Attack) -> void:
+	PlayerStats.health -= attack.damage
+	hurtbox.start_invincibility(0.4)
+	hurtbox.create_hit_effect()
+	var direction = (position - get_global_mouse_position()).normalized()
+	knockback = direction * 240
+	velocity = knockback

@@ -927,8 +927,9 @@ shape = SubResource("CapsuleShape2D_dtn3s")
 disabled = true
 
 [node name="HurtBox" parent="." instance=ExtResource("7_p7tob")]
+unique_name_in_owner = true
 visible = false
-collision_mask = 4
+collision_layer = 4
 
 [node name="CollisionShape2D" parent="HurtBox" index="0"]
 position = Vector2(0, -5)
