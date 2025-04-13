@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=3 uid="uid://b02g8s3f7cg4a"]
+[gd_scene load_steps=74 format=3 uid="uid://b02g8s3f7cg4a"]
 
 [ext_resource type="Texture2D" uid="uid://dvk4an6m4e3j0" path="res://assets/Action RPG Resources/Shadows/MediumShadow.png" id="1_vlldt"]
 [ext_resource type="Shader" uid="uid://1jid57xhh638" path="res://scenes/components/white_shader.gdshader" id="2_s1rgi"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://c377d2gln6o3n" path="res://Player/Abilities/Idle/idle_ability_state.gd" id="13_dm7nj"]
 [ext_resource type="Script" uid="uid://cgtecm18eal6a" path="res://Player/Scripts/ability_cast.gd" id="14_3mea3"]
 [ext_resource type="Script" uid="uid://cfk080cn8r8ix" path="res://Objects/Scripts/player_projectile_weapon.gd" id="14_dm7nj"]
+[ext_resource type="Script" uid="uid://kvu6a8gqwipi" path="res://Player/Abilities/Melee/melee_ability_state.gd" id="15_7v5gs"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cw2d6"]
 shader = ExtResource("2_s1rgi")
@@ -962,9 +963,8 @@ script = ExtResource("13_dm7nj")
 script = ExtResource("14_3mea3")
 firing_position = NodePath("../../ProjectilePosition")
 
-[node name="SkillTimer" type="Timer" parent="AbilityStateMachine/CastAbility"]
-wait_time = 1.5
-one_shot = true
+[node name="Melee" type="Node" parent="AbilityStateMachine"]
+script = ExtResource("15_7v5gs")
 
 [node name="PlayerProjectileWeapon" type="Node2D" parent="." node_paths=PackedStringArray("firing_position")]
 script = ExtResource("14_dm7nj")

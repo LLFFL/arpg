@@ -21,9 +21,6 @@ var mouse_direction: Vector2 = Vector2.ZERO
 
 
 func _ready() -> void:
-	print(PlayerStats.movement_speed)
-	PlayerStats.movement_speed_modifier = 2
-	print(PlayerStats.movement_speed)
 	move_state_machine.initialize(self)
 	ability_state_machine.initialize(self)
 	

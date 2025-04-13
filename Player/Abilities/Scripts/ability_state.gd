@@ -7,6 +7,12 @@ static var state_machine: AbilityStateMachine
 
 var is_on_cooldown: bool = false
 
+class ComboAttack:
+	var state: AbilityState
+	var input: String
+
+static var combo_attack: ComboAttack
+
 func _ready() -> void:
 	pass # Replace with function body.
 

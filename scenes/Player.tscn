@@ -1,6 +1,5 @@
-[gd_scene load_steps=67 format=3 uid="uid://bnxe2nox1j5u4"]
+[gd_scene load_steps=66 format=3 uid="uid://bnxe2nox1j5u4"]
 
-[ext_resource type="Script" uid="uid://bfvk0mbcprh0l" path="res://scenes/XPlayer.gd" id="1_bruh7"]
 [ext_resource type="Texture2D" uid="uid://dvk4an6m4e3j0" path="res://assets/Action RPG Resources/Shadows/MediumShadow.png" id="1_mdl7e"]
 [ext_resource type="Texture2D" uid="uid://dshd0sg42ohe1" path="res://assets/Action RPG Resources/Player/Player.png" id="1_p4jph"]
 [ext_resource type="Shader" uid="uid://1jid57xhh638" path="res://scenes/components/white_shader.gdshader" id="2_cw2d6"]
@@ -872,7 +871,6 @@ _data = {
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
-script = ExtResource("1_bruh7")
 
 [node name="shadow" type="Sprite2D" parent="."]
 position = Vector2(0, 2)

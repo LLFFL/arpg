@@ -16,28 +16,20 @@ var is_on_gcd: bool = false
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_DISABLED
-	#current_state = cast_ability
+
 func _process(delta: float) -> void:
-	#current_state.player.label.text = str(current_state.name)
-		
 	if is_on_gcd:
 		global_cooldown -= delta
 		if global_cooldown <= 0:
 			reset_gcd()
-		
+	
 	change_state( current_state.process(delta) )
 
 func _physics_process(delta: float) -> void:
 	change_state( current_state.physics(delta) )
-	
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	#if event.is_action_pressed("dash"):
-		#if states.size() > 0:
-			#for s in states:
-				#if s is AbilityDashState:
-					#change_state(s)
 	change_state(current_state.handle_input(event))
 
 
@@ -75,7 +67,6 @@ func change_state( new_state: AbilityState ) -> void:
 	if new_state == current_state || new_state == null:
 		return
 
-	
 	if current_state:
 		current_state.exit()
 	
