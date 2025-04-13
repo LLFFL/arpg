@@ -927,6 +927,7 @@ disabled = true
 
 [node name="HurtBox" parent="." instance=ExtResource("7_p7tob")]
 unique_name_in_owner = true
+visible = false
 collision_layer = 4
 
 [node name="CollisionShape2D" parent="HurtBox" index="0"]
