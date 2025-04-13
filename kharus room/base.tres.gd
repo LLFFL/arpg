@@ -7,6 +7,8 @@ var player_side: bool = false
 @export var SpawnOver: bool = false
 const BAT = preload("res://scenes/Bat.tscn")
 
+#TODO how to make base damage with stats and hurtboxes etc
+
 func _ready():
 	$SpawnTimer.start(minion_rate)
 
