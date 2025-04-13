@@ -11,11 +11,14 @@ var look_direction: Vector2 = Vector2.ZERO
 var direction: Vector2 = Vector2.ZERO
 var mouse_direction: Vector2 = Vector2.ZERO
 
+var ability_active: bool = false
+
 @onready var move_state_machine: PlayerMoveStateMachine = $MoveStateMachine
 @onready var ability_state_machine: AbilityStateMachine = $AbilityStateMachine
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite_2d: Sprite2D = $Sprite2D
+@onready var ability_animation: AnimationPlayer = $AbilityAnimation
 
 
 func _ready() -> void:
@@ -35,7 +38,12 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func update_animation(state: String) -> void:
-	animation_player.play( state + anim_direction())
+	if !ability_active:
+		animation_player.play( state + anim_direction())
+
+func update_ability_animation(state: String) -> void:
+	if ability_active:
+		ability_animation.play(state + anim_direction())
 
 func set_direction() -> bool:
 	var look_id: int = int(round((direction + cardinal_direction * 0.1).angle() / TAU * DIR_4.size()))

@@ -1,7 +1,6 @@
-extends Resource
+extends Pickup
 class_name Spell
 
-@export var name: String
 @export var icon_texture: Texture2D
 @export var icon_scale: Vector2 = Vector2(1, 1)
 @export var damage: float = 5.0
