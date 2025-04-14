@@ -2,6 +2,7 @@ class_name Hitbox
 extends Area2D
 #This gets hit by hurtbox.
 #Should be used by enemies by default.
+@onready var bat: Node = $".."
 
 var hit_attack: Attack
 
@@ -14,6 +15,8 @@ func _ready() -> void:
 	area_entered.connect(_on_area_entered)
 
 func projectile_damage(attack: Attack):
+	#damaged.emit(attack)
+	bat.damage(attack)
 	damaged.emit(attack)
 
 func _on_area_entered(area: Area2D) -> void:

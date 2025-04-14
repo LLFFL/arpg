@@ -365,7 +365,7 @@ script = ExtResource("14_dm7nj")
 firing_position = NodePath("../ProjectilePosition")
 
 [node name="ProjectilePosition" type="Marker2D" parent="."]
-position = Vector2(9, -4)
+position = Vector2(0, -31)
 
 [node name="AbilityAnimation" type="AnimationPlayer" parent="."]
 libraries = {

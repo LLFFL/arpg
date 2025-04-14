@@ -15,6 +15,7 @@ func _ready():
 	if hurtbox:
 		hurtbox.projectile_hit_enemy.connect(on_enemy_hit)
 	if spell:
+		print("Projectile is a spell")
 		icon.texture = spell.icon_texture
 		icon.scale = spell.icon_scale
 	#Check stats of character for modifiers
@@ -28,8 +29,11 @@ func _physics_process(delta: float) -> void:
 	if collision:
 		queue_free()
 
-func on_enemy_hit():
+func on_enemy_hit(hit_target: Node):
+	print("Enemy hit with Projectile")
+	if spell:
+		print("Spell type:", spell.get_class())
+		spell.apply_effects(self, hit_target)
 	current_pierce_count += 1
-	
 	if current_pierce_count >= max_pierce:
 		queue_free()
