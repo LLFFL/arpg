@@ -1,41 +1,39 @@
 extends Node2D
 
-var enemy_base_position: Vector2
+var base_positions: Dictionary
 var resource_rate: int = 10
 var minion_rate: int = 2
-var player_side: bool = false
-@export var SpawnOver: bool = false
 const BAT = preload("res://scenes/Bat.tscn")
+@onready var hurtbox = $HurtBox
+@export var SpawnOver: bool = false
+@onready var bat_spawn_location = $SpawnLocation.position
 @export var MainBase: bool
 @export var LeftBase:bool
 @export var RightBase:bool
 #TODO how to make base damage with stats and hurtboxes etc
 
 func _ready():
+	hurtbox.set_collision_layer_value(3, true)
+	hurtbox.set_collision_layer_value(2, true) 
+	# awkward scenario where to be detected and chase player and bat set their own personal collision to be detectable
 	$SpawnTimer.start(minion_rate)
 	if (MainBase):
-		$SpawnLocation.position = Vector2(0, 100)
+		bat_spawn_location = Vector2(position.x, position.y + 50)
 	if (LeftBase):
-		$SpawnLocation.position = Vector2(0, 100)
+		bat_spawn_location = Vector2(position.x + 50, position.y)
 	if (RightBase):
-		$SpawnLocation.position = Vector2(0, -100)
+		bat_spawn_location = Vector2(position.x - 50, position.y)
 
-func initialize(coords, side):
-	enemy_base_position = coords
-	if (side):
-		player_side = true
+func initialize(base_positionss: Dictionary):
+	base_positions = base_positionss # this is not a a typo
 
 func spawn_minion(player_side:bool):
 	var bat_spawn = BAT.instantiate()
-	bat_spawn.initialize(player_side, enemy_base_position)
+	bat_spawn.initialize(player_side, base_positions)
 	get_parent().add_child(bat_spawn)
-	if(not SpawnOver):
-		bat_spawn.position = position
-	else:
-		bat_spawn.position = Vector2(position.x, position.y - 50)
-	
-	
+	bat_spawn.position = bat_spawn_location
+
 
 func _on_spawn_timer_timeout() -> void:
-	spawn_minion(player_side)
+	spawn_minion(MainBase)
 	$SpawnTimer.start(minion_rate)

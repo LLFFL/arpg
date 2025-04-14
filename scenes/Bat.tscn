@@ -90,11 +90,12 @@ func damage(attack: Attack) -> void:
 	knockback = direction * 240
 	velocity = knockback
 
-func initialize(side: bool, enemy_base_coords: Vector2):
-	if side:
+func initialize(Ally: bool, base_positions: Dictionary):
+	if Ally:
 		
 		#player side
-		enemy_base_position = enemy_base_coords
+		#TODO havent decided how but when a base is destroyed allied bat should swap to remaining base
+		enemy_base_position = base_positions['enemy_base_position_R']
 		$HurtBox.set_collision_layer_value(3, true)
 		$HitBox.set_collision_mask_value(4, true) # hitbox is for detecting and hitting, hurtbox is for existing and getting hurt
 		$PlayerDetectionZone.set_collision_mask_value(5, true)
@@ -102,7 +103,8 @@ func initialize(side: bool, enemy_base_coords: Vector2):
 	else:
 		
 		#enemy
-		enemy_base_position = enemy_base_coords
+		print(base_positions, '#!#@#@#    @##')
+		enemy_base_position = base_positions['ally_base_position']
 		$HurtBox.set_collision_layer_value(4, true)
 		$HitBox.set_collision_mask_value(3, true)
 		$PlayerDetectionZone.set_collision_mask_value(2, true)
