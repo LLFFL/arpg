@@ -81,6 +81,6 @@ func add_upgrade(upgrade):
 #Melee Overview
 var melee_unlocks: Dictionary = {
 	#those unlocks are for next attacks in combo chain
-	"attack_2": false,
+	"attack_2": true,
 	"attack_3": false,
 }

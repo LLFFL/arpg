@@ -8,7 +8,7 @@ class_name State_Walk extends State
 
 func enter() -> void:
 	print("walking")
-	player.update_animation("Run")
+	player.update_animation("run")
 
 
 func exit() -> void:
@@ -21,7 +21,7 @@ func process( _delta: float ) -> State:
 	player.velocity = player.direction * walk_speed
 	
 	if player.set_direction():
-		player.update_animation("Run")
+		player.update_animation("run")
 	
 	return null
 

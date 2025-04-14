@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=4 uid="uid://njpan3u5qqgf"]
+[gd_scene load_steps=38 format=4 uid="uid://njpan3u5qqgf"]
 
 [ext_resource type="Texture2D" uid="uid://b3vtv64rk6efr" path="res://assets/Action RPG Resources/World/GrassBackground.png" id="1_a6pgu"]
 [ext_resource type="Texture2D" uid="uid://dvf6p7tw15gji" path="res://assets/Pixel Crawler - Free Pack/Environment/Dungeon Prison/Assets/DungeonProps.png" id="2_10fit"]
@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://b02g8s3f7cg4a" path="res://Player/Player.tscn" id="18_nthub"]
 [ext_resource type="PackedScene" uid="uid://cqfgoae6a2efh" path="res://kharus room/base.tscn" id="19_44lqw"]
 [ext_resource type="PackedScene" uid="uid://dxw4ybjxdsnso" path="res://upgrade.tscn" id="19_dwmkc"]
+[ext_resource type="Resource" uid="uid://dsuump1vwa2el" path="res://Upgrades/Spells/Fireball.tres" id="20_dwmkc"]
 
 [sub_resource type="GDScript" id="GDScript_ep6ma"]
 script/source = "extends Node2D
@@ -2825,3 +2826,4 @@ SpawnOver = true
 
 [node name="Upgrade" parent="." instance=ExtResource("19_dwmkc")]
 position = Vector2(110, 229)
+pickup = ExtResource("20_dwmkc")

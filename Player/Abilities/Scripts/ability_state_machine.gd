@@ -1,6 +1,6 @@
-class_name AbilityStateMachine extends Node
+class_name AbilityStateMachine extends Node2D
 
-const GCD: float = 1
+const GCD: float = 0.3
 
 var states: Array[AbilityState]
 var prev_state: AbilityState
@@ -68,7 +68,10 @@ func trigger_gcd() -> void:
 func change_state( new_state: AbilityState ) -> void:
 	if new_state == current_state || new_state == null:
 		return
-
+	
+	if new_state != states[0] && (is_on_gcd || new_state.is_on_cooldown):
+		return
+	
 	if current_state:
 		current_state.exit()
 	

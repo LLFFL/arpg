@@ -1,4 +1,4 @@
-class_name AbilityState extends Node
+class_name AbilityState extends Node2D
 
 signal ability_started(state)
 
@@ -6,6 +6,10 @@ static var player: Player
 static var state_machine: AbilityStateMachine
 
 var is_on_cooldown: bool = false
+
+var base_cooldown: float
+@export var cooldown: float
+
 #Combos here, state and input
 #Every state has access to combo attack
 #when exit melee state, create new ComboAttack,new in melee_ability_state
@@ -20,6 +24,7 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 func init() -> void:
+	base_cooldown = cooldown
 	pass
 
 func enter() -> void:
@@ -39,4 +44,6 @@ func handle_input( _event: InputEvent ) -> AbilityState:
 	return null
 
 func reset_cooldown() -> void:
+	is_on_cooldown = false
+	cooldown = base_cooldown
 	pass
