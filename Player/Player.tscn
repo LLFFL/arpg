@@ -971,7 +971,7 @@ script = ExtResource("14_dm7nj")
 firing_position = NodePath("../ProjectilePosition")
 
 [node name="ProjectilePosition" type="Marker2D" parent="."]
-position = Vector2(9, -4)
+position = Vector2(0, -31)
 
 [connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]
 [connection signal="invincibility_ended" from="HurtBox" to="." method="_on_hurt_box_invincibility_ended"]

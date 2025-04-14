@@ -11,7 +11,7 @@ func _ready() -> void:
 	
 	
 func on_body_entered(body: Node) -> void:
-	print("Upgrade has ", body, " entered")
+	#print("Upgrade has ", body, " entered")
 	if body.is_in_group("player"):
 		print("Body is in player group")
 		PlayerStats.add_upgrade(spell)
