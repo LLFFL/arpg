@@ -88,7 +88,7 @@ func damage(attack: Attack) -> void:
 	hurtbox.create_hit_effect()
 	var direction = (position - get_global_mouse_position()).normalized()
 	knockback = direction * 240
-	velocity = knockback
+	velocity -= knockback
 
 func initialize(Ally: bool, base_positions: Dictionary):
 	if Ally:
@@ -101,9 +101,8 @@ func initialize(Ally: bool, base_positions: Dictionary):
 		$PlayerDetectionZone.set_collision_mask_value(5, true)
 		set_collision_layer_value(2, true)
 	else:
-		
+
 		#enemy
-		print(base_positions, '#!#@#@#    @##')
 		enemy_base_position = base_positions['ally_base_position']
 		$HurtBox.set_collision_layer_value(4, true)
 		$HitBox.set_collision_mask_value(3, true)
@@ -236,7 +235,6 @@ _data = {
 
 [node name="Bat" type="CharacterBody2D"]
 collision_layer = 0
-collision_mask = 9
 script = SubResource("GDScript_br6pc")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
