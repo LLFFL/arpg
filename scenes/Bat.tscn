@@ -82,27 +82,28 @@ func _on_hurt_box_area_entered(area: Area2D) -> void:
 #refactored the take damage from \"_on_hurt_box_area_entered\"
 
 func damage(attack: Attack) -> void:
-	print(\"Bat took\", attack.damage, \"damage\")
+	print(attack.damage)
 	stats.health -= attack.damage
 	hurtbox.start_invincibility(0.4)
 	hurtbox.create_hit_effect()
 	var direction = (position - get_global_mouse_position()).normalized()
-	knockback = direction * -240
-	velocity = knockback
+	knockback = direction * 240
+	velocity -= knockback
 
-func initialize(side: bool, enemy_base_coords: Vector2):
-	if side:
+func initialize(Ally: bool, base_positions: Dictionary):
+	if Ally:
 		
 		#player side
-		enemy_base_position = enemy_base_coords
+		#TODO havent decided how but when a base is destroyed allied bat should swap to remaining base
+		enemy_base_position = base_positions['enemy_base_position_R']
 		$HurtBox.set_collision_layer_value(3, true)
 		$HitBox.set_collision_mask_value(4, true) # hitbox is for detecting and hitting, hurtbox is for existing and getting hurt
 		$PlayerDetectionZone.set_collision_mask_value(5, true)
 		set_collision_layer_value(2, true)
 	else:
-		
+
 		#enemy
-		enemy_base_position = enemy_base_coords
+		enemy_base_position = base_positions['ally_base_position']
 		$HurtBox.set_collision_layer_value(4, true)
 		$HitBox.set_collision_mask_value(3, true)
 		$PlayerDetectionZone.set_collision_mask_value(2, true)
@@ -233,8 +234,7 @@ _data = {
 }
 
 [node name="Bat" type="CharacterBody2D"]
-collision_layer = 15
-collision_mask = 15
+collision_layer = 0
 script = SubResource("GDScript_br6pc")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -270,7 +270,6 @@ shape = SubResource("CircleShape2D_wduit")
 
 [node name="HitBox" parent="." instance=ExtResource("6_wduit")]
 visible = false
-collision_layer = 15
 
 [node name="CollisionShape2D" parent="HitBox" index="0"]
 position = Vector2(0, -15)
