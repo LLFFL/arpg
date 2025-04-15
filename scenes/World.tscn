@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=4 uid="uid://njpan3u5qqgf"]
+[gd_scene load_steps=39 format=4 uid="uid://njpan3u5qqgf"]
 
 [ext_resource type="Texture2D" uid="uid://b3vtv64rk6efr" path="res://assets/Action RPG Resources/World/GrassBackground.png" id="1_a6pgu"]
 [ext_resource type="Texture2D" uid="uid://dvf6p7tw15gji" path="res://assets/Pixel Crawler - Free Pack/Environment/Dungeon Prison/Assets/DungeonProps.png" id="2_10fit"]
@@ -19,8 +19,8 @@
 [ext_resource type="PackedScene" uid="uid://b02g8s3f7cg4a" path="res://Player/Player.tscn" id="18_nthub"]
 [ext_resource type="PackedScene" uid="uid://cqfgoae6a2efh" path="res://kharus room/base.tscn" id="19_44lqw"]
 [ext_resource type="PackedScene" uid="uid://dxw4ybjxdsnso" path="res://upgrade.tscn" id="19_dwmkc"]
-[ext_resource type="Texture2D" uid="uid://cqt8t5pt10e1b" path="res://assets/Ninja Adventure - Asset Pack/Items/Food/Nut2.png" id="20_30fn3"]
-[ext_resource type="Script" uid="uid://cls0w0trd5gfw" path="res://Objects/Scripts/spells/Spell.gd" id="20_dwmkc"]
+[ext_resource type="Resource" uid="uid://i3byu6e66hs4" path="res://Upgrades/Spells/IceLance.tres" id="20_30fn3"]
+[ext_resource type="Resource" uid="uid://dsuump1vwa2el" path="res://Upgrades/Spells/Fireball.tres" id="21_dgldv"]
 
 [sub_resource type="GDScript" id="GDScript_ep6ma"]
 script/source = "extends Node2D
@@ -2694,17 +2694,6 @@ texture = ExtResource("5_mearg")
 sources/0 = SubResource("TileSetAtlasSource_xetcc")
 sources/1 = SubResource("TileSetAtlasSource_m8u4s")
 
-[sub_resource type="Resource" id="Resource_30fn3"]
-script = ExtResource("20_dwmkc")
-name = ""
-icon_texture = ExtResource("20_30fn3")
-icon_scale = Vector2(1, 1)
-animation_name = "default"
-damage = 5.0
-speed = 150.0
-max_pierce = 1
-metadata/_custom_type_script = "uid://cls0w0trd5gfw"
-
 [node name="world" type="Node2D"]
 process_mode = 3
 y_sort_enabled = true
@@ -2838,7 +2827,8 @@ SpawnOver = true
 
 [node name="Upgrade" parent="." instance=ExtResource("19_dwmkc")]
 position = Vector2(117, 224)
+pickup = ExtResource("20_30fn3")
 
 [node name="Upgrade2" parent="." instance=ExtResource("19_dwmkc")]
 position = Vector2(192, 354)
-spell = SubResource("Resource_30fn3")
+pickup = ExtResource("21_dgldv")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://b02g8s3f7cg4a"]
+[gd_scene load_steps=35 format=3 uid="uid://b02g8s3f7cg4a"]
 
 [ext_resource type="Texture2D" uid="uid://dvk4an6m4e3j0" path="res://assets/Action RPG Resources/Shadows/MediumShadow.png" id="1_vlldt"]
 [ext_resource type="Shader" uid="uid://1jid57xhh638" path="res://scenes/components/white_shader.gdshader" id="2_s1rgi"]
@@ -12,7 +12,6 @@
 [ext_resource type="Script" uid="uid://c3x54vqj2lf0g" path="res://Player/Abilities/Scripts/ability_state_machine.gd" id="12_p7tob"]
 [ext_resource type="Script" uid="uid://c377d2gln6o3n" path="res://Player/Abilities/Idle/idle_ability_state.gd" id="13_dm7nj"]
 [ext_resource type="Script" uid="uid://cgtecm18eal6a" path="res://Player/Scripts/ability_cast.gd" id="14_3mea3"]
-[ext_resource type="Script" uid="uid://cfk080cn8r8ix" path="res://Upgrades/Scripts/player_projectile_weapon.gd" id="14_dm7nj"]
 [ext_resource type="Script" uid="uid://kvu6a8gqwipi" path="res://Player/Abilities/Melee/melee_ability_state.gd" id="15_7v5gs"]
 [ext_resource type="Script" uid="uid://byyk55op0r2yc" path="res://Player/Abilities/Scripts/cooldown_manager.gd" id="15_8sa4y"]
 [ext_resource type="Script" uid="uid://cipn6oewkjjas" path="res://Player/Abilities/Melee/melee2_ability_state.gd" id="16_8sa4y"]
@@ -324,9 +323,8 @@ script = ExtResource("12_p7tob")
 [node name="Idle" type="Node2D" parent="AbilityStateMachine"]
 script = ExtResource("13_dm7nj")
 
-[node name="CastAbility" type="Node2D" parent="AbilityStateMachine" node_paths=PackedStringArray("firing_position")]
+[node name="CastAbility" type="Node2D" parent="AbilityStateMachine"]
 script = ExtResource("14_3mea3")
-firing_position = NodePath("../../ProjectilePosition")
 
 [node name="Melee" type="Node2D" parent="AbilityStateMachine"]
 script = ExtResource("15_7v5gs")
@@ -359,10 +357,6 @@ shape = SubResource("CircleShape2D_7v5gs")
 
 [node name="CooldownManager" type="Node2D" parent="AbilityStateMachine"]
 script = ExtResource("15_8sa4y")
-
-[node name="PlayerProjectileWeapon" type="Node2D" parent="." node_paths=PackedStringArray("firing_position")]
-script = ExtResource("14_dm7nj")
-firing_position = NodePath("../ProjectilePosition")
 
 [node name="ProjectilePosition" type="Marker2D" parent="."]
 position = Vector2(0, -31)

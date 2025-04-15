@@ -11,6 +11,8 @@ var cooldown_manager: CooldownManager
 var global_cooldown: float = GCD
 var is_on_gcd: bool = false
 
+var key_pressed: InputEvent = null
+
 @onready var cast_ability: CastAbilityState = $CastAbility
 
 
@@ -32,6 +34,8 @@ func _physics_process(delta: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton or event is InputEventKey:
+		key_pressed = event
 	change_state(current_state.handle_input(event))
 
 
@@ -79,3 +83,4 @@ func change_state( new_state: AbilityState ) -> void:
 	current_state = new_state
 	
 	current_state.enter()
+	#key_pressed = null

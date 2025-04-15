@@ -1,50 +1,55 @@
 class_name CastAbilityState extends AbilityState
 #import where it can go
 @onready var idle: IdleAbilityState = $"../Idle"
-@export var firing_position : Marker2D
-var isCasting: bool
-var projectile_scene : PackedScene = preload("res://scenes/Projectile.tscn")
-var mouse_direction
-var timer: Timer
+@onready var projectile_position: Marker2D = $"../../ProjectilePosition"
+
+var spell_index: int
+var in_porgress: bool
 
 func enter() -> void:
-	print("casting")
-	timer = Timer.new()
-	timer.wait_time = 2
-	timer.timeout.connect(castSkill)
-	add_child(timer)
-	timer.start()
-	isCasting = true
+	in_porgress = true
+	match state_machine.key_pressed.keycode:
+		KEY_1:
+			spell_index = 0
+		KEY_2:
+			spell_index = 1
+		KEY_3:
+			spell_index = 2
+		KEY_4:
+			spell_index = 3
+	if spell_index >= PlayerStats.upgrades.size():
+		return
+	ability_started.emit(self)
+	player.ability_active = true
+	
+	var spell = PlayerStats.upgrades[spell_index]
+	var projectile = PlayerStats.projectile_scene.instantiate() as Projectile
+	
+	projectile.spell = spell
+
+	get_tree().root.add_child(projectile)
+	projectile.global_position = projectile_position.global_position
+	projectile.rotation = player.mouse_direction.angle()
+	
+	projectile.damage = spell.damage
+	projectile.speed = spell.speed
+	projectile.max_pierce = spell.max_pierce
+	projectile.icon.texture = spell.icon_texture
+	
+	in_porgress = false
 	pass
 
 func exit() -> void:
-	timer.queue_free()
+	player.ability_active = false
 	pass
 
 func process( _delta: float ) -> AbilityState:
-	if !isCasting:
+	if spell_index >= PlayerStats.upgrades.size() || !in_porgress:
 		return idle
-	if sign(player.aim_position.x) != sign(firing_position.position.x):
-		firing_position.position.x *= -1
-	mouse_direction = player.get_global_mouse_position() - firing_position.global_position
 	return null
 
 func physics( _delta: float ) -> AbilityState:
 	return null
 
 func handle_input( _event: InputEvent ) -> AbilityState:
-	if _event.is_action_pressed("tilde"):
-		isCasting = true
-	if _event.is_action_released("tilde"):
-		isCasting = false
 	return null
-
-func castSkill():
-	if !isCasting:
-		return 
-	var spawned_projectile := projectile_scene.instantiate()
-	get_tree().root.add_child(spawned_projectile)
-	spawned_projectile.global_position = firing_position.global_position
-	spawned_projectile.rotation = mouse_direction.angle()
-	isCasting = false
-	

@@ -40,7 +40,7 @@ func _process(delta: float) -> void:
 	mouse_direction = global_position.direction_to(mouse_pos).normalized()
 	
 	label.text = str(ability_state_machine.current_state.name)
-
+	#label.text = str(ability_state_machine.key_pressed)
 	#label.text = str(ability_state_machine.current_state.name) +" "+ str(ability_state_machine.current_state.is_on_cooldown)
 	if animation_queue != "" && !ability_active:
 		update_animation(animation_queue)
@@ -95,48 +95,6 @@ func anim_direction() -> String:
 	return ""
 
 #one global: referenced as PlayerStats, responsible for input blocking on transitions and player hp as of 4/9/2025
-#Mark Projectile code
-var aim_position : Vector2 = Vector2(1, 0)
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
-		var half_viewport = get_viewport_rect().size / 2.0
-		aim_position = (event.position - half_viewport)
-
-#End projectile code
-#Mark magic
-@onready var projectile_position: Marker2D = $ProjectilePosition
-func _input(event):
-	if event is InputEventKey and event.pressed:
-		var spawn_pos = projectile_position.global_position
-		var mouse_pos = get_global_mouse_position()
-		var direction = mouse_pos - spawn_pos
-		match event.keycode:
-			KEY_1:
-				cast_spell(0, spawn_pos, direction)
-			KEY_2:
-				cast_spell(1, spawn_pos, direction)
-			KEY_3:
-				cast_spell(2, spawn_pos, direction)
-			KEY_4:
-				cast_spell(3, spawn_pos, direction)
-				
-func cast_spell(index: int, cast_position: Vector2, mouse_direction: Vector2):
-	if index >= PlayerStats.upgrades.size():
-		return
-
-	var spell = PlayerStats.upgrades[index]
-	var projectile = PlayerStats.projectile_scene.instantiate() as Projectile
-	
-	projectile.spell = PlayerStats.upgrades[index]
-
-	get_tree().root.add_child(projectile)
-	projectile.global_position = cast_position
-	projectile.rotation = mouse_direction.angle()
-	
-	projectile.damage = spell.damage
-	projectile.speed = spell.speed
-	projectile.max_pierce = spell.max_pierce
-	projectile.icon.texture = spell.icon_texture
 
 func damage(attack: Attack) -> void:
 	PlayerStats.health -= attack.damage
