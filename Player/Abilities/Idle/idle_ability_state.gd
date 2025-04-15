@@ -1,8 +1,8 @@
 class_name IdleAbilityState extends AbilityState
 #import where it can go
 @onready var cast_ability: CastAbilityState = $"../CastAbility"
-@onready var melee: MeleeAbilityState = $"../Melee"
 @onready var projectile_position: Marker2D = $"../../ProjectilePosition"
+@onready var thrust: MeleeAbilityState = $"../Thrust"
 
 
 func enter() -> void:
@@ -29,6 +29,6 @@ func handle_input( _event: InputEvent ) -> AbilityState:
 			return cast_ability
 	
 	if _event.is_action_pressed("Melee"):
-		return melee
+		return thrust
 	
 	return null

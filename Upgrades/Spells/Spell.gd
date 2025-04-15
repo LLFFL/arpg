@@ -12,7 +12,4 @@ class_name Spell
 @export var max_pierce: int = 1
 
 func apply_effects(projectile: Node, hit_target: Node) -> void:
-	if hit_target.has_method("damage"):
-		var attack := Attack.new()
-		attack.damage = damage
-		hit_target.damage(attack)
+	pass

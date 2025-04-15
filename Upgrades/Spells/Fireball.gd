@@ -5,22 +5,16 @@ func apply_effects(projectile: Node, hit_target: Node) -> void:
 	var origin := (projectile as Node2D).global_position
 	var tree := (projectile as Node).get_tree()
 
-	# Hit the main target
-	if hit_target.has_method("projectile_damage"):
-		var attack := Attack.new()
-		attack.damage = damage
-		hit_target.projectile_damage(attack)
-
 	var aoe := Area2D.new()
 	var shape := CircleShape2D.new()
 	shape.radius = 64
 
 	var collision := CollisionShape2D.new()
 	collision.shape = shape
+	aoe.monitoring = true
+	aoe.set_collision_mask_value(4, true)
 	aoe.add_child(collision)
 
-	aoe.collision_layer = 1
-	aoe.collision_mask = 1 
 	aoe.global_position = origin
 
 	tree.current_scene.add_child(aoe)
@@ -31,10 +25,10 @@ func apply_effects(projectile: Node, hit_target: Node) -> void:
 	print("aoe hit count:", hits.size())
 
 	for node in hits:
-		if node != hit_target and node.has_method("projectile_damage"):
+		if node != hit_target and node.has_method("damage"):
 			var aoe_attack := Attack.new()
 			aoe_attack.damage = damage * 0.5
-			node.projectile_damage(aoe_attack)
+			node.damage(aoe_attack)
 	
 	var sprite := Sprite2D.new()
 	sprite.texture = preload("res://assets/Ninja Adventure - Asset Pack/FX/Elemental/Flam/SpriteSheet.png") 

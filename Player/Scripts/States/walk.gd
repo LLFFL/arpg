@@ -4,10 +4,7 @@ class_name State_Walk extends State
 
 @onready var idle: State = $"../Idle"
 
-
-
 func enter() -> void:
-	print("walking")
 	player.update_animation("run")
 
 
@@ -30,3 +27,6 @@ func physics( _delta: float ) -> State:
 
 func handle_input( _event: InputEvent ) -> State:
 	return null
+
+func update_anim():
+	player.update_animation("run")

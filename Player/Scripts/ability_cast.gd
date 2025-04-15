@@ -4,10 +4,10 @@ class_name CastAbilityState extends AbilityState
 @onready var projectile_position: Marker2D = $"../../ProjectilePosition"
 
 var spell_index: int
-var in_porgress: bool
+var in_progress: bool
 
 func enter() -> void:
-	in_porgress = true
+	in_progress = true
 	match state_machine.key_pressed.keycode:
 		KEY_1:
 			spell_index = 0
@@ -20,31 +20,33 @@ func enter() -> void:
 	if spell_index >= PlayerStats.upgrades.size():
 		return
 	ability_started.emit(self)
-	player.ability_active = true
+	
+	player.ability_active = true # its for animation in player.gd
 	
 	var spell = PlayerStats.upgrades[spell_index]
 	var projectile = PlayerStats.projectile_scene.instantiate() as Projectile
 	
 	projectile.spell = spell
 
-	get_tree().root.add_child(projectile)
 	projectile.global_position = projectile_position.global_position
-	projectile.rotation = player.mouse_direction.angle()
+	projectile.angle = player.mouse_direction.angle()
 	
 	projectile.damage = spell.damage
 	projectile.speed = spell.speed
 	projectile.max_pierce = spell.max_pierce
+	
+	get_tree().root.add_child(projectile)
 	projectile.icon.texture = spell.icon_texture
 	
-	in_porgress = false
+	in_progress = false
 	pass
 
 func exit() -> void:
-	player.ability_active = false
+	player.ability_active = false # its for animation in player.gd
 	pass
 
 func process( _delta: float ) -> AbilityState:
-	if spell_index >= PlayerStats.upgrades.size() || !in_porgress:
+	if spell_index >= PlayerStats.upgrades.size() || !in_progress:
 		return idle
 	return null
 

@@ -13,6 +13,8 @@ var is_on_gcd: bool = false
 
 var key_pressed: InputEvent = null
 
+signal ability_ended()
+
 @onready var cast_ability: CastAbilityState = $CastAbility
 
 
@@ -78,6 +80,8 @@ func change_state( new_state: AbilityState ) -> void:
 	
 	if current_state:
 		current_state.exit()
+		if current_state != states[0]:
+			ability_ended.emit()
 	
 	prev_state = current_state
 	current_state = new_state

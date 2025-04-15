@@ -1,7 +1,7 @@
 class_name Projectile
-extends CharacterBody2D
+extends RigidBody2D
 
-@export var hurtbox : Projectile_HurtBox
+@onready var hit_box: Hitbox = $HitBox
 
 
 @export var speed := 150.0
@@ -9,27 +9,34 @@ extends CharacterBody2D
 @export var max_pierce := 1
 @onready var icon: Sprite2D = $Icon
 @export var spell: Spell
+
+var direction: Vector2
+var angle: float = 0
 var current_pierce_count := 0
 
 func _ready():
-	if hurtbox:
-		hurtbox.projectile_hit_enemy.connect(on_enemy_hit)
+	connect("body_entered", _on_body_entered)
+	if hit_box:
+		hit_box.damaged_enemy.connect(on_enemy_hit)
 	if spell:
 		print("Projectile is a spell")
 		icon.texture = spell.icon_texture
 		icon.scale = spell.icon_scale
+	direction = Vector2.RIGHT.rotated(angle)
+	icon.scale.x = -1 if direction.x < 0 else 1
+	hit_box.hit_attack = Attack.new()
+	hit_box.hit_attack.damage = damage
 	#Check stats of character for modifiers
-func _physics_process(delta: float) -> void:
-	var direction = Vector2.RIGHT.rotated(rotation)
-	
-	velocity = direction*speed
-	
-	var collision := move_and_collide(velocity*delta)
-	
-	if collision:
-		queue_free()
 
-func on_enemy_hit(hit_target: Node):
+func _physics_process(delta: float) -> void:
+	direction = Vector2.RIGHT.rotated(angle)
+	
+	
+	linear_velocity = direction*speed
+	
+	apply_force(linear_velocity*delta)
+
+func on_enemy_hit(_attack: Attack, hit_target: Node):
 	print("Enemy hit with Projectile")
 	if spell:
 		print("Spell type:", spell.get_class())
@@ -37,3 +44,7 @@ func on_enemy_hit(hit_target: Node):
 	current_pierce_count += 1
 	if current_pierce_count >= max_pierce:
 		queue_free()
+
+
+func _on_body_entered(body: Node) -> void:
+	queue_free()

@@ -39,8 +39,9 @@ func _process(delta: float) -> void:
 	var mouse_pos: Vector2 = get_global_mouse_position()
 	mouse_direction = global_position.direction_to(mouse_pos).normalized()
 	
-	label.text = str(ability_state_machine.current_state.name)
-	#label.text = str(ability_state_machine.key_pressed)
+	#label.text = str(sprite_2d.frame)
+	#label.text = str(move_state_machine.current_state.name)
+	label.text = str(ability_state_machine.key_pressed)
 	#label.text = str(ability_state_machine.current_state.name) +" "+ str(ability_state_machine.current_state.is_on_cooldown)
 	if animation_queue != "" && !ability_active:
 		update_animation(animation_queue)
@@ -50,16 +51,19 @@ func _physics_process(delta: float) -> void:
 
 func update_animation(state: String) -> void:
 	if !ability_active:
+		ability_animation.stop()
 		if animation_queue == "":
 			animation_player.play( state )
 		else:
 			animation_player.play(animation_queue)
 			animation_queue = ""
+		animation_player.seek(0.0, true)
 	else:
 		animation_queue = state
 
 func update_ability_animation(state: String) -> void:
 	if ability_active:
+		animation_player.stop()
 		sprite_2d.scale.x = -1 if get_local_mouse_position().x < 0 else 1
 		ability_animation.play( state )
 
@@ -70,8 +74,10 @@ func set_direction() -> bool:
 	var new_dir: Vector2 = cardinal_direction
 	if direction.x < 0:
 		new_dir = Vector2.LEFT
-	else:
+	elif direction.x > 0:
 		new_dir = Vector2.RIGHT
+	else:
+		new_dir = cardinal_direction
 	
 	if ability_active:
 		if get_local_mouse_position().x < 0:

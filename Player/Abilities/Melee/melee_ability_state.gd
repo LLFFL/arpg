@@ -1,8 +1,8 @@
 class_name MeleeAbilityState extends AbilityState
 
 @onready var idle: IdleAbilityState = $"../Idle"
-@onready var melee_2: Node = $"../Melee2"
 @onready var hit_box: Hitbox = $HitBox
+@onready var spin: MeleeSpinAbilityState = $"../Spin"
 
 var attack: Attack
 var in_progress: bool = false
@@ -39,10 +39,10 @@ func exit() -> void:
 	player.ability_animation.animation_finished.disconnect(_on_animation_finish)
 	player.ability_active = false
 	
-	if PlayerStats.melee_unlocks['attack_2'] && hit_enemy:
-		combo_attack = ComboAttack.new()
-		combo_attack.state = melee_2
-		combo_attack.input = "Melee"
+	#if PlayerStats.melee_unlocks['attack_2'] && hit_enemy:
+	combo_attack = ComboAttack.new()
+	combo_attack.state = spin
+	combo_attack.input = "Melee"
 	
 	timer.start()
 	pass
@@ -71,6 +71,6 @@ func set_attack_values():
 	attack.damage = PlayerStats.damage
 	hit_box.hit_attack = attack
 
-func _on_enemy_damaged(attack: Attack):
+func _on_enemy_damaged(attack: Attack, body: Area2D):
 	hit_enemy = true
 	pass

@@ -3,6 +3,7 @@ class_name PlayerMoveStateMachine extends Node
 var states: Array[State]
 var prev_state: State
 var current_state: State
+@onready var ability_state_machine: AbilityStateMachine = $"../AbilityStateMachine"
 
 #ranged, ranged, into cast ability and it knows its ranged
 
