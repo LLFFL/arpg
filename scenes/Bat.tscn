@@ -90,12 +90,12 @@ func damage(attack: Attack) -> void:
 	knockback = direction * 240
 	velocity -= knockback
 
-func initialize(Ally: bool, base_positions: Dictionary):
+func initialize(Ally: bool, base_position: Vector2):
 	if Ally:
 		
 		#player side
 		#TODO havent decided how but when a base is destroyed allied bat should swap to remaining base
-		enemy_base_position = base_positions['enemy_base_position_R']
+		enemy_base_position = base_position
 		$HurtBox.set_collision_layer_value(3, true)
 		$HitBox.set_collision_mask_value(4, true) # hitbox is for detecting and hitting, hurtbox is for existing and getting hurt
 		$PlayerDetectionZone.set_collision_mask_value(5, true)
@@ -103,7 +103,7 @@ func initialize(Ally: bool, base_positions: Dictionary):
 	else:
 
 		#enemy
-		enemy_base_position = base_positions['ally_base_position']
+		enemy_base_position = base_position
 		$HurtBox.set_collision_layer_value(4, true)
 		$HitBox.set_collision_mask_value(3, true)
 		$PlayerDetectionZone.set_collision_mask_value(2, true)
@@ -124,6 +124,9 @@ func _on_hurt_box_invincibility_started() -> void:
 func _on_hurt_box_invincibility_ended() -> void:
 	
 	animationPlayer.play('Stop')
+
+func update_target_base(coords: Vector2):
+	enemy_base_position = coords
 "
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_abmhg"]
