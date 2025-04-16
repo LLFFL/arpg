@@ -39,7 +39,7 @@ wait_time = 5.0
 shape = SubResource("RectangleShape2D_1ntxk")
 
 [node name="StatsComponent" parent="." instance=ExtResource("4_wnjqk")]
-max_health = 100
+max_health = 10
 
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="no_health" from="StatsComponent" to="." method="_on_stats_no_health"]

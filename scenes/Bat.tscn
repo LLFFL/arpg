@@ -82,7 +82,7 @@ func _on_hurt_box_area_entered(area: Area2D) -> void:
 #refactored the take damage from \"_on_hurt_box_area_entered\"
 
 func damage(attack: Attack) -> void:
-	print(attack.damage)
+	#print(attack.damage)
 	stats.health -= attack.damage
 	hurtbox.start_invincibility(0.4)
 	hurtbox.create_hit_effect()
@@ -126,6 +126,7 @@ func _on_hurt_box_invincibility_ended() -> void:
 	animationPlayer.play('Stop')
 
 func update_target_base(coords: Vector2):
+	print('####################################', coords)
 	enemy_base_position = coords
 "
 

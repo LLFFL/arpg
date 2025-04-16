@@ -29,23 +29,22 @@ script/source = "extends Node2D
 @onready var door = $DoorContainer/Door
 @onready var remoteTransform = $Player/RemoteTransform2D
 @onready var base_container: Node = %BaseContainer
-var base_positions: Dictionary
-var base_coords
+var bases_dictionary: Dictionary
 
 func _ready():
-	base_coords = base_container.get_children()
-	base_positions = {
-		'ally_base_position' = base_coords[0].global_position,
-		'enemy_base_position_R' = base_coords[1].global_position,
-		'enemy_base_position_L' = base_coords[2].global_position
+	var bases = base_container.get_children()
+	bases_dictionary = {
+		'ally_base' = bases[0],
+		'enemy_base_L' = bases[1],
+		'enemy_base_R' = bases[2]
 	}	# it is order of scene structure descending from top to down so [ally, right base, left base] in the array
-	give_coords()
+	give_bases_dictionary()
 	
 	
-func give_coords():
-	$BaseContainer/AllyBase.initialize(base_positions)
-	$BaseContainer/EnemyBaseL.initialize(base_positions)
-	$BaseContainer/EnemyBaseR.initialize(base_positions)
+func give_bases_dictionary():
+	$BaseContainer/AllyBase.initialize(bases_dictionary)
+	$BaseContainer/EnemyBaseL.initialize(bases_dictionary)
+	$BaseContainer/EnemyBaseR.initialize(bases_dictionary)
 "
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rx4gy"]
@@ -2825,14 +2824,14 @@ unique_name_in_owner = true
 position = Vector2(-99, 89)
 MainBase = true
 
+[node name="EnemyBaseL" parent="BaseContainer" instance=ExtResource("19_44lqw")]
+position = Vector2(-772, 83)
+LeftBase = true
+
 [node name="EnemyBaseR" parent="BaseContainer" instance=ExtResource("19_44lqw")]
-position = Vector2(845, 117)
+position = Vector2(884, 66)
 SpawnOver = true
 RightBase = true
-
-[node name="EnemyBaseL" parent="BaseContainer" instance=ExtResource("19_44lqw")]
-position = Vector2(-696, 111)
-LeftBase = true
 
 [node name="Upgrade" parent="." instance=ExtResource("19_dwmkc")]
 position = Vector2(117, 224)
