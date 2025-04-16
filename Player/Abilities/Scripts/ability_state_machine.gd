@@ -28,14 +28,19 @@ func _process(delta: float) -> void:
 		global_cooldown -= delta
 		if global_cooldown <= 0:
 			reset_gcd()
-	
+	if PlayerManager.player.stats.stunned:
+		return
 	change_state( current_state.process(delta) )
 
 func _physics_process(delta: float) -> void:
+	if PlayerManager.player.stats.stunned:
+		return
 	change_state( current_state.physics(delta) )
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if PlayerManager.player.stats.stunned:
+		return
 	if event is InputEventMouseButton or event is InputEventKey:
 		key_pressed = event
 	change_state(current_state.handle_input(event))
@@ -80,6 +85,7 @@ func change_state( new_state: AbilityState ) -> void:
 	
 	if current_state:
 		current_state.exit()
+		PlayerManager.player.stats.reset_effect_damage()
 		if current_state != states[0]:
 			ability_ended.emit()
 	

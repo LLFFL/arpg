@@ -3,7 +3,6 @@ class_name Player extends CharacterBody2D
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 const DIR_4 = [Vector2.RIGHT, Vector2.LEFT]
-#const LOOK_DIR = ["R", "RD", "D", "LD", "L", "LU", "U", "RU"]
 const LOOK_DIR = [Vector2(1,0), Vector2(1,-1), Vector2(0,-1), Vector2(-1,-1), Vector2(-1,0), Vector2(-1,1), Vector2(0,1), Vector2(1,1)]
 
 var cardinal_direction: Vector2 = Vector2.RIGHT
@@ -23,6 +22,7 @@ var ability_active: bool = false
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var ability_animation: AnimationPlayer = $AbilityAnimation
+@onready var stats: PlayerStats = $Stats
 
 
 func _ready() -> void:
@@ -30,6 +30,15 @@ func _ready() -> void:
 	move_state_machine.initialize(self)
 	ability_state_machine.initialize(self)
 	hurtbox.damaged.connect(damage)
+	stats.dmg_status_changed.connect(func(active: bool, buff: bool):
+		if !active:
+			print('status ended')
+		else:
+			if buff:
+				print("buff started")
+			else:
+				print("debuff startd")
+		)
 	
 func _process(delta: float) -> void:
 	direction = Vector2(
@@ -39,9 +48,11 @@ func _process(delta: float) -> void:
 	var mouse_pos: Vector2 = get_global_mouse_position()
 	mouse_direction = global_position.direction_to(mouse_pos).normalized()
 	
-	#label.text = str(sprite_2d.frame)
-	#label.text = str(move_state_machine.current_state.name)
-	label.text = str(ability_state_machine.key_pressed)
+	label.text = str(stats.gold) + "\n" + str(stats.luck)
+	#if stats.dmg_timer:
+		#label.text = str(stats.dmg_timer.time_left)
+	#label.text = str(stats.base_damage_modifier)
+	#label.text = str(ability_state_machine.key_pressed)
 	#label.text = str(ability_state_machine.current_state.name) +" "+ str(ability_state_machine.current_state.is_on_cooldown)
 	if animation_queue != "" && !ability_active:
 		update_animation(animation_queue)
@@ -103,7 +114,7 @@ func anim_direction() -> String:
 #one global: referenced as PlayerStats, responsible for input blocking on transitions and player hp as of 4/9/2025
 
 func damage(attack: Attack) -> void:
-	PlayerStats.health -= attack.damage
+	stats.health -= attack.damage
 	hurtbox.start_invincibility(0.4)
 	hurtbox.create_hit_effect()
 	var _direction = (position - get_global_mouse_position()).normalized()

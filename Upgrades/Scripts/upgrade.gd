@@ -14,5 +14,5 @@ func on_body_entered(body: Node) -> void:
 	#print("Upgrade has ", body, " entered")
 	if body.is_in_group("player"):
 		print("Body is in player group")
-		PlayerStats.add_upgrade(pickup)
+		PlayerManager.player.stats.add_upgrade(pickup)
 		queue_free()

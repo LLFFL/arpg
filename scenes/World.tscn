@@ -26,7 +26,6 @@
 script/source = "extends Node2D
 
 @onready var camera = $Camera2D
-@onready var door = $DoorContainer/Door
 @onready var remoteTransform = $Player/RemoteTransform2D
 @onready var base_container: Node = %BaseContainer
 var base_positions: Dictionary
@@ -2637,6 +2636,12 @@ offset_top = 49.0
 offset_right = 238.0
 offset_bottom = 72.0
 
+[node name="Player" parent="." instance=ExtResource("18_nthub")]
+position = Vector2(98, 267)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
+remote_path = NodePath("../../Camera2D")
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="HealthUI" parent="CanvasLayer" instance=ExtResource("15_c0d7e")]
@@ -2646,12 +2651,6 @@ offset_right = 164.0
 offset_bottom = 43.0
 
 [node name="UIManager" parent="CanvasLayer" instance=ExtResource("18_44lqw")]
-
-[node name="Player" parent="." instance=ExtResource("18_nthub")]
-position = Vector2(98, 267)
-
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
-remote_path = NodePath("../../Camera2D")
 
 [node name="BaseContainer" type="Node" parent="."]
 unique_name_in_owner = true

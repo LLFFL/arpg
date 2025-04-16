@@ -11,12 +11,18 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_DISABLED
 
 func _process(delta: float) -> void:
+	if PlayerManager.player.stats.stunned:
+		return
 	change_state( current_state.process(delta) )
 
 func _physics_process(delta: float) -> void:
+	if PlayerManager.player.stats.stunned:
+		return
 	change_state( current_state.physics(delta) )
 
 func _unhandled_input(event: InputEvent) -> void:
+	if PlayerManager.player.stats.stunned:
+		return
 	change_state(current_state.handle_input(event))
 
 

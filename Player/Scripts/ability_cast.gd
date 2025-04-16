@@ -17,14 +17,14 @@ func enter() -> void:
 			spell_index = 2
 		KEY_4:
 			spell_index = 3
-	if spell_index >= PlayerStats.upgrades.size():
+	if spell_index >= player.stats.upgrades.size():
 		return
 	ability_started.emit(self)
 	
 	player.ability_active = true # its for animation in player.gd
 	
-	var spell = PlayerStats.upgrades[spell_index]
-	var projectile = PlayerStats.projectile_scene.instantiate() as Projectile
+	var spell = player.stats.upgrades[spell_index]
+	var projectile = player.stats.projectile_scene.instantiate() as Projectile
 	
 	projectile.spell = spell
 
@@ -46,7 +46,7 @@ func exit() -> void:
 	pass
 
 func process( _delta: float ) -> AbilityState:
-	if spell_index >= PlayerStats.upgrades.size() || !in_progress:
+	if spell_index >= player.stats.upgrades.size() || !in_progress:
 		return idle
 	return null
 

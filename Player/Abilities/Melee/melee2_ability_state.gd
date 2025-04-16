@@ -60,14 +60,14 @@ func _on_animation_finish(name: String):
 
 func set_attack_values():
 	attack = Attack.new()
-	attack.damage = PlayerStats.damage
+	attack.damage = player.stats.damage
 	hit_box.hit_attack = attack
 
 func _on_enemy_damaged():
 	pass
 
 func fire_proj():
-	projectile = PlayerStats.projectile_scene.instantiate() as Projectile
+	projectile = player.stats.projectile_scene.instantiate() as Projectile
 	projectile.spell = SLASH
 	projectile.angle = Vector2.LEFT.angle() if player.get_local_mouse_position().x < 0 else Vector2.RIGHT.angle()
 	projectile.global_position = player.sprite_2d.global_position

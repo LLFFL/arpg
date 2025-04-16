@@ -15,6 +15,12 @@ func init():
 	hit_box.damaged_enemy.connect(_on_enemy_damaged)
 
 func enter() -> void:
+	player.stats.upgrade_luck()
+	player.stats.upgrade_luck()
+	player.stats.upgrade_luck()
+	player.stats.upgrade_luck()
+	player.stats.upgrade_luck()
+	player.stats.add_gold(5)
 	hit_enemy = false
 	ability_started.emit(self)
 	set_attack_values()
@@ -68,9 +74,11 @@ func _on_animation_finish(name: String):
 
 func set_attack_values():
 	attack = Attack.new()
-	attack.damage = PlayerStats.damage
+	player.stats.effect_damage = 10
+	attack.damage = player.stats.damage
+	attack.crit_chance = player.stats.crit_chance
 	hit_box.hit_attack = attack
 
-func _on_enemy_damaged(attack: Attack, body: Area2D):
+func _on_enemy_damaged(_attack: Attack, body: Area2D):
 	hit_enemy = true
 	pass

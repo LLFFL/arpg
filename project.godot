@@ -17,7 +17,6 @@ config/icon="res://scenes/icon.svg"
 
 [autoload]
 
-PlayerStats="*res://Player/Scripts/PlayerStats.gd"
 PlayerManager="*res://00_Global/player_manager.gd"
 
 [display]
