@@ -1,6 +1,7 @@
 extends Spell
 class_name FireballSpell
 
+
 func apply_effects(projectile: Node, hit_target: Node) -> void:
 	var origin := (projectile as Node2D).global_position
 	var tree := (projectile as Node).get_tree()
@@ -31,7 +32,7 @@ func apply_effects(projectile: Node, hit_target: Node) -> void:
 			node.damage(aoe_attack)
 	
 	var sprite := Sprite2D.new()
-	sprite.texture = preload("res://assets/Ninja Adventure - Asset Pack/FX/Elemental/Flam/SpriteSheet.png") 
+	sprite.texture = preload("res://assets/Ninja Adventure - Asset Pack/Ui/Icon/Spell/AttackUpgrade.png") 
 	sprite.position = origin
 	sprite.centered = true
 	sprite.scale = Vector2(1.5, 1.5)

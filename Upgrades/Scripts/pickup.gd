@@ -1,3 +1,5 @@
-class_name Pickup extends Resource
+extends Resource
+class_name Pickup
 
-@export var name: String
+@export var is_passive: bool = false
+@export var passive_upgrade: Passive

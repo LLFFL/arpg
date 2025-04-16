@@ -64,13 +64,22 @@ func set_health(value):
 #Upgrade spells
 var projectile_scene: PackedScene = preload("res://scenes/Projectile.tscn")
 
-var upgrades : Array = []
+@export var upgrades : Array = []
+
 #setter function
 func add_upgrade(upgrade):
 	#if upgrades.size() < 4:
 		upgrades.append(upgrade)
-
+		
 	
+var passives: Array[Dictionary] = []
+
+func add_passive(pickup: Pickup) -> void:
+	if pickup.passive_upgrade:
+		passives.append({
+			"trigger": pickup.passive_upgrade.trigger,
+			"effect": pickup.passive_upgrade.effect
+		})
 
 #Spell Dictionairy
 #Cast time, Base Damage, Projectile speed, ext
