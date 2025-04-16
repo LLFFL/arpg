@@ -2,7 +2,7 @@ class_name Projectile
 extends RigidBody2D
 
 @onready var hit_box: Hitbox = $HitBox
-@onready var trail_particles: GPUParticles2D = $TrailParticles
+#@onready var trail_particles: GPUParticles2D = $TrailParticles
 
 
 @export var speed := 150.0

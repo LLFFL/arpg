@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=4 uid="uid://njpan3u5qqgf"]
+[gd_scene load_steps=48 format=4 uid="uid://njpan3u5qqgf"]
 
 [ext_resource type="Texture2D" uid="uid://b3vtv64rk6efr" path="res://assets/Action RPG Resources/World/GrassBackground.png" id="1_a6pgu"]
 [ext_resource type="Texture2D" uid="uid://dvf6p7tw15gji" path="res://assets/Pixel Crawler - Free Pack/Environment/Dungeon Prison/Assets/DungeonProps.png" id="2_10fit"]
@@ -19,9 +19,12 @@
 [ext_resource type="PackedScene" uid="uid://b02g8s3f7cg4a" path="res://Player/Player.tscn" id="18_nthub"]
 [ext_resource type="PackedScene" uid="uid://cqfgoae6a2efh" path="res://kharus room/base.tscn" id="19_44lqw"]
 [ext_resource type="PackedScene" uid="uid://dxw4ybjxdsnso" path="res://upgrade.tscn" id="19_dwmkc"]
+[ext_resource type="Texture2D" uid="uid://daqrk6qi5rmo6" path="res://assets/Ninja Adventure - Asset Pack/Ui/Shuriken.png" id="20_yncth"]
+[ext_resource type="Script" uid="uid://cls0w0trd5gfw" path="res://Upgrades/Spells/Spell.gd" id="21_4q8dg"]
 [ext_resource type="Script" uid="uid://37p6crtj0x1h" path="res://Upgrades/Scripts/pickup.gd" id="21_30fn3"]
 [ext_resource type="Texture2D" uid="uid://cvq2p33iqxt2i" path="res://assets/Ninja Adventure - Asset Pack/Ui/Icon/Spell/AttackUpgrade.png" id="21_dgldv"]
 [ext_resource type="Script" uid="uid://bi6iuy3dmd2kl" path="res://Upgrades/Spells/Fireball.gd" id="21_rm3lh"]
+[ext_resource type="PackedScene" uid="uid://bb2kngqig5vvs" path="res://Upgrades/Spells/Particles/MagicBolt.tscn" id="22_lawxi"]
 [ext_resource type="Script" uid="uid://ce71b8xkipfru" path="res://Upgrades/Scripts/Passive/Passive.gd" id="22_rm3lh"]
 
 [sub_resource type="GDScript" id="GDScript_ep6ma"]
@@ -2534,16 +2537,17 @@ texture = ExtResource("5_mearg")
 sources/0 = SubResource("TileSetAtlasSource_xetcc")
 sources/1 = SubResource("TileSetAtlasSource_m8u4s")
 
-[sub_resource type="Resource" id="Resource_yncth"]
-script = ExtResource("21_rm3lh")
+[sub_resource type="Resource" id="Resource_uni40"]
+script = ExtResource("21_4q8dg")
 icon_scale = Vector2(1, 1)
-damage = 5.0
+damage = 1.0
 speed = 150.0
-max_pierce = 1
+max_pierce = 2
+trail_particles_scene_cpu = ExtResource("22_lawxi")
 y_axis_offset = 0.0
 angle_offset_deg = 0.0
 is_passive = false
-metadata/_custom_type_script = "uid://bi6iuy3dmd2kl"
+metadata/_custom_type_script = "uid://cls0w0trd5gfw"
 
 [sub_resource type="Resource" id="Resource_jgbtq"]
 script = ExtResource("21_rm3lh")
@@ -2571,6 +2575,7 @@ metadata/_custom_type_script = "uid://37p6crtj0x1h"
 [node name="world" type="Node2D"]
 process_mode = 3
 y_sort_enabled = true
+rotation = 0.00032067
 script = SubResource("GDScript_ep6ma")
 
 [node name="Background" type="Sprite2D" parent="."]
@@ -2707,7 +2712,8 @@ LeftBase = true
 
 [node name="Upgrade" parent="." instance=ExtResource("19_dwmkc")]
 position = Vector2(117, 224)
-pickup = SubResource("Resource_yncth")
+texture = ExtResource("20_yncth")
+pickup = SubResource("Resource_uni40")
 
 [node name="Upgrade2" parent="." instance=ExtResource("19_dwmkc")]
 position = Vector2(7, 311)

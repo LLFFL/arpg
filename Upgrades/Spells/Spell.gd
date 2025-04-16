@@ -20,14 +20,26 @@ func apply_effects(_projectile: Node, _hit_target: Node) -> void:
 	pass
 	
 func setup_particles(projectile: Node2D) -> void:
+	var trail_scene: Node2D = null
+
 	if trail_particles_scene_gpu:
-		var trail := trail_particles_scene_gpu.instantiate() as GPUParticles2D
-		trail.name = "TrailParticles"
-		projectile.add_child(trail)
+		trail_scene = trail_particles_scene_gpu.instantiate() as Node2D
 	elif trail_particles_scene_cpu:
-		var trail := trail_particles_scene_cpu.instantiate() as CPUParticles2D
-		trail.name = "TrailParticles"
-		projectile.add_child(trail)
+		trail_scene = trail_particles_scene_cpu.instantiate() as Node2D
+
+	if trail_scene:
+		var trail = trail_scene.get_node_or_null("CPUParticles2D")
+		if trail == null:
+			trail = trail_scene.get_node_or_null("GPUParticles2D")
+	
+		if trail and trail is Node:
+			trail.name = "TrailParticles"
+			trail.emitting = true
+			trail_scene.position.y += y_axis_offset
+			trail_scene.rotation_degrees += angle_offset_deg
+			projectile.add_child(trail_scene)
+
+
 
 func apply_particle_effects(projectile: Node, hit_target: Node) -> void:
 	var origin := (projectile as Node2D).global_position
