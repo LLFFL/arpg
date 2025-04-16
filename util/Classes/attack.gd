@@ -10,3 +10,4 @@ var damage: float = 10.0:
 			return damage * 1.5
 		else:
 			return damage
+var source: Node = null

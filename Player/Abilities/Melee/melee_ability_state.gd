@@ -74,11 +74,18 @@ func _on_animation_finish(name: String):
 
 func set_attack_values():
 	attack = Attack.new()
-	player.stats.effect_damage = 10
 	attack.damage = player.stats.damage
 	attack.crit_chance = player.stats.crit_chance
+	attack.source = player # added for passives
 	hit_box.hit_attack = attack
 
 func _on_enemy_damaged(_attack: Attack, body: Area2D):
 	hit_enemy = true
+	#Check active passive abilities to see if any should trigger, then trigger
+	for passive in player.stats.passives:
+		if passive.trigger == "on_enemy_damaged":
+			print("on enemy damaged triggered, fireboom?")
+			var effect = passive.effect
+			if effect and effect.has_method("apply_effects"):
+				effect.apply_effects(attack.source, body)
 	pass

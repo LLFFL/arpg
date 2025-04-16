@@ -51,6 +51,15 @@ func gold_generation_buff(value: float, duration: float = 0):
 		gold_generation_status_changed.emit(true, false)
 #endregion
 
+var passives: Array[Dictionary] = []
+
+func add_passive(pickup: Pickup) -> void:
+	if pickup.passive_upgrade:
+		passives.append({
+			"trigger": pickup.passive_upgrade.trigger,
+			"effect": pickup.passive_upgrade.effect
+		})
+
 #Upgrade spells
 var projectile_scene: PackedScene = preload("res://scenes/Projectile.tscn")
 

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="MeteorFallSpell" load_steps=2 format=3 uid="uid://coefq151kxjtc"]
+
+[ext_resource type="Script" uid="uid://cyponqxf45i4t" path="res://Upgrades/Spells/MeteorFall.gd" id="1_xg47j"]
+
+[resource]
+script = ExtResource("1_xg47j")
+icon_scale = Vector2(1, 1)
+animation_name = "default"
+damage = 5.0
+speed = 150.0
+max_pierce = 1
+name = ""
+metadata/_custom_type_script = "uid://bi6iuy3dmd2kl"

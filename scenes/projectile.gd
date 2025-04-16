@@ -2,6 +2,7 @@ class_name Projectile
 extends RigidBody2D
 
 @onready var hit_box: Hitbox = $HitBox
+#@onready var trail_particles: GPUParticles2D = $TrailParticles
 
 
 @export var speed := 150.0
@@ -19,9 +20,10 @@ func _ready():
 	if hit_box:
 		hit_box.damaged_enemy.connect(on_enemy_hit)
 	if spell:
-		print("Projectile is a spell")
+		#print("Projectile is a spell")
 		icon.texture = spell.icon_texture
 		icon.scale = spell.icon_scale
+		spell.setup_particles(self)
 	direction = Vector2.RIGHT.rotated(angle)
 	icon.scale.x = -1 if direction.x < 0 else 1
 	hit_box.hit_attack = Attack.new()
@@ -41,6 +43,7 @@ func on_enemy_hit(_attack: Attack, hit_target: Node):
 	if spell:
 		print("Spell type:", spell.get_class())
 		spell.apply_effects(self, hit_target)
+		spell.apply_particle_effects(self, hit_target)
 	current_pierce_count += 1
 	if current_pierce_count >= max_pierce:
 		queue_free()
