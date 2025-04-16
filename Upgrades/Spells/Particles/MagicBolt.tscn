@@ -1,7 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://bb2kngqig5vvs"]
+[gd_scene load_steps=5 format=3 uid="uid://bb2kngqig5vvs"]
 
 [ext_resource type="Texture2D" uid="uid://df81atwnkd5eh" path="res://Upgrades/Spells/fire.png" id="1_jwa7b"]
-[ext_resource type="Texture2D" uid="uid://b0xomhxyv8vhv" path="res://Upgrades/Spells/magic.png" id="2_k5lp7"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_5yt7m"]
+blend_mode = 1
 
 [sub_resource type="Curve" id="Curve_gceiy"]
 _limits = [-500.0, 500.0, 0.0, 1.0]
@@ -13,59 +15,21 @@ interpolation_mode = 1
 offsets = PackedFloat32Array(0, 0.00343643, 0.261168, 0.443299, 0.986254, 0.989691, 0.993127, 0.996564, 1)
 colors = PackedColorArray(0, 0, 0, 1, 0.86, 0.4945, 0.215, 1, 0.864442, 0.513372, 0.244907, 1, 0.867581, 0.526709, 0.266042, 1, 0.900151, 0.665088, 0.485333, 1, 0.917617, 0.739293, 0.602928, 1, 0.901356, 0.670205, 0.493443, 1, 0.972509, 0.972509, 0.972509, 1, 1, 1, 1, 1)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_kj3vl"]
-atlas = ExtResource("2_k5lp7")
-region = Rect2(0, 0, 10, 9)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_l0xqj"]
-atlas = ExtResource("2_k5lp7")
-region = Rect2(10, 0, 10, 9)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_m5ll7"]
-atlas = ExtResource("2_k5lp7")
-region = Rect2(20, 0, 10, 9)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_y6o8k"]
-atlas = ExtResource("2_k5lp7")
-region = Rect2(30, 0, 6, 8)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_sn1kd"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kj3vl")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_l0xqj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_m5ll7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_y6o8k")
-}],
-"loop": true,
-"name": &"default",
-"speed": 1.0
-}]
-
 [node name="Node2D" type="Node2D"]
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_5yt7m")
 rotation = 0.0167968
 amount = 9
 texture = ExtResource("1_jwa7b")
-lifetime = 0.57
-speed_scale = 0.01
-explosiveness = 0.08
-randomness = 0.02
+lifetime = 2.9
+speed_scale = 7.82
 fixed_fps = 30
+fract_delta = false
 emission_shape = 1
-emission_sphere_radius = 4.02
+emission_sphere_radius = 0.01
 particle_flag_align_y = true
 gravity = Vector2(0.05, 0.07)
-initial_velocity_min = 17.75
-initial_velocity_max = 65.09
 orbit_velocity_min = 118.35
 orbit_velocity_max = 568.05
 orbit_velocity_curve = SubResource("Curve_gceiy")
@@ -76,9 +40,3 @@ hue_variation_min = -0.97
 hue_variation_max = 0.78
 anim_speed_min = 2.27
 anim_speed_max = 2.28
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-visible = false
-sprite_frames = SubResource("SpriteFrames_sn1kd")
-frame = 2
-frame_progress = 0.568363

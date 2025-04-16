@@ -12,6 +12,9 @@ class_name Spell
 @export var trail_particles_scene_cpu: PackedScene
 @export var impact_particles_scene_gpu: PackedScene
 @export var impact_particles_scene_cpu: PackedScene
+@export var body_particles_scene_cpu: PackedScene
+@export var body_particles_scene_gpu: PackedScene
+
 
 @export var y_axis_offset: float = 0.0
 @export var angle_offset_deg: float = 0.0
@@ -21,11 +24,31 @@ func apply_effects(_projectile: Node, _hit_target: Node) -> void:
 	
 func setup_particles(projectile: Node2D) -> void:
 	var trail_scene: Node2D = null
+	var body_scene: Node2D = null
 
 	if trail_particles_scene_gpu:
 		trail_scene = trail_particles_scene_gpu.instantiate() as Node2D
 	elif trail_particles_scene_cpu:
 		trail_scene = trail_particles_scene_cpu.instantiate() as Node2D
+
+	if body_particles_scene_gpu:
+		body_scene = body_particles_scene_gpu.instantiate() as Node2D
+	elif body_particles_scene_cpu:
+		body_scene = body_particles_scene_cpu.instantiate() as Node2D
+		
+	if body_scene:
+		var body = body_scene.get_node_or_null("CPUParticles2D")
+		if body == null:
+			body = body_scene.get_node_or_null("GPUParticles2D")
+
+		if body and body is Node:
+			body.name = "BodyParticles"
+			body.emitting = true
+			body_scene.position.y += y_axis_offset  # Optional: vertical offset
+			body_scene.rotation_degrees += angle_offset_deg  # Optional: angle tweak
+			projectile.add_child(body_scene)
+
+
 
 	if trail_scene:
 		var trail = trail_scene.get_node_or_null("CPUParticles2D")
@@ -38,6 +61,8 @@ func setup_particles(projectile: Node2D) -> void:
 			trail_scene.position.y += y_axis_offset
 			trail_scene.rotation_degrees += angle_offset_deg
 			projectile.add_child(trail_scene)
+			
+	
 
 
 

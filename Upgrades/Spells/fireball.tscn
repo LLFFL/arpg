@@ -1,10 +1,16 @@
 [gd_scene load_steps=2 format=3 uid="uid://4v7c6hhdq071"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_14w37"]
+[ext_resource type="Texture2D" uid="uid://e7v66ho5me7d" path="res://Upgrades/Spells/magic_3.png" id="1_ijf0j"]
 
-[node name="Fireball" type="CPUParticles2D"]
-texture = SubResource("PlaceholderTexture2D_14w37")
+[node name="CPUParticles2D" type="CPUParticles2D"]
+amount = 11
+texture = ExtResource("1_ijf0j")
+lifetime = 0.74
+speed_scale = 1.98
+explosiveness = 0.14
+randomness = 0.05
 emission_shape = 1
-emission_sphere_radius = 1.0
-gravity = Vector2(0, 7)
-color = Color(0.900293, 0.559044, 0.234451, 1)
+emission_sphere_radius = 6.3
+particle_flag_align_y = true
+gravity = Vector2(0, -50)
+color = Color(0.9, 0.2562, 0.234, 1)

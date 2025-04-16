@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=4 uid="uid://njpan3u5qqgf"]
+[gd_scene load_steps=49 format=4 uid="uid://njpan3u5qqgf"]
 
 [ext_resource type="Texture2D" uid="uid://b3vtv64rk6efr" path="res://assets/Action RPG Resources/World/GrassBackground.png" id="1_a6pgu"]
 [ext_resource type="Texture2D" uid="uid://dvf6p7tw15gji" path="res://assets/Pixel Crawler - Free Pack/Environment/Dungeon Prison/Assets/DungeonProps.png" id="2_10fit"]
@@ -23,6 +23,7 @@
 [ext_resource type="Script" uid="uid://cls0w0trd5gfw" path="res://Upgrades/Spells/Spell.gd" id="21_4q8dg"]
 [ext_resource type="Script" uid="uid://37p6crtj0x1h" path="res://Upgrades/Scripts/pickup.gd" id="21_30fn3"]
 [ext_resource type="Texture2D" uid="uid://cvq2p33iqxt2i" path="res://assets/Ninja Adventure - Asset Pack/Ui/Icon/Spell/AttackUpgrade.png" id="21_dgldv"]
+[ext_resource type="PackedScene" uid="uid://jita0hqrr0xa" path="res://Upgrades/Spells/Particles/fireballHead.tscn" id="21_lawxi"]
 [ext_resource type="Script" uid="uid://bi6iuy3dmd2kl" path="res://Upgrades/Spells/Fireball.gd" id="21_rm3lh"]
 [ext_resource type="PackedScene" uid="uid://bb2kngqig5vvs" path="res://Upgrades/Spells/Particles/MagicBolt.tscn" id="22_lawxi"]
 [ext_resource type="Script" uid="uid://ce71b8xkipfru" path="res://Upgrades/Scripts/Passive/Passive.gd" id="22_rm3lh"]
@@ -2543,7 +2544,8 @@ icon_scale = Vector2(1, 1)
 damage = 1.0
 speed = 150.0
 max_pierce = 2
-trail_particles_scene_cpu = ExtResource("22_lawxi")
+trail_particles_scene_cpu = ExtResource("21_lawxi")
+body_particles_scene_cpu = ExtResource("22_lawxi")
 y_axis_offset = 0.0
 angle_offset_deg = 0.0
 is_passive = false
