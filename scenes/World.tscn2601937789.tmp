@@ -2823,10 +2823,10 @@ unique_name_in_owner = true
 
 [node name="AllyBase" parent="BaseContainer" instance=ExtResource("19_44lqw")]
 position = Vector2(-99, 89)
-SpawnOver = false
+SpawnOver = null
 MainBase = true
-LeftBase = false
-RightBase = false
+LeftBase = null
+RightBase = null
 
 [node name="CanvasLayer" type="CanvasLayer" parent="BaseContainer/AllyBase"]
 
@@ -2835,16 +2835,16 @@ unique_name_in_owner = true
 
 [node name="EnemyBaseL" parent="BaseContainer" instance=ExtResource("19_44lqw")]
 position = Vector2(-772, 83)
-SpawnOver = false
-MainBase = false
+SpawnOver = null
+MainBase = null
 LeftBase = true
-RightBase = false
+RightBase = null
 
 [node name="EnemyBaseR" parent="BaseContainer" instance=ExtResource("19_44lqw")]
 position = Vector2(884, 66)
 SpawnOver = true
-MainBase = false
-LeftBase = false
+MainBase = null
+LeftBase = null
 RightBase = true
 
 [node name="Upgrade" parent="." instance=ExtResource("19_dwmkc")]
