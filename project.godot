@@ -42,6 +42,8 @@ folder_colors={
 
 projectile=""
 player=""
+allied_minions=""
+allied_base=""
 
 [gui]
 
