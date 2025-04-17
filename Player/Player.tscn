@@ -314,6 +314,7 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
+y_sort_enabled = true
 collision_layer = 2
 script = ExtResource("6_s1rgi")
 
@@ -322,6 +323,7 @@ position = Vector2(0, 2)
 texture = ExtResource("1_vlldt")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+y_sort_enabled = true
 material = SubResource("ShaderMaterial_3nb2p")
 position = Vector2(0, -11)
 texture = ExtResource("4_3mea3")
