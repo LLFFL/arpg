@@ -85,10 +85,10 @@ func open_portal():
 	if portal_tween:
 		portal_tween.kill()	
 	portal_is_open = true
-	player.material.set("shader_parameter/line_color",Color("1fe2a2"))
+	player.get_node("Sprite2D").material.set("shader_parameter/line_color",Color("1fe2a2"))
 	# Animate the scale and visibility of stuff when opening
 	portal_tween = create_tween()
-	portal_tween.parallel().tween_property(player.material,"shader_parameter/line_thickness",1,0.2)
+	portal_tween.parallel().tween_property(player.get_node("Sprite2D").material,"shader_parameter/line_thickness",1,0.2)
 	portal_tween.parallel().tween_property(player.get_node("shadow"),"modulate:a",0,0.2)
 	portal_tween.parallel().tween_property(%Portal,"scale",Vector2(5,5),0.8)
 	portal_tween.parallel().tween_property(%Portal/Interior,"scale",Vector2(0.2,0.2),0.8)
@@ -107,4 +107,4 @@ func close_portal():
 	portal_tween.parallel().tween_property(player.get_node("shadow"),"modulate:a",1,0.2)
 	portal_tween.parallel().tween_property(%Portal/Interior,"scale",Vector2(1,1),2).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	portal_tween.parallel().tween_property(%ShopUi,"modulate:a",0,0.5)
-	portal_tween.parallel().tween_property(player.material,"shader_parameter/line_thickness",0,0.2)
+	portal_tween.parallel().tween_property(player.get_node("Sprite2D").material,"shader_parameter/line_thickness",0,0.2)

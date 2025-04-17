@@ -121,7 +121,7 @@ metadata/_custom_type_script = "uid://gi81blw5c6j8"
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cx7l3"]
 shader = ExtResource("27_gx05q")
 shader_parameter/line_color = Color(1, 1, 1, 1)
-shader_parameter/line_thickness = 0.0
+shader_parameter/line_thickness = 1.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cx7l3"]
 size = Vector2(2560, 82)
@@ -351,6 +351,7 @@ shakerPreset = SubResource("Resource_u41f8")
 
 [node name="Camera2D" parent="." instance=ExtResource("25_yyeeq")]
 process_mode = 3
+y_sort_enabled = true
 position = Vector2(245, 91)
 zoom = Vector2(1.1, 1.1)
 limit_left = -1200
