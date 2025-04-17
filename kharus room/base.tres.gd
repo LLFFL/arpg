@@ -19,7 +19,8 @@ const EnemyDeathEffect = preload("res://assets/Action RPG Resources/Effects/Enem
 @onready var spawn_zone: CollisionShape2D = $SpawnZone/CollisionShape2D
 @onready var target_marker: Marker2D = $TargetLocation
 var target_location: Vector2
-
+var base1: bool = true
+var base2: bool = true
 
 func _ready():
 	target_location = target_marker.global_position
@@ -38,11 +39,11 @@ func _ready():
 		
 	if (LeftBase):
 		#bat_spawn_location = Vector2(position.x + 50, position.y)
-		hurtbox.set_collision_layer_value(4, true) 
+		#hurtbox.set_collision_layer_value(4, true) 
 		hurtbox.set_collision_layer_value(5, true)
 	if (RightBase):
 		#bat_spawn_location = Vector2(position.x - 50, position.y)
-		hurtbox.set_collision_layer_value(4, true) 
+		#hurtbox.set_collision_layer_value(4, true) 
 		hurtbox.set_collision_layer_value(5, true)
 		
 func initialize(bases_dictionaryy: Dictionary):
@@ -72,7 +73,8 @@ func spawn_minion(player_side:bool):
 			unit.global_position = spawn_zone.global_position + Vector2(_x, _y)
 			unit.add_to_group("allied_minions")
 			get_tree().current_scene.add_child(unit)
-			unit._initialize(player_side, bases_dictionary['enemy_base_L'].target_location)
+			if bases_dictionary['enemy_base_L']: #Mark bandaid
+				unit._initialize(player_side, bases_dictionary['enemy_base_L'].target_location)
 		
 		for i in minion_side_selection[1]:
 			var _x = randi_range(_rect.position.x, _rect.position.x + _rect.size.x)
@@ -81,7 +83,8 @@ func spawn_minion(player_side:bool):
 			unit.global_position = spawn_zone.global_position + Vector2(_x, _y)
 			unit.add_to_group("allied_minions")
 			get_tree().current_scene.add_child(unit)
-			unit._initialize(player_side, bases_dictionary['enemy_base_R'].target_location)
+			if bases_dictionary['enemy_base_R']: #Mark bandaid
+				unit._initialize(player_side, bases_dictionary['enemy_base_R'].target_location)
 
 
 func take_damage(attack: Attack) -> void:
@@ -101,13 +104,17 @@ func _on_stats_no_health() -> void:
 	get_parent().add_child(enemyDeathEffect)
 	enemyDeathEffect.position = position
 	if (LeftBase):
-		get_tree().call_group('allied_minions', 'update_target_base',
-		 bases_dictionary['enemy_base_R'].target_location)
-		redirect_minions_to_active_side()
+		if !base2:#Mark bandaid
+			get_tree().call_group('allied_minions', 'update_target_base',
+			bases_dictionary['enemy_base_R'].target_location)
+			redirect_minions_to_active_side()
+			base1 = false
 	if(RightBase):
-		get_tree().call_group('allied_minions', 'update_target_base', # this udpates currently living minions
-		bases_dictionary['enemy_base_L'].target_location)
-		redirect_minions_to_active_side() # this directs spawn to other boss automatically
+		if !base1: #Mark bandaid
+			get_tree().call_group('allied_minions', 'update_target_base', # this udpates currently living minions
+			bases_dictionary['enemy_base_L'].target_location)
+			redirect_minions_to_active_side() # this directs spawn to other boss automatically
+			base2 = false
 	queue_free()
 
 

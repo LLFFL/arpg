@@ -24,6 +24,7 @@ metadata/_custom_type_script = "uid://cls0w0trd5gfw"
 radius = 195.369
 
 [node name="Area2D" type="Area2D"]
+top_level = true
 collision_layer = 0
 collision_mask = 6
 script = ExtResource("1_327d1")
@@ -35,9 +36,12 @@ shape = SubResource("CircleShape2D_3xkn4")
 debug_color = Color(0.908593, 0.299604, 0, 0.42)
 
 [node name="Alchemy" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(-7.62939e-06, 3.8147e-06)
 scale = Vector2(2.5, 2.5)
 texture = ExtResource("5_yu313")
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

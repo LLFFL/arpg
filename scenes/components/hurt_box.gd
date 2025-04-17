@@ -46,4 +46,5 @@ func _on_invincibility_ended() -> void:
 #take damage function, to call parent and do damage
 #Added bat to layer 4 so its seen by projectile on layer 4
 func damage(attack: Attack) -> void:
+	print("Player hit")
 	damaged.emit(attack)

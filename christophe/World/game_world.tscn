@@ -359,7 +359,6 @@ limit_right = 1200
 limit_bottom = 134
 
 [node name="CloudShadows" type="Parallax2D" parent="."]
-visible = false
 scroll_offset = Vector2(-222, 49)
 repeat_size = Vector2(2000, 0)
 autoscroll = Vector2(5, 0)
@@ -381,6 +380,7 @@ remote_path = NodePath("../../Camera2D")
 [node name="SnowCore" parent="." instance=ExtResource("28_0mng6")]
 visible = false
 position = Vector2(-1100, 57)
+collision_layer = 64
 Sprite = ExtResource("29_oaplc")
 Shadow = Color(0.1564, 0.26266, 0.46, 0.572549)
 HitColor = Color(0.709223, 0.897884, 0.951956, 1)
@@ -473,12 +473,18 @@ scale = Vector2(0.984707, 1.9713)
 position = Vector2(0, 61.888)
 shape = SubResource("RectangleShape2D_4gwui")
 
+[node name="Area2D" parent="BaseContainer/AllyBase" index="8"]
+position = Vector2(0, -476)
+monitoring = false
+monitorable = false
+
 [node name="CanvasLayer" type="CanvasLayer" parent="BaseContainer/AllyBase"]
 
 [node name="MinionSideControl" parent="BaseContainer/AllyBase/CanvasLayer" instance=ExtResource("32_4gwui")]
 unique_name_in_owner = true
 
 [node name="EnemyBaseL" parent="BaseContainer" instance=ExtResource("31_wjrrt")]
+z_index = -1
 position = Vector2(-1087, 57)
 LeftBase = true
 
@@ -493,6 +499,9 @@ position = Vector2(65, 32)
 [node name="CollisionShape2D" parent="BaseContainer/EnemyBaseL/SpawnZone" index="0"]
 position = Vector2(78.5, 35)
 shape = SubResource("RectangleShape2D_6rwpi")
+
+[node name="Area2D" parent="BaseContainer/EnemyBaseL" index="8"]
+position = Vector2(-1086, 55)
 
 [node name="EnemyBaseR" parent="BaseContainer" instance=ExtResource("31_wjrrt")]
 position = Vector2(1110, 61)
@@ -509,6 +518,10 @@ position = Vector2(-81, 27)
 [node name="CollisionShape2D" parent="BaseContainer/EnemyBaseR/SpawnZone" index="0"]
 position = Vector2(-81, 34.5)
 shape = SubResource("RectangleShape2D_r41hh")
+
+[node name="Area2D" parent="BaseContainer/EnemyBaseR" index="8"]
+z_index = 2
+position = Vector2(1110, 61)
 
 [editable path="BaseContainer/AllyBase"]
 [editable path="BaseContainer/AllyBase/HurtBox"]

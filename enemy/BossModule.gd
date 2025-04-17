@@ -4,7 +4,7 @@ extends Area2D
 @export var cast_interval := 1.5  
 @export var particle_scene: PackedScene 
 @export var particle_node_name := "TargetParticles"
-
+const PROJECTILE = preload("res://scenes/Projectile.tscn")
 var cast_timer := 0.0
 var player: Node2D = null
 
@@ -21,8 +21,7 @@ func _process(delta: float) -> void:
 var projectile_scene: PackedScene = preload("res://scenes/Projectile.tscn")
 func cast_spell() -> void:
 	#if spell_resource and player and is_instance_valid(player):
-		var projectile = PlayerStats.projectile_scene.instantiate() as Projectile
-		
+		var projectile = PROJECTILE.instantiate() as Projectile
 		projectile.spell = spell_resource
 		#Directions
 		projectile.global_position = global_position
@@ -34,6 +33,8 @@ func cast_spell() -> void:
 		projectile.speed = spell_resource.speed
 		projectile.max_pierce = spell_resource.max_pierce
 		spell_resource.setup_particles(projectile)
+		projectile.collision_mask = (1 << 2) | (1 << 3)
+
 		get_tree().current_scene.add_child(projectile)
 
 
@@ -52,11 +53,21 @@ func remove_particles():
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
-		print("Player entered body")
 		player = body
 		attach_particles()
 			
-func _on_body_exited(body: Node) -> void:
+func _on_body_exited(body: Node2D) -> void:
 	if body == player:
+		player = null
+		remove_particles()
+
+
+func _on_area_entered(area: Node2D) -> void:
+	if area.is_in_group("player"):
+		player = area
+		attach_particles()
+
+func _on_area_exited(area: Node2D) -> void:
+	if area == player:
 		player = null
 		remove_particles()
