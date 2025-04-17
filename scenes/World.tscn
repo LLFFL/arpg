@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=4 uid="uid://njpan3u5qqgf"]
+[gd_scene load_steps=50 format=4 uid="uid://njpan3u5qqgf"]
 
 [ext_resource type="Texture2D" uid="uid://b3vtv64rk6efr" path="res://assets/Action RPG Resources/World/GrassBackground.png" id="1_a6pgu"]
 [ext_resource type="Texture2D" uid="uid://dvf6p7tw15gji" path="res://assets/Pixel Crawler - Free Pack/Environment/Dungeon Prison/Assets/DungeonProps.png" id="2_10fit"]
@@ -18,38 +18,41 @@
 [ext_resource type="PackedScene" uid="uid://c7qfihnyo70k4" path="res://scenes/UIComponents/uimanager.tscn" id="18_44lqw"]
 [ext_resource type="PackedScene" uid="uid://b02g8s3f7cg4a" path="res://Player/Player.tscn" id="18_nthub"]
 [ext_resource type="PackedScene" uid="uid://cqfgoae6a2efh" path="res://kharus room/base.tscn" id="19_44lqw"]
-[ext_resource type="PackedScene" uid="uid://cghe5cfsmt5t8" path="res://MinionSideControlUI.tscn" id="19_dgldv"]
 [ext_resource type="PackedScene" uid="uid://dxw4ybjxdsnso" path="res://upgrade.tscn" id="19_dwmkc"]
 [ext_resource type="Texture2D" uid="uid://daqrk6qi5rmo6" path="res://assets/Ninja Adventure - Asset Pack/Ui/Shuriken.png" id="20_yncth"]
 [ext_resource type="Script" uid="uid://cls0w0trd5gfw" path="res://Upgrades/Spells/Spell.gd" id="21_4q8dg"]
 [ext_resource type="Script" uid="uid://37p6crtj0x1h" path="res://Upgrades/Scripts/pickup.gd" id="21_30fn3"]
 [ext_resource type="Texture2D" uid="uid://cvq2p33iqxt2i" path="res://assets/Ninja Adventure - Asset Pack/Ui/Icon/Spell/AttackUpgrade.png" id="21_dgldv"]
+[ext_resource type="PackedScene" uid="uid://jita0hqrr0xa" path="res://Upgrades/Spells/Particles/fireballHead.tscn" id="21_lawxi"]
 [ext_resource type="Script" uid="uid://bi6iuy3dmd2kl" path="res://Upgrades/Spells/Fireball.gd" id="21_rm3lh"]
 [ext_resource type="PackedScene" uid="uid://bb2kngqig5vvs" path="res://Upgrades/Spells/Particles/MagicBolt.tscn" id="22_lawxi"]
 [ext_resource type="Script" uid="uid://ce71b8xkipfru" path="res://Upgrades/Scripts/Passive/Passive.gd" id="22_rm3lh"]
+[ext_resource type="PackedScene" uid="uid://cdk2biitbjogl" path="res://enemy/bossModule.tscn" id="28_uni40"]
 
 [sub_resource type="GDScript" id="GDScript_ep6ma"]
 script/source = "extends Node2D
 
 @onready var camera = $Camera2D
+@onready var door = $DoorContainer/Door
 @onready var remoteTransform = $Player/RemoteTransform2D
 @onready var base_container: Node = %BaseContainer
-var bases_dictionary: Dictionary
+var base_positions: Dictionary
+var base_coords
 
 func _ready():
-	var bases = base_container.get_children()
-	bases_dictionary = {
-		'ally_base' = bases[0],
-		'enemy_base_L' = bases[1],
-		'enemy_base_R' = bases[2]
+	base_coords = base_container.get_children()
+	base_positions = {
+		'ally_base_position' = base_coords[0].global_position,
+		'enemy_base_position_R' = base_coords[1].global_position,
+		'enemy_base_position_L' = base_coords[2].global_position
 	}	# it is order of scene structure descending from top to down so [ally, right base, left base] in the array
-	give_bases_dictionary()
+	give_coords()
 	
 	
-func give_bases_dictionary():
-	$BaseContainer/AllyBase.initialize(bases_dictionary)
-	$BaseContainer/EnemyBaseL.initialize(bases_dictionary)
-	$BaseContainer/EnemyBaseR.initialize(bases_dictionary)
+func give_coords():
+	$BaseContainer/AllyBase.initialize(base_positions)
+	$BaseContainer/EnemyBaseL.initialize(base_positions)
+	$BaseContainer/EnemyBaseR.initialize(base_positions)
 "
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rx4gy"]
@@ -2542,7 +2545,8 @@ icon_scale = Vector2(1, 1)
 damage = 1.0
 speed = 150.0
 max_pierce = 2
-trail_particles_scene_cpu = ExtResource("22_lawxi")
+trail_particles_scene_cpu = ExtResource("21_lawxi")
+body_particles_scene_cpu = ExtResource("22_lawxi")
 y_axis_offset = 0.0
 angle_offset_deg = 0.0
 is_passive = false
@@ -2574,6 +2578,7 @@ metadata/_custom_type_script = "uid://37p6crtj0x1h"
 [node name="world" type="Node2D"]
 process_mode = 3
 y_sort_enabled = true
+rotation = 0.00032067
 script = SubResource("GDScript_ep6ma")
 
 [node name="Background" type="Sprite2D" parent="."]
@@ -2676,12 +2681,6 @@ offset_top = 49.0
 offset_right = 238.0
 offset_bottom = 72.0
 
-[node name="Player" parent="." instance=ExtResource("18_nthub")]
-position = Vector2(98, 267)
-
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
-remote_path = NodePath("../../Camera2D")
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="HealthUI" parent="CanvasLayer" instance=ExtResource("15_c0d7e")]
@@ -2692,26 +2691,28 @@ offset_bottom = 43.0
 
 [node name="UIManager" parent="CanvasLayer" instance=ExtResource("18_44lqw")]
 
+[node name="Player" parent="." instance=ExtResource("18_nthub")]
+position = Vector2(98, 267)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
+remote_path = NodePath("../../Camera2D")
+
 [node name="BaseContainer" type="Node" parent="."]
 unique_name_in_owner = true
 
 [node name="AllyBase" parent="BaseContainer" instance=ExtResource("19_44lqw")]
+z_index = -1
 position = Vector2(-99, 89)
 MainBase = true
 
-[node name="CanvasLayer" type="CanvasLayer" parent="BaseContainer/AllyBase"]
-
-[node name="MinionSideControl" parent="BaseContainer/AllyBase/CanvasLayer" instance=ExtResource("19_dgldv")]
-unique_name_in_owner = true
-
-[node name="EnemyBaseL" parent="BaseContainer" instance=ExtResource("19_44lqw")]
-position = Vector2(-772, 83)
-LeftBase = true
-
 [node name="EnemyBaseR" parent="BaseContainer" instance=ExtResource("19_44lqw")]
-position = Vector2(884, 66)
+position = Vector2(845, 117)
 SpawnOver = true
 RightBase = true
+
+[node name="EnemyBaseL" parent="BaseContainer" instance=ExtResource("19_44lqw")]
+position = Vector2(-696, 111)
+LeftBase = true
 
 [node name="Upgrade" parent="." instance=ExtResource("19_dwmkc")]
 position = Vector2(117, 224)
@@ -2722,3 +2723,6 @@ pickup = SubResource("Resource_uni40")
 position = Vector2(7, 311)
 texture = ExtResource("21_dgldv")
 pickup = SubResource("Resource_dgldv")
+
+[node name="Area2D" parent="." instance=ExtResource("28_uni40")]
+position = Vector2(71.1623, 505.977)

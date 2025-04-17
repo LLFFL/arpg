@@ -2,7 +2,7 @@ class_name CastAbilityState extends AbilityState
 #import where it can go
 @onready var idle: IdleAbilityState = $"../Idle"
 @onready var projectile_position: Marker2D = $"../../ProjectilePosition"
-
+const LeechSpell = preload("res://Upgrades/Scripts/LeechSpell.gd")
 var spell_index: int
 var in_progress: bool
 
