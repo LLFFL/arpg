@@ -3,7 +3,7 @@ class_name IdleAbilityState extends AbilityState
 @onready var cast_ability: CastAbilityState = $"../CastAbility"
 @onready var projectile_position: Marker2D = $"../../ProjectilePosition"
 @onready var thrust: MeleeAbilityState = $"../Thrust"
-
+const LeechSpell = preload("res://Upgrades/Scripts/LeechSpell.gd")
 
 func enter() -> void:
 	pass
@@ -20,6 +20,12 @@ func physics( _delta: float ) -> AbilityState:
 
 #If in combo attack, check if in combo attack then decide if Ability is melee or ability
 func handle_input( _event: InputEvent ) -> AbilityState:
+	if Input.is_action_just_pressed("r_cast"):
+		print("r_cast pressed")
+		var spell := LeechSpell.new()
+		get_tree().current_scene.add_child(spell) 
+		spell.apply_effects(player)
+		
 	if combo_attack != null:
 		if _event.is_action_pressed(combo_attack.input):
 			return combo_attack.state

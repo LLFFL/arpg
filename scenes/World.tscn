@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=4 uid="uid://njpan3u5qqgf"]
+[gd_scene load_steps=50 format=4 uid="uid://njpan3u5qqgf"]
 
 [ext_resource type="Texture2D" uid="uid://b3vtv64rk6efr" path="res://assets/Action RPG Resources/World/GrassBackground.png" id="1_a6pgu"]
 [ext_resource type="Texture2D" uid="uid://dvf6p7tw15gji" path="res://assets/Pixel Crawler - Free Pack/Environment/Dungeon Prison/Assets/DungeonProps.png" id="2_10fit"]
@@ -27,6 +27,7 @@
 [ext_resource type="Script" uid="uid://bi6iuy3dmd2kl" path="res://Upgrades/Spells/Fireball.gd" id="21_rm3lh"]
 [ext_resource type="PackedScene" uid="uid://bb2kngqig5vvs" path="res://Upgrades/Spells/Particles/MagicBolt.tscn" id="22_lawxi"]
 [ext_resource type="Script" uid="uid://ce71b8xkipfru" path="res://Upgrades/Scripts/Passive/Passive.gd" id="22_rm3lh"]
+[ext_resource type="PackedScene" uid="uid://cdk2biitbjogl" path="res://enemy/bossModule.tscn" id="28_uni40"]
 
 [sub_resource type="GDScript" id="GDScript_ep6ma"]
 script/source = "extends Node2D
@@ -2700,6 +2701,7 @@ remote_path = NodePath("../../Camera2D")
 unique_name_in_owner = true
 
 [node name="AllyBase" parent="BaseContainer" instance=ExtResource("19_44lqw")]
+z_index = -1
 position = Vector2(-99, 89)
 MainBase = true
 
@@ -2721,3 +2723,6 @@ pickup = SubResource("Resource_uni40")
 position = Vector2(7, 311)
 texture = ExtResource("21_dgldv")
 pickup = SubResource("Resource_dgldv")
+
+[node name="Area2D" parent="." instance=ExtResource("28_uni40")]
+position = Vector2(71.1623, 505.977)

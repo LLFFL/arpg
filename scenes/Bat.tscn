@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://u8p537kx4tlp"]
+[gd_scene load_steps=29 format=3 uid="uid://u8p537kx4tlp"]
 
 [ext_resource type="Texture2D" uid="uid://dpyovvjl3gtjo" path="res://assets/Action RPG Resources/Enemies/Bat.png" id="1_o3dp2"]
 [ext_resource type="Shader" uid="uid://1jid57xhh638" path="res://scenes/components/white_shader.gdshader" id="1_x4yqx"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://s01804hl3iwb" path="res://scenes/components/HitBox.tscn" id="6_wduit"]
 [ext_resource type="PackedScene" uid="uid://buxuqmbof2cao" path="res://scenes/components/SoftCollision.tscn" id="7_5rmwj"]
 [ext_resource type="PackedScene" uid="uid://dkfhu1r5rdxjk" path="res://scenes/components/WanderController.tscn" id="8_scn2q"]
+[ext_resource type="Script" uid="uid://cmxuhd4104ta8" path="res://enemy/script/targeting.gd" id="10_abmhg"]
 
 [sub_resource type="GDScript" id="GDScript_br6pc"]
 script/source = "extends CharacterBody2D
@@ -233,6 +234,9 @@ _data = {
 &"Stop": SubResource("Animation_njp2l")
 }
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x4yqx"]
+height = 42.0
+
 [node name="Bat" type="CharacterBody2D"]
 collision_layer = 0
 script = SubResource("GDScript_br6pc")
@@ -288,11 +292,24 @@ libraries = {
 }
 autoplay = "Stop"
 
+[node name="Targeting" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 15
+script = ExtResource("10_abmhg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Targeting"]
+position = Vector2(9, 0)
+rotation = -1.5708
+shape = SubResource("CapsuleShape2D_x4yqx")
+
 [connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]
 [connection signal="invincibility_ended" from="HurtBox" to="." method="_on_hurt_box_invincibility_ended"]
 [connection signal="invincibility_started" from="HurtBox" to="." method="_on_hurt_box_invincibility_started"]
 [connection signal="no_health" from="Stats" to="." method="_on_stats_no_health"]
 [connection signal="area_entered" from="HitBox" to="HitBox" method="_on_area_entered"]
+[connection signal="area_exited" from="Targeting" to="Targeting" method="_on_area_exited"]
+[connection signal="body_entered" from="Targeting" to="Targeting" method="_on_body_entered"]
+[connection signal="body_exited" from="Targeting" to="Targeting" method="_on_body_exited"]
 
 [editable path="HurtBox"]
 [editable path="PlayerDetectionZone"]

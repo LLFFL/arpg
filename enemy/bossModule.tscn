@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=3 uid="uid://cdk2biitbjogl"]
+
+[ext_resource type="Script" uid="uid://dj3ehkwpiyq24" path="res://enemy/BossModule.gd" id="1_327d1"]
+[ext_resource type="PackedScene" uid="uid://bb2kngqig5vvs" path="res://Upgrades/Spells/Particles/MagicBolt.tscn" id="2_yu313"]
+[ext_resource type="PackedScene" uid="uid://4v7c6hhdq071" path="res://Upgrades/Spells/fireball.tscn" id="3_xnf55"]
+[ext_resource type="Script" uid="uid://cls0w0trd5gfw" path="res://Upgrades/Spells/Spell.gd" id="4_p4468"]
+[ext_resource type="Texture2D" uid="uid://6k172oo6tbod" path="res://assets/Ninja Adventure - Asset Pack/Ui/Icon/Spell/Alchemy.png" id="5_yu313"]
+
+[sub_resource type="Resource" id="Resource_im4pm"]
+script = ExtResource("4_p4468")
+icon_scale = Vector2(1, 1)
+damage = 5.0
+speed = 150.0
+max_pierce = 2
+trail_particles_scene_cpu = ExtResource("3_xnf55")
+impact_particles_scene_cpu = ExtResource("3_xnf55")
+body_particles_scene_cpu = ExtResource("2_yu313")
+y_axis_offset = 0.0
+angle_offset_deg = 0.0
+is_passive = false
+metadata/_custom_type_script = "uid://cls0w0trd5gfw"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3xkn4"]
+radius = 195.369
+
+[node name="Area2D" type="Area2D"]
+collision_layer = 0
+collision_mask = 6
+script = ExtResource("1_327d1")
+spell_resource = SubResource("Resource_im4pm")
+particle_scene = ExtResource("3_xnf55")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_3xkn4")
+debug_color = Color(0.908593, 0.299604, 0, 0.42)
+
+[node name="Alchemy" type="Sprite2D" parent="."]
+position = Vector2(-7.62939e-06, 3.8147e-06)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("5_yu313")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
