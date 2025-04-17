@@ -92,9 +92,6 @@ func damage(attack: Attack) -> void:
 
 func initialize(Ally: bool, base_position: Vector2):
 	if Ally:
-		
-		#player side
-		#TODO havent decided how but when a base is destroyed allied bat should swap to remaining base
 		enemy_base_position = base_position
 		$HurtBox.set_collision_layer_value(3, true)
 		$HitBox.set_collision_mask_value(4, true) # hitbox is for detecting and hitting, hurtbox is for existing and getting hurt
@@ -126,7 +123,6 @@ func _on_hurt_box_invincibility_ended() -> void:
 	animationPlayer.play('Stop')
 
 func update_target_base(coords: Vector2):
-	print('####################################', coords)
 	enemy_base_position = coords
 "
 

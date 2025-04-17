@@ -19,6 +19,7 @@ const EnemyDeathEffect = preload("res://assets/Action RPG Resources/Effects/Enem
 func _ready():
 	hurtbox.damaged.connect(take_damage)
 	# awkward scenario where to be detected and chase player and bat set their own personal collision to be detectable
+	
 	$SpawnTimer.start(minion_rate)
 	if (MainBase):
 		minion_side_selection = [10,2] # keeping this away from the other bases since its not necessary to them
@@ -41,7 +42,6 @@ func _ready():
 		
 func initialize(bases_dictionaryy: Dictionary):
 	bases_dictionary = bases_dictionaryy # this is not a a typo
-	print(bases_dictionary['enemy_base_R'].global_position)
 
 func spawn_minion(player_side:bool):
 	if(LeftBase or RightBase):
@@ -100,11 +100,11 @@ func _on_stats_no_health() -> void:
 	if(RightBase):
 		get_tree().call_group('allied_minions', 'update_target_base', # this udpates currently living minions
 		bases_dictionary['enemy_base_L'].global_position)
-		redirect_minions_to_active_side() # this directs spawn to other boss automatically
+		redirect_minions_to_active_side() # this directs spawn to other base automatically
 	queue_free()
 
 
-func change_minion_wave_side_selection(increase_left: bool, increase_right: bool):
+func change_minion_wave_side_selection(increase_left: bool, increase_right: bool): # specifically reference allied base when calling this
 	if (increase_left):
 		if minion_side_selection[1] == 0:
 			minion_side_control.update(minion_side_selection)
@@ -122,7 +122,7 @@ func change_minion_wave_side_selection(increase_left: bool, increase_right: bool
 	
 func increase_allied_minions():
 	minion_side_selection[0] += 1
-func redirect_minions_to_active_side():
+func redirect_minions_to_active_side(): # the dead base calls to allied base to tell it to send minions elsewhere
 	if LeftBase:
 		get_tree().call_group("allied_base", 'send_all_minions_right')
 	else:
