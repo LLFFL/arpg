@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=4 uid="uid://njpan3u5qqgf"]
+[gd_scene load_steps=49 format=4 uid="uid://njpan3u5qqgf"]
 
 [ext_resource type="Texture2D" uid="uid://b3vtv64rk6efr" path="res://assets/Action RPG Resources/World/GrassBackground.png" id="1_a6pgu"]
 [ext_resource type="Texture2D" uid="uid://dvf6p7tw15gji" path="res://assets/Pixel Crawler - Free Pack/Environment/Dungeon Prison/Assets/DungeonProps.png" id="2_10fit"]
@@ -2574,7 +2574,6 @@ metadata/_custom_type_script = "uid://37p6crtj0x1h"
 [node name="world" type="Node2D"]
 process_mode = 3
 y_sort_enabled = true
-rotation = 0.00032067
 script = SubResource("GDScript_ep6ma")
 
 [node name="Background" type="Sprite2D" parent="."]

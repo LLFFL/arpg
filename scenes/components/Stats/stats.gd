@@ -55,7 +55,7 @@ var defence: float:
 signal movement_status_changed(active: bool, buff: bool) 
 var movement_timer: Timer
 
-var base_movement_speed: float = 100
+@export var base_movement_speed: float = 100
 
 var base_movement_speed_modifier: float = 1
 var movement_speed_modifier: float = 1

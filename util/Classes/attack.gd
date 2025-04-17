@@ -3,6 +3,7 @@ class_name Attack
 #used for passing attack information
 #between hit & hurtboxes
 #Similar to our previous PlayerProperties
+var attack_direction: Vector2 = Vector2.ZERO
 var crit_chance: float = 1.0
 var damage: float = 10.0:
 	get:

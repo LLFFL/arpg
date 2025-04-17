@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="New Game Project"
-run/main_scene="res://scenes/World.tscn"
+run/main_scene="uid://46ic5eq5d8qa"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://scenes/icon.svg"
 
@@ -101,6 +101,7 @@ Melee={
 2d_physics/layer_4="EnemyHurtBox"
 2d_physics/layer_5="EnemySide"
 2d_physics/layer_6="SoftCollision"
+2d_physics/layer_7="Environment"
 
 [rendering]
 

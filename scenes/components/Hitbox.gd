@@ -16,5 +16,7 @@ func _on_area_entered(area: Area2D) -> void:
 		if !hit_attack:
 			hit_attack = Attack.new()
 		damaged_enemy.emit(hit_attack, area)
+		var _collision_dir = global_position.direction_to(area.global_position).normalized()
+		hit_attack.attack_direction = _collision_dir
 		area.damage(hit_attack)
-		print("area.damage(attack) called for ", hit_attack)
+		print("area.damage(attack) called for ", area)

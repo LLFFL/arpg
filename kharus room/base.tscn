@@ -1,30 +1,17 @@
-[gd_scene load_steps=7 format=3 uid="uid://cqfgoae6a2efh"]
+[gd_scene load_steps=6 format=3 uid="uid://cqfgoae6a2efh"]
 
 [ext_resource type="Script" uid="uid://cjk8a2sb5gqfu" path="res://kharus room/base.tres.gd" id="1_7qqri"]
-[ext_resource type="Texture2D" uid="uid://b4217ao6guqxb" path="res://kharus room/Untitled.png" id="1_m1iq5"]
+[ext_resource type="PackedScene" uid="uid://duf5lox4m3wnm" path="res://christophe/Cores/core.tscn" id="2_wnjqk"]
 [ext_resource type="PackedScene" uid="uid://8q2xropak2sp" path="res://scenes/components/HurtBox.tscn" id="3_7qqri"]
 [ext_resource type="PackedScene" uid="uid://d0p2l0q3nrsls" path="res://scenes/components/StatsComponent.tscn" id="4_wnjqk"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wnjqk"]
-size = Vector2(98, 81.5)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1ntxk"]
-size = Vector2(98, 80)
+size = Vector2(92, 76)
 
 [node name="Base" type="Node2D"]
 script = ExtResource("1_7qqri")
 
-[node name="staticbody" type="StaticBody2D" parent="."]
-
-[node name="Sprite2D" type="Sprite2D" parent="staticbody"]
-position = Vector2(3.8147e-06, 0)
-scale = Vector2(0.228873, 0.235337)
-texture = ExtResource("1_m1iq5")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="staticbody"]
-visible = false
-position = Vector2(0, 0.25)
-shape = SubResource("RectangleShape2D_wnjqk")
+[node name="Core" parent="." instance=ExtResource("2_wnjqk")]
 
 [node name="ResourceTimer" type="Timer" parent="."]
 wait_time = 5.0
@@ -34,12 +21,21 @@ wait_time = 5.0
 [node name="SpawnLocation" type="Marker2D" parent="."]
 
 [node name="HurtBox" parent="." instance=ExtResource("3_7qqri")]
+position = Vector2(0, 12)
 
 [node name="CollisionShape2D" parent="HurtBox" index="0"]
+position = Vector2(0, -9)
 shape = SubResource("RectangleShape2D_1ntxk")
 
 [node name="StatsComponent" parent="." instance=ExtResource("4_wnjqk")]
 max_health = 10
+
+[node name="SpawnZone" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnZone"]
+
+[node name="TargetLocation" type="Marker2D" parent="."]
+position = Vector2(0, 25)
 
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="no_health" from="StatsComponent" to="." method="_on_stats_no_health"]
