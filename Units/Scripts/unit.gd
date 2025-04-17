@@ -22,6 +22,9 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 func _initialize(Ally: bool, base_position: Vector2):
+	var tween = create_tween()
+	self.scale = Vector2(0,0)
+	tween.tween_property(self,"scale",Vector2(1,1),0.2).set_trans(Tween.TRANS_BACK)
 	target_location = base_position
 	print(target_location)
 	if Ally:
