@@ -59,10 +59,6 @@ _data = {
 &"walk": SubResource("Animation_od3ae")
 }
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gr1ro"]
-radius = 4.0
-height = 14.0
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3v853"]
 radius = 8.0
 height = 24.0
@@ -132,6 +128,10 @@ _data = {
 radius = 6.0
 height = 22.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gr1ro"]
+radius = 4.0
+height = 14.0
+
 [node name="Unit" type="CharacterBody2D"]
 collision_layer = 0
 collision_mask = 0
@@ -165,11 +165,6 @@ shape = SubResource("RectangleShape2D_od3ae")
 libraries = {
 &"": SubResource("AnimationLibrary_alepv")
 }
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_gr1ro")
 
 [node name="HurtBox" parent="." instance=ExtResource("4_q5ue8")]
 visible = false
@@ -219,6 +214,10 @@ monitorable = false
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="SoftCollision"]
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_od3ae")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_gr1ro")
 
 [connection signal="invincibility_ended" from="HurtBox" to="." method="_on_hurt_box_invincibility_ended"]
 [connection signal="invincibility_started" from="HurtBox" to="." method="_on_hurt_box_invincibility_started"]

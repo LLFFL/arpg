@@ -5,9 +5,9 @@ extends Area2D
 @export var particle_scene: PackedScene 
 @export var particle_node_name := "TargetParticles"
 const PROJECTILE = preload("res://scenes/Projectile.tscn")
-var cast_timer := 0.0
+var cast_timer := 2.0
 var player: Node2D = null
-
+#var projectile_scene: PackedScene = preload("res://scenes/Projectile.tscn")
 #Create a function to track how long player has been in range,
 #if player in range > 3 sec, start meteorfall. ramp up partciles for those 3 secs
 
@@ -17,8 +17,7 @@ func _process(delta: float) -> void:
 		if cast_timer <= 0:
 			cast_spell()
 			cast_timer = cast_interval
-			
-var projectile_scene: PackedScene = preload("res://scenes/Projectile.tscn")
+
 func cast_spell() -> void:
 	#if spell_resource and player and is_instance_valid(player):
 		var projectile = PROJECTILE.instantiate() as Projectile
@@ -33,9 +32,8 @@ func cast_spell() -> void:
 		projectile.speed = spell_resource.speed
 		projectile.max_pierce = spell_resource.max_pierce
 		spell_resource.setup_particles(projectile)
-		projectile.collision_mask = (1 << 2) | (1 << 3)
-
 		get_tree().current_scene.add_child(projectile)
+		projectile.hit_box.set_collision_mask_value(3, true)
 
 
 func attach_particles():

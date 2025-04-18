@@ -1,13 +1,29 @@
-[gd_scene load_steps=4 format=3 uid="uid://dxw4ybjxdsnso"]
+[gd_scene load_steps=9 format=3 uid="uid://dxw4ybjxdsnso"]
 
 [ext_resource type="Script" uid="uid://bccm83vw7wdgl" path="res://Upgrades/Scripts/upgrade.gd" id="1_hgitt"]
 [ext_resource type="Texture2D" uid="uid://bmhu4xa7gfdrw" path="res://assets/Ninja Adventure - Asset Pack/Items/Potion/MilkPot.png" id="2_hj5gr"]
+[ext_resource type="Resource" uid="uid://bxdjwbipnh7" path="res://Upgrades/Spells/tempMovespeed.tres" id="2_klxme"]
+[ext_resource type="Script" uid="uid://ce71b8xkipfru" path="res://Upgrades/Scripts/Passive/Passive.gd" id="3_moly5"]
+[ext_resource type="Script" uid="uid://37p6crtj0x1h" path="res://Upgrades/Scripts/pickup.gd" id="4_diibn"]
+
+[sub_resource type="Resource" id="Resource_qyjxr"]
+script = ExtResource("3_moly5")
+trigger = ""
+effect = ExtResource("2_klxme")
+metadata/_custom_type_script = "uid://ce71b8xkipfru"
+
+[sub_resource type="Resource" id="Resource_mehhu"]
+script = ExtResource("4_diibn")
+is_passive = true
+passive_upgrade = SubResource("Resource_qyjxr")
+metadata/_custom_type_script = "uid://37p6crtj0x1h"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_50jy6"]
 
 [node name="Upgrade" type="Area2D"]
 collision_mask = 3
 script = ExtResource("1_hgitt")
+pickup = SubResource("Resource_mehhu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_50jy6")

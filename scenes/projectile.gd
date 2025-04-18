@@ -28,17 +28,19 @@ func _ready():
 	icon.scale.x = -1 if direction.x < 0 else 1
 	hit_box.hit_attack = Attack.new()
 	hit_box.hit_attack.damage = damage
+	#Timer to dequeue
+	
 	#Check stats of character for modifiers
 	
-	#Test to not kys
-	var parent := get_parent()
-	print(parent, "is the node")
-	if parent:
-		var hurtbox := parent.get_node_or_null("HurtBox")
-		if hurtbox and hurtbox is Area2D:
-			var ignore_layer: int = hurtbox.collision_layer
-			collision_mask &= ~ignore_layer
-
+	##Test to not kys
+	#var parent := get_parent()
+	#print(parent, "is the node")
+	#if parent:
+	#	var hurtbox := parent.get_node_or_null("HurtBox")
+	#	if hurtbox and hurtbox is Area2D:
+	#		var ignore_layer: int = hurtbox.collision_layer
+	#		collision_mask &= ~ignore_layer
+#
 
 func _physics_process(delta: float) -> void:
 	#direction = Vector2.RIGHT.rotated(angle)

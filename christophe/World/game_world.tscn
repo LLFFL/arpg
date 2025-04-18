@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://46ic5eq5d8qa"]
+[gd_scene load_steps=52 format=3 uid="uid://46ic5eq5d8qa"]
 
 [ext_resource type="Script" uid="uid://dx65t4op8hlv6" path="res://christophe/World/game_world.gd" id="1_6sg4h"]
 [ext_resource type="Shader" uid="uid://v1g385vie0ti" path="res://christophe/Shaders/SpriteColorMapped.gdshader" id="2_wjrrt"]
@@ -27,7 +27,6 @@
 [ext_resource type="PackedScene" uid="uid://cmetcwqculcdu" path="res://scenes/components/Camera.tscn" id="25_yyeeq"]
 [ext_resource type="PackedScene" uid="uid://b02g8s3f7cg4a" path="res://Player/Player.tscn" id="26_myr1t"]
 [ext_resource type="Shader" uid="uid://duocgilkxh3yq" path="res://christophe/Shaders/outline_magic.gdshader" id="27_gx05q"]
-[ext_resource type="PackedScene" uid="uid://duf5lox4m3wnm" path="res://christophe/Cores/core.tscn" id="28_0mng6"]
 [ext_resource type="Texture2D" uid="uid://c65n2wn3swyff" path="res://christophe/Cores/IceCore.png" id="29_oaplc"]
 [ext_resource type="Texture2D" uid="uid://rfoa8woep3d6" path="res://christophe/Cores/FireCore.png" id="30_lr5rs"]
 [ext_resource type="PackedScene" uid="uid://cqfgoae6a2efh" path="res://kharus room/base.tscn" id="31_wjrrt"]
@@ -377,22 +376,6 @@ position = Vector2(245, 91)
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../Camera2D")
 
-[node name="SnowCore" parent="." instance=ExtResource("28_0mng6")]
-visible = false
-position = Vector2(-1100, 57)
-collision_layer = 64
-Sprite = ExtResource("29_oaplc")
-Shadow = Color(0.1564, 0.26266, 0.46, 0.572549)
-HitColor = Color(0.709223, 0.897884, 0.951956, 1)
-
-[node name="FireCore" parent="." instance=ExtResource("28_0mng6")]
-visible = false
-position = Vector2(1088, 57)
-scale = Vector2(-1, 1)
-Sprite = ExtResource("30_lr5rs")
-Shadow = Color(0.64, 0.250453, 0.1088, 0.415686)
-HitColor = Color(1, 0.481315, 0.456286, 1)
-
 [node name="MapCollision" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MapCollision"]
@@ -474,7 +457,7 @@ position = Vector2(0, 61.888)
 shape = SubResource("RectangleShape2D_4gwui")
 
 [node name="Area2D" parent="BaseContainer/AllyBase" index="8"]
-position = Vector2(0, -476)
+position = Vector2(-8, -455)
 monitoring = false
 monitorable = false
 
