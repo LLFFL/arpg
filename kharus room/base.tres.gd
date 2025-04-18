@@ -2,8 +2,8 @@ extends Node2D
 
 var bases_dictionary: Dictionary
 var resource_rate: int = 10
-var minion_rate: int = 5
-var enemy_minions_per_wave: int = 4
+var minion_rate: int = 3
+var enemy_minions_per_wave: int = 2
 var minion_side_selection: Array # this array will serve as number of minions to spawn per wave
 const BAT = preload("res://scenes/Bat.tscn")
 const ENEMY = preload("res://Units/Unit.tscn")
@@ -28,10 +28,10 @@ func _ready():
 	# awkward scenario where to be detected and chase player and bat set their own personal collision to be detectable
 	$SpawnTimer.start(minion_rate)
 	if (MainBase):
-		minion_side_selection = [1,1] # keeping this away from the other bases since its not necessary to them
+		minion_side_selection = [2,2] # keeping this away from the other bases since its not necessary to them
 		minion_side_control.update(minion_side_selection)
 		#bat_spawn_location = Vector2(position.x, position.y - 50)
-		hurtbox.set_collision_layer_value(2, true) # 2 and 5 are for chase detection all else is hurt/hit
+		hurtbox.set_collision_layer_value(2, true)
 		hurtbox.set_collision_layer_value(3, true)
 		self.add_to_group('allied_base')
 		minion_side_control.left_press.connect(change_minion_wave_side_selection)
@@ -39,12 +39,12 @@ func _ready():
 		
 	if (LeftBase):
 		#bat_spawn_location = Vector2(position.x + 50, position.y)
-		#hurtbox.set_collision_layer_value(4, true) 
-		hurtbox.set_collision_layer_value(5, true)
+		hurtbox.set_collision_layer_value(4, true) 
+		#hurtbox.set_collision_layer_value(5, true)
 	if (RightBase):
 		#bat_spawn_location = Vector2(position.x - 50, position.y)
-		#hurtbox.set_collision_layer_value(4, true) 
-		hurtbox.set_collision_layer_value(5, true)
+		hurtbox.set_collision_layer_value(4, true) 
+		#hurtbox.set_collision_layer_value(5, true)
 		
 func initialize(bases_dictionaryy: Dictionary):
 	bases_dictionary = bases_dictionaryy # this is not a a typo
@@ -56,6 +56,7 @@ func spawn_minion(player_side:bool):
 			var _x = randi_range(_rect.position.x, _rect.position.x + _rect.size.x)
 			var _y = randi_range(_rect.position.y, _rect.position.y + _rect.size.y)
 			var unit = ENEMY.instantiate()
+			unit.ally = false
 			unit.global_position = spawn_zone.global_position + Vector2(_x, _y)
 			get_tree().current_scene.add_child(unit)
 			if (is_instance_valid(bases_dictionary['ally_base'])):
@@ -70,6 +71,7 @@ func spawn_minion(player_side:bool):
 			var _x = randi_range(_rect.position.x, _rect.position.x + _rect.size.x)
 			var _y = randi_range(_rect.position.y, _rect.position.y + _rect.size.y)
 			var unit = ENEMY.instantiate()
+			unit.ally = true
 			unit.global_position = spawn_zone.global_position + Vector2(_x, _y)
 			unit.add_to_group("allied_minions")
 			get_tree().current_scene.add_child(unit)
@@ -80,6 +82,7 @@ func spawn_minion(player_side:bool):
 			var _x = randi_range(_rect.position.x, _rect.position.x + _rect.size.x)
 			var _y = randi_range(_rect.position.y, _rect.position.y + _rect.size.y)
 			var unit = ENEMY.instantiate()
+			unit.ally = true
 			unit.global_position = spawn_zone.global_position + Vector2(_x, _y)
 			unit.add_to_group("allied_minions")
 			get_tree().current_scene.add_child(unit)

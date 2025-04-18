@@ -15,12 +15,6 @@ func init():
 	hit_box.damaged_enemy.connect(_on_enemy_damaged)
 
 func enter() -> void:
-	player.stats.upgrade_luck()
-	player.stats.upgrade_luck()
-	player.stats.upgrade_luck()
-	player.stats.upgrade_luck()
-	player.stats.upgrade_luck()
-	player.stats.add_gold(5)
 	hit_enemy = false
 	ability_started.emit(self)
 	set_attack_values()

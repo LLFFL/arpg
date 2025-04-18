@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://b02g8s3f7cg4a"]
+[gd_scene load_steps=44 format=3 uid="uid://b02g8s3f7cg4a"]
 
 [ext_resource type="Texture2D" uid="uid://dvk4an6m4e3j0" path="res://assets/Action RPG Resources/Shadows/MediumShadow.png" id="1_vlldt"]
 [ext_resource type="Shader" uid="uid://duocgilkxh3yq" path="res://christophe/Shaders/outline_magic.gdshader" id="3_8sa4y"]
@@ -20,6 +20,7 @@
 [ext_resource type="Script" uid="uid://b0lmlg7nhw4sa" path="res://Player/projectile_caller_2dPlayer.gd" id="18_xu7fl"]
 [ext_resource type="Script" uid="uid://dhkmxwdl7x2fl" path="res://addons/all_projectiles/scripts/resources/projectile_blueprint_2d.gd" id="19_xu7fl"]
 [ext_resource type="Resource" uid="uid://b5ibkl8qikgvj" path="res://Upgrades/Spells/spell2/01_magic_bolt.tres" id="20_78fhc"]
+[ext_resource type="PackedScene" uid="uid://buxuqmbof2cao" path="res://scenes/components/SoftCollision.tscn" id="21_roy6y"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3nb2p"]
 shader = ExtResource("3_8sa4y")
@@ -37,8 +38,8 @@ radius = 7.4
 height = 14.8
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lflfv"]
-radius = 5.0
-height = 16.0
+radius = 4.0
+height = 12.0
 
 [sub_resource type="Animation" id="Animation_d7xyo"]
 length = 0.001
@@ -99,8 +100,8 @@ _data = {
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mdl7e"]
-radius = 6.0
-height = 20.0
+radius = 7.0
+height = 22.0
 
 [sub_resource type="Animation" id="Animation_70d11"]
 length = 0.001
@@ -316,9 +317,14 @@ _data = {
 &"melee_spin": SubResource("Animation_roy6y")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_roy6y"]
+radius = 8.0
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 y_sort_enabled = true
 collision_layer = 2
+motion_mode = 1
+platform_floor_layers = 4294967040
 script = ExtResource("6_s1rgi")
 
 [node name="shadow" type="Sprite2D" parent="."]
@@ -347,8 +353,7 @@ shape = SubResource("CapsuleShape2D_dtn3s")
 disabled = true
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(0, -1)
+position = Vector2(0, 1)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_lflfv")
 
@@ -360,6 +365,7 @@ autoplay = "RESET"
 
 [node name="HurtBox" parent="." instance=ExtResource("7_p7tob")]
 unique_name_in_owner = true
+visible = false
 collision_layer = 4
 
 [node name="CollisionShape2D" parent="HurtBox" index="0"]
@@ -413,6 +419,7 @@ shape = SubResource("RectangleShape2D_3mea3")
 script = ExtResource("16_7v5gs")
 
 [node name="HitBox" parent="AbilityStateMachine/Spin" instance=ExtResource("6_5wa8t")]
+visible = false
 collision_mask = 8
 monitoring = false
 monitorable = false
@@ -454,13 +461,19 @@ offset_bottom = -28.0
 
 [node name="Stats" type="Node2D" parent="."]
 script = ExtResource("17_8sa4y")
-base_movement_speed = 300.0
+base_movement_speed = 80.0
 
 [node name="ProjectileCaller2D" type="Node2D" parent="."]
 top_level = true
 script = ExtResource("18_xu7fl")
 projectile_resources = Array[ExtResource("19_xu7fl")]([ExtResource("20_78fhc")])
 metadata/_custom_type_script = "uid://dr52doktfplel"
+
+[node name="SoftCollision" parent="." instance=ExtResource("21_roy6y")]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="SoftCollision"]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_roy6y")
 
 [connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]
 [connection signal="invincibility_ended" from="HurtBox" to="." method="_on_hurt_box_invincibility_ended"]

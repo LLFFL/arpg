@@ -1,15 +1,15 @@
 [gd_scene load_steps=26 format=3 uid="uid://pw1lxkwb6b05"]
 
 [ext_resource type="Texture2D" uid="uid://be1p5u0pmxj6y" path="res://christophe/Particles/magic.png" id="1_4vb1e"]
-[ext_resource type="Script" path="res://christophe/Particles/vfx.gd" id="1_5h743"]
-[ext_resource type="Script" path="res://christophe/Particles/casting_particles_demo.gd" id="1_5107x"]
+[ext_resource type="Script" uid="uid://bxjkeksfwvyyg" path="res://christophe/Particles/vfx.gd" id="1_5h743"]
+[ext_resource type="Script" uid="uid://611j8l03cgv8" path="res://christophe/Particles/casting_particles_demo.gd" id="1_5107x"]
 [ext_resource type="Texture2D" uid="uid://c4lneuscsdq11" path="res://christophe/Particles/fire.png" id="2_xp628"]
 [ext_resource type="Texture2D" uid="uid://bxjba5a3u6uwu" path="res://christophe/Particles/sword.png" id="3_j8bh7"]
 [ext_resource type="Texture2D" uid="uid://cli4e6dialltg" path="res://christophe/Particles/arrow_down.png" id="4_qqjtj"]
 [ext_resource type="Texture2D" uid="uid://b0xr1jgfkps6a" path="res://christophe/Particles/arrow_up.png" id="5_5mk3m"]
 [ext_resource type="PackedScene" uid="uid://b02g8s3f7cg4a" path="res://Player/Player.tscn" id="6_5sodd"]
 [ext_resource type="Texture2D" uid="uid://coicp6bmqn7b2" path="res://christophe/Particles/plus.png" id="7_5mk3m"]
-[ext_resource type="Script" path="res://christophe/Particles/stun_effect.gd" id="8_5sodd"]
+[ext_resource type="Script" uid="uid://dl1qneg7xv2h" path="res://christophe/Particles/stun_effect.gd" id="8_5sodd"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6v251"]
 blend_mode = 1

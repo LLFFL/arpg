@@ -353,7 +353,7 @@ shakerPreset = SubResource("Resource_u41f8")
 [node name="Camera2D" parent="." instance=ExtResource("25_yyeeq")]
 process_mode = 3
 y_sort_enabled = true
-position = Vector2(245, 91)
+position = Vector2(921, 84)
 zoom = Vector2(1.1, 1.1)
 limit_left = -1200
 limit_top = -134
@@ -375,7 +375,7 @@ texture = SubResource("CompressedTexture2D_ofr2a")
 
 [node name="Player" parent="." instance=ExtResource("26_myr1t")]
 material = SubResource("ShaderMaterial_cx7l3")
-position = Vector2(245, 91)
+position = Vector2(921, 84)
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../Camera2D")
@@ -514,11 +514,15 @@ HitColor = Color(1, 0.482353, 0.454902, 1)
 [node name="SpawnLocation" parent="BaseContainer/EnemyBaseR" index="3"]
 position = Vector2(-81, 27)
 
+[node name="SpawnZone" parent="BaseContainer/EnemyBaseR" index="6"]
+visible = false
+
 [node name="CollisionShape2D" parent="BaseContainer/EnemyBaseR/SpawnZone" index="0"]
 position = Vector2(-81, 34.5)
 shape = SubResource("RectangleShape2D_r41hh")
 
 [node name="Area2D" parent="BaseContainer/EnemyBaseR" index="8"]
+visible = false
 z_index = 2
 position = Vector2(1113, 66)
 scale = Vector2(1.36845, 0.967038)

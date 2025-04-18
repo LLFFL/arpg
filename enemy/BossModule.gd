@@ -14,6 +14,7 @@ var player: Node2D = null
 #Create a function to track how long player has been in range,
 #if player in range > 3 sec, start meteorfall. ramp up partciles for those 3 secs 
 func _process(delta: float) -> void:
+	player = null
 	if player and is_instance_valid(player):
 		cast_timer -= delta
 		cast_timer2 -= delta
