@@ -61,12 +61,12 @@ func body_monitor_callback(body_rid: RID, collider: Node2D, body_shape_index: in
 	if !validate_collision(body_rid, collider):
 		return
 
-	if collider.has_method(resource.on_hit_call):
-		var attack := Attack.new()
-		attack.damage = resource.damage
-		collider.call(resource.on_hit_call, attack)
 	#if collider.has_method(resource.on_hit_call):
-	#	collider.call(resource.on_hit_call, self)
+	#	var attack := Attack.new()
+	#	attack.damage = resource.damage
+	#	collider.call(resource.on_hit_call, attack)
+	if collider.has_method(resource.on_hit_call):
+		collider.call(resource.on_hit_call, self)
 	on_pierced(body_rid)
 
 
