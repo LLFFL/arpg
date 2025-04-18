@@ -29,7 +29,7 @@
 [ext_resource type="PackedScene" uid="uid://b02g8s3f7cg4a" path="res://Player/Player.tscn" id="26_myr1t"]
 [ext_resource type="Shader" uid="uid://duocgilkxh3yq" path="res://christophe/Shaders/outline_magic.gdshader" id="27_gx05q"]
 [ext_resource type="Script" uid="uid://cxgmjqfrfwelx" path="res://addons/shaker/data/Vector2/ShakerTypeRandom2D.gd" id="27_picea"]
-[ext_resource type="Script" path="res://christophe/World/button.gd" id="28_6rwpi"]
+[ext_resource type="Script" uid="uid://b1m3jr6g016nr" path="res://christophe/World/button.gd" id="28_6rwpi"]
 [ext_resource type="Texture2D" uid="uid://c4vofs01ewlxx" path="res://assets/Ninja Adventure - Asset Pack/Ui/Icon/Spell/LuckUpgrade.png" id="29_dq7a4"]
 [ext_resource type="Texture2D" uid="uid://c65n2wn3swyff" path="res://christophe/Cores/IceCore.png" id="29_oaplc"]
 [ext_resource type="Texture2D" uid="uid://cvq2p33iqxt2i" path="res://assets/Ninja Adventure - Asset Pack/Ui/Icon/Spell/AttackUpgrade.png" id="29_r41hh"]

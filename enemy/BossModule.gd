@@ -14,7 +14,7 @@ var player: Node2D = null
 #Create a function to track how long player has been in range,
 #if player in range > 3 sec, start meteorfall. ramp up partciles for those 3 secs 
 func _process(delta: float) -> void:
-	player = null
+	#player = null
 	if player and is_instance_valid(player):
 		cast_timer -= delta
 		cast_timer2 -= delta
@@ -64,6 +64,7 @@ func remove_particles():
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
+		print("Player in area")
 		player = body
 		attach_particles()
 			
@@ -75,6 +76,7 @@ func _on_body_exited(body: Node2D) -> void:
 
 func _on_area_entered(area: Node2D) -> void:
 	if area.is_in_group("player"):
+		print("Player in area")
 		player = area
 		attach_particles()
 

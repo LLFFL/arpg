@@ -17,7 +17,7 @@
 [ext_resource type="Script" uid="uid://cx24h07ehky27" path="res://Player/Abilities/Melee/melee_spin_ability.gd" id="16_7v5gs"]
 [ext_resource type="Script" uid="uid://cipn6oewkjjas" path="res://Player/Abilities/Melee/melee2_ability_state.gd" id="16_8sa4y"]
 [ext_resource type="Script" uid="uid://cn8atuv3a4h1q" path="res://scenes/components/Stats/player_stats.gd" id="17_8sa4y"]
-[ext_resource type="Script" path="res://Player/projectile_caller_2dPlayer.gd" id="18_xu7fl"]
+[ext_resource type="Script" uid="uid://b0lmlg7nhw4sa" path="res://Player/projectile_caller_2dPlayer.gd" id="18_xu7fl"]
 [ext_resource type="Script" uid="uid://dhkmxwdl7x2fl" path="res://addons/all_projectiles/scripts/resources/projectile_blueprint_2d.gd" id="19_xu7fl"]
 [ext_resource type="Resource" uid="uid://b5ibkl8qikgvj" path="res://Upgrades/Spells/spell2/01_magic_bolt.tres" id="20_78fhc"]
 [ext_resource type="PackedScene" uid="uid://buxuqmbof2cao" path="res://scenes/components/SoftCollision.tscn" id="21_roy6y"]
