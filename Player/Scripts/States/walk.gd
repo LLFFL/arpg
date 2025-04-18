@@ -2,11 +2,14 @@ class_name State_Walk extends State
 
 @onready var idle: State = $"../Idle"
 
+
 func enter() -> void:
+	state_machine.ability_state_machine.ability_ended.connect(update_anim)
 	player.update_animation("run")
 
 
 func exit() -> void:
+	state_machine.ability_state_machine.ability_ended.disconnect(update_anim)
 	pass
 
 func process( _delta: float ) -> State:

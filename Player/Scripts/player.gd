@@ -14,6 +14,7 @@ var animation_queue: String = ""
 @onready var hurtbox = %HurtBox 
 @onready var label: Label = $Label
 var ability_active: bool = false
+@onready var soft_collision: Area2D = $SoftCollision
 
 @onready var move_state_machine: PlayerMoveStateMachine = $MoveStateMachine
 @onready var ability_state_machine: AbilityStateMachine = $AbilityStateMachine
@@ -45,6 +46,7 @@ func _process(delta: float) -> void:
 		Input.get_axis("left", "right"),
 		Input.get_axis("up", "down")
 	).normalized()
+	direction.y *= 0.8
 	var mouse_pos: Vector2 = get_global_mouse_position()
 	mouse_direction = global_position.direction_to(mouse_pos).normalized()
 	
