@@ -7,7 +7,7 @@
 script = ExtResource("1_442su")
 proj_type = 2
 size = 1.0
-lifetime = 3.0
+lifetime = 4.5
 linear_speed = 250.0
 radius = 50
 collision_layer = 0

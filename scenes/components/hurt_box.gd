@@ -4,6 +4,7 @@ const HitEffect = preload("res://assets/Action RPG Resources/Effects/HitEffect.t
 signal invincibility_started
 signal invincibility_ended
 signal damaged
+signal damaged2
 @onready var timer = $Timer
 @onready var collisionShape = $CollisionShape2D
 
@@ -46,16 +47,10 @@ func _on_invincibility_ended() -> void:
 #take damage function, to call parent and do damage
 #Added bat to layer 4 so its seen by projectile on layer 4
 
-#func damage(attack: Attack) -> void:
-#	print("Player hit")
-#	damaged.emit(attack)
+func damage(attack: Attack) -> void:
+	print("Player hit")
+	damaged.emit(attack)
 
-func damage(arg):
-	if arg is Attack:
-		var dmg = arg.damage
-		damaged.emit(dmg)
-	elif arg is Projectile2D:
-		var dmg = arg.resource.damage
-		damaged.emit(dmg)
-	else:
-		return
+func damage2(projectile: InstancedProjectile2D):
+
+	damaged2.emit(projectile.resource.damage)
