@@ -428,6 +428,14 @@ grow_vertical = 2
 pivot_offset = Vector2(113.5, 20)
 alignment = 1
 
+[node name="Button" type="Button" parent="ShopUi/HBoxContainer"]
+layout_mode = 2
+text = "Item 3"
+icon_alignment = 1
+vertical_icon_alignment = 0
+script = ExtResource("28_6rwpi")
+icon_path = ExtResource("29_r41hh")
+
 [node name="Button2" type="Button" parent="ShopUi/HBoxContainer"]
 layout_mode = 2
 text = "Item 1"
@@ -445,14 +453,6 @@ script = ExtResource("28_6rwpi")
 upgrade_id = "Defence_boost"
 icon_path = ExtResource("30_n5cly")
 upgrade_type = 2
-
-[node name="Button" type="Button" parent="ShopUi/HBoxContainer"]
-layout_mode = 2
-text = "Item 3"
-icon_alignment = 1
-vertical_icon_alignment = 0
-script = ExtResource("28_6rwpi")
-icon_path = ExtResource("29_r41hh")
 
 [node name="Button4" type="Button" parent="ShopUi/HBoxContainer"]
 layout_mode = 2
