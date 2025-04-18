@@ -70,7 +70,7 @@ func fire_proj():
 	projectile = player.stats.projectile_scene.instantiate() as Projectile
 	projectile.spell = SLASH
 	projectile.angle = Vector2.LEFT.angle() if player.get_local_mouse_position().x < 0 else Vector2.RIGHT.angle()
-	projectile.global_position = player.sprite_2d.global_position
+	projectile.global_position = %ProjectilePosition.global_position
 	get_tree().root.add_child(projectile)
 	pass
 
