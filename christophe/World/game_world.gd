@@ -5,7 +5,6 @@ extends Node2D
 ## And the player instance in this scene uses a material that adds an outline
 
 
-
 @export var player:Player
 @export var mountains_gradient:Gradient
 @export var sky_gradient:Gradient
@@ -64,7 +63,7 @@ func _process(delta):
 	# Poor and lazy optimisation in case
 	else:
 		%Portal.show()
-		
+	
 		
 	
 	# Quick n dirty way to check if the player is in or out the portal
@@ -74,7 +73,7 @@ func _process(delta):
 		close_portal()
 	
 #func _input(event):
-#	if event.is_action_pressed("ui_select") :
+	#if event.is_action_pressed("ui_select") :
 #		$SnowCore.play_hit_animation()
 #		$FireCore.play_hit_animation()
 

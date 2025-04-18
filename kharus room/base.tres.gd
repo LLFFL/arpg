@@ -14,6 +14,7 @@ const ENEMY = preload("res://Units/Unit.tscn")
 @export var MainBase: bool
 @export var LeftBase:bool
 @export var RightBase:bool
+@export var CameraShaker:ShakerComponent2D
 @onready var minion_side_control = %MinionSideControl
 const EnemyDeathEffect = preload("res://assets/Action RPG Resources/Effects/EnemyDeathEffect.tscn")
 @onready var spawn_zone: CollisionShape2D = $SpawnZone/CollisionShape2D
@@ -21,6 +22,7 @@ const EnemyDeathEffect = preload("res://assets/Action RPG Resources/Effects/Enem
 var target_location: Vector2
 var base1: bool = true
 var base2: bool = true
+
 
 func _ready():
 	target_location = target_marker.global_position
@@ -39,12 +41,12 @@ func _ready():
 		
 	if (LeftBase):
 		#bat_spawn_location = Vector2(position.x + 50, position.y)
-		#hurtbox.set_collision_layer_value(4, true) 
-		hurtbox.set_collision_layer_value(5, true)
+		hurtbox.set_collision_layer_value(4, true) 
+		#hurtbox.set_collision_layer_value(5, true)
 	if (RightBase):
 		#bat_spawn_location = Vector2(position.x - 50, position.y)
-		#hurtbox.set_collision_layer_value(4, true) 
-		hurtbox.set_collision_layer_value(5, true)
+		hurtbox.set_collision_layer_value(4, true) 
+		#hurtbox.set_collision_layer_value(5, true)
 		
 func initialize(bases_dictionaryy: Dictionary):
 	bases_dictionary = bases_dictionaryy # this is not a a typo
@@ -91,6 +93,11 @@ func take_damage(attack: Attack) -> void:
 	#print(attack.damage)
 	stats.health -= attack.damage
 	#print(stats.health)
+	$Core.play_hit_animation()
+	CameraShaker.play_shake()
+	#get_viewport().get_camera_2d().get_node("ShakerComponent2D").play_shake()
+	#print(camera_shaker)
+	#amera_shaker.play_shake()
 	hurtbox.start_invincibility(0.2)
 	hurtbox.create_hit_effect()
 

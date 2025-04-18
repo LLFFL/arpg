@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://46ic5eq5d8qa"]
+[gd_scene load_steps=61 format=3 uid="uid://46ic5eq5d8qa"]
 
 [ext_resource type="Script" uid="uid://dx65t4op8hlv6" path="res://christophe/World/game_world.gd" id="1_6sg4h"]
 [ext_resource type="Shader" uid="uid://v1g385vie0ti" path="res://christophe/Shaders/SpriteColorMapped.gdshader" id="2_wjrrt"]
@@ -28,6 +28,7 @@
 [ext_resource type="PackedScene" uid="uid://cmetcwqculcdu" path="res://scenes/components/Camera.tscn" id="25_yyeeq"]
 [ext_resource type="PackedScene" uid="uid://b02g8s3f7cg4a" path="res://Player/Player.tscn" id="26_myr1t"]
 [ext_resource type="Shader" uid="uid://duocgilkxh3yq" path="res://christophe/Shaders/outline_magic.gdshader" id="27_gx05q"]
+[ext_resource type="Script" uid="uid://cxgmjqfrfwelx" path="res://addons/shaker/data/Vector2/ShakerTypeRandom2D.gd" id="27_picea"]
 [ext_resource type="Script" path="res://christophe/World/button.gd" id="28_6rwpi"]
 [ext_resource type="Texture2D" uid="uid://c4vofs01ewlxx" path="res://assets/Ninja Adventure - Asset Pack/Ui/Icon/Spell/LuckUpgrade.png" id="29_dq7a4"]
 [ext_resource type="Texture2D" uid="uid://c65n2wn3swyff" path="res://christophe/Cores/IceCore.png" id="29_oaplc"]
@@ -120,6 +121,29 @@ ScaleShake = Array[ExtResource("21_16i4r")]([SubResource("Resource_tnyc7")])
 bake_internal = 64
 __follow_timeline = false
 metadata/_custom_type_script = "uid://gi81blw5c6j8"
+
+[sub_resource type="Resource" id="Resource_y7jpt"]
+script = ExtResource("27_picea")
+seed = 0
+amplitude = Vector2(1, 1)
+offset = Vector2(0, 0)
+BlendingMode = 0
+fade_in = 0.0
+fade_out = 0.0
+start_percent = 0.0
+end_percent = 1.0
+_temp_graph = false
+bake_internal = 64
+metadata/_custom_type_script = "uid://cxgmjqfrfwelx"
+
+[sub_resource type="Resource" id="Resource_7856v"]
+script = ExtResource("24_bl0if")
+PositionShake = Array[ExtResource("21_16i4r")]([SubResource("Resource_y7jpt")])
+RotationShake = Array[ExtResource("22_8275v")]([])
+ScaleShake = Array[ExtResource("21_16i4r")]([])
+bake_internal = 64
+__follow_timeline = false
+metadata/_custom_type_script = "uid://cfh63mvp713jr"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ofr2a"]
 
@@ -363,16 +387,30 @@ fade_in = 0.00837321
 fade_out = 0.0078125
 shakerPreset = SubResource("Resource_u41f8")
 
-[node name="Camera2D" parent="." instance=ExtResource("25_yyeeq")]
+[node name="CameraHandler" type="Node2D" parent="."]
+position = Vector2(245, 91)
+
+[node name="Camera2D" parent="CameraHandler" instance=ExtResource("25_yyeeq")]
 process_mode = 3
 y_sort_enabled = true
-position = Vector2(245, 91)
+position = Vector2(1.66893e-06, 0)
+scale = Vector2(1, 0.999999)
 zoom = Vector2(1.1, 1.1)
 limit_left = -1200
 limit_top = -134
 limit_right = 1200
 limit_bottom = 134
 limit_smoothed = true
+
+[node name="ShakerComponent2D" type="Node2D" parent="CameraHandler/Camera2D" node_paths=PackedStringArray("Targets")]
+script = ExtResource("20_nk3or")
+custom_target = true
+Targets = [NodePath("../../../Map")]
+duration = 0.4
+fade_in = 1e-05
+fade_out = 0.148651
+shakerPreset = SubResource("Resource_7856v")
+metadata/_custom_type_script = "uid://b0fgc7bwsfxmw"
 
 [node name="CloudShadows" type="Parallax2D" parent="."]
 scroll_offset = Vector2(-222, 49)
@@ -391,7 +429,7 @@ material = SubResource("ShaderMaterial_cx7l3")
 position = Vector2(245, 91)
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
-remote_path = NodePath("../../Camera2D")
+remote_path = NodePath("../../CameraHandler")
 
 [node name="MapCollision" type="StaticBody2D" parent="."]
 visible = false
@@ -511,9 +549,10 @@ icon_path = ExtResource("29_r41hh")
 [node name="BaseContainer" type="Node" parent="."]
 unique_name_in_owner = true
 
-[node name="AllyBase" parent="BaseContainer" instance=ExtResource("31_wjrrt")]
+[node name="AllyBase" parent="BaseContainer" node_paths=PackedStringArray("CameraShaker") instance=ExtResource("31_wjrrt")]
 position = Vector2(2, -32)
 MainBase = true
+CameraShaker = NodePath("../../CameraHandler/Camera2D/ShakerComponent2D")
 
 [node name="Core" parent="BaseContainer/AllyBase" index="0"]
 collision_layer = 0
@@ -543,10 +582,11 @@ monitorable = false
 [node name="MinionSideControl" parent="BaseContainer/AllyBase/CanvasLayer" instance=ExtResource("32_4gwui")]
 unique_name_in_owner = true
 
-[node name="EnemyBaseL" parent="BaseContainer" instance=ExtResource("31_wjrrt")]
+[node name="EnemyBaseL" parent="BaseContainer" node_paths=PackedStringArray("CameraShaker") instance=ExtResource("31_wjrrt")]
 z_index = -1
 position = Vector2(-1087, 57)
 LeftBase = true
+CameraShaker = NodePath("../../CameraHandler/Camera2D/ShakerComponent2D")
 
 [node name="Core" parent="BaseContainer/EnemyBaseL" index="0"]
 Sprite = ExtResource("29_oaplc")
@@ -571,9 +611,10 @@ rotation = -3.1407
 scale = Vector2(0.546287, 0.884165)
 skew = -0.000553012
 
-[node name="EnemyBaseR" parent="BaseContainer" instance=ExtResource("31_wjrrt")]
+[node name="EnemyBaseR" parent="BaseContainer" node_paths=PackedStringArray("CameraShaker") instance=ExtResource("31_wjrrt")]
 position = Vector2(1110, 61)
 RightBase = true
+CameraShaker = NodePath("../../CameraHandler/Camera2D/ShakerComponent2D")
 
 [node name="Core" parent="BaseContainer/EnemyBaseR" index="0"]
 Sprite = ExtResource("30_lr5rs")

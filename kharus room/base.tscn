@@ -29,7 +29,7 @@ position = Vector2(0, -9)
 shape = SubResource("RectangleShape2D_1ntxk")
 
 [node name="StatsComponent" parent="." instance=ExtResource("4_wnjqk")]
-max_health = 10
+max_health = 9000000
 
 [node name="SpawnZone" type="Area2D" parent="."]
 

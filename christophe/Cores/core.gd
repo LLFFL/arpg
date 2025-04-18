@@ -14,6 +14,7 @@ func _ready():
 
 
 func play_hit_animation():
+
 	if _dmg_tween:
 		#$CoreSprite.modulat
 		_dmg_tween.kill()
@@ -29,7 +30,6 @@ func play_hit_animation():
 	_dmg_tween.parallel().tween_property($CoreSprite,"scale:y",1,0.05).set_ease(Tween.EASE_IN)
 	_dmg_tween.parallel().tween_property($CoreSprite,"position:y",32,0.2).set_ease(Tween.EASE_OUT)
 	
-	#$ShakerHit.play_shake()
 	
 	
 	
