@@ -18,7 +18,7 @@ var stunned: bool = false
 signal dmg_status_changed(active: bool, buff: bool)
 var dmg_timer: Timer
 
-#base dmg of the player
+#base dmg of the Unit
 var base_damage: float = 10.0
 
 #damage of a ability/anthing that has it's own dmg

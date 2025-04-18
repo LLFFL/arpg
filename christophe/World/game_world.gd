@@ -73,10 +73,10 @@ func _process(delta):
 	if portal_is_open and  player.global_position.distance_to(%Portal.global_position)>100:
 		close_portal()
 	
-func _input(event):
-	if event.is_action_pressed("ui_select") :
-		$SnowCore.play_hit_animation()
-		$FireCore.play_hit_animation()
+#func _input(event):
+#	if event.is_action_pressed("ui_select") :
+#		$SnowCore.play_hit_animation()
+#		$FireCore.play_hit_animation()
 
 
 ## Open the Portal and show shop ui

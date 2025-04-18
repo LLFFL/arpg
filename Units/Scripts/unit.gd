@@ -52,13 +52,20 @@ func update_anim(action: String):
 func _physics_process(delta: float) -> void:
 	move_and_slide()
 
-func damage(attack: Attack) -> void:
-	stats.health -= attack.damage
-	hurt_box.start_invincibility(0.4)
-	hurt_box.create_hit_effect()
-	var _direction = (global_position - get_global_mouse_position()).normalized()
-	velocity = attack.attack_direction * 240
-
+func damage(arg) -> void:
+	if arg is Attack:
+		stats.health -= arg.damage
+		hurt_box.start_invincibility(0.4)
+		hurt_box.create_hit_effect()
+		var _direction = (global_position - get_global_mouse_position()).normalized()
+		velocity = arg.attack_direction * 240
+	if arg is Projectile2D:
+		var dmg = arg.resource.damage
+		stats.health -= dmg
+		hurt_box.start_invincibility(0.4)
+		hurt_box.create_hit_effect()
+		var _direction = (global_position - get_global_mouse_position()).normalized()
+		#velocity = dmg.attack_direction * 240
 func _on_no_health():
 	queue_free()
 

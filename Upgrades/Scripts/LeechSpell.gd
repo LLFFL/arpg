@@ -29,7 +29,7 @@ func apply_effects(_caster: Node, _target: Node = null) -> void:
 					print("player healed", attack.damage)
 					if FIREBALL_HEAD:
 						var fx1 = FIREBALL_HEAD.instantiate()
-						fx1.global_position = minion.get_parent().global_position
+						fx1.global_position = minion.global_position
 						get_tree().current_scene.add_child(fx1)
 						if fx1.has_method("restart"):
 							fx1.restart()

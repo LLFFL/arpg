@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="ProjectileBlueprint2D" load_steps=3 format=3 uid="uid://dpxs7aclyx0k"]
+
+[ext_resource type="PackedScene" uid="uid://3g38d4nainky" path="res://addons/all_projectiles/demos/scenes/projectiles/05_the_pursuer.tscn" id="1_7762j"]
+[ext_resource type="Script" uid="uid://dhkmxwdl7x2fl" path="res://addons/all_projectiles/scripts/resources/projectile_blueprint_2d.gd" id="1_qiu26"]
+
+[resource]
+script = ExtResource("1_qiu26")
+proj_type = 2
+size = 1.0
+lifetime = 6.0
+linear_speed = 1950.0
+radius = 50
+collision_layer = 0
+collision_mask = 0
+on_hit_call = "damage"
+area_monitoreable = true
+collision_path = "Collision"
+instance = ExtResource("1_7762j")
+damage = 1
+pierce = 32
+look_at = true
+seeking = true
+seeking_mask = 2
+angular_speed = 180.0
+after_hit_angular_speed = 1800.0
+cast_radius = 1000.0
+lock_to_target = false
+allow_rehit = true
+rehit_cooldown = 0.15
+instances = 1
+proj_directionality = 2
+proj_spread = 0
+angular_spread = 0.0
+vertical_spread = 0.0
+randomize_positions = false
+linear_deviation = 0.0
