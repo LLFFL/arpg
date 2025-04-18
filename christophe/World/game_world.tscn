@@ -254,6 +254,7 @@ scale_amount_min = 0.2
 color_ramp = SubResource("Gradient_15v85")
 
 [node name="PlayerCore" type="Sprite2D" parent="Map"]
+visible = false
 position = Vector2(0, -14)
 texture = ExtResource("7_4gwui")
 
@@ -556,11 +557,16 @@ CameraShaker = NodePath("../../CameraHandler/Camera2D/ShakerComponent2D")
 
 [node name="Core" parent="BaseContainer/AllyBase" index="0"]
 collision_layer = 0
+Sprite = ExtResource("7_4gwui")
 Shadow = Color(0, 0, 0, 0)
-HitColor = Color(0, 0, 0, 0)
+HitColor = Color(0.581137, 0.314854, 0.332268, 1)
+is_player_core = true
 
 [node name="SpawnLocation" parent="BaseContainer/AllyBase" index="3"]
 position = Vector2(-2, 80)
+
+[node name="CollisionShape2D" parent="BaseContainer/AllyBase/HurtBox" index="0"]
+position = Vector2(3, 70.5)
 
 [node name="SpawnZone" parent="BaseContainer/AllyBase" index="6"]
 scale = Vector2(0.984707, 1.9713)
@@ -570,7 +576,7 @@ position = Vector2(0, 61.888)
 shape = SubResource("RectangleShape2D_4gwui")
 
 [node name="TargetLocation" parent="BaseContainer/AllyBase" index="7"]
-position = Vector2(-2, 114)
+position = Vector2(-2, 93)
 
 [node name="Area2D" parent="BaseContainer/AllyBase" index="8"]
 position = Vector2(-8, -455)
@@ -583,7 +589,6 @@ monitorable = false
 unique_name_in_owner = true
 
 [node name="EnemyBaseL" parent="BaseContainer" node_paths=PackedStringArray("CameraShaker") instance=ExtResource("31_wjrrt")]
-z_index = -1
 position = Vector2(-1087, 57)
 LeftBase = true
 CameraShaker = NodePath("../../CameraHandler/Camera2D/ShakerComponent2D")
@@ -612,6 +617,7 @@ scale = Vector2(0.546287, 0.884165)
 skew = -0.000553012
 
 [node name="EnemyBaseR" parent="BaseContainer" node_paths=PackedStringArray("CameraShaker") instance=ExtResource("31_wjrrt")]
+y_sort_enabled = true
 position = Vector2(1110, 61)
 RightBase = true
 CameraShaker = NodePath("../../CameraHandler/Camera2D/ShakerComponent2D")
