@@ -9,12 +9,13 @@ func apply_effects(_caster: Node, _target: Node = null) -> void:
 	var query := PhysicsPointQueryParameters2D.new()
 	query.position = cursor_pos
 	query.collide_with_areas = true
-	query.collide_with_bodies = true
-	query.collision_mask = 3  #SET ALLY MINION COLLISION LAYER HERE
-	var result = space_state.intersect_point(query)
+	query.collide_with_bodies = false
+	query.collision_mask = 4  #SET ALLY MINION COLLISION LAYER HERE
+	var result = space_state.intersect_point(query, 10)
 	print("leech cast")
 	for hit in result:
-			var minion = hit.collider
+		if hit.collider is Area2D:
+			var minion = hit.collider.get_parent()
 			if minion is Unit:
 				if minion.has_method("damage"):
 					var attack := Attack.new()
