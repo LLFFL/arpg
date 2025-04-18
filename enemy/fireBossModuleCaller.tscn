@@ -1,0 +1,11 @@
+[gd_scene load_steps=5 format=3 uid="uid://c8dh1t5f7r5i4"]
+
+[ext_resource type="Script" uid="uid://dr52doktfplel" path="res://addons/all_projectiles/scripts/main/projectile_caller_2d.gd" id="1_yw7wj"]
+[ext_resource type="Script" uid="uid://dhkmxwdl7x2fl" path="res://addons/all_projectiles/scripts/resources/projectile_blueprint_2d.gd" id="2_ckrki"]
+[ext_resource type="Resource" uid="uid://bguorcmtk2rod" path="res://addons/all_projectiles/demos/resources/projectiles/12_burning_skies.tres" id="3_2jnop"]
+[ext_resource type="Resource" uid="uid://bynl5cahtaysk" path="res://addons/all_projectiles/demos/resources/projectiles/14_mega_laser.tres" id="4_8rtiq"]
+
+[node name="ProjectileCaller2D" type="Node2D"]
+script = ExtResource("1_yw7wj")
+projectile_resources = Array[ExtResource("2_ckrki")]([ExtResource("3_2jnop"), ExtResource("4_8rtiq"), null])
+metadata/_custom_type_script = "uid://dr52doktfplel"

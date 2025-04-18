@@ -1,39 +1,51 @@
 extends Area2D
+@onready var projectile_caller: ProjectileCaller2D = $ProjectileCaller2D
 
 @export var spell_resource: Spell 
-@export var cast_interval := 1.5  
+@export var cast_interval := 1.5
+@export var cast_interval2 := 10.0  
 @export var particle_scene: PackedScene 
 @export var particle_node_name := "TargetParticles"
 const PROJECTILE = preload("res://scenes/Projectile.tscn")
-var cast_timer := 2.0
+var cast_timer := 0.3
+var cast_timer2 := 5.0
 var player: Node2D = null
 #var projectile_scene: PackedScene = preload("res://scenes/Projectile.tscn")
 #Create a function to track how long player has been in range,
-#if player in range > 3 sec, start meteorfall. ramp up partciles for those 3 secs
-
+#if player in range > 3 sec, start meteorfall. ramp up partciles for those 3 secs 
 func _process(delta: float) -> void:
 	if player and is_instance_valid(player):
 		cast_timer -= delta
+		cast_timer2 -= delta
 		if cast_timer <= 0:
 			cast_spell()
 			cast_timer = cast_interval
+		if cast_timer2 <= 0:
+			cast_spell2()
+			cast_timer2 = cast_interval2
 
 func cast_spell() -> void:
+	var spawn_pos := position
+	spawn_pos.y -= 300 
+	projectile_caller.request_projectile(0, spawn_pos, player.get_global_position())
+
+func cast_spell2() -> void:
+	projectile_caller.request_projectile(1, position, player.get_global_position())
 	#if spell_resource and player and is_instance_valid(player):
-		var projectile = PROJECTILE.instantiate() as Projectile
-		projectile.spell = spell_resource
-		#Directions
-		projectile.global_position = global_position
-		var direction = (player.global_position - global_position).normalized()
-		projectile.angle = direction.angle()
-		projectile.direction = direction
-		#Stats
-		projectile.damage = spell_resource.damage
-		projectile.speed = spell_resource.speed
-		projectile.max_pierce = spell_resource.max_pierce
-		spell_resource.setup_particles(projectile)
-		get_tree().current_scene.add_child(projectile)
-		projectile.hit_box.set_collision_mask_value(3, true)
+	#var projectile = PROJECTILE.instantiate() as Projectile
+	#projectile.spell = spell_resource
+	##Directions
+	#projectile.global_position = global_position
+	#var direction = (player.global_position - global_position).normalized()
+	#projectile.angle = direction.angle()
+	#projectile.direction = direction
+	##Stats
+	#projectile.damage = spell_resource.damage
+	#projectile.speed = spell_resource.speed
+	#projectile.max_pierce = spell_resource.max_pierce
+	#spell_resource.setup_particles(projectile)
+	#get_tree().current_scene.add_child(projectile)
+	#projectile.hit_box.set_collision_mask_value(3, true)
 
 
 func attach_particles():

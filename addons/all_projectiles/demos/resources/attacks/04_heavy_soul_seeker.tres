@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="AttackBlueprint" load_steps=5 format=3 uid="uid://ccxqklvbfat73"]
+
+[ext_resource type="Script" uid="uid://ddrcv1svwbx38" path="res://addons/all_projectiles/scripts/resources/attack_blueprint_2d.gd" id="1_3gnek"]
+[ext_resource type="PackedScene" uid="uid://basd4bj2brqj8" path="res://addons/all_projectiles/demos/scenes/particles/blast_centered_big.tscn" id="1_dvr4d"]
+[ext_resource type="AudioStream" uid="uid://cnj832wdp2bge" path="res://addons/all_projectiles/demos/audio/breath_01-81144.mp3" id="2_j3tu5"]
+[ext_resource type="PackedScene" uid="uid://cm6q5lf126lur" path="res://addons/all_projectiles/demos/scenes/particles/trail_bubbling_pink_2.tscn" id="4_ho664"]
+
+[resource]
+script = ExtResource("1_3gnek")
+attack_anticipate_time = 0.167
+attack_duration_time = 0.083
+attack_recovery_time = 0.251
+attack_offset = Vector2(11, -86)
+direction_override = Vector2(0, 0)
+attack_charge_time = 0.334
+charge_type = 2
+charge_trigger = 0
+on_change_transition_actions = 2
+on_update_transition_actions = 27
+charging_actions = 0
+anticipate_actions = 0
+execute_actions = 0
+recovery_actions = 0
+trail = ExtResource("4_ho664")
+blast = ExtResource("1_dvr4d")
+charge_audio = ExtResource("2_j3tu5")
+charge_db = -3.0
+charge_heastart = 0.0
+release_db = 0.0
+release_heastart = 0.0

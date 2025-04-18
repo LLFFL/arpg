@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://46ic5eq5d8qa"]
+[gd_scene load_steps=53 format=3 uid="uid://46ic5eq5d8qa"]
 
 [ext_resource type="Script" uid="uid://dx65t4op8hlv6" path="res://christophe/World/game_world.gd" id="1_6sg4h"]
 [ext_resource type="Shader" uid="uid://v1g385vie0ti" path="res://christophe/Shaders/SpriteColorMapped.gdshader" id="2_wjrrt"]
@@ -31,6 +31,7 @@
 [ext_resource type="Texture2D" uid="uid://rfoa8woep3d6" path="res://christophe/Cores/FireCore.png" id="30_lr5rs"]
 [ext_resource type="PackedScene" uid="uid://cqfgoae6a2efh" path="res://kharus room/base.tscn" id="31_wjrrt"]
 [ext_resource type="PackedScene" uid="uid://cghe5cfsmt5t8" path="res://MinionSideControlUI.tscn" id="32_4gwui"]
+[ext_resource type="PackedScene" uid="uid://c8dh1t5f7r5i4" path="res://enemy/fireBossModuleCaller.tscn" id="32_6rwpi"]
 
 [sub_resource type="Gradient" id="Gradient_3fx2f"]
 offsets = PackedFloat32Array(0.00332226, 0.533546, 1)
@@ -387,6 +388,7 @@ polygon = PackedVector2Array(-1201, -151, -1200, 135, -1107, 134, -1137, 116, -1
 
 [node name="ShopUi" type="Node2D" parent="."]
 unique_name_in_owner = true
+visible = false
 z_index = 4
 
 [node name="ShopLabel" type="Label" parent="ShopUi"]
@@ -438,7 +440,7 @@ text = "Item 3"
 unique_name_in_owner = true
 
 [node name="AllyBase" parent="BaseContainer" instance=ExtResource("31_wjrrt")]
-position = Vector2(0, -33)
+position = Vector2(2, -32)
 MainBase = true
 
 [node name="Core" parent="BaseContainer/AllyBase" index="0"]
@@ -455,6 +457,9 @@ scale = Vector2(0.984707, 1.9713)
 [node name="CollisionShape2D" parent="BaseContainer/AllyBase/SpawnZone" index="0"]
 position = Vector2(0, 61.888)
 shape = SubResource("RectangleShape2D_4gwui")
+
+[node name="TargetLocation" parent="BaseContainer/AllyBase" index="7"]
+position = Vector2(-2, 114)
 
 [node name="Area2D" parent="BaseContainer/AllyBase" index="8"]
 position = Vector2(-8, -455)
@@ -484,7 +489,12 @@ position = Vector2(78.5, 35)
 shape = SubResource("RectangleShape2D_6rwpi")
 
 [node name="Area2D" parent="BaseContainer/EnemyBaseL" index="8"]
-position = Vector2(-1086, 55)
+position = Vector2(-1054, 61)
+rotation = 3.14104
+scale = Vector2(1.83054, 1.13101)
+
+[node name="ProjectileCaller2D" parent="BaseContainer/EnemyBaseL/Area2D" index="2" instance=ExtResource("32_6rwpi")]
+position = Vector2(-91, 1)
 
 [node name="EnemyBaseR" parent="BaseContainer" instance=ExtResource("31_wjrrt")]
 position = Vector2(1110, 61)
@@ -504,7 +514,11 @@ shape = SubResource("RectangleShape2D_r41hh")
 
 [node name="Area2D" parent="BaseContainer/EnemyBaseR" index="8"]
 z_index = 2
-position = Vector2(1110, 61)
+position = Vector2(1113, 66)
+scale = Vector2(1.36845, 0.967038)
+
+[node name="ProjectileCaller2D" parent="BaseContainer/EnemyBaseR/Area2D" index="2" instance=ExtResource("32_6rwpi")]
+position = Vector2(-31.4225, -5.17042)
 
 [editable path="BaseContainer/AllyBase"]
 [editable path="BaseContainer/AllyBase/HurtBox"]

@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="AttackBlueprint" load_steps=4 format=3 uid="uid://ccchymt2wead2"]
+
+[ext_resource type="AudioStream" uid="uid://dfjmqam1r2uk5" path="res://addons/all_projectiles/demos/audio/whoosh-fire-cast-243100.mp3" id="1_44e3l"]
+[ext_resource type="Script" uid="uid://ddrcv1svwbx38" path="res://addons/all_projectiles/scripts/resources/attack_blueprint_2d.gd" id="1_fc5jx"]
+[ext_resource type="PackedScene" uid="uid://c5detyq1vntlf" path="res://addons/all_projectiles/demos/scenes/particles/front_flame.tscn" id="2_gjtf6"]
+
+[resource]
+script = ExtResource("1_fc5jx")
+attack_anticipate_time = 0.121
+attack_duration_time = 0.05
+attack_recovery_time = 0.251
+attack_offset = Vector2(16, -50)
+direction_override = Vector2(0, 0)
+attack_charge_time = 0.7
+charge_type = 0
+charge_trigger = 0
+on_change_transition_actions = 706
+on_update_transition_actions = 27
+charging_actions = 12
+anticipate_actions = 11
+execute_actions = 11
+recovery_actions = 0
+trail = ExtResource("2_gjtf6")
+charge_db = 0.0
+charge_heastart = 0.0
+release_audio = ExtResource("1_44e3l")
+release_db = -13.0
+release_heastart = 0.8

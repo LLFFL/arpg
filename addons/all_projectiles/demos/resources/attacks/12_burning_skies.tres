@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="AttackBlueprint" load_steps=5 format=3 uid="uid://dem1larfsnp7q"]
+
+[ext_resource type="Script" uid="uid://ddrcv1svwbx38" path="res://addons/all_projectiles/scripts/resources/attack_blueprint_2d.gd" id="1_01gjr"]
+[ext_resource type="PackedScene" uid="uid://dodcdysou7k81" path="res://addons/all_projectiles/demos/scenes/particles/blast_centered_stars.tscn" id="1_itlc0"]
+[ext_resource type="AudioStream" uid="uid://hmht0dlp3g3h" path="res://addons/all_projectiles/demos/audio/magic-spell-shoot-sound-effect-236816.mp3" id="1_khh87"]
+[ext_resource type="PackedScene" uid="uid://v4ejk14ldh64" path="res://addons/all_projectiles/demos/scenes/particles/trail_muzzle.tscn" id="2_gfwbu"]
+
+[resource]
+script = ExtResource("1_01gjr")
+attack_anticipate_time = 0.167
+attack_duration_time = 0.25
+attack_recovery_time = 0.167
+attack_offset = Vector2(11, -86)
+direction_override = Vector2(0, 0)
+attack_charge_time = 0.295
+charge_type = 2
+charge_trigger = 0
+on_change_transition_actions = 706
+on_update_transition_actions = 27
+charging_actions = 0
+anticipate_actions = 0
+execute_actions = 0
+recovery_actions = 0
+trail = ExtResource("2_gfwbu")
+blast = ExtResource("1_itlc0")
+charge_db = 0.0
+charge_heastart = 0.0
+release_audio = ExtResource("1_khh87")
+release_db = -5.0
+release_heastart = 0.12

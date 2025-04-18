@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="ProjectileBlueprint2D" load_steps=3 format=3 uid="uid://bynl5cahtaysk"]
+
+[ext_resource type="Script" uid="uid://dhkmxwdl7x2fl" path="res://addons/all_projectiles/scripts/resources/projectile_blueprint_2d.gd" id="1_38i5p"]
+[ext_resource type="PackedScene" uid="uid://iqm7snts88rg" path="res://Upgrades/Spells/spell2/scenes/14_mega_laser.tscn" id="1_p6sou"]
+
+[resource]
+script = ExtResource("1_38i5p")
+proj_type = 2
+size = 1.0
+lifetime = 0.2
+linear_speed = 1.0
+radius = 50
+collision_layer = 0
+collision_mask = 24
+on_hit_call = "damage"
+area_monitoreable = true
+collision_path = "Collision"
+instance = ExtResource("1_p6sou")
+damage = 1
+pierce = 4
+look_at = true
+seeking = false
+seeking_mask = 0
+angular_speed = 0.0
+after_hit_angular_speed = 0.0
+cast_radius = 200.0
+lock_to_target = false
+allow_rehit = true
+rehit_cooldown = 0.09
+instances = 1
+proj_directionality = 2
+proj_spread = 0
+angular_spread = 0.0
+vertical_spread = 0.0
+randomize_positions = false
+linear_deviation = 0.0
