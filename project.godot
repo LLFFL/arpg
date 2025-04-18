@@ -18,6 +18,7 @@ config/icon="res://scenes/icon.svg"
 [autoload]
 
 PlayerManager="*res://00_Global/player_manager.gd"
+Shaker="*res://addons/shaker/src/Shaker.gd"
 
 [display]
 
@@ -27,6 +28,10 @@ window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="canvas_items"
 window/stretch/aspect="keep_width"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/shaker/plugin.cfg", "res://addons/trail_2d/plugin.cfg")
 
 [file_customization]
 
