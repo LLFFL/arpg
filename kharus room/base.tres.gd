@@ -2,8 +2,8 @@ extends Node2D
 
 var bases_dictionary: Dictionary
 var resource_rate: int = 10
-var minion_rate: int = 3
-var enemy_minions_per_wave: int = 0
+var minion_rate: int = 5
+var enemy_minions_per_wave: int = 4
 var minion_side_selection: Array # this array will serve as number of minions to spawn per wave
 const BAT = preload("res://scenes/Bat.tscn")
 const ENEMY = preload("res://Units/Unit.tscn")

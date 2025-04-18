@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="ProjectileBlueprint2D" load_steps=3 format=3 uid="uid://bguorcmtk2rod"]
+
+[ext_resource type="Script" uid="uid://dhkmxwdl7x2fl" path="res://addons/all_projectiles/scripts/resources/projectile_blueprint_2d.gd" id="1_442su"]
+[ext_resource type="PackedScene" uid="uid://b1cm70wimt8gm" path="res://Upgrades/Spells/Particles/12_burning_skies.tscn" id="1_n37n3"]
+
+[resource]
+script = ExtResource("1_442su")
+proj_type = 2
+size = 1.0
+lifetime = 4.5
+linear_speed = 250.0
+radius = 50
+collision_layer = 0
+collision_mask = 24
+on_hit_call = "damage2"
+area_monitoreable = true
+collision_path = "Collision"
+instance = ExtResource("1_n37n3")
+damage = 6
+pierce = 2
+look_at = false
+seeking = false
+seeking_mask = 0
+angular_speed = 45.0
+after_hit_angular_speed = 180.0
+cast_radius = 200.0
+lock_to_target = false
+allow_rehit = false
+rehit_cooldown = 0.1
+instances = 1
+proj_directionality = 2
+proj_spread = 1
+angular_spread = 0.0
+vertical_spread = 200.0
+randomize_positions = false
+linear_deviation = 250.0

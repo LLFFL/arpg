@@ -4,6 +4,7 @@ const HitEffect = preload("res://assets/Action RPG Resources/Effects/HitEffect.t
 signal invincibility_started
 signal invincibility_ended
 signal damaged
+signal damaged2
 @onready var timer = $Timer
 @onready var collisionShape = $CollisionShape2D
 
@@ -37,7 +38,7 @@ func _on_timer_timeout() -> void:
 
 
 func _on_invincibility_started() -> void:
-	print('invincibility starts')
+	#print('invincibility starts')
 	set_deferred("monitorable", false)
 #has to be deferred to take effect on end of frame because changing it in the middle of the frame will mess up the physics
 
@@ -46,6 +47,11 @@ func _on_invincibility_ended() -> void:
 
 #take damage function, to call parent and do damage
 #Added bat to layer 4 so its seen by projectile on layer 4
+
 func damage(attack: Attack) -> void:
-	print("Player hit")
+	#print("Player hit")
 	damaged.emit(attack)
+
+func damage2(projectile: InstancedProjectile2D):
+
+	damaged2.emit(projectile.resource.damage)

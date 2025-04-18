@@ -9,7 +9,7 @@ func apply_effects(_caster: Node, _target: Node = null) -> void:
 	var query := PhysicsPointQueryParameters2D.new()
 	query.position = cursor_pos
 	query.collide_with_areas = true
-	query.collide_with_bodies = false
+	query.collide_with_bodies = true
 	query.collision_mask = 4  #SET ALLY MINION COLLISION LAYER HERE
 	var result = space_state.intersect_point(query, 10)
 	print("leech cast")
@@ -29,7 +29,7 @@ func apply_effects(_caster: Node, _target: Node = null) -> void:
 					print("player healed", attack.damage)
 					if FIREBALL_HEAD:
 						var fx1 = FIREBALL_HEAD.instantiate()
-						fx1.global_position = minion.get_parent().global_position
+						fx1.global_position = minion.global_position
 						get_tree().current_scene.add_child(fx1)
 						if fx1.has_method("restart"):
 							fx1.restart()
