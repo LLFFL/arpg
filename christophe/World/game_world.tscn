@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://46ic5eq5d8qa"]
+[gd_scene load_steps=59 format=3 uid="uid://46ic5eq5d8qa"]
 
 [ext_resource type="Script" uid="uid://dx65t4op8hlv6" path="res://christophe/World/game_world.gd" id="1_6sg4h"]
 [ext_resource type="Shader" uid="uid://v1g385vie0ti" path="res://christophe/Shaders/SpriteColorMapped.gdshader" id="2_wjrrt"]
@@ -26,6 +26,7 @@
 [ext_resource type="Script" uid="uid://cfh63mvp713jr" path="res://addons/shaker/data/Vector2/ShakerPreset2D.gd" id="24_bl0if"]
 [ext_resource type="PackedScene" uid="uid://cmetcwqculcdu" path="res://scenes/components/Camera.tscn" id="25_yyeeq"]
 [ext_resource type="PackedScene" uid="uid://b02g8s3f7cg4a" path="res://Player/Player.tscn" id="26_myr1t"]
+[ext_resource type="Script" uid="uid://bi2egtncep18w" path="res://christophe/World/progress_bar.gd" id="26_n5cly"]
 [ext_resource type="Shader" uid="uid://duocgilkxh3yq" path="res://christophe/Shaders/outline_magic.gdshader" id="27_gx05q"]
 [ext_resource type="Script" uid="uid://b1m3jr6g016nr" path="res://christophe/World/button.gd" id="28_6rwpi"]
 [ext_resource type="Texture2D" uid="uid://c4vofs01ewlxx" path="res://assets/Ninja Adventure - Asset Pack/Ui/Icon/Spell/LuckUpgrade.png" id="29_dq7a4"]
@@ -36,6 +37,7 @@
 [ext_resource type="PackedScene" uid="uid://cqfgoae6a2efh" path="res://kharus room/base.tscn" id="31_wjrrt"]
 [ext_resource type="PackedScene" uid="uid://cghe5cfsmt5t8" path="res://MinionSideControlUI.tscn" id="32_4gwui"]
 [ext_resource type="PackedScene" uid="uid://c8dh1t5f7r5i4" path="res://enemy/fireBossModuleCaller.tscn" id="32_6rwpi"]
+[ext_resource type="AudioStream" uid="uid://cxtqh5kio205y" path="res://addons/all_projectiles/demos/audio/elemental-magic-spell-cast-d-228349.mp3" id="37_picea"]
 
 [sub_resource type="Gradient" id="Gradient_3fx2f"]
 offsets = PackedFloat32Array(0.00332226, 0.533546, 1)
@@ -363,6 +365,15 @@ limit_right = 1200
 limit_bottom = 134
 limit_smoothed = true
 
+[node name="ProgressBar" type="ProgressBar" parent="Camera2D"]
+modulate = Color(0.472055, 1, 0.713569, 1)
+offset_right = 4.0
+offset_bottom = 27.0
+step = 0.05
+rounded = true
+show_percentage = false
+script = ExtResource("26_n5cly")
+
 [node name="CloudShadows" type="Parallax2D" parent="."]
 scroll_offset = Vector2(-222, 49)
 repeat_size = Vector2(2000, 0)
@@ -393,6 +404,7 @@ polygon = PackedVector2Array(-1201, -151, -1200, 135, -1107, 134, -1137, 116, -1
 
 [node name="ShopUi" type="Node2D" parent="."]
 unique_name_in_owner = true
+visible = false
 z_index = 4
 
 [node name="ShopLabel" type="Label" parent="ShopUi"]
@@ -558,6 +570,10 @@ position = Vector2(18.0262, 3.55278)
 rotation = -3.1407
 scale = Vector2(0.546287, 0.884165)
 skew = -0.000553012
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="BaseContainer/EnemyBaseL"]
+stream = ExtResource("37_picea")
+bus = &"SFX"
 
 [node name="EnemyBaseR" parent="BaseContainer" instance=ExtResource("31_wjrrt")]
 position = Vector2(1110, 61)

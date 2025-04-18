@@ -1,20 +1,26 @@
-[gd_scene load_steps=3 format=3 uid="uid://buf50hfrk1l08"]
+[gd_scene load_steps=4 format=3 uid="uid://buf50hfrk1l08"]
 
 [ext_resource type="Theme" uid="uid://be8fu88chioyx" path="res://scenes/UIComponents/DefaultTheme.tres" id="1_5qs77"]
+[ext_resource type="PackedScene" uid="uid://dtc2vgg6tmnp0" path="res://scenes/UIComponents/OptionsScreen.tscn" id="2_wi787"]
 
 [sub_resource type="GDScript" id="GDScript_chgj7"]
 script/source = "extends Control
-var shader_toggle = true
+#var shader_toggle = true
 signal shader_toggled
 signal options_pressed
-
+const GAME_WORLD = preload(\"res://christophe/World/game_world.tscn\")
 func _ready() -> void:
 	get_tree().paused = true
 	show()
 
 func begin_game():
 	get_tree().paused = false
+	get_tree().change_scene_to_file(\"res://christophe/World/game_world.tscn\")
 	hide()
+	#Add tween here
+	#Fade to black
+	#Fade out
+	#Top down transition
 
 
 func _on_start_button_button_down() -> void:
@@ -72,6 +78,7 @@ theme_override_constants/margin_bottom = 30
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="PanelContainer2/MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 expand_mode = 3
@@ -79,18 +86,29 @@ expand_mode = 3
 [node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer2/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 6
-text = "PIGNATION 2"
+text = "Game"
 fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer2/MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 10
 theme_override_constants/separation = 30
+alignment = 1
 
-[node name="StartButton" type="Button" parent="PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Options" type="Button" parent="PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+focus_mode = 0
+text = "Options"
+
+[node name="StartButton" type="Button" parent="PanelContainer2/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(65, 0)
 layout_mode = 2
@@ -99,13 +117,8 @@ focus_mode = 0
 theme = ExtResource("1_5qs77")
 text = "Begin"
 
-[node name="Options" type="Button" parent="PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(70, 0)
+[node name="OptionsScreen" parent="PanelContainer2/MarginContainer/VBoxContainer" instance=ExtResource("2_wi787")]
 layout_mode = 2
-size_flags_horizontal = 6
-focus_mode = 0
-text = "Options"
 
-[connection signal="button_down" from="PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer/StartButton" to="." method="_on_start_button_button_down"]
 [connection signal="button_down" from="PanelContainer2/MarginContainer/VBoxContainer/HBoxContainer/Options" to="." method="_on_options_button_down"]
+[connection signal="button_down" from="PanelContainer2/MarginContainer/VBoxContainer/StartButton" to="." method="_on_start_button_button_down"]

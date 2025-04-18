@@ -44,11 +44,9 @@ func _ready():
 
 func _physics_process(delta: float) -> void:
 	#direction = Vector2.RIGHT.rotated(angle)
-	
-	
 	linear_velocity = direction*speed
-	
 	apply_force(linear_velocity*delta)
+	
 
 func on_enemy_hit(_attack: Attack, hit_target: Node):
 	print(hit_target, "hit with Projectile")

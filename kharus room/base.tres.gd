@@ -97,12 +97,14 @@ func take_damage(attack: Attack) -> void:
 func _on_spawn_timer_timeout() -> void:
 	spawn_minion(MainBase)
 	$SpawnTimer.start(minion_rate)
+@onready var audio_stream_player_2d: AudioStreamPlayer2D = $"../EnemyBaseL/AudioStreamPlayer2D"
 
 func _on_stats_no_health() -> void:
 	await get_tree().create_timer(0.3).timeout
 	var enemyDeathEffect = EnemyDeathEffect.instantiate()
 	get_parent().add_child(enemyDeathEffect)
 	enemyDeathEffect.position = position
+	audio_stream_player_2d.play()
 	if (LeftBase):
 		if !base2:#Mark bandaid
 			get_tree().call_group('allied_minions', 'update_target_base',

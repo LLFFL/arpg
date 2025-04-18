@@ -9,7 +9,6 @@ enum UpgradeType { DAMAGE, MOVEMENT_SPEED, DEFENCE, LUCK }
 @export var upgrade_type: UpgradeType = UpgradeType.DAMAGE
 
 
-
 func _ready():
 	pressed.connect(_on_pressed)
 	if icon_path:
