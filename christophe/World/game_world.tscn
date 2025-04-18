@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://46ic5eq5d8qa"]
+[gd_scene load_steps=58 format=3 uid="uid://46ic5eq5d8qa"]
 
 [ext_resource type="Script" uid="uid://dx65t4op8hlv6" path="res://christophe/World/game_world.gd" id="1_6sg4h"]
 [ext_resource type="Shader" uid="uid://v1g385vie0ti" path="res://christophe/Shaders/SpriteColorMapped.gdshader" id="2_wjrrt"]
@@ -28,7 +28,7 @@
 [ext_resource type="PackedScene" uid="uid://cmetcwqculcdu" path="res://scenes/components/Camera.tscn" id="25_yyeeq"]
 [ext_resource type="PackedScene" uid="uid://b02g8s3f7cg4a" path="res://Player/Player.tscn" id="26_myr1t"]
 [ext_resource type="Shader" uid="uid://duocgilkxh3yq" path="res://christophe/Shaders/outline_magic.gdshader" id="27_gx05q"]
-[ext_resource type="Script" uid="uid://b1m3jr6g016nr" path="res://christophe/World/button.gd" id="28_6rwpi"]
+[ext_resource type="Script" path="res://christophe/World/button.gd" id="28_6rwpi"]
 [ext_resource type="Texture2D" uid="uid://c4vofs01ewlxx" path="res://assets/Ninja Adventure - Asset Pack/Ui/Icon/Spell/LuckUpgrade.png" id="29_dq7a4"]
 [ext_resource type="Texture2D" uid="uid://c65n2wn3swyff" path="res://christophe/Cores/IceCore.png" id="29_oaplc"]
 [ext_resource type="Texture2D" uid="uid://cvq2p33iqxt2i" path="res://assets/Ninja Adventure - Asset Pack/Ui/Icon/Spell/AttackUpgrade.png" id="29_r41hh"]
@@ -148,6 +148,7 @@ size = Vector2(81, 52)
 size = Vector2(90, 47)
 
 [node name="World" type="Node2D" node_paths=PackedStringArray("player")]
+y_sort_enabled = true
 script = ExtResource("1_6sg4h")
 player = NodePath("Player")
 mountains_gradient = SubResource("Gradient_3fx2f")
@@ -160,6 +161,7 @@ cloud_highlight = SubResource("Gradient_atopn")
 
 [node name="SkyRect" type="ColorRect" parent="Map"]
 unique_name_in_owner = true
+z_index = -10
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -176,6 +178,7 @@ color = Color(0.596926, 0.650402, 0.805357, 1)
 
 [node name="CLOUDS" type="Parallax2D" parent="Map"]
 modulate = Color(1, 1, 1, 0.988235)
+z_index = -9
 scroll_scale = Vector2(0.3, 1)
 scroll_offset = Vector2(5, 0)
 repeat_size = Vector2(2000, 0)
@@ -189,6 +192,7 @@ scale = Vector2(0.879, 0.879)
 texture = ExtResource("3_4gwui")
 
 [node name="MONTAINS" type="Parallax2D" parent="Map"]
+z_index = -8
 scroll_scale = Vector2(0.7, 1)
 scroll_offset = Vector2(30, 0)
 
@@ -200,6 +204,7 @@ position = Vector2(2, -6)
 texture = ExtResource("4_6rwpi")
 
 [node name="NEAR" type="Parallax2D" parent="Map"]
+z_index = -7
 scroll_scale = Vector2(0.8, 1)
 
 [node name="NearSprite" type="Sprite2D" parent="Map/NEAR"]

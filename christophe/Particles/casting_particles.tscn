@@ -1,15 +1,7 @@
-[gd_scene load_steps=26 format=3 uid="uid://pw1lxkwb6b05"]
+[gd_scene load_steps=12 format=3 uid="uid://pw1lxkwb6b05"]
 
 [ext_resource type="Texture2D" uid="uid://be1p5u0pmxj6y" path="res://christophe/Particles/magic.png" id="1_4vb1e"]
-[ext_resource type="Script" path="res://christophe/Particles/vfx.gd" id="1_5h743"]
-[ext_resource type="Script" path="res://christophe/Particles/casting_particles_demo.gd" id="1_5107x"]
 [ext_resource type="Texture2D" uid="uid://c4lneuscsdq11" path="res://christophe/Particles/fire.png" id="2_xp628"]
-[ext_resource type="Texture2D" uid="uid://bxjba5a3u6uwu" path="res://christophe/Particles/sword.png" id="3_j8bh7"]
-[ext_resource type="Texture2D" uid="uid://cli4e6dialltg" path="res://christophe/Particles/arrow_down.png" id="4_qqjtj"]
-[ext_resource type="Texture2D" uid="uid://b0xr1jgfkps6a" path="res://christophe/Particles/arrow_up.png" id="5_5mk3m"]
-[ext_resource type="PackedScene" uid="uid://b02g8s3f7cg4a" path="res://Player/Player.tscn" id="6_5sodd"]
-[ext_resource type="Texture2D" uid="uid://coicp6bmqn7b2" path="res://christophe/Particles/plus.png" id="7_5mk3m"]
-[ext_resource type="Script" path="res://christophe/Particles/stun_effect.gd" id="8_5sodd"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6v251"]
 blend_mode = 1
@@ -53,44 +45,16 @@ point_count = 2
 offsets = PackedFloat32Array(0.0865052, 0.792388, 1)
 colors = PackedColorArray(0.686275, 0.866667, 0.866667, 1, 0.562134, 0.454394, 0.466971, 1, 1, 1, 1, 0)
 
-[sub_resource type="Gradient" id="Gradient_5107x"]
-offsets = PackedFloat32Array(0, 0.0909091, 0.497835, 1)
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
-
-[sub_resource type="Gradient" id="Gradient_s6r2h"]
-offsets = PackedFloat32Array(0, 0.0909091, 0.497835, 1)
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
-
-[sub_resource type="Curve" id="Curve_5sodd"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.4671, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="Gradient" id="Gradient_5sodd"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
-
-[sub_resource type="Gradient" id="Gradient_ilyov"]
-offsets = PackedFloat32Array(0, 0.0909091, 0.497835, 1)
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
-
-[sub_resource type="Gradient" id="Gradient_5h743"]
-offsets = PackedFloat32Array(0, 0.0909091, 0.497835, 1)
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
-
 [node name="CastingParticles" type="Node2D"]
-script = ExtResource("1_5107x")
+z_index = 6
 
-[node name="vfx" type="Node2D" parent="."]
-position = Vector2(0, -12)
-scale = Vector2(0.999999, 1)
-script = ExtResource("1_5h743")
-free_when_finished = false
-
-[node name="FloatingParticles" type="CPUParticles2D" parent="vfx"]
+[node name="FloatingParticles" type="CPUParticles2D" parent="."]
 z_index = -1
 texture_filter = 1
 texture_repeat = 1
 material = SubResource("CanvasItemMaterial_6v251")
-emitting = false
+position = Vector2(0, -12)
+scale = Vector2(0.999999, 1)
 amount = 15
 texture = ExtResource("1_4vb1e")
 speed_scale = 0.5
@@ -112,11 +76,11 @@ hue_variation_max = 0.09
 hue_variation_curve = SubResource("Curve_q6230")
 anim_offset_max = 0.3645
 
-[node name="GroundParticles" type="CPUParticles2D" parent="vfx"]
+[node name="GroundParticles" type="CPUParticles2D" parent="."]
 z_index = -1
 material = SubResource("CanvasItemMaterial_rh8dd")
-position = Vector2(-1, 17)
-emitting = false
+position = Vector2(-0.999999, 5)
+scale = Vector2(0.999999, 1)
 texture = ExtResource("2_xp628")
 speed_scale = 0.5
 randomness = 1.0
@@ -132,135 +96,3 @@ angle_curve = SubResource("Curve_rgdux")
 scale_amount_max = 2.0
 scale_amount_curve = SubResource("Curve_esmh8")
 color_ramp = SubResource("Gradient_453ql")
-
-[node name="debuffParticles" type="CPUParticles2D" parent="."]
-visible = false
-modulate = Color(1, 0.371661, 0.36033, 1)
-position = Vector2(0, -34)
-amount = 4
-texture = ExtResource("3_j8bh7")
-lifetime = 2.0
-emission_shape = 2
-emission_sphere_radius = 10.0
-direction = Vector2(0, 1)
-spread = 2.87
-gravity = Vector2(0, 0)
-initial_velocity_min = 5.0
-initial_velocity_max = 15.0
-angle_min = 180.0
-angle_max = 180.0
-color_ramp = SubResource("Gradient_5107x")
-
-[node name="SpeedDebuffParticles" type="CPUParticles2D" parent="."]
-visible = false
-modulate = Color(0.20774, 0.632823, 0.549572, 1)
-position = Vector2(0, -34)
-amount = 4
-texture = ExtResource("4_qqjtj")
-lifetime = 2.0
-emission_shape = 2
-emission_sphere_radius = 10.0
-direction = Vector2(0, 1)
-spread = 2.87
-gravity = Vector2(0, 0)
-initial_velocity_min = 5.0
-initial_velocity_max = 15.0
-color_ramp = SubResource("Gradient_s6r2h")
-
-[node name="Player" parent="." instance=ExtResource("6_5sodd")]
-position = Vector2(1, -5)
-
-[node name="Node2D" type="Node2D" parent="Player"]
-script = ExtResource("8_5sodd")
-
-[node name="Plus" type="Sprite2D" parent="Player/Node2D"]
-modulate = Color(0.947909, 0.701476, 0.373635, 1)
-position = Vector2(0, -25)
-scale = Vector2(0.666667, 0.666667)
-texture = ExtResource("7_5mk3m")
-
-[node name="Trail2D" type="Line2D" parent="Player/Node2D/Plus"]
-modulate = Color(0.95859, 0.692799, 0.410251, 1)
-z_index = -1
-texture_filter = 1
-width = 2.0
-width_curve = SubResource("Curve_5sodd")
-gradient = SubResource("Gradient_5sodd")
-metadata/_custom_type_script = "uid://bbpgow0myqh1p"
-
-[node name="AttackBuffParticles" type="CPUParticles2D" parent="Player"]
-modulate = Color(0.924403, 0.386747, 0.376471, 1)
-z_index = -1
-position = Vector2(0, -10)
-amount = 4
-texture = ExtResource("3_j8bh7")
-lifetime = 2.0
-local_coords = true
-emission_shape = 2
-emission_sphere_radius = 10.0
-direction = Vector2(0, -1)
-spread = 2.87
-gravity = Vector2(0, 0)
-initial_velocity_min = 5.0
-initial_velocity_max = 15.0
-scale_amount_min = 0.5
-scale_amount_max = 0.5
-color_ramp = SubResource("Gradient_ilyov")
-
-[node name="SpeedBuffParticles" type="CPUParticles2D" parent="Player"]
-modulate = Color(0.309284, 0.764049, 0.869271, 1)
-z_index = -1
-position = Vector2(0, -10)
-amount = 4
-texture = ExtResource("5_5mk3m")
-lifetime = 2.0
-local_coords = true
-emission_shape = 2
-emission_sphere_radius = 10.0
-direction = Vector2(0, -1)
-spread = 2.87
-gravity = Vector2(0, 0)
-initial_velocity_min = 5.0
-initial_velocity_max = 15.0
-scale_amount_min = 0.5
-scale_amount_max = 0.5
-color_ramp = SubResource("Gradient_ilyov")
-
-[node name="vfx2" type="Node2D" parent="Player"]
-unique_name_in_owner = true
-position = Vector2(-1, -7)
-scale = Vector2(0.999999, 1)
-script = ExtResource("1_5h743")
-free_when_finished = false
-
-[node name="buffParticles" type="CPUParticles2D" parent="Player/vfx2"]
-visible = false
-modulate = Color(0.94289, 0.645547, 0.608688, 1)
-position = Vector2(0, -4)
-amount = 4
-texture = ExtResource("3_j8bh7")
-lifetime = 2.0
-draw_order = 1
-emission_shape = 3
-emission_rect_extents = Vector2(10, 10)
-direction = Vector2(0, -1)
-spread = 2.87
-gravity = Vector2(0, 0)
-initial_velocity_min = 5.0
-initial_velocity_max = 15.0
-color_ramp = SubResource("Gradient_5h743")
-
-[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
-visible = false
-position = Vector2(1, -5)
-texture = ExtResource("7_5mk3m")
-spread = 0.0
-gravity = Vector2(0, 0)
-initial_velocity_min = 77.21
-initial_velocity_max = 77.21
-orbit_velocity_min = 1.0
-orbit_velocity_max = 1.0
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(1, -25)
-zoom = Vector2(2, 2)

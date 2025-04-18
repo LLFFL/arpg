@@ -16,6 +16,8 @@ gravity_scale = 0.0
 contact_monitor = true
 max_contacts_reported = 5
 script = ExtResource("1_dprbf")
+duration = 0.5
+fade_after = 2.0
 
 [node name="Icon" type="Sprite2D" parent="."]
 

@@ -24,7 +24,7 @@ func _ready() -> void:
 func _initialize(Ally: bool, base_position: Vector2):
 	var tween = create_tween()
 	self.scale = Vector2(0,0)
-	tween.tween_property(self,"scale",Vector2(1,1),0.2).set_trans(Tween.TRANS_BACK)
+	tween.tween_property(self,"scale",Vector2(1,1),0.2).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	target_location = base_position
 	#print(target_location)
 	if Ally:
@@ -66,6 +66,14 @@ func damage(attack: Attack) -> void:
 	hurt_box.create_hit_effect()
 	var _direction = (global_position - get_global_mouse_position()).normalized()
 	velocity = attack.attack_direction * 240
+	var t = create_tween()
+	t.tween_property(self,"scale:y",randf_range(1.1,2.5),0.1).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	t.tween_property(self,"scale:y",1,0.1).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	await t.finished
+	t.kill()
+	self.scale.y = 1
+	
+	
 		
 func _on_no_health():
 	queue_free()

@@ -52,6 +52,7 @@ func damage(attack: Attack) -> void:
 	#print("Player hit")
 	damaged.emit(attack)
 
+
 func damage2(projectile: InstancedProjectile2D):
 
 	damaged2.emit(projectile.resource.damage)
