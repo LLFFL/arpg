@@ -29,6 +29,7 @@ func _ready() -> void:
 	move_state_machine.initialize(self)
 	ability_state_machine.initialize(self)
 	hurtbox.damaged.connect(damage)
+	hurtbox.damaged2.connect(damage)
 	stats.dmg_status_changed.connect(func(active: bool, buff: bool):
 		if !active:
 			print('status ended')
@@ -114,6 +115,14 @@ func anim_direction() -> String:
 
 func damage(attack: Attack) -> void:
 	stats.health -= attack.damage
+	hurtbox.start_invincibility(0.4)
+	hurtbox.create_hit_effect()
+	var _direction = (position - get_global_mouse_position()).normalized()
+	knockback = _direction * 240
+	velocity = knockback
+
+func damage2(projectile: InstancedProjectile2D) -> void:
+	stats.health -= projectile.resource.damage
 	hurtbox.start_invincibility(0.4)
 	hurtbox.create_hit_effect()
 	var _direction = (position - get_global_mouse_position()).normalized()

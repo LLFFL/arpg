@@ -7,12 +7,12 @@
 script = ExtResource("1_442su")
 proj_type = 2
 size = 1.0
-lifetime = 3.0
+lifetime = 4.5
 linear_speed = 250.0
 radius = 50
 collision_layer = 0
 collision_mask = 24
-on_hit_call = "damage"
+on_hit_call = "damage2"
 area_monitoreable = true
 collision_path = "Collision"
 instance = ExtResource("1_xbrkr")

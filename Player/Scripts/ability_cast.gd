@@ -27,6 +27,7 @@ func enter() -> void:
 	player.ability_active = true # its for animation in player.gd
 	#add ProjectileCaller here, replace it with the  player.stats.upgrades[spell_index]
 	#projectile_caller_2d.request_projectile(0, get_global_position(), get_global_mouse_position())
+
 	projectile_caller_2d.request_projectile(0, projectile_position.global_position, get_global_mouse_position())
 	
 	#var spell2 = projectile_caller_2d.projectile_resources
