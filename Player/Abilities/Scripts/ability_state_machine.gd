@@ -1,6 +1,6 @@
 class_name AbilityStateMachine extends Node2D
 
-const GCD: float = 0.3
+const GCD: float = 0.1
 
 var states: Array[AbilityState]
 var prev_state: AbilityState

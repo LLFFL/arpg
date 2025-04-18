@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://46ic5eq5d8qa"]
+[gd_scene load_steps=61 format=3 uid="uid://46ic5eq5d8qa"]
 
 [ext_resource type="Script" uid="uid://dx65t4op8hlv6" path="res://christophe/World/game_world.gd" id="1_6sg4h"]
 [ext_resource type="Shader" uid="uid://v1g385vie0ti" path="res://christophe/Shaders/SpriteColorMapped.gdshader" id="2_wjrrt"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c6roa62v2r73o" path="res://christophe/World/Montains.png" id="4_6rwpi"]
 [ext_resource type="Texture2D" uid="uid://cx5687cgerbn2" path="res://christophe/World/Near.png" id="5_r41hh"]
 [ext_resource type="Texture2D" uid="uid://cpxns4i0ji447" path="res://christophe/Particles/snow.png" id="6_ufba3"]
+[ext_resource type="Texture2D" uid="uid://fri7rlsghp6s" path="res://christophe/Cores/PlayerCore.png" id="7_4gwui"]
 [ext_resource type="Texture2D" uid="uid://celvg3ltvpk0b" path="res://christophe/World/ground.png" id="7_dq7a4"]
 [ext_resource type="Texture2D" uid="uid://r5xy5wxip2pp" path="res://christophe/World/frogDimension/Portal.png" id="8_n5cly"]
 [ext_resource type="Texture2D" uid="uid://cf61ek826hivn" path="res://christophe/World/frogDimension/a.png" id="9_picea"]
@@ -26,9 +27,9 @@
 [ext_resource type="Script" uid="uid://cfh63mvp713jr" path="res://addons/shaker/data/Vector2/ShakerPreset2D.gd" id="24_bl0if"]
 [ext_resource type="PackedScene" uid="uid://cmetcwqculcdu" path="res://scenes/components/Camera.tscn" id="25_yyeeq"]
 [ext_resource type="PackedScene" uid="uid://b02g8s3f7cg4a" path="res://Player/Player.tscn" id="26_myr1t"]
-[ext_resource type="Script" uid="uid://bi2egtncep18w" path="res://christophe/World/progress_bar.gd" id="26_n5cly"]
 [ext_resource type="Shader" uid="uid://duocgilkxh3yq" path="res://christophe/Shaders/outline_magic.gdshader" id="27_gx05q"]
-[ext_resource type="Script" uid="uid://b1m3jr6g016nr" path="res://christophe/World/button.gd" id="28_6rwpi"]
+[ext_resource type="Script" uid="uid://cxgmjqfrfwelx" path="res://addons/shaker/data/Vector2/ShakerTypeRandom2D.gd" id="27_picea"]
+[ext_resource type="Script" path="res://christophe/World/button.gd" id="28_6rwpi"]
 [ext_resource type="Texture2D" uid="uid://c4vofs01ewlxx" path="res://assets/Ninja Adventure - Asset Pack/Ui/Icon/Spell/LuckUpgrade.png" id="29_dq7a4"]
 [ext_resource type="Texture2D" uid="uid://c65n2wn3swyff" path="res://christophe/Cores/IceCore.png" id="29_oaplc"]
 [ext_resource type="Texture2D" uid="uid://cvq2p33iqxt2i" path="res://assets/Ninja Adventure - Asset Pack/Ui/Icon/Spell/AttackUpgrade.png" id="29_r41hh"]
@@ -37,11 +38,10 @@
 [ext_resource type="PackedScene" uid="uid://cqfgoae6a2efh" path="res://kharus room/base.tscn" id="31_wjrrt"]
 [ext_resource type="PackedScene" uid="uid://cghe5cfsmt5t8" path="res://MinionSideControlUI.tscn" id="32_4gwui"]
 [ext_resource type="PackedScene" uid="uid://c8dh1t5f7r5i4" path="res://enemy/fireBossModuleCaller.tscn" id="32_6rwpi"]
-[ext_resource type="AudioStream" uid="uid://cxtqh5kio205y" path="res://addons/all_projectiles/demos/audio/elemental-magic-spell-cast-d-228349.mp3" id="37_picea"]
 
 [sub_resource type="Gradient" id="Gradient_3fx2f"]
-offsets = PackedFloat32Array(0.00332226, 0.533546, 1)
-colors = PackedColorArray(0.452523, 0.478498, 0.794625, 1, 0.658603, 0.648851, 0.635553, 1, 0.622309, 0.454402, 0.30302, 1)
+offsets = PackedFloat32Array(0.00332226, 0.533546, 0.799107, 1)
+colors = PackedColorArray(0.452523, 0.478498, 0.794625, 1, 0.658603, 0.648851, 0.635553, 1, 0.88, 0.726, 0.572, 1, 0.866667, 0.517647, 0.415686, 1)
 
 [sub_resource type="Gradient" id="Gradient_u0w7i"]
 offsets = PackedFloat32Array(0, 0.429319, 0.539267, 0.710963, 1)
@@ -122,12 +122,35 @@ bake_internal = 64
 __follow_timeline = false
 metadata/_custom_type_script = "uid://gi81blw5c6j8"
 
+[sub_resource type="Resource" id="Resource_y7jpt"]
+script = ExtResource("27_picea")
+seed = 0
+amplitude = Vector2(1, 1)
+offset = Vector2(0, 0)
+BlendingMode = 0
+fade_in = 0.0
+fade_out = 0.0
+start_percent = 0.0
+end_percent = 1.0
+_temp_graph = false
+bake_internal = 64
+metadata/_custom_type_script = "uid://cxgmjqfrfwelx"
+
+[sub_resource type="Resource" id="Resource_7856v"]
+script = ExtResource("24_bl0if")
+PositionShake = Array[ExtResource("21_16i4r")]([SubResource("Resource_y7jpt")])
+RotationShake = Array[ExtResource("22_8275v")]([])
+ScaleShake = Array[ExtResource("21_16i4r")]([])
+bake_internal = 64
+__follow_timeline = false
+metadata/_custom_type_script = "uid://cfh63mvp713jr"
+
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ofr2a"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cx7l3"]
 shader = ExtResource("27_gx05q")
 shader_parameter/line_color = Color(1, 1, 1, 1)
-shader_parameter/line_thickness = 0.0
+shader_parameter/line_thickness = 1.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cx7l3"]
 size = Vector2(2560, 82)
@@ -149,6 +172,7 @@ size = Vector2(81, 52)
 size = Vector2(90, 47)
 
 [node name="World" type="Node2D" node_paths=PackedStringArray("player")]
+y_sort_enabled = true
 script = ExtResource("1_6sg4h")
 player = NodePath("Player")
 mountains_gradient = SubResource("Gradient_3fx2f")
@@ -161,6 +185,7 @@ cloud_highlight = SubResource("Gradient_atopn")
 
 [node name="SkyRect" type="ColorRect" parent="Map"]
 unique_name_in_owner = true
+z_index = -10
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -177,6 +202,7 @@ color = Color(0.596926, 0.650402, 0.805357, 1)
 
 [node name="CLOUDS" type="Parallax2D" parent="Map"]
 modulate = Color(1, 1, 1, 0.988235)
+z_index = -9
 scroll_scale = Vector2(0.3, 1)
 scroll_offset = Vector2(5, 0)
 repeat_size = Vector2(2000, 0)
@@ -190,22 +216,24 @@ scale = Vector2(0.879, 0.879)
 texture = ExtResource("3_4gwui")
 
 [node name="MONTAINS" type="Parallax2D" parent="Map"]
-scroll_scale = Vector2(0.4, 1)
+z_index = -8
+scroll_scale = Vector2(0.7, 1)
 scroll_offset = Vector2(30, 0)
 
 [node name="MontainsSprite" type="Sprite2D" parent="Map/MONTAINS"]
 unique_name_in_owner = true
 modulate = Color(0.277361, 0.283307, 0.431043, 1)
 texture_filter = 1
-position = Vector2(-1, 6)
-scale = Vector2(0.58434, 0.589895)
+position = Vector2(2, -6)
 texture = ExtResource("4_6rwpi")
 
 [node name="NEAR" type="Parallax2D" parent="Map"]
-scroll_scale = Vector2(0.95, 1)
+z_index = -7
+scroll_scale = Vector2(0.8, 1)
 
 [node name="NearSprite" type="Sprite2D" parent="Map/NEAR"]
-position = Vector2(2, 5)
+position = Vector2(0, -4)
+scale = Vector2(0.915, 0.965)
 texture = ExtResource("5_r41hh")
 
 [node name="FireParticles" type="CPUParticles2D" parent="Map"]
@@ -224,6 +252,11 @@ angle_min = -175.0
 angle_max = 619.2
 scale_amount_min = 0.2
 color_ramp = SubResource("Gradient_15v85")
+
+[node name="PlayerCore" type="Sprite2D" parent="Map"]
+visible = false
+position = Vector2(0, -14)
+texture = ExtResource("7_4gwui")
 
 [node name="Ground" type="Sprite2D" parent="Map"]
 texture = ExtResource("7_dq7a4")
@@ -355,9 +388,14 @@ fade_in = 0.00837321
 fade_out = 0.0078125
 shakerPreset = SubResource("Resource_u41f8")
 
-[node name="Camera2D" parent="." instance=ExtResource("25_yyeeq")]
-process_mode = 3
+[node name="CameraHandler" type="Node2D" parent="."]
 position = Vector2(245, 91)
+
+[node name="Camera2D" parent="CameraHandler" instance=ExtResource("25_yyeeq")]
+process_mode = 3
+y_sort_enabled = true
+position = Vector2(1.66893e-06, 0)
+scale = Vector2(1, 0.999999)
 zoom = Vector2(1.1, 1.1)
 limit_left = -1200
 limit_top = -134
@@ -365,14 +403,15 @@ limit_right = 1200
 limit_bottom = 134
 limit_smoothed = true
 
-[node name="ProgressBar" type="ProgressBar" parent="Camera2D"]
-modulate = Color(0.472055, 1, 0.713569, 1)
-offset_right = 4.0
-offset_bottom = 27.0
-step = 0.05
-rounded = true
-show_percentage = false
-script = ExtResource("26_n5cly")
+[node name="ShakerComponent2D" type="Node2D" parent="CameraHandler/Camera2D" node_paths=PackedStringArray("Targets")]
+script = ExtResource("20_nk3or")
+custom_target = true
+Targets = [NodePath("../../../Map")]
+duration = 0.4
+fade_in = 1e-05
+fade_out = 0.148651
+shakerPreset = SubResource("Resource_7856v")
+metadata/_custom_type_script = "uid://b0fgc7bwsfxmw"
 
 [node name="CloudShadows" type="Parallax2D" parent="."]
 scroll_offset = Vector2(-222, 49)
@@ -391,9 +430,10 @@ material = SubResource("ShaderMaterial_cx7l3")
 position = Vector2(245, 91)
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
-remote_path = NodePath("../../Camera2D")
+remote_path = NodePath("../../CameraHandler")
 
 [node name="MapCollision" type="StaticBody2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MapCollision"]
 position = Vector2(0, 166)
@@ -510,17 +550,23 @@ icon_path = ExtResource("29_r41hh")
 [node name="BaseContainer" type="Node" parent="."]
 unique_name_in_owner = true
 
-[node name="AllyBase" parent="BaseContainer" instance=ExtResource("31_wjrrt")]
+[node name="AllyBase" parent="BaseContainer" node_paths=PackedStringArray("CameraShaker") instance=ExtResource("31_wjrrt")]
 position = Vector2(2, -32)
 MainBase = true
+CameraShaker = NodePath("../../CameraHandler/Camera2D/ShakerComponent2D")
 
 [node name="Core" parent="BaseContainer/AllyBase" index="0"]
 collision_layer = 0
+Sprite = ExtResource("7_4gwui")
 Shadow = Color(0, 0, 0, 0)
-HitColor = Color(0, 0, 0, 0)
+HitColor = Color(0.581137, 0.314854, 0.332268, 1)
+is_player_core = true
 
 [node name="SpawnLocation" parent="BaseContainer/AllyBase" index="3"]
 position = Vector2(-2, 80)
+
+[node name="CollisionShape2D" parent="BaseContainer/AllyBase/HurtBox" index="0"]
+position = Vector2(3, 70.5)
 
 [node name="SpawnZone" parent="BaseContainer/AllyBase" index="6"]
 scale = Vector2(0.984707, 1.9713)
@@ -530,7 +576,7 @@ position = Vector2(0, 61.888)
 shape = SubResource("RectangleShape2D_4gwui")
 
 [node name="TargetLocation" parent="BaseContainer/AllyBase" index="7"]
-position = Vector2(-2, 114)
+position = Vector2(-2, 93)
 
 [node name="Area2D" parent="BaseContainer/AllyBase" index="8"]
 position = Vector2(-8, -455)
@@ -542,10 +588,10 @@ monitorable = false
 [node name="MinionSideControl" parent="BaseContainer/AllyBase/CanvasLayer" instance=ExtResource("32_4gwui")]
 unique_name_in_owner = true
 
-[node name="EnemyBaseL" parent="BaseContainer" groups=["enemy_base"] instance=ExtResource("31_wjrrt")]
-z_index = -1
+[node name="EnemyBaseL" parent="BaseContainer" node_paths=PackedStringArray("CameraShaker") instance=ExtResource("31_wjrrt")]
 position = Vector2(-1087, 57)
 LeftBase = true
+CameraShaker = NodePath("../../CameraHandler/Camera2D/ShakerComponent2D")
 
 [node name="Core" parent="BaseContainer/EnemyBaseL" index="0"]
 Sprite = ExtResource("29_oaplc")
@@ -554,9 +600,6 @@ HitColor = Color(0.709804, 0.898039, 0.952941, 1)
 
 [node name="SpawnLocation" parent="BaseContainer/EnemyBaseL" index="3"]
 position = Vector2(65, 32)
-
-[node name="HurtBox" parent="BaseContainer/EnemyBaseL" index="4"]
-collision_layer = 16
 
 [node name="CollisionShape2D" parent="BaseContainer/EnemyBaseL/SpawnZone" index="0"]
 position = Vector2(78.5, 35)
@@ -573,13 +616,11 @@ rotation = -3.1407
 scale = Vector2(0.546287, 0.884165)
 skew = -0.000553012
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="BaseContainer/EnemyBaseL"]
-stream = ExtResource("37_picea")
-bus = &"SFX"
-
-[node name="EnemyBaseR" parent="BaseContainer" groups=["enemy_base"] instance=ExtResource("31_wjrrt")]
+[node name="EnemyBaseR" parent="BaseContainer" node_paths=PackedStringArray("CameraShaker") instance=ExtResource("31_wjrrt")]
+y_sort_enabled = true
 position = Vector2(1110, 61)
 RightBase = true
+CameraShaker = NodePath("../../CameraHandler/Camera2D/ShakerComponent2D")
 
 [node name="Core" parent="BaseContainer/EnemyBaseR" index="0"]
 Sprite = ExtResource("30_lr5rs")
@@ -588,9 +629,6 @@ HitColor = Color(1, 0.482353, 0.454902, 1)
 
 [node name="SpawnLocation" parent="BaseContainer/EnemyBaseR" index="3"]
 position = Vector2(-81, 27)
-
-[node name="HurtBox" parent="BaseContainer/EnemyBaseR" index="4"]
-collision_layer = 16
 
 [node name="CollisionShape2D" parent="BaseContainer/EnemyBaseR/SpawnZone" index="0"]
 position = Vector2(-81, 34.5)
@@ -604,15 +642,10 @@ scale = Vector2(1.36845, 0.967038)
 [node name="ProjectileCaller2D" parent="BaseContainer/EnemyBaseR/Area2D" index="2" instance=ExtResource("32_6rwpi")]
 position = Vector2(-31.4225, -5.17042)
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="BaseContainer/EnemyBaseR"]
-stream = ExtResource("37_picea")
-bus = &"SFX"
-
 [connection signal="pressed" from="ShopUi/HBoxContainer/Button" to="ShopUi/HBoxContainer/Button" method="_on_pressed"]
 [connection signal="pressed" from="ShopUi/HBoxContainer/Button4" to="ShopUi/HBoxContainer/Button4" method="_on_pressed"]
 [connection signal="pressed" from="ShopUi/HBoxContainer/Button7" to="ShopUi/HBoxContainer/Button7" method="_on_pressed"]
 [connection signal="pressed" from="ShopUi/HBoxContainer/Button8" to="ShopUi/HBoxContainer/Button8" method="_on_pressed"]
-[connection signal="no_health" from="BaseContainer/EnemyBaseL/StatsComponent" to="." method="_on_stats_component_no_health"]
 
 [editable path="BaseContainer/AllyBase"]
 [editable path="BaseContainer/AllyBase/HurtBox"]

@@ -46,6 +46,7 @@ offsets = PackedFloat32Array(0.0865052, 0.792388, 1)
 colors = PackedColorArray(0.686275, 0.866667, 0.866667, 1, 0.562134, 0.454394, 0.466971, 1, 1, 1, 1, 0)
 
 [node name="CastingParticles" type="Node2D"]
+z_index = 6
 
 [node name="FloatingParticles" type="CPUParticles2D" parent="."]
 z_index = -1
@@ -78,7 +79,7 @@ anim_offset_max = 0.3645
 [node name="GroundParticles" type="CPUParticles2D" parent="."]
 z_index = -1
 material = SubResource("CanvasItemMaterial_rh8dd")
-position = Vector2(-0.999999, 5.00001)
+position = Vector2(-0.999999, 5)
 scale = Vector2(0.999999, 1)
 texture = ExtResource("2_xp628")
 speed_scale = 0.5

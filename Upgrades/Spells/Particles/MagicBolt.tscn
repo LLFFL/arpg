@@ -3,17 +3,14 @@
 [ext_resource type="Texture2D" uid="uid://df81atwnkd5eh" path="res://Upgrades/Spells/fire.png" id="1_jwa7b"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_5yt7m"]
-blend_mode = 1
 
-[sub_resource type="Curve" id="Curve_gceiy"]
-_limits = [-500.0, 500.0, 0.0, 1.0]
-_data = [Vector2(0.0126183, -500), 0.0, 0.0, 0, 0, Vector2(1, 500), 0.0, 0.0, 0, 0]
+[sub_resource type="Curve" id="Curve_1htsr"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.32703, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Gradient" id="Gradient_2v4wu"]
-interpolation_mode = 1
-offsets = PackedFloat32Array(0, 0.00343643, 0.261168, 0.443299, 0.986254, 0.989691, 0.993127, 0.996564, 1)
-colors = PackedColorArray(0, 0, 0, 1, 0.86, 0.4945, 0.215, 1, 0.864442, 0.513372, 0.244907, 1, 0.867581, 0.526709, 0.266042, 1, 0.900151, 0.665088, 0.485333, 1, 0.917617, 0.739293, 0.602928, 1, 0.901356, 0.670205, 0.493443, 1, 0.972509, 0.972509, 0.972509, 1, 1, 1, 1, 1)
+offsets = PackedFloat32Array(0, 0.395122, 1)
+colors = PackedColorArray(0.837536, 0.359818, 0.248596, 1, 0.961996, 0.691636, 0.275669, 1, 0.86, 0.4945, 0.215, 0.0156863)
 
 [node name="Node2D" type="Node2D"]
 
@@ -22,21 +19,17 @@ material = SubResource("CanvasItemMaterial_5yt7m")
 rotation = 0.0167968
 amount = 9
 texture = ExtResource("1_jwa7b")
-lifetime = 2.9
-speed_scale = 7.82
 fixed_fps = 30
 fract_delta = false
-emission_shape = 1
-emission_sphere_radius = 0.01
+local_coords = true
+emission_shape = 3
+emission_rect_extents = Vector2(20, 20)
 particle_flag_align_y = true
+direction = Vector2(0, 0)
 gravity = Vector2(0.05, 0.07)
-orbit_velocity_min = 118.35
-orbit_velocity_max = 568.05
-orbit_velocity_curve = SubResource("Curve_gceiy")
-scale_amount_min = 0.0
+scale_amount_min = 0.1
+scale_amount_curve = SubResource("Curve_1htsr")
 color = Color(1, 0.765333, 0.56, 1)
 color_ramp = SubResource("Gradient_2v4wu")
 hue_variation_min = -0.97
 hue_variation_max = 0.78
-anim_speed_min = 2.27
-anim_speed_max = 2.28

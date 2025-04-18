@@ -2,8 +2,8 @@ extends Node2D
 
 var bases_dictionary: Dictionary
 var resource_rate: int = 10
-var minion_rate: int = 5
-var enemy_minions_per_wave: int = 4
+var minion_rate: int = 3
+var enemy_minions_per_wave: int = 2
 var minion_side_selection: Array # this array will serve as number of minions to spawn per wave
 const BAT = preload("res://scenes/Bat.tscn")
 const ENEMY = preload("res://Units/Unit.tscn")
@@ -14,14 +14,15 @@ const ENEMY = preload("res://Units/Unit.tscn")
 @export var MainBase: bool
 @export var LeftBase:bool
 @export var RightBase:bool
+@export var CameraShaker:ShakerComponent2D
 @onready var minion_side_control = %MinionSideControl
 const EnemyDeathEffect = preload("res://assets/Action RPG Resources/Effects/EnemyDeathEffect.tscn")
 @onready var spawn_zone: CollisionShape2D = $SpawnZone/CollisionShape2D
 @onready var target_marker: Marker2D = $TargetLocation
 var target_location: Vector2
-var base1: bool = true #Is alive
+var base1: bool = true
 var base2: bool = true
-signal base_destroyed(base)
+
 
 func _ready():
 	target_location = target_marker.global_position
@@ -29,10 +30,10 @@ func _ready():
 	# awkward scenario where to be detected and chase player and bat set their own personal collision to be detectable
 	$SpawnTimer.start(minion_rate)
 	if (MainBase):
-		minion_side_selection = [1,1] # keeping this away from the other bases since its not necessary to them
+		minion_side_selection = [2,2] # keeping this away from the other bases since its not necessary to them
 		minion_side_control.update(minion_side_selection)
 		#bat_spawn_location = Vector2(position.x, position.y - 50)
-		hurtbox.set_collision_layer_value(2, true) # 2 and 5 are for chase detection all else is hurt/hit
+		hurtbox.set_collision_layer_value(2, true)
 		hurtbox.set_collision_layer_value(3, true)
 		self.add_to_group('allied_base')
 		minion_side_control.left_press.connect(change_minion_wave_side_selection)
@@ -41,11 +42,11 @@ func _ready():
 	if (LeftBase):
 		#bat_spawn_location = Vector2(position.x + 50, position.y)
 		hurtbox.set_collision_layer_value(4, true) 
-		hurtbox.set_collision_layer_value(5, true)
+		#hurtbox.set_collision_layer_value(5, true)
 	if (RightBase):
 		#bat_spawn_location = Vector2(position.x - 50, position.y)
 		hurtbox.set_collision_layer_value(4, true) 
-		hurtbox.set_collision_layer_value(5, true)
+		#hurtbox.set_collision_layer_value(5, true)
 		
 func initialize(bases_dictionaryy: Dictionary):
 	bases_dictionary = bases_dictionaryy # this is not a a typo
@@ -57,6 +58,7 @@ func spawn_minion(player_side:bool):
 			var _x = randi_range(_rect.position.x, _rect.position.x + _rect.size.x)
 			var _y = randi_range(_rect.position.y, _rect.position.y + _rect.size.y)
 			var unit = ENEMY.instantiate()
+			unit.ally = false
 			unit.global_position = spawn_zone.global_position + Vector2(_x, _y)
 			get_tree().current_scene.add_child(unit)
 			if (is_instance_valid(bases_dictionary['ally_base'])):
@@ -71,6 +73,7 @@ func spawn_minion(player_side:bool):
 			var _x = randi_range(_rect.position.x, _rect.position.x + _rect.size.x)
 			var _y = randi_range(_rect.position.y, _rect.position.y + _rect.size.y)
 			var unit = ENEMY.instantiate()
+			unit.ally = true
 			unit.global_position = spawn_zone.global_position + Vector2(_x, _y)
 			unit.add_to_group("allied_minions")
 			get_tree().current_scene.add_child(unit)
@@ -81,6 +84,7 @@ func spawn_minion(player_side:bool):
 			var _x = randi_range(_rect.position.x, _rect.position.x + _rect.size.x)
 			var _y = randi_range(_rect.position.y, _rect.position.y + _rect.size.y)
 			var unit = ENEMY.instantiate()
+			unit.ally = true
 			unit.global_position = spawn_zone.global_position + Vector2(_x, _y)
 			unit.add_to_group("allied_minions")
 			get_tree().current_scene.add_child(unit)
@@ -92,35 +96,36 @@ func take_damage(attack: Attack) -> void:
 	#print(attack.damage)
 	stats.health -= attack.damage
 	#print(stats.health)
+	$Core.play_hit_animation()
+	CameraShaker.play_shake()
+	#get_viewport().get_camera_2d().get_node("ShakerComponent2D").play_shake()
+	#print(camera_shaker)
+	#amera_shaker.play_shake()
 	hurtbox.start_invincibility(0.2)
 	hurtbox.create_hit_effect()
 
 func _on_spawn_timer_timeout() -> void:
 	spawn_minion(MainBase)
 	$SpawnTimer.start(minion_rate)
-@onready var audio_stream_player_2d: AudioStreamPlayer2D = $"../EnemyBaseL/AudioStreamPlayer2D"
 
 func _on_stats_no_health() -> void:
-	emit_signal("base_destroyed")
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(0.3).timeout
 	var enemyDeathEffect = EnemyDeathEffect.instantiate()
 	get_parent().add_child(enemyDeathEffect)
 	enemyDeathEffect.position = position
-	audio_stream_player_2d.play()
-	if (LeftBase): #if THIS node is THE left base
+	if (LeftBase):
 		if !base2:#Mark bandaid
 			get_tree().call_group('allied_minions', 'update_target_base',
 			bases_dictionary['enemy_base_R'].target_location)
 			redirect_minions_to_active_side()
-			base1 = false #No longer alive
-	if(RightBase): #if THIS node is THE RIGHT base
+			base1 = false
+	if(RightBase):
 		if !base1: #Mark bandaid
 			get_tree().call_group('allied_minions', 'update_target_base', # this udpates currently living minions
 			bases_dictionary['enemy_base_L'].target_location)
 			redirect_minions_to_active_side() # this directs spawn to other boss automatically
-			base2 = false #no longer alive
+			base2 = false
 	queue_free()
-	
 
 
 func change_minion_wave_side_selection(increase_left: bool, increase_right: bool):

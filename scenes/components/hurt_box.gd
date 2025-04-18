@@ -8,6 +8,7 @@ signal damaged2
 @onready var timer = $Timer
 @onready var collisionShape = $CollisionShape2D
 
+
 """When you instantiate this in another scene remember to turn on editable children by right clicking hurtbox in the scene
 thing and checking it then giving the specific enemy its own hitbox"""
 
@@ -50,6 +51,7 @@ func _on_invincibility_ended() -> void:
 func damage(attack: Attack) -> void:
 	#print("Player hit")
 	damaged.emit(attack)
+
 
 func damage2(projectile: InstancedProjectile2D):
 

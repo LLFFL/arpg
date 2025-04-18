@@ -1,11 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://b1cm70wimt8gm"]
+[gd_scene load_steps=7 format=3 uid="uid://b1cm70wimt8gm"]
 
 [ext_resource type="Texture2D" uid="uid://dxfvafagawxcy" path="res://addons/all_projectiles/demos/textures/projectiles/star_1.png" id="1_cowl3"]
 [ext_resource type="PackedScene" uid="uid://jita0hqrr0xa" path="res://Upgrades/Spells/Particles/fireballHead.tscn" id="2_6erf6"]
 [ext_resource type="PackedScene" uid="uid://bb2kngqig5vvs" path="res://Upgrades/Spells/Particles/MagicBolt.tscn" id="3_wbe52"]
+[ext_resource type="Script" uid="uid://b0at3q1gxuh41" path="res://addons/trail_2d/trail_2d.gd" id="4_6erf6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_grgi5"]
 radius = 18.0
+
+[sub_resource type="Curve" id="Curve_wbe52"]
+_data = [Vector2(0, 0.994506), 0.0, 0.0, 0, 0, Vector2(0.392857, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.0164835), -1.75824, 0.0, 0, 0]
+point_count = 3
 
 [node name="BasicProjectile" type="Node2D"]
 z_index = 11
@@ -17,13 +22,22 @@ collision_mask = 6
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collision"]
 shape = SubResource("CircleShape2D_grgi5")
 
+[node name="Node2D" parent="." instance=ExtResource("2_6erf6")]
+visible = false
+scale = Vector2(0.5, 0.5)
+
+[node name="Node2D2" parent="." instance=ExtResource("3_wbe52")]
+scale = Vector2(0.5, 0.5)
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0.52, 0.182, 0.1144, 1)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("1_cowl3")
 
-[node name="Node2D" parent="." instance=ExtResource("2_6erf6")]
-scale = Vector2(0.5, 0.5)
-
-[node name="Node2D2" parent="." instance=ExtResource("3_wbe52")]
-scale = Vector2(0.5, 0.5)
+[node name="Trail2D" type="Line2D" parent="."]
+width = 5.0
+width_curve = SubResource("Curve_wbe52")
+default_color = Color(0.86, 0.344, 0.215, 0.690196)
+script = ExtResource("4_6erf6")
+length = 30
+metadata/_custom_type_script = "uid://b0at3q1gxuh41"
