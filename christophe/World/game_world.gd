@@ -92,7 +92,7 @@ func open_portal():
 	portal_tween.parallel().tween_property(%Portal,"scale",Vector2(5,5),0.8)
 	portal_tween.parallel().tween_property(%Portal/Interior,"scale",Vector2(0.2,0.2),0.8)
 	portal_tween.tween_property(%ShopUi,"modulate:a",1,0.1)
-
+	player.z_index = 500
 	
 ## Close the Portal and hide shop ui
 func close_portal():
@@ -107,3 +107,4 @@ func close_portal():
 	portal_tween.parallel().tween_property(%Portal/Interior,"scale",Vector2(1,1),2).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	portal_tween.parallel().tween_property(%ShopUi,"modulate:a",0,0.5)
 	portal_tween.parallel().tween_property(player.get_node("Sprite2D").material,"shader_parameter/line_thickness",0,0.2)
+	player.z_index = 0
