@@ -120,6 +120,15 @@ func damage(attack: Attack) -> void:
 	var _direction = (position - get_global_mouse_position()).normalized()
 	knockback = _direction * 240
 	velocity = knockback
+	
+	# Animate the player when they get hit
+	# Could change animation to remap intensity with attack
+	var t = create_tween()
+	t.tween_property($Sprite2D,"scale:y",1.3,0.1).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	t.tween_property($Sprite2D,"scale:y",1,0.1).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	await t.finished
+	t.kill()
+	$Sprite2D.scale.y = 1
 
 func damage2(projectile: InstancedProjectile2D) -> void:
 	print("Damage 2 triggered- Player current health:  ", stats.health)
