@@ -23,7 +23,7 @@ func _ready() -> void:
 
 func _initialize(Ally: bool, base_position: Vector2):
 	target_location = base_position
-	print(target_location)
+	#print(target_location)
 	if Ally:
 		hurt_box.set_collision_layer_value(3, true)
 		hitbox.set_collision_mask_value(4, true)

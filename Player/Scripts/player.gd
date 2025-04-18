@@ -122,7 +122,9 @@ func damage(attack: Attack) -> void:
 	velocity = knockback
 
 func damage2(projectile: InstancedProjectile2D) -> void:
+	print("Damage 2 triggered- Player current health:  ", stats.health)
 	stats.health -= projectile.resource.damage
+	print("Damage 2 player health after hit: ", stats.health)
 	hurtbox.start_invincibility(0.4)
 	hurtbox.create_hit_effect()
 	var _direction = (position - get_global_mouse_position()).normalized()
