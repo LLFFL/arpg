@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://46ic5eq5d8qa"]
+[gd_scene load_steps=56 format=3 uid="uid://46ic5eq5d8qa"]
 
 [ext_resource type="Script" uid="uid://dx65t4op8hlv6" path="res://christophe/World/game_world.gd" id="1_6sg4h"]
 [ext_resource type="Shader" uid="uid://v1g385vie0ti" path="res://christophe/Shaders/SpriteColorMapped.gdshader" id="2_wjrrt"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c6roa62v2r73o" path="res://christophe/World/Montains.png" id="4_6rwpi"]
 [ext_resource type="Texture2D" uid="uid://cx5687cgerbn2" path="res://christophe/World/Near.png" id="5_r41hh"]
 [ext_resource type="Texture2D" uid="uid://cpxns4i0ji447" path="res://christophe/Particles/snow.png" id="6_ufba3"]
+[ext_resource type="Texture2D" uid="uid://fri7rlsghp6s" path="res://christophe/Cores/PlayerCore.png" id="7_4gwui"]
 [ext_resource type="Texture2D" uid="uid://celvg3ltvpk0b" path="res://christophe/World/ground.png" id="7_dq7a4"]
 [ext_resource type="Texture2D" uid="uid://r5xy5wxip2pp" path="res://christophe/World/frogDimension/Portal.png" id="8_n5cly"]
 [ext_resource type="Texture2D" uid="uid://cf61ek826hivn" path="res://christophe/World/frogDimension/a.png" id="9_picea"]
@@ -31,10 +32,13 @@
 [ext_resource type="Texture2D" uid="uid://rfoa8woep3d6" path="res://christophe/Cores/FireCore.png" id="30_lr5rs"]
 [ext_resource type="PackedScene" uid="uid://cqfgoae6a2efh" path="res://kharus room/base.tscn" id="31_wjrrt"]
 [ext_resource type="PackedScene" uid="uid://cghe5cfsmt5t8" path="res://MinionSideControlUI.tscn" id="32_4gwui"]
+[ext_resource type="Texture2D" uid="uid://u5wis3c6uwev" path="res://christophe/Cores/CoreShadow.png" id="33_r41hh"]
+[ext_resource type="Texture2D" uid="uid://cuvnxmfrpli85" path="res://christophe/Cores/IceMiniCore.png" id="34_ufba3"]
+[ext_resource type="PackedScene" uid="uid://vjka7tdwi53v" path="res://christophe/money.tscn" id="35_ufba3"]
 
 [sub_resource type="Gradient" id="Gradient_3fx2f"]
-offsets = PackedFloat32Array(0.00332226, 0.533546, 1)
-colors = PackedColorArray(0.452523, 0.478498, 0.794625, 1, 0.658603, 0.648851, 0.635553, 1, 0.622309, 0.454402, 0.30302, 1)
+offsets = PackedFloat32Array(0.00332226, 0.533546, 0.799107, 1)
+colors = PackedColorArray(0.452523, 0.478498, 0.794625, 1, 0.658603, 0.648851, 0.635553, 1, 0.88, 0.726, 0.572, 1, 0.866667, 0.517647, 0.415686, 1)
 
 [sub_resource type="Gradient" id="Gradient_u0w7i"]
 offsets = PackedFloat32Array(0, 0.429319, 0.539267, 0.710963, 1)
@@ -183,22 +187,22 @@ scale = Vector2(0.879, 0.879)
 texture = ExtResource("3_4gwui")
 
 [node name="MONTAINS" type="Parallax2D" parent="Map"]
-scroll_scale = Vector2(0.4, 1)
+scroll_scale = Vector2(0.7, 1)
 scroll_offset = Vector2(30, 0)
 
 [node name="MontainsSprite" type="Sprite2D" parent="Map/MONTAINS"]
 unique_name_in_owner = true
 modulate = Color(0.277361, 0.283307, 0.431043, 1)
 texture_filter = 1
-position = Vector2(-1, 6)
-scale = Vector2(0.58434, 0.589895)
+position = Vector2(2, -6)
 texture = ExtResource("4_6rwpi")
 
 [node name="NEAR" type="Parallax2D" parent="Map"]
-scroll_scale = Vector2(0.95, 1)
+scroll_scale = Vector2(0.8, 1)
 
 [node name="NearSprite" type="Sprite2D" parent="Map/NEAR"]
-position = Vector2(2, 5)
+position = Vector2(0, -4)
+scale = Vector2(0.915, 0.965)
 texture = ExtResource("5_r41hh")
 
 [node name="FireParticles" type="CPUParticles2D" parent="Map"]
@@ -217,6 +221,10 @@ angle_min = -175.0
 angle_max = 619.2
 scale_amount_min = 0.2
 color_ramp = SubResource("Gradient_15v85")
+
+[node name="PlayerCore" type="Sprite2D" parent="Map"]
+position = Vector2(0, -14)
+texture = ExtResource("7_4gwui")
 
 [node name="Ground" type="Sprite2D" parent="Map"]
 texture = ExtResource("7_dq7a4")
@@ -378,6 +386,7 @@ position = Vector2(245, 91)
 remote_path = NodePath("../../Camera2D")
 
 [node name="MapCollision" type="StaticBody2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MapCollision"]
 position = Vector2(0, 166)
@@ -506,6 +515,25 @@ shape = SubResource("RectangleShape2D_r41hh")
 [node name="Area2D" parent="BaseContainer/EnemyBaseR" index="8"]
 z_index = 2
 position = Vector2(1110, 61)
+
+[node name="CoreShadow" type="Sprite2D" parent="."]
+modulate = Color(0.401167, 0.29, 0.58, 0.415686)
+position = Vector2(-624, 96)
+scale = Vector2(0.695652, 0.695652)
+texture = ExtResource("33_r41hh")
+
+[node name="IceMiniCore" type="Sprite2D" parent="."]
+position = Vector2(-624, 64)
+texture = ExtResource("34_ufba3")
+
+[node name="WallPlaceHolder" type="Polygon2D" parent="IceMiniCore"]
+position = Vector2(29275.4, 0)
+scale = Vector2(316.264, 1)
+color = Color(0.19, 0.418, 0.76, 0.498039)
+polygon = PackedVector2Array(-94.3875, -290, -92.8761, -297, -92.8761, 4, -93.05, 71, -94.3559, 71)
+
+[node name="Money" parent="." instance=ExtResource("35_ufba3")]
+position = Vector2(190, 86)
 
 [editable path="BaseContainer/AllyBase"]
 [editable path="BaseContainer/AllyBase/HurtBox"]

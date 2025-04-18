@@ -7,6 +7,7 @@ signal damaged
 @onready var timer = $Timer
 @onready var collisionShape = $CollisionShape2D
 
+
 """When you instantiate this in another scene remember to turn on editable children by right clicking hurtbox in the scene
 thing and checking it then giving the specific enemy its own hitbox"""
 
