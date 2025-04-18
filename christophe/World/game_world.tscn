@@ -404,7 +404,6 @@ polygon = PackedVector2Array(-1201, -151, -1200, 135, -1107, 134, -1137, 116, -1
 
 [node name="ShopUi" type="Node2D" parent="."]
 unique_name_in_owner = true
-visible = false
 z_index = 4
 
 [node name="ShopLabel" type="Label" parent="ShopUi"]
@@ -543,7 +542,7 @@ monitorable = false
 [node name="MinionSideControl" parent="BaseContainer/AllyBase/CanvasLayer" instance=ExtResource("32_4gwui")]
 unique_name_in_owner = true
 
-[node name="EnemyBaseL" parent="BaseContainer" instance=ExtResource("31_wjrrt")]
+[node name="EnemyBaseL" parent="BaseContainer" groups=["enemy_base"] instance=ExtResource("31_wjrrt")]
 z_index = -1
 position = Vector2(-1087, 57)
 LeftBase = true
@@ -555,6 +554,9 @@ HitColor = Color(0.709804, 0.898039, 0.952941, 1)
 
 [node name="SpawnLocation" parent="BaseContainer/EnemyBaseL" index="3"]
 position = Vector2(65, 32)
+
+[node name="HurtBox" parent="BaseContainer/EnemyBaseL" index="4"]
+collision_layer = 16
 
 [node name="CollisionShape2D" parent="BaseContainer/EnemyBaseL/SpawnZone" index="0"]
 position = Vector2(78.5, 35)
@@ -575,7 +577,7 @@ skew = -0.000553012
 stream = ExtResource("37_picea")
 bus = &"SFX"
 
-[node name="EnemyBaseR" parent="BaseContainer" instance=ExtResource("31_wjrrt")]
+[node name="EnemyBaseR" parent="BaseContainer" groups=["enemy_base"] instance=ExtResource("31_wjrrt")]
 position = Vector2(1110, 61)
 RightBase = true
 
@@ -586,6 +588,9 @@ HitColor = Color(1, 0.482353, 0.454902, 1)
 
 [node name="SpawnLocation" parent="BaseContainer/EnemyBaseR" index="3"]
 position = Vector2(-81, 27)
+
+[node name="HurtBox" parent="BaseContainer/EnemyBaseR" index="4"]
+collision_layer = 16
 
 [node name="CollisionShape2D" parent="BaseContainer/EnemyBaseR/SpawnZone" index="0"]
 position = Vector2(-81, 34.5)
@@ -599,10 +604,15 @@ scale = Vector2(1.36845, 0.967038)
 [node name="ProjectileCaller2D" parent="BaseContainer/EnemyBaseR/Area2D" index="2" instance=ExtResource("32_6rwpi")]
 position = Vector2(-31.4225, -5.17042)
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="BaseContainer/EnemyBaseR"]
+stream = ExtResource("37_picea")
+bus = &"SFX"
+
 [connection signal="pressed" from="ShopUi/HBoxContainer/Button" to="ShopUi/HBoxContainer/Button" method="_on_pressed"]
 [connection signal="pressed" from="ShopUi/HBoxContainer/Button4" to="ShopUi/HBoxContainer/Button4" method="_on_pressed"]
 [connection signal="pressed" from="ShopUi/HBoxContainer/Button7" to="ShopUi/HBoxContainer/Button7" method="_on_pressed"]
 [connection signal="pressed" from="ShopUi/HBoxContainer/Button8" to="ShopUi/HBoxContainer/Button8" method="_on_pressed"]
+[connection signal="no_health" from="BaseContainer/EnemyBaseL/StatsComponent" to="." method="_on_stats_component_no_health"]
 
 [editable path="BaseContainer/AllyBase"]
 [editable path="BaseContainer/AllyBase/HurtBox"]

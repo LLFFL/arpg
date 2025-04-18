@@ -4,7 +4,7 @@ extends Node2D
 ## The player sprite2D.use_parent_material should be set to true
 ## And the player instance in this scene uses a material that adds an outline
 
-
+var base_destroyed: int = 0 #This is toggled to true on first signal. then, if its signaled and its true, you win
 
 @export var player:Player
 @export var mountains_gradient:Gradient
@@ -14,9 +14,13 @@ extends Node2D
 @export var cloud_base:Gradient
 @export var cloud_highlight:Gradient
 
-
+var rightIsAlive: bool = true
+var leftIsAlive: bool = true
+var playerBaseIsAlive: bool = true
 ## True if the player portal is open
 var portal_is_open = false
+@onready var enemy_base_l: Node2D = $BaseContainer/EnemyBaseL
+@onready var enemy_base_r: Node2D = $BaseContainer/EnemyBaseR
 
 ## Tween used to close and open the portal. Whenever either happens, 
 ## the tween is killed and recreated. That way, the open/close anim never overlaps
@@ -25,8 +29,8 @@ var portal_tween:Tween
 @onready var base_container: Node = %BaseContainer
 var bases_dictionary: Dictionary
 func _ready():
-	
-	
+	enemy_base_r.base_destroyed.connect(_on_base_destroyed)
+	enemy_base_l.base_destroyed.connect(_on_base_destroyed)
 	var bases = base_container.get_children()
 	bases_dictionary = {
 		'ally_base' = bases[0],
@@ -108,3 +112,10 @@ func close_portal():
 	portal_tween.parallel().tween_property(%Portal/Interior,"scale",Vector2(1,1),2).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	portal_tween.parallel().tween_property(%ShopUi,"modulate:a",0,0.5)
 	portal_tween.parallel().tween_property(player.material,"shader_parameter/line_thickness",0,0.2)
+
+
+func _on_base_destroyed():
+	print("_on_base_destroyed triggered")
+	if base_destroyed >2:
+		print("GG, you did it, you killed everyone. Hope you are happy")
+	else: base_destroyed += 1

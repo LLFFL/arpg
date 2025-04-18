@@ -19,8 +19,9 @@ const EnemyDeathEffect = preload("res://assets/Action RPG Resources/Effects/Enem
 @onready var spawn_zone: CollisionShape2D = $SpawnZone/CollisionShape2D
 @onready var target_marker: Marker2D = $TargetLocation
 var target_location: Vector2
-var base1: bool = true
+var base1: bool = true #Is alive
 var base2: bool = true
+signal base_destroyed(base)
 
 func _ready():
 	target_location = target_marker.global_position
@@ -39,11 +40,11 @@ func _ready():
 		
 	if (LeftBase):
 		#bat_spawn_location = Vector2(position.x + 50, position.y)
-		#hurtbox.set_collision_layer_value(4, true) 
+		hurtbox.set_collision_layer_value(4, true) 
 		hurtbox.set_collision_layer_value(5, true)
 	if (RightBase):
 		#bat_spawn_location = Vector2(position.x - 50, position.y)
-		#hurtbox.set_collision_layer_value(4, true) 
+		hurtbox.set_collision_layer_value(4, true) 
 		hurtbox.set_collision_layer_value(5, true)
 		
 func initialize(bases_dictionaryy: Dictionary):
@@ -100,24 +101,26 @@ func _on_spawn_timer_timeout() -> void:
 @onready var audio_stream_player_2d: AudioStreamPlayer2D = $"../EnemyBaseL/AudioStreamPlayer2D"
 
 func _on_stats_no_health() -> void:
-	await get_tree().create_timer(0.3).timeout
+	emit_signal("base_destroyed")
+	await get_tree().create_timer(0.5).timeout
 	var enemyDeathEffect = EnemyDeathEffect.instantiate()
 	get_parent().add_child(enemyDeathEffect)
 	enemyDeathEffect.position = position
 	audio_stream_player_2d.play()
-	if (LeftBase):
+	if (LeftBase): #if THIS node is THE left base
 		if !base2:#Mark bandaid
 			get_tree().call_group('allied_minions', 'update_target_base',
 			bases_dictionary['enemy_base_R'].target_location)
 			redirect_minions_to_active_side()
-			base1 = false
-	if(RightBase):
+			base1 = false #No longer alive
+	if(RightBase): #if THIS node is THE RIGHT base
 		if !base1: #Mark bandaid
 			get_tree().call_group('allied_minions', 'update_target_base', # this udpates currently living minions
 			bases_dictionary['enemy_base_L'].target_location)
 			redirect_minions_to_active_side() # this directs spawn to other boss automatically
-			base2 = false
+			base2 = false #no longer alive
 	queue_free()
+	
 
 
 func change_minion_wave_side_selection(increase_left: bool, increase_right: bool):
