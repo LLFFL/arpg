@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://46ic5eq5d8qa"]
+[gd_scene load_steps=66 format=3 uid="uid://46ic5eq5d8qa"]
 
 [ext_resource type="Script" uid="uid://dx65t4op8hlv6" path="res://christophe/World/game_world.gd" id="1_6sg4h"]
 [ext_resource type="Shader" uid="uid://v1g385vie0ti" path="res://christophe/Shaders/SpriteColorMapped.gdshader" id="2_wjrrt"]
@@ -44,6 +44,7 @@
 [ext_resource type="Texture2D" uid="uid://4t1sumn6g60i" path="res://christophe/Shop/SpeedIconShop.png" id="33_hrtp6"]
 [ext_resource type="Texture2D" uid="uid://dacq1q8xq2ud5" path="res://christophe/Shop/SheildIconShop.png" id="34_me02p"]
 [ext_resource type="Texture2D" uid="uid://d2j4j4csy61fm" path="res://christophe/Shop/UnitsStatsIconShop.png" id="35_me02p"]
+[ext_resource type="Texture2D" uid="uid://esy21sfjhq1j" path="res://christophe/Shop/Slash1IconShop.png" id="36_1buh8"]
 
 [sub_resource type="Gradient" id="Gradient_3fx2f"]
 offsets = PackedFloat32Array(0.00332226, 0.533546, 0.799107, 1)
@@ -493,6 +494,15 @@ upgrade_id = "units_boost"
 upgrade_cost = 0
 max_level = 10
 icon_path = ExtResource("35_me02p")
+
+[node name="ShopButtonSlash" parent="ShopUi/HBoxContainer" instance=ExtResource("30_y7jpt")]
+layout_mode = 2
+upgrade_type = 5
+upgrade_id = "slash_boost"
+upgrade_cost = 0
+upgrade_value = 1
+max_level = 1
+icon_path = ExtResource("36_1buh8")
 
 [node name="Button" type="Button" parent="ShopUi/HBoxContainer"]
 visible = false

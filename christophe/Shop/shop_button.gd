@@ -36,6 +36,7 @@ func _ready():
 	%CostLabel.text = str(upgrade_cost)
 	%ItemIcon.texture = icon_path
 	%LimitLabel.text = str(current_level) + "/" + str(max_level)
+	
 
 func _on_pressed() -> void:
 	# Not enough gold
@@ -51,6 +52,8 @@ func _on_pressed() -> void:
 	%LimitLabel.text = str(current_level) + "/" + str(max_level)
 	PlayerManager.player.stats.gold -= upgrade_cost
 	play_buying_animation()
+	if current_level==max_level:
+		self.modulate = Color("717171")
 	match upgrade_type:
 		UpgradeType.DAMAGE:
 			PlayerManager.player.stats.upgrade_damage(upgrade_value)
@@ -69,6 +72,13 @@ func _on_pressed() -> void:
 				%ItemIcon.texture = load("res://christophe/Shop/UnitsStatsIconShop.png")
 			#PlayerManager.player.stats.upgrade_units()
 			#PlayerManager.player.stats.level_upgrades
+		
+		#TODO: Add logic for slash upgrades
+		UpgradeType.SLASH:
+			match current_level:
+				0: %ItemIcon.texture = load("res://christophe/Shop/Slash1IconShop.png")
+				1: %ItemIcon.texture = load("res://christophe/Shop/Slash2IconShop.png")
+					
 			
 			
 

@@ -1,0 +1,59 @@
+[gd_scene load_steps=6 format=3 uid="uid://bftye7eg88uik"]
+
+[ext_resource type="Texture2D" uid="uid://rfoa8woep3d6" path="res://christophe/Cores/FireCore.png" id="1_xragt"]
+[ext_resource type="Texture2D" uid="uid://d4f6t1x1tgj2" path="res://christophe/Particles/round.png" id="2_at8de"]
+
+[sub_resource type="Curve" id="Curve_a36qu"]
+_data = [Vector2(0.00383142, 1), 0.0, 0.0, 0, 0, Vector2(0.191571, 1), 0.0580315, 0.0580315, 0, 0, Vector2(0.448276, 0), -11.0816, -11.7259, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_j6bgg"]
+offsets = PackedFloat32Array(0.344681, 0.706383)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="Gradient" id="Gradient_g1a85"]
+colors = PackedColorArray(0.834614, 0.834614, 0.834614, 1, 1, 1, 1, 1)
+
+[node name="ExplosionParticles" type="Node2D"]
+
+[node name="FireCore" type="Sprite2D" parent="."]
+position = Vector2(0, -2)
+texture = ExtResource("1_xragt")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+visible = false
+position = Vector2(0, -2)
+amount = 30
+texture = ExtResource("2_at8de")
+speed_scale = 0.8
+explosiveness = 1.0
+randomness = 0.6
+lifetime_randomness = 1.0
+spread = 180.0
+gravity = Vector2(0, 400)
+initial_velocity_min = 217.61
+initial_velocity_max = 287.54
+linear_accel_max = 36.64
+scale_amount_min = 0.0
+scale_amount_max = 5.0
+scale_amount_curve = SubResource("Curve_a36qu")
+color_ramp = SubResource("Gradient_j6bgg")
+color_initial_ramp = SubResource("Gradient_g1a85")
+
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="."]
+position = Vector2(0, -2)
+amount = 30
+texture = ExtResource("2_at8de")
+lifetime = 0.5
+randomness = 0.6
+lifetime_randomness = 1.0
+spread = 180.0
+gravity = Vector2(0, 400)
+initial_velocity_min = 217.61
+initial_velocity_max = 287.54
+linear_accel_max = 36.64
+scale_amount_min = 0.0
+scale_amount_max = 5.0
+scale_amount_curve = SubResource("Curve_a36qu")
+color_ramp = SubResource("Gradient_j6bgg")
+color_initial_ramp = SubResource("Gradient_g1a85")
