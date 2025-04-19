@@ -87,8 +87,10 @@ script = ExtResource("1_hqvw5")
 
 [node name="CoreShadow" type="Sprite2D" parent="."]
 modulate = Color(0.988235, 0.988235, 0.988235, 0.529412)
-position = Vector2(0, 35)
+z_index = -1
+position = Vector2(8.9407e-08, 31)
 texture = ExtResource("10_vwx30")
+offset = Vector2(-8.9407e-08, 4)
 
 [node name="CoreSprite" type="Sprite2D" parent="."]
 position = Vector2(0, 32)

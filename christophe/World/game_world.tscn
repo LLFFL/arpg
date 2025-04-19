@@ -259,6 +259,7 @@ position = Vector2(0, -14)
 texture = ExtResource("7_4gwui")
 
 [node name="Ground" type="Sprite2D" parent="Map"]
+z_index = -1
 texture = ExtResource("7_dq7a4")
 
 [node name="SnowParticles" type="CPUParticles2D" parent="Map"]
@@ -556,6 +557,7 @@ MainBase = true
 CameraShaker = NodePath("../../CameraHandler/Camera2D/ShakerComponent2D")
 
 [node name="Core" parent="BaseContainer/AllyBase" index="0"]
+position = Vector2(2.98023e-08, 16)
 collision_layer = 0
 Sprite = ExtResource("7_4gwui")
 Shadow = Color(0, 0, 0, 0)
@@ -589,6 +591,7 @@ monitorable = false
 unique_name_in_owner = true
 
 [node name="EnemyBaseL" parent="BaseContainer" node_paths=PackedStringArray("CameraShaker") instance=ExtResource("31_wjrrt")]
+y_sort_enabled = true
 position = Vector2(-1087, 57)
 LeftBase = true
 CameraShaker = NodePath("../../CameraHandler/Camera2D/ShakerComponent2D")

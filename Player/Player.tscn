@@ -466,7 +466,7 @@ offset_bottom = -28.0
 
 [node name="Stats" type="Node2D" parent="."]
 script = ExtResource("17_8sa4y")
-base_movement_speed = 80.0
+base_movement_speed = 250.0
 
 [node name="ProjectileCaller2D" type="Node2D" parent="."]
 top_level = true
