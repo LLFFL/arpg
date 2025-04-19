@@ -95,9 +95,12 @@ metadata/_custom_type_script = "uid://bbpgow0myqh1p"
 modulate = Color(0.924403, 0.386747, 0.376471, 1)
 z_index = -1
 position = Vector2(1, -15)
-amount = 4
+emitting = false
+amount = 1
 texture = ExtResource("2_j5em4")
-lifetime = 2.0
+lifetime = 1.5
+one_shot = true
+explosiveness = 1.0
 local_coords = true
 emission_shape = 2
 emission_sphere_radius = 10.0
@@ -111,6 +114,7 @@ scale_amount_max = 0.5
 color_ramp = SubResource("Gradient_unhkb")
 
 [node name="SpeedBuffParticles" type="CPUParticles2D" parent="."]
+visible = false
 modulate = Color(0.309284, 0.764049, 0.869271, 1)
 z_index = -1
 position = Vector2(1, -15)
