@@ -116,3 +116,6 @@ func close_portal():
 	portal_tween.tween_property(%Frog,"position",Vector2(-65,50),0.5).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	player.z_index = 0
 	%Portal.z_index = -1
+
+func start_game():
+	pass

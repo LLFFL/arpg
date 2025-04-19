@@ -29,23 +29,27 @@ static var base2: bool = true
 
 var ally_timer: Timer
 var enemy_timer: Timer
+
+var spawn_timer: Timer
 var upgrade_timer: Timer
 
 func _ready():
 	stats.units_updated.connect(increase_allied_minions)
-	
-	ally_timer = Timer.new()
-	ally_timer.timeout.connect(_on_timer_timeout.bind(ally_timer))
-	enemy_timer = Timer.new()
-	enemy_timer.timeout.connect(_on_timer_timeout.bind(enemy_timer))
+	spawn_timer = Timer.new()
+	spawn_timer.timeout.connect(_on_timer_timeout.bind(spawn_timer))
+	add_child(spawn_timer)
+	#ally_timer = Timer.new()
+	#ally_timer.timeout.connect(_on_timer_timeout.bind(ally_timer))
+	#enemy_timer = Timer.new()
+	#enemy_timer.timeout.connect(_on_timer_timeout.bind(enemy_timer))
 	
 	target_location = target_marker.global_position
 	hurtbox.damaged.connect(take_damage)
 	# awkward scenario where to be detected and chase player and bat set their own personal collision to be detectable
 	#$SpawnTimer.start(minion_rate)
 	if (MainBase):
-		add_child(ally_timer)
-		ally_timer.start(stats.spawn_rate)
+		#add_child(ally_timer)
+		#ally_timer.start(stats.spawn_rate)
 		PlayerManager.player.stats.baseStats = stats
 		var flag = true
 		var i = 0
@@ -87,14 +91,14 @@ func _ready():
 		#upgrade_timer.start()
 	
 	if (LeftBase):
-		add_child(enemy_timer)
-		enemy_timer.start(stats.spawn_rate)
+		#add_child(enemy_timer)
+		#enemy_timer.start(stats.spawn_rate)
 		#bat_spawn_location = Vector2(position.x + 50, position.y)
 		hurtbox.set_collision_layer_value(4, true) 
 		#hurtbox.set_collision_layer_value(5, true)
 	if (RightBase):
-		add_child(enemy_timer)
-		enemy_timer.start(stats.spawn_rate)
+		#add_child(enemy_timer)
+		#enemy_timer.start(stats.spawn_rate)
 		#bat_spawn_location = Vector2(position.x - 50, position.y)
 		hurtbox.set_collision_layer_value(4, true) 
 		#hurtbox.set_collision_layer_value(5, true)
@@ -220,3 +224,6 @@ func send_all_minions_left():
 	minion_side_selection[0] += minion_side_selection[1]
 	minion_side_selection[1] = 0
 	minion_side_control.side_is_dead(false, true, minion_side_selection)
+
+func _on_game_start():
+	spawn_timer.start(stats.spawn_rate)
