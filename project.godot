@@ -49,6 +49,7 @@ projectile=""
 player=""
 allied_minions=""
 allied_base=""
+fire_base=""
 
 [gui]
 

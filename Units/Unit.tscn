@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://4q50d6d286ii"]
+[gd_scene load_steps=29 format=3 uid="uid://4q50d6d286ii"]
 
 [ext_resource type="Script" uid="uid://c1agn5mochq7a" path="res://Units/Scripts/unit.gd" id="1_q3cfo"]
 [ext_resource type="Texture2D" uid="uid://u5wis3c6uwev" path="res://christophe/Cores/CoreShadow.png" id="2_bmhsd"]
@@ -147,8 +147,12 @@ height = 24.0
 radius = 45.0
 height = 116.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_md5ic"]
+radius = 106.0
+height = 266.0
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_gr1ro"]
-radius = 106.794
+radius = 106.0
 
 [sub_resource type="Animation" id="Animation_a0gwr"]
 length = 0.001
@@ -280,6 +284,15 @@ monitorable = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackZone"]
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_q5ue8")
+
+[node name="GoldDetectionZone" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GoldDetectionZone"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_md5ic")
 
 [node name="EnemyDetectionZone" type="Area2D" parent="."]
 collision_layer = 0

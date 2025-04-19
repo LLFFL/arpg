@@ -29,10 +29,11 @@ colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0.366595, 0.366595
 
 [node name="BasicProjectile" type="Node2D"]
 z_index = 11
+scale = Vector2(0.3, 0.3)
 
 [node name="Collision" type="Area2D" parent="."]
 collision_layer = 16
-collision_mask = 2
+collision_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collision"]
 shape = SubResource("CircleShape2D_grgi5")
@@ -40,6 +41,7 @@ shape = SubResource("CircleShape2D_grgi5")
 [node name="Bubbling" type="CPUParticles2D" parent="."]
 material = SubResource("CanvasItemMaterial_fhsef")
 amount = 50
+texture = ExtResource("1_gj247")
 lifetime = 2.0
 preprocess = 0.3
 speed_scale = 5.0
@@ -47,7 +49,6 @@ randomness = 0.33
 lifetime_randomness = 0.34
 local_coords = true
 draw_order = 1
-texture = ExtResource("1_gj247")
 emission_shape = 1
 emission_sphere_radius = 8.53
 direction = Vector2(0, 0)
@@ -69,12 +70,12 @@ hue_variation_max = 0.32
 [node name="Light" type="CPUParticles2D" parent="."]
 material = SubResource("CanvasItemMaterial_6fs04")
 amount = 20
+texture = ExtResource("3_i1fjh")
 lifetime = 2.6
 preprocess = 3.0
 fixed_fps = 30
 local_coords = true
 draw_order = 1
-texture = ExtResource("3_i1fjh")
 direction = Vector2(-1, 0)
 spread = 0.0
 gravity = Vector2(0, 0)
