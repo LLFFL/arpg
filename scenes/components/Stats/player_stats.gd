@@ -74,15 +74,26 @@ func add_gold(value: int):
 
 func upgrade_damage(value: float):
 	base_damage += value
+	$"../UpgradeParticles/AttackBuffParticles".amount += 1
+	$"../UpgradeParticles/AttackBuffParticles".restart()
 
 func upgrade_movement_speed(value: float):
 	base_movement_speed += value
+	$"../UpgradeParticles/SpeedBuffParticles".amount += 1
+	$"../UpgradeParticles/SpeedBuffParticles".restart()
 
 func upgrade_luck():
 	luck += 1
+	
+	$"../UpgradeParticles/LuckBuffParticles".amount += 1
+	$"../UpgradeParticles/LuckBuffParticles".restart()
+	
+	
 
 func upgrade_defence(value: float):
 	base_defence += value
+	$"../UpgradeParticles/DefenseBuffParticles".amount += 1
+	$"../UpgradeParticles/DefenseBuffParticles".restart()
 #Spell Dictionairy
 #Cast time, Base Damage, Projectile speed, ext
 

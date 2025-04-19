@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://46ic5eq5d8qa"]
+[gd_scene load_steps=64 format=3 uid="uid://46ic5eq5d8qa"]
 
 [ext_resource type="Script" uid="uid://dx65t4op8hlv6" path="res://christophe/World/game_world.gd" id="1_6sg4h"]
 [ext_resource type="Shader" uid="uid://v1g385vie0ti" path="res://christophe/Shaders/SpriteColorMapped.gdshader" id="2_wjrrt"]
@@ -41,6 +41,8 @@
 [ext_resource type="PackedScene" uid="uid://cghe5cfsmt5t8" path="res://MinionSideControlUI.tscn" id="32_4gwui"]
 [ext_resource type="PackedScene" uid="uid://c8dh1t5f7r5i4" path="res://enemy/fireBossModuleCaller.tscn" id="32_6rwpi"]
 [ext_resource type="Texture2D" uid="uid://dxmorelsxus68" path="res://christophe/Shop/LuckIconShop.png" id="32_thoo6"]
+[ext_resource type="Texture2D" uid="uid://4t1sumn6g60i" path="res://christophe/Shop/SpeedIconShop.png" id="33_hrtp6"]
+[ext_resource type="Texture2D" uid="uid://dacq1q8xq2ud5" path="res://christophe/Shop/SheildIconShop.png" id="34_me02p"]
 
 [sub_resource type="Gradient" id="Gradient_3fx2f"]
 offsets = PackedFloat32Array(0.00332226, 0.533546, 0.799107, 1)
@@ -464,7 +466,22 @@ icon_path = ExtResource("31_63wid")
 
 [node name="ShopButtonLuck" parent="ShopUi/HBoxContainer" instance=ExtResource("30_y7jpt")]
 layout_mode = 2
+upgrade_cost = 0
+upgrade_id = "luck_boost"
 icon_path = ExtResource("32_thoo6")
+upgrade_type = 3
+
+[node name="ShopButtonSpeed" parent="ShopUi/HBoxContainer" instance=ExtResource("30_y7jpt")]
+layout_mode = 2
+upgrade_id = "speed_boost"
+icon_path = ExtResource("33_hrtp6")
+upgrade_type = 1
+
+[node name="ShopButtonDefense" parent="ShopUi/HBoxContainer" instance=ExtResource("30_y7jpt")]
+layout_mode = 2
+upgrade_id = "defence_boost"
+icon_path = ExtResource("34_me02p")
+upgrade_type = 2
 
 [node name="Button" type="Button" parent="ShopUi/HBoxContainer"]
 visible = false
