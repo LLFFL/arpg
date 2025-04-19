@@ -41,7 +41,10 @@ func cast_spell() -> void:
 		direction_pos = spawn_pos
 		direction_pos.y -= 1
 		cast_timer += 1.5
-	projectile_caller.request_projectile(0, spawn_pos, direction_pos)
+	if get_parent().is_in_group("fire_base"):
+		projectile_caller.request_projectile(0, spawn_pos, player.get_global_position())
+	else:
+		projectile_caller.request_projectile(0, spawn_pos, direction_pos)
 
 func cast_spell2() -> void:
 	projectile_caller.request_projectile(1, position, player.get_global_position())
