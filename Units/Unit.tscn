@@ -262,7 +262,6 @@ shape = SubResource("CapsuleShape2D_3v853")
 
 [node name="Stats" type="Node2D" parent="."]
 script = ExtResource("5_md5ic")
-base_movement_speed = 60.0
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("6_alepv")

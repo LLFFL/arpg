@@ -19,7 +19,7 @@ signal dmg_status_changed(active: bool, buff: bool)
 var dmg_timer: Timer
 
 #base dmg of the Unit
-var base_damage: float = 10.0
+@export var base_damage: float = 10.0
 
 #damage of a ability/anthing that has it's own dmg
 var base_effect_damage: float = 0
@@ -30,7 +30,9 @@ func reset_effect_damage():
 
 #dmg modifier for example 50% dmg increase here would be 1.5
 var base_damage_modifier: float = 1
-var damage_modifier: float = 1
+var damage_modifier: float = 1:
+	set(value):
+		damage_modifier = value
 
 #calculation for the damage output
 var damage: float:
@@ -78,16 +80,6 @@ var crit_chance: float:
 		return base_crit_chance + 6.5 * luck_mod
 #endregion
 
-#region Units
-static var unit_packs: int = 1
-static var unit_per_pack: int = 3
-
-func upgrade_pack_number():
-	unit_packs += 1
-
-func upgrade_unit_quantity():
-	unit_per_pack += 1
-#endregion
 
 #region Damage over time
 var dot_timer: Timer

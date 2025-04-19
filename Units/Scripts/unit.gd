@@ -13,19 +13,26 @@ var direction: Vector2 = Vector2.ZERO
 @onready var soft_collision: Area2D = $SoftCollision
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
+#var stats: UnitStats = null
 var ally: bool = false
+var enemy: bool = false
 var targets: Array[CharacterBody2D] = []
 
 var temp_target: CharacterBody2D = null
 
 func _ready() -> void:
 	if ally:
+		sprite_2d.texture = load("res://assets/ally_unit.png")
 		hurt_box.set_collision_layer_value(3, true)
 		hitbox.set_collision_mask_value(4, true)
 		enemy_detection_zone.set_collision_mask_value(5, true)
 		set_collision_layer_value(2, true)
 		set_collision_mask_value(5, true)
 	else:
+		if enemy:
+			sprite_2d.texture = load("res://assets/enemy_1.png")
+		else:
+			sprite_2d.texture = load("res://assets/enemy_fire.png")
 		hurt_box.set_collision_layer_value(4, true)
 		hitbox.set_collision_mask_value(3, true)
 		enemy_detection_zone.set_collision_mask_value(2, true)
@@ -101,3 +108,6 @@ func _on_hurt_box_invincibility_ended() -> void:
 func _on_hurt_box_invincibility_started() -> void:
 	blink.play("start")
 	pass # Replace with function body.
+
+func update_target_base(_loc: Vector2):
+	print("updated_loc")

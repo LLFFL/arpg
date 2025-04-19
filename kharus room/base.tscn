@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://cjk8a2sb5gqfu" path="res://kharus room/base.tres.gd" id="1_7qqri"]
 [ext_resource type="PackedScene" uid="uid://duf5lox4m3wnm" path="res://christophe/Cores/core.tscn" id="2_wnjqk"]
 [ext_resource type="PackedScene" uid="uid://8q2xropak2sp" path="res://scenes/components/HurtBox.tscn" id="3_7qqri"]
-[ext_resource type="PackedScene" uid="uid://d0p2l0q3nrsls" path="res://scenes/components/StatsComponent.tscn" id="4_wnjqk"]
 [ext_resource type="PackedScene" uid="uid://cdk2biitbjogl" path="res://enemy/bossModule.tscn" id="5_1ntxk"]
+[ext_resource type="Script" uid="uid://dqh3pte7cmfme" path="res://scenes/components/Stats/base_stats.gd" id="6_pjsni"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1ntxk"]
 size = Vector2(380, 49)
@@ -17,8 +17,6 @@ script = ExtResource("1_7qqri")
 [node name="ResourceTimer" type="Timer" parent="."]
 wait_time = 5.0
 
-[node name="SpawnTimer" type="Timer" parent="."]
-
 [node name="SpawnLocation" type="Marker2D" parent="."]
 
 [node name="HurtBox" parent="." instance=ExtResource("3_7qqri")]
@@ -27,9 +25,6 @@ position = Vector2(0, 12)
 [node name="CollisionShape2D" parent="HurtBox" index="0"]
 position = Vector2(0, -9)
 shape = SubResource("RectangleShape2D_1ntxk")
-
-[node name="StatsComponent" parent="." instance=ExtResource("4_wnjqk")]
-max_health = 9000000
 
 [node name="SpawnZone" type="Area2D" parent="."]
 
@@ -40,7 +35,15 @@ position = Vector2(0, 25)
 
 [node name="Area2D" parent="." instance=ExtResource("5_1ntxk")]
 
-[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
-[connection signal="no_health" from="StatsComponent" to="." method="_on_stats_no_health"]
+[node name="Stats" type="Node2D" parent="."]
+script = ExtResource("6_pjsni")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -21.0
+offset_top = 14.0
+offset_right = 19.0
+offset_bottom = 34.0
+
+[connection signal="no_health" from="Stats" to="." method="_on_stats_no_health"]
 
 [editable path="HurtBox"]

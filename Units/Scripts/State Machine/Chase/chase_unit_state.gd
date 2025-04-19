@@ -18,6 +18,7 @@ func enter() -> void:
 	attack_zone.connect("area_entered", _on_target_enter_zone)
 	chasing = true
 	unit.update_anim("walk")
+	unit.stats.damage_modifier = 3
 	pass
 
 

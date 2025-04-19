@@ -29,7 +29,7 @@
 [ext_resource type="PackedScene" uid="uid://b02g8s3f7cg4a" path="res://Player/Player.tscn" id="26_myr1t"]
 [ext_resource type="Shader" uid="uid://duocgilkxh3yq" path="res://christophe/Shaders/outline_magic.gdshader" id="27_gx05q"]
 [ext_resource type="Script" uid="uid://cxgmjqfrfwelx" path="res://addons/shaker/data/Vector2/ShakerTypeRandom2D.gd" id="27_picea"]
-[ext_resource type="Script" path="res://christophe/World/button.gd" id="28_6rwpi"]
+[ext_resource type="Script" uid="uid://b1m3jr6g016nr" path="res://christophe/World/button.gd" id="28_6rwpi"]
 [ext_resource type="Texture2D" uid="uid://c4vofs01ewlxx" path="res://assets/Ninja Adventure - Asset Pack/Ui/Icon/Spell/LuckUpgrade.png" id="29_dq7a4"]
 [ext_resource type="Texture2D" uid="uid://c65n2wn3swyff" path="res://christophe/Cores/IceCore.png" id="29_oaplc"]
 [ext_resource type="Texture2D" uid="uid://cvq2p33iqxt2i" path="res://assets/Ninja Adventure - Asset Pack/Ui/Icon/Spell/AttackUpgrade.png" id="29_r41hh"]
@@ -389,7 +389,7 @@ fade_out = 0.0078125
 shakerPreset = SubResource("Resource_u41f8")
 
 [node name="CameraHandler" type="Node2D" parent="."]
-position = Vector2(245, 91)
+position = Vector2(-13, 92)
 
 [node name="Camera2D" parent="CameraHandler" instance=ExtResource("25_yyeeq")]
 process_mode = 3
@@ -427,7 +427,7 @@ texture = SubResource("CompressedTexture2D_ofr2a")
 
 [node name="Player" parent="." instance=ExtResource("26_myr1t")]
 material = SubResource("ShaderMaterial_cx7l3")
-position = Vector2(245, 91)
+position = Vector2(-13, 92)
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../CameraHandler")
@@ -545,7 +545,9 @@ text = "Item 3"
 icon_alignment = 1
 vertical_icon_alignment = 0
 script = ExtResource("28_6rwpi")
+upgrade_cost = 0
 icon_path = ExtResource("29_r41hh")
+upgrade_type = 4
 
 [node name="BaseContainer" type="Node" parent="."]
 unique_name_in_owner = true
@@ -562,26 +564,29 @@ Shadow = Color(0, 0, 0, 0)
 HitColor = Color(0.581137, 0.314854, 0.332268, 1)
 is_player_core = true
 
-[node name="SpawnLocation" parent="BaseContainer/AllyBase" index="3"]
+[node name="SpawnLocation" parent="BaseContainer/AllyBase" index="2"]
 position = Vector2(-2, 80)
 
 [node name="CollisionShape2D" parent="BaseContainer/AllyBase/HurtBox" index="0"]
 position = Vector2(3, 70.5)
 
-[node name="SpawnZone" parent="BaseContainer/AllyBase" index="6"]
+[node name="SpawnZone" parent="BaseContainer/AllyBase" index="4"]
 scale = Vector2(0.984707, 1.9713)
 
 [node name="CollisionShape2D" parent="BaseContainer/AllyBase/SpawnZone" index="0"]
 position = Vector2(0, 61.888)
 shape = SubResource("RectangleShape2D_4gwui")
 
-[node name="TargetLocation" parent="BaseContainer/AllyBase" index="7"]
+[node name="TargetLocation" parent="BaseContainer/AllyBase" index="5"]
 position = Vector2(-2, 93)
 
-[node name="Area2D" parent="BaseContainer/AllyBase" index="8"]
+[node name="Area2D" parent="BaseContainer/AllyBase" index="6"]
 position = Vector2(-8, -455)
 monitoring = false
 monitorable = false
+
+[node name="Stats" parent="BaseContainer/AllyBase" index="7"]
+units_spawned = 2
 
 [node name="CanvasLayer" type="CanvasLayer" parent="BaseContainer/AllyBase"]
 
@@ -598,14 +603,14 @@ Sprite = ExtResource("29_oaplc")
 Shadow = Color(0.156863, 0.262745, 0.458824, 0.572549)
 HitColor = Color(0.709804, 0.898039, 0.952941, 1)
 
-[node name="SpawnLocation" parent="BaseContainer/EnemyBaseL" index="3"]
+[node name="SpawnLocation" parent="BaseContainer/EnemyBaseL" index="2"]
 position = Vector2(65, 32)
 
 [node name="CollisionShape2D" parent="BaseContainer/EnemyBaseL/SpawnZone" index="0"]
 position = Vector2(78.5, 35)
 shape = SubResource("RectangleShape2D_6rwpi")
 
-[node name="Area2D" parent="BaseContainer/EnemyBaseL" index="8"]
+[node name="Area2D" parent="BaseContainer/EnemyBaseL" index="6"]
 position = Vector2(-1054, 61)
 rotation = 3.14104
 scale = Vector2(1.83054, 1.13101)
@@ -627,14 +632,14 @@ Sprite = ExtResource("30_lr5rs")
 Shadow = Color(0.639216, 0.25098, 0.109804, 0.415686)
 HitColor = Color(1, 0.482353, 0.454902, 1)
 
-[node name="SpawnLocation" parent="BaseContainer/EnemyBaseR" index="3"]
+[node name="SpawnLocation" parent="BaseContainer/EnemyBaseR" index="2"]
 position = Vector2(-81, 27)
 
 [node name="CollisionShape2D" parent="BaseContainer/EnemyBaseR/SpawnZone" index="0"]
 position = Vector2(-81, 34.5)
 shape = SubResource("RectangleShape2D_r41hh")
 
-[node name="Area2D" parent="BaseContainer/EnemyBaseR" index="8"]
+[node name="Area2D" parent="BaseContainer/EnemyBaseR" index="6"]
 z_index = 2
 position = Vector2(1113, 66)
 scale = Vector2(1.36845, 0.967038)
