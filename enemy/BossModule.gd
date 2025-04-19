@@ -9,12 +9,16 @@ extends Area2D
 const PROJECTILE = preload("res://scenes/Projectile.tscn")
 var cast_timer := 0.3
 var cast_timer2 := 5.0
+var duration := 10
 var player: Node2D = null
+#deviator
+var x_deviation := 50
+var direction_pos
 #var projectile_scene: PackedScene = preload("res://scenes/Projectile.tscn")
 #Create a function to track how long player has been in range,
 #if player in range > 3 sec, start meteorfall. ramp up partciles for those 3 secs 
 func _process(delta: float) -> void:
-	player = null
+	#player = null
 	if player and is_instance_valid(player):
 		cast_timer -= delta
 		cast_timer2 -= delta
@@ -27,11 +31,24 @@ func _process(delta: float) -> void:
 
 func cast_spell() -> void:
 	var spawn_pos := position
-	spawn_pos.y -= 300 
-	projectile_caller.request_projectile(0, spawn_pos, player.get_global_position())
+	if get_parent().is_in_group("fire_base"):
+		spawn_pos.y -= 300 
+	else: 
+		var x_deviation_percent := randf_range(-x_deviation, x_deviation) 
+		spawn_pos = player.get_global_position()
+		spawn_pos.y +=200 
+		spawn_pos.x += (1 + x_deviation_percent)
+		direction_pos = spawn_pos
+		direction_pos.y -= 1
+		cast_timer += 1.5
+	if get_parent().is_in_group("fire_base"):
+		projectile_caller.request_projectile(0, spawn_pos, player.get_global_position())
+	else:
+		projectile_caller.request_projectile(0, spawn_pos, direction_pos)
 
 func cast_spell2() -> void:
 	projectile_caller.request_projectile(1, position, player.get_global_position())
+	
 	#if spell_resource and player and is_instance_valid(player):
 	#var projectile = PROJECTILE.instantiate() as Projectile
 	#projectile.spell = spell_resource
@@ -64,6 +81,7 @@ func remove_particles():
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
+		print("Player in area")
 		player = body
 		attach_particles()
 			
@@ -75,6 +93,7 @@ func _on_body_exited(body: Node2D) -> void:
 
 func _on_area_entered(area: Node2D) -> void:
 	if area.is_in_group("player"):
+		print("Player in area")
 		player = area
 		attach_particles()
 

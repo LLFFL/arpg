@@ -1,0 +1,11 @@
+[gd_scene load_steps=5 format=3 uid="uid://dbck5ldifj5fh"]
+
+[ext_resource type="Script" uid="uid://dr52doktfplel" path="res://addons/all_projectiles/scripts/main/projectile_caller_2d.gd" id="1_vy63p"]
+[ext_resource type="Script" uid="uid://dhkmxwdl7x2fl" path="res://addons/all_projectiles/scripts/resources/projectile_blueprint_2d.gd" id="2_l784i"]
+[ext_resource type="Resource" uid="uid://dt1w11wceeiv0" path="res://Upgrades/Spells/spell2/02_heavy_magic_bolt.tres" id="3_l784i"]
+[ext_resource type="Resource" uid="uid://bynl5cahtaysk" path="res://Upgrades/Spells/spell2/14_mega_laser.tres" id="4_gr2vy"]
+
+[node name="ProjectileCaller2D" type="Node2D"]
+script = ExtResource("1_vy63p")
+projectile_resources = Array[ExtResource("2_l784i")]([ExtResource("3_l784i"), ExtResource("4_gr2vy")])
+metadata/_custom_type_script = "uid://dr52doktfplel"

@@ -116,7 +116,8 @@ func anim_direction() -> String:
 #one global: referenced as PlayerStats, responsible for input blocking on transitions and player hp as of 4/9/2025
 
 func damage(attack: Attack) -> void:
-	stats.health -= attack.damage
+	var dmg = attack.damage - stats.defence
+	stats.health -= dmg if dmg > 0 else 0
 	hurtbox.start_invincibility(0.4)
 	hurtbox.create_hit_effect()
 	var _direction = (position - get_global_mouse_position()).normalized()
@@ -134,7 +135,8 @@ func damage(attack: Attack) -> void:
 
 func damage2(projectile: InstancedProjectile2D) -> void:
 	print("Damage 2 triggered- Player current health:  ", stats.health)
-	stats.health -= projectile.resource.damage
+	var dmg = projectile.resource.damage - stats.defence
+	stats.health -= dmg if dmg > 0 else 0
 	print("Damage 2 player health after hit: ", stats.health)
 	hurtbox.start_invincibility(0.4)
 	hurtbox.create_hit_effect()

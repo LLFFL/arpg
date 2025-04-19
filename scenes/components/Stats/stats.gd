@@ -18,8 +18,8 @@ var stunned: bool = false
 signal dmg_status_changed(active: bool, buff: bool)
 var dmg_timer: Timer
 
-#base dmg of the Unit
-var base_damage: float = 10.0
+#base dmg of the Entity
+@export var base_damage: float = 10.0
 
 #damage of a ability/anthing that has it's own dmg
 var base_effect_damage: float = 0
@@ -29,26 +29,33 @@ func reset_effect_damage():
 	effect_damage = base_effect_damage
 
 #dmg modifier for example 50% dmg increase here would be 1.5
-var base_damage_modifier: float = 1
-var damage_modifier: float = 1
+@export var base_damage_modifier: float = 1
+var damage_modifier: float = base_damage_modifier:
+	set(value):
+		damage_modifier = value
 
 #calculation for the damage output
 var damage: float:
-	get:
-		return (base_damage + effect_damage) * damage_modifier
+	get = get_damage
+
+func get_damage():
+	return (base_damage + effect_damage) * damage_modifier
 #endregion
 
 #region Defence
 signal defence_status_changed(active: bool, buff: bool)
-var base_defence: float = 5.0
+@export var base_defence: float = 5.0
 
-var base_defence_modifier: float = 1
-var defence_modifier: float = 1
+@export var base_defence_modifier: float = 1
+var defence_modifier: float = base_defence_modifier
 var defence_timer: Timer
 
 var defence: float:
-	get:
-		return base_defence * defence_modifier
+	get = get_defence
+
+func get_defence() -> float:
+	return base_defence * defence_modifier
+	
 #endregion
 
 #region Movement
@@ -57,37 +64,30 @@ var movement_timer: Timer
 
 @export var base_movement_speed: float = 100
 
-var base_movement_speed_modifier: float = 1
-var movement_speed_modifier: float = 1
+@export var base_movement_speed_modifier: float = 1
+var movement_speed_modifier: float = base_movement_speed_modifier
 
 var movement_speed: float:
-	get:
-		return base_movement_speed*movement_speed_modifier
+	get = get_movement_speed
 
+func get_movement_speed() -> float:
+	return base_movement_speed * movement_speed_modifier
 #endregion
 
 #region Luck and Crit
-var base_luck: float = 0
+@export var base_luck: float = 0
 
-var luck: float = 0
+var luck: float = base_luck
 
-var base_crit_chance: float = 5
+@export var base_crit_chance: float = 5
 var crit_chance: float:
-	get:
-		var luck_mod = 10 if luck > 10 else luck
-		return base_crit_chance + 6.5 * luck_mod
+	get = get_crit
+
+func get_crit() -> float:
+	var luck_mod = 10 if luck > 10 else luck
+	return base_crit_chance + (6.5 * luck_mod)
 #endregion
 
-#region Units
-static var unit_packs: int = 1
-static var unit_per_pack: int = 3
-
-func upgrade_pack_number():
-	unit_packs += 1
-
-func upgrade_unit_quantity():
-	unit_per_pack += 1
-#endregion
 
 #region Damage over time
 var dot_timer: Timer

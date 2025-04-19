@@ -4,7 +4,7 @@ extends Button
 @export var upgrade_value: int = 2
 @export var upgrade_id: String = "damage_boost"
 @export var icon_path: Texture2D
-enum UpgradeType { DAMAGE, MOVEMENT_SPEED, DEFENCE, LUCK }
+enum UpgradeType { DAMAGE, MOVEMENT_SPEED, DEFENCE, LUCK, UNITS }
 
 @export var upgrade_type: UpgradeType = UpgradeType.DAMAGE
 
@@ -28,6 +28,8 @@ func _on_pressed() -> void:
 				PlayerManager.player.stats.upgrade_defence(upgrade_value)
 			UpgradeType.LUCK:
 				PlayerManager.player.stats.upgrade_luck()
+			UpgradeType.UNITS:
+				PlayerManager.player.stats.upgrade_units()
 
 		upgrade_cost = int(round(upgrade_cost * 1.2))
 		text = str(upgrade_cost) + "g"

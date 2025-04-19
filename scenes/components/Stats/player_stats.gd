@@ -1,5 +1,7 @@
 class_name PlayerStats extends Stats 
 
+var baseStats: BaseStats
+
 #region Gold Generation
 var gold: int = 0
 
@@ -92,6 +94,9 @@ func upgrade_luck():
 
 func upgrade_defence(value: float):
 	base_defence += value
+
+func upgrade_units():
+	baseStats.level_up.emit()
 	$"../UpgradeParticles/DefenseBuffParticles".amount += 1
 	$"../UpgradeParticles/DefenseBuffParticles".restart()
 #Spell Dictionairy
