@@ -66,11 +66,12 @@ func _on_pressed() -> void:
 		
 		# TODO: ADD logic for icon switching when units upgrades
 		UpgradeType.UNITS:
+			PlayerManager.player.stats.upgrade_units()
+			PlayerManager.level_upgrades
 			if current_level%2==0:
 				%ItemIcon.texture = load("res://christophe/Shop/UnitsStatsAndAmountIconShop.png")
 			else:
 				%ItemIcon.texture = load("res://christophe/Shop/UnitsStatsIconShop.png")
-			#PlayerManager.player.stats.upgrade_units()
 			#PlayerManager.player.stats.level_upgrades
 		
 		#TODO: Add logic for slash upgrades

@@ -45,7 +45,7 @@ func give_bases_dictionary():
 func _process(delta):
 
 	## Player position remapped to [0.0, 1.0] where 0 is ice and 1 is fire
-	var player_mapped_position = remap(player.global_position.x, -1200, 1200, 0, 1)
+	var player_mapped_position:float = remap(player.global_position.x, -1200, 1200, 0, 1)
 	
 	# Set the background color of elements based on the player positions
 	%MontainsSprite.modulate = mountains_gradient.sample(player_mapped_position)
@@ -56,17 +56,25 @@ func _process(delta):
 	# Emits particles only when player is near the ice / fire side
 	if player_mapped_position<=0.3:
 		$Map/SnowParticles.emitting = true
+		$PortalArrow.hide()
 		%Portal.hide()
 	elif player_mapped_position>=0.7:
 		$Map/FireParticles.emitting = true
 		%Portal.hide()
+		$PortalArrow.hide()
 	# Poor and lazy optimisation in case
 	else:
+		$PortalArrow.show()
 		%Portal.show()
-	
+		#$PortalArrow.modulate.a = remap(player.)
+	#$PortalArrow.look_at(%Portal.global_position)
+	#$PortalArrow.global_rotation = lerp_angle($PortalArrow.global_rotation,(%Portal.global_position - player.global_position).angle(),0.02) 
+
 		
 	
 	# Quick n dirty way to check if the player is in or out the portal
+	if !portal_is_open and player.global_position.distance_to(%Portal.global_position+Vector2(0,30))<=80:
+		$PortalArrow.show()
 	if !portal_is_open and player.global_position.distance_to(%Portal.global_position+Vector2(0,30))<=50:
 		open_portal()
 	if portal_is_open and  player.global_position.distance_to(%Portal.global_position)>100:
