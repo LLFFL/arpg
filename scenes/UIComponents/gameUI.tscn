@@ -1,0 +1,75 @@
+[gd_scene load_steps=10 format=3 uid="uid://brixflf8pdcaa"]
+
+[ext_resource type="Script" uid="uid://cmkdsr8qghyd5" path="res://scenes/UIComponents/game_ui.gd" id="1_nnssq"]
+[ext_resource type="Texture2D" uid="uid://b5thusqr24jhk" path="res://assets/UI/UI/FireCore_Hp_Empty.png" id="1_skjpw"]
+[ext_resource type="Texture2D" uid="uid://6laffwneoivn" path="res://assets/UI/UI/FireCore_HP_Full.png" id="2_nnssq"]
+[ext_resource type="Texture2D" uid="uid://b0snrqvel30im" path="res://assets/UI/UI/Player_HP_Empty.png" id="3_c1svj"]
+[ext_resource type="Texture2D" uid="uid://boo5etr0oa5x7" path="res://assets/UI/UI/Player_HP_Full.png" id="4_5xixu"]
+[ext_resource type="Texture2D" uid="uid://iulys2kl8oec" path="res://assets/UI/UI/IceCore_HP_Empty.png" id="5_414c6"]
+[ext_resource type="Texture2D" uid="uid://or8dbmm2ql6u" path="res://assets/UI/UI/IceCore_HP_Full.png" id="6_1cblf"]
+[ext_resource type="Texture2D" uid="uid://t3kj8x32c4ew" path="res://assets/UI/UI/Portal_HP_Empty.png" id="7_5kje6"]
+[ext_resource type="Texture2D" uid="uid://d1t3gkbsfhgm6" path="res://assets/UI/UI/Portal_HP_Full.png" id="8_iaif0"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nnssq")
+metadata/_edit_vertical_guides_ = [264.0, 216.0]
+
+[node name="PlayerHP" type="TextureProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -26.0
+offset_top = 256.0
+offset_right = -1.0
+offset_bottom = 259.0
+grow_horizontal = 2
+scale = Vector2(2.2, 2.2)
+value = 55.0
+fill_mode = 6
+texture_under = ExtResource("3_c1svj")
+texture_progress = ExtResource("4_5xixu")
+metadata/_edit_lock_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -163.5
+offset_right = 163.5
+offset_bottom = 34.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="LSide Core HP" type="TextureProgressBar" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+value = 40.0
+texture_under = ExtResource("5_414c6")
+texture_progress = ExtResource("6_1cblf")
+
+[node name="Player Core HP" type="TextureProgressBar" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+value = 40.0
+fill_mode = 6
+texture_under = ExtResource("7_5kje6")
+texture_progress = ExtResource("8_iaif0")
+
+[node name="RSide Core HP" type="TextureProgressBar" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+value = 40.0
+fill_mode = 1
+texture_under = ExtResource("1_skjpw")
+texture_progress = ExtResource("2_nnssq")

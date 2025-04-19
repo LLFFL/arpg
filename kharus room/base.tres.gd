@@ -26,10 +26,14 @@ var target_location: Vector2
 static var base1: bool = true
 static var base2: bool = true
 @onready var label: Label = $Label
+@onready var ui: Control = $"../../CameraHandler/Camera2D/CanvasLayer/UI"
 
 var ally_timer: Timer
 var enemy_timer: Timer
 var upgrade_timer: Timer
+
+signal health_initialized(max_health: int, node:Node2D)
+signal health_changed(current_health: int, node:Node2D)
 
 func _ready():
 	stats.units_updated.connect(increase_allied_minions)
@@ -41,6 +45,9 @@ func _ready():
 	
 	target_location = target_marker.global_position
 	hurtbox.damaged.connect(take_damage)
+	#Send max HP to UI
+	#health_initialized.emit(stats.max_health, self)
+	
 	# awkward scenario where to be detected and chase player and bat set their own personal collision to be detectable
 	#$SpawnTimer.start(minion_rate)
 	if (MainBase):
@@ -98,6 +105,9 @@ func _ready():
 		#bat_spawn_location = Vector2(position.x - 50, position.y)
 		hurtbox.set_collision_layer_value(4, true) 
 		#hurtbox.set_collision_layer_value(5, true)
+	ui.initialize_health(stats.max_health, self)
+	ui.on_health_changed(stats.max_health, self)
+	
 
 func _process(delta: float) -> void:
 	label.text = str(stats.spawn_rate)
@@ -155,6 +165,8 @@ func take_damage(attack: Attack) -> void:
 	#print(stats.health)
 	$Core.play_hit_animation()
 	CameraShaker.play_shake()
+	#Send the change to the UI
+	ui.on_health_changed(stats.health, self)
 	#get_viewport().get_camera_2d().get_node("ShakerComponent2D").play_shake()
 	#print(camera_shaker)
 	#amera_shaker.play_shake()
@@ -183,6 +195,9 @@ func _on_stats_no_health() -> void:
 		if base1: #Mark bandaid
 			get_tree().call_group('allied_minions', 'update_target_base', bases_dictionary['enemy_base_L'].target_location)
 			redirect_minions_to_active_side() # this directs spawn to other boss automatically
+	if !base1 && !base2:
+		print("DOOT DOOT DOO DOO, DOOT DOOT DOO DOO, WINNER! GANGION!")
+		#ref the node, call the function for the transition to win screen
 	queue_free()
 
 

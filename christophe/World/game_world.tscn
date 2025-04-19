@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://46ic5eq5d8qa"]
+[gd_scene load_steps=68 format=3 uid="uid://46ic5eq5d8qa"]
 
 [ext_resource type="Script" uid="uid://dx65t4op8hlv6" path="res://christophe/World/game_world.gd" id="1_6sg4h"]
 [ext_resource type="Shader" uid="uid://v1g385vie0ti" path="res://christophe/Shaders/SpriteColorMapped.gdshader" id="2_wjrrt"]
@@ -40,6 +40,7 @@
 [ext_resource type="Texture2D" uid="uid://4t1sumn6g60i" path="res://christophe/Shop/SpeedIconShop.png" id="33_hrtp6"]
 [ext_resource type="Texture2D" uid="uid://dacq1q8xq2ud5" path="res://christophe/Shop/SheildIconShop.png" id="34_me02p"]
 [ext_resource type="Texture2D" uid="uid://d2j4j4csy61fm" path="res://christophe/Shop/UnitsStatsIconShop.png" id="35_me02p"]
+[ext_resource type="PackedScene" uid="uid://brixflf8pdcaa" path="res://scenes/UIComponents/gameUI.tscn" id="36_5uctv"]
 [ext_resource type="Texture2D" uid="uid://esy21sfjhq1j" path="res://christophe/Shop/Slash1IconShop.png" id="36_nk3or"]
 [ext_resource type="PackedScene" uid="uid://dbck5ldifj5fh" path="res://Upgrades/IceBossSpellCaller.tscn" id="37_me02p"]
 [ext_resource type="Script" uid="uid://dhkmxwdl7x2fl" path="res://addons/all_projectiles/scripts/resources/projectile_blueprint_2d.gd" id="38_1buh8"]
@@ -390,12 +391,12 @@ fade_out = 0.0078125
 shakerPreset = SubResource("Resource_u41f8")
 
 [node name="CameraHandler" type="Node2D" parent="."]
-position = Vector2(846, 50)
+position = Vector2(-1, 83)
 
 [node name="Camera2D" parent="CameraHandler" instance=ExtResource("25_yyeeq")]
 process_mode = 3
 y_sort_enabled = true
-position = Vector2(1.66893e-06, 0)
+position = Vector2(-1, 18)
 scale = Vector2(1, 0.999999)
 zoom = Vector2(1.1, 1.1)
 limit_left = -1200
@@ -414,6 +415,11 @@ fade_out = 0.148651
 shakerPreset = SubResource("Resource_7856v")
 metadata/_custom_type_script = "uid://b0fgc7bwsfxmw"
 
+[node name="CanvasLayer" type="CanvasLayer" parent="CameraHandler/Camera2D"]
+
+[node name="UI" parent="CameraHandler/Camera2D/CanvasLayer" instance=ExtResource("36_5uctv")]
+mouse_filter = 2
+
 [node name="CloudShadows" type="Parallax2D" parent="."]
 scroll_offset = Vector2(-222, 49)
 repeat_size = Vector2(2000, 0)
@@ -428,7 +434,7 @@ texture = SubResource("CompressedTexture2D_ofr2a")
 
 [node name="Player" parent="." instance=ExtResource("26_myr1t")]
 material = SubResource("ShaderMaterial_cx7l3")
-position = Vector2(846, 50)
+position = Vector2(-1, 83)
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../CameraHandler")
@@ -508,7 +514,7 @@ icon_path = ExtResource("36_nk3or")
 [node name="BaseContainer" type="Node" parent="."]
 unique_name_in_owner = true
 
-[node name="AllyBase" parent="BaseContainer" node_paths=PackedStringArray("CameraShaker") instance=ExtResource("31_wjrrt")]
+[node name="AllyBase" parent="BaseContainer" node_paths=PackedStringArray("CameraShaker") groups=["allied_base"] instance=ExtResource("31_wjrrt")]
 position = Vector2(2, -32)
 MainBase = true
 CameraShaker = NodePath("../../CameraHandler/Camera2D/ShakerComponent2D")
@@ -547,8 +553,10 @@ monitorable = false
 
 [node name="MinionSideControl" parent="BaseContainer/AllyBase/CanvasLayer" instance=ExtResource("32_4gwui")]
 unique_name_in_owner = true
+offset_top = 27.0
+offset_bottom = 27.0
 
-[node name="EnemyBaseL" parent="BaseContainer" node_paths=PackedStringArray("CameraShaker") instance=ExtResource("31_wjrrt")]
+[node name="EnemyBaseL" parent="BaseContainer" node_paths=PackedStringArray("CameraShaker") groups=["ice_base"] instance=ExtResource("31_wjrrt")]
 y_sort_enabled = true
 position = Vector2(-1087, 57)
 LeftBase = true

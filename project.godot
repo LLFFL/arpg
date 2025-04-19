@@ -50,6 +50,7 @@ player=""
 allied_minions=""
 allied_base=""
 fire_base=""
+ice_base=""
 
 [gui]
 
