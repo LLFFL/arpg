@@ -29,7 +29,7 @@ point_count = 3
 
 [sub_resource type="Gradient" id="Gradient_jy48o"]
 offsets = PackedFloat32Array(0, 0.151832, 0.568365, 0.659686, 0.769634, 1)
-colors = PackedColorArray(0.635543, 0.733178, 1, 0, 1, 0.88, 0.28, 1, 0.9, 0.234, 0.234, 1, 0.224006, 0.493954, 0.899099, 1, 0.0709259, 0.210945, 0.390208, 0.676923, 0.0273626, 0.226981, 0.368344, 0)
+colors = PackedColorArray(0.635543, 0.733178, 1, 0, 1, 1, 1, 1, 0.9, 0.234, 0.234, 1, 0.224006, 0.493954, 0.899099, 1, 0.0709259, 0.210945, 0.390208, 0.676923, 0.0273626, 0.226981, 0.368344, 0)
 
 [node name="BasicProjectile" type="Node2D"]
 z_index = 9
@@ -49,7 +49,7 @@ material = SubResource("CanvasItemMaterial_7dllf")
 points = PackedVector2Array(0, 0, 1000, 0)
 width = 220.0
 width_curve = SubResource("Curve_g14xq")
-default_color = Color(1, 0.448, 0.28, 1)
+default_color = Color(0.527483, 0.99522, 0.983905, 1)
 begin_cap_mode = 2
 end_cap_mode = 2
 antialiased = true
@@ -59,7 +59,7 @@ material = SubResource("CanvasItemMaterial_3ett6")
 points = PackedVector2Array(0, 0, 1000, 0)
 width = 175.0
 width_curve = SubResource("Curve_g14xq")
-default_color = Color(0.77, 0.359333, 0, 1)
+default_color = Color(0.415327, 0.883098, 0.312226, 1)
 begin_cap_mode = 2
 end_cap_mode = 2
 antialiased = true

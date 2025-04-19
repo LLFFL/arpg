@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://46ic5eq5d8qa"]
+[gd_scene load_steps=65 format=3 uid="uid://46ic5eq5d8qa"]
 
 [ext_resource type="Script" uid="uid://dx65t4op8hlv6" path="res://christophe/World/game_world.gd" id="1_6sg4h"]
 [ext_resource type="Shader" uid="uid://v1g385vie0ti" path="res://christophe/Shaders/SpriteColorMapped.gdshader" id="2_wjrrt"]
@@ -38,6 +38,10 @@
 [ext_resource type="PackedScene" uid="uid://cqfgoae6a2efh" path="res://kharus room/base.tscn" id="31_wjrrt"]
 [ext_resource type="PackedScene" uid="uid://cghe5cfsmt5t8" path="res://MinionSideControlUI.tscn" id="32_4gwui"]
 [ext_resource type="PackedScene" uid="uid://c8dh1t5f7r5i4" path="res://enemy/fireBossModuleCaller.tscn" id="32_6rwpi"]
+[ext_resource type="PackedScene" uid="uid://dbck5ldifj5fh" path="res://Upgrades/IceBossSpellCaller.tscn" id="37_me02p"]
+[ext_resource type="Script" uid="uid://dhkmxwdl7x2fl" path="res://addons/all_projectiles/scripts/resources/projectile_blueprint_2d.gd" id="38_1buh8"]
+[ext_resource type="Resource" uid="uid://bguorcmtk2rod" path="res://Upgrades/Spells/spell2/12_burning_skies.tres" id="43_pc07o"]
+[ext_resource type="Resource" uid="uid://dpxs7aclyx0k" path="res://Upgrades/Spells/spell2/05_the_pursuer.tres" id="44_me02p"]
 
 [sub_resource type="Gradient" id="Gradient_3fx2f"]
 offsets = PackedFloat32Array(0.00332226, 0.533546, 0.799107, 1)
@@ -389,7 +393,7 @@ fade_out = 0.0078125
 shakerPreset = SubResource("Resource_u41f8")
 
 [node name="CameraHandler" type="Node2D" parent="."]
-position = Vector2(245, 91)
+position = Vector2(-790, 102)
 
 [node name="Camera2D" parent="CameraHandler" instance=ExtResource("25_yyeeq")]
 process_mode = 3
@@ -427,7 +431,7 @@ texture = SubResource("CompressedTexture2D_ofr2a")
 
 [node name="Player" parent="." instance=ExtResource("26_myr1t")]
 material = SubResource("ShaderMaterial_cx7l3")
-position = Vector2(245, 91)
+position = Vector2(-790, 102)
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../CameraHandler")
@@ -610,13 +614,13 @@ position = Vector2(-1054, 61)
 rotation = 3.14104
 scale = Vector2(1.83054, 1.13101)
 
-[node name="ProjectileCaller2D" parent="BaseContainer/EnemyBaseL/Area2D" index="2" instance=ExtResource("32_6rwpi")]
-position = Vector2(18.0262, 3.55278)
+[node name="ProjectileCaller2D" parent="BaseContainer/EnemyBaseL/Area2D" index="2" instance=ExtResource("37_me02p")]
+position = Vector2(-575.805, 53.4191)
 rotation = -3.1407
 scale = Vector2(0.546287, 0.884165)
 skew = -0.000553012
 
-[node name="EnemyBaseR" parent="BaseContainer" node_paths=PackedStringArray("CameraShaker") instance=ExtResource("31_wjrrt")]
+[node name="EnemyBaseR" parent="BaseContainer" node_paths=PackedStringArray("CameraShaker") groups=["fire_base"] instance=ExtResource("31_wjrrt")]
 y_sort_enabled = true
 position = Vector2(1110, 61)
 RightBase = true
@@ -641,6 +645,7 @@ scale = Vector2(1.36845, 0.967038)
 
 [node name="ProjectileCaller2D" parent="BaseContainer/EnemyBaseR/Area2D" index="2" instance=ExtResource("32_6rwpi")]
 position = Vector2(-31.4225, -5.17042)
+projectile_resources = Array[ExtResource("38_1buh8")]([ExtResource("43_pc07o"), ExtResource("44_me02p"), null])
 
 [connection signal="pressed" from="ShopUi/HBoxContainer/Button" to="ShopUi/HBoxContainer/Button" method="_on_pressed"]
 [connection signal="pressed" from="ShopUi/HBoxContainer/Button4" to="ShopUi/HBoxContainer/Button4" method="_on_pressed"]

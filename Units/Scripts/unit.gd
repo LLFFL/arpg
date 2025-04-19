@@ -12,6 +12,8 @@ var direction: Vector2 = Vector2.ZERO
 @onready var hitbox: Hitbox = $Sprite2D/Hitbox
 @onready var soft_collision: Area2D = $SoftCollision
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+#add laters to the ready
+@onready var gold_detection_zone: Area2D = $GoldDetectionZone
 
 var ally: bool = false
 var targets: Array[CharacterBody2D] = []
@@ -26,6 +28,7 @@ func _ready() -> void:
 		set_collision_layer_value(2, true)
 		set_collision_mask_value(5, true)
 	else:
+		gold_detection_zone.set_collision_mask_value(2, true)
 		hurt_box.set_collision_layer_value(4, true)
 		hitbox.set_collision_mask_value(3, true)
 		enemy_detection_zone.set_collision_mask_value(2, true)
@@ -90,6 +93,15 @@ func damage(attack: Attack) -> void:
 	
 		
 func _on_no_health():
+	for body in gold_detection_zone.get_overlapping_bodies():
+		if body.is_in_group("player"):
+			body.stats.add_gold(1)
+			print("gold given")
+			#give gold
+	#for body in enemy_detection_zone.get_overlapping_bodies():
+	#	if body.is_in_group("player"):
+	#		body.stats.add_gold(1)
+	#		print("gold given")
 	queue_free()
 
 
