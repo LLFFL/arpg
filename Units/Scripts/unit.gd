@@ -93,7 +93,7 @@ func damage(attack: Attack) -> void:
 	var _direction = (global_position - get_global_mouse_position()).normalized()
 	velocity = attack.attack_direction * 240
 	var t = create_tween()
-	t.tween_property(self,"scale:y",randf_range(1.1,2.5),0.1).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	t.tween_property(self,"scale:y",randf_range(1.1,1.6),0.1).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	t.tween_property(self,"scale:y",1,0.1).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	await t.finished
 	t.kill()

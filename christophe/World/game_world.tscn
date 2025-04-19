@@ -390,7 +390,7 @@ fade_out = 0.0078125
 shakerPreset = SubResource("Resource_u41f8")
 
 [node name="CameraHandler" type="Node2D" parent="."]
-position = Vector2(2, 52)
+position = Vector2(846, 50)
 
 [node name="Camera2D" parent="CameraHandler" instance=ExtResource("25_yyeeq")]
 process_mode = 3
@@ -428,7 +428,7 @@ texture = SubResource("CompressedTexture2D_ofr2a")
 
 [node name="Player" parent="." instance=ExtResource("26_myr1t")]
 material = SubResource("ShaderMaterial_cx7l3")
-position = Vector2(2, 52)
+position = Vector2(846, 50)
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../CameraHandler")
