@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://46ic5eq5d8qa"]
+[gd_scene load_steps=62 format=3 uid="uid://46ic5eq5d8qa"]
 
 [ext_resource type="Script" uid="uid://dx65t4op8hlv6" path="res://christophe/World/game_world.gd" id="1_6sg4h"]
 [ext_resource type="Shader" uid="uid://v1g385vie0ti" path="res://christophe/Shaders/SpriteColorMapped.gdshader" id="2_wjrrt"]
@@ -35,6 +35,7 @@
 [ext_resource type="Texture2D" uid="uid://cvq2p33iqxt2i" path="res://assets/Ninja Adventure - Asset Pack/Ui/Icon/Spell/AttackUpgrade.png" id="29_r41hh"]
 [ext_resource type="Texture2D" uid="uid://rfoa8woep3d6" path="res://christophe/Cores/FireCore.png" id="30_lr5rs"]
 [ext_resource type="Texture2D" uid="uid://dhngaacpa1sp8" path="res://assets/Ninja Adventure - Asset Pack/Ui/Icon/Items&Weapon/Armor.png" id="30_n5cly"]
+[ext_resource type="PackedScene" uid="uid://b84fble4aqave" path="res://christophe/Shop/ShopButton.tscn" id="30_y7jpt"]
 [ext_resource type="PackedScene" uid="uid://cqfgoae6a2efh" path="res://kharus room/base.tscn" id="31_wjrrt"]
 [ext_resource type="PackedScene" uid="uid://cghe5cfsmt5t8" path="res://MinionSideControlUI.tscn" id="32_4gwui"]
 [ext_resource type="PackedScene" uid="uid://c8dh1t5f7r5i4" path="res://enemy/fireBossModuleCaller.tscn" id="32_6rwpi"]
@@ -480,7 +481,11 @@ grow_vertical = 2
 pivot_offset = Vector2(113.5, 20)
 alignment = 1
 
+[node name="Control" parent="ShopUi/HBoxContainer" instance=ExtResource("30_y7jpt")]
+layout_mode = 2
+
 [node name="Button" type="Button" parent="ShopUi/HBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Item 3"
 icon_alignment = 1
@@ -489,6 +494,7 @@ script = ExtResource("28_6rwpi")
 icon_path = ExtResource("29_r41hh")
 
 [node name="Button2" type="Button" parent="ShopUi/HBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Item 1"
 script = ExtResource("28_6rwpi")
@@ -499,6 +505,7 @@ icon_path = ExtResource("29_dq7a4")
 upgrade_type = 3
 
 [node name="Button3" type="Button" parent="ShopUi/HBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Item 2"
 script = ExtResource("28_6rwpi")
@@ -507,6 +514,7 @@ icon_path = ExtResource("30_n5cly")
 upgrade_type = 2
 
 [node name="Button4" type="Button" parent="ShopUi/HBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Item 3"
 icon_alignment = 1
@@ -515,6 +523,7 @@ script = ExtResource("28_6rwpi")
 icon_path = ExtResource("29_r41hh")
 
 [node name="Button5" type="Button" parent="ShopUi/HBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Item 1"
 script = ExtResource("28_6rwpi")
@@ -525,6 +534,7 @@ icon_path = ExtResource("29_dq7a4")
 upgrade_type = 3
 
 [node name="Button6" type="Button" parent="ShopUi/HBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Item 2"
 script = ExtResource("28_6rwpi")
@@ -533,6 +543,7 @@ icon_path = ExtResource("30_n5cly")
 upgrade_type = 2
 
 [node name="Button7" type="Button" parent="ShopUi/HBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Item 3"
 icon_alignment = 1
@@ -541,6 +552,7 @@ script = ExtResource("28_6rwpi")
 icon_path = ExtResource("29_r41hh")
 
 [node name="Button8" type="Button" parent="ShopUi/HBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Item 3"
 icon_alignment = 1
