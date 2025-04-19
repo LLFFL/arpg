@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://46ic5eq5d8qa"]
+[gd_scene load_steps=65 format=3 uid="uid://46ic5eq5d8qa"]
 
 [ext_resource type="Script" uid="uid://dx65t4op8hlv6" path="res://christophe/World/game_world.gd" id="1_6sg4h"]
 [ext_resource type="Shader" uid="uid://v1g385vie0ti" path="res://christophe/Shaders/SpriteColorMapped.gdshader" id="2_wjrrt"]
@@ -35,9 +35,15 @@
 [ext_resource type="Texture2D" uid="uid://cvq2p33iqxt2i" path="res://assets/Ninja Adventure - Asset Pack/Ui/Icon/Spell/AttackUpgrade.png" id="29_r41hh"]
 [ext_resource type="Texture2D" uid="uid://rfoa8woep3d6" path="res://christophe/Cores/FireCore.png" id="30_lr5rs"]
 [ext_resource type="Texture2D" uid="uid://dhngaacpa1sp8" path="res://assets/Ninja Adventure - Asset Pack/Ui/Icon/Items&Weapon/Armor.png" id="30_n5cly"]
+[ext_resource type="PackedScene" uid="uid://b84fble4aqave" path="res://christophe/Shop/ShopButton.tscn" id="30_y7jpt"]
+[ext_resource type="Texture2D" uid="uid://db4u2cbcfwcm2" path="res://christophe/Shop/SwordIconShop.png" id="31_63wid"]
 [ext_resource type="PackedScene" uid="uid://cqfgoae6a2efh" path="res://kharus room/base.tscn" id="31_wjrrt"]
 [ext_resource type="PackedScene" uid="uid://cghe5cfsmt5t8" path="res://MinionSideControlUI.tscn" id="32_4gwui"]
 [ext_resource type="PackedScene" uid="uid://c8dh1t5f7r5i4" path="res://enemy/fireBossModuleCaller.tscn" id="32_6rwpi"]
+[ext_resource type="Texture2D" uid="uid://dxmorelsxus68" path="res://christophe/Shop/LuckIconShop.png" id="32_thoo6"]
+[ext_resource type="Texture2D" uid="uid://4t1sumn6g60i" path="res://christophe/Shop/SpeedIconShop.png" id="33_hrtp6"]
+[ext_resource type="Texture2D" uid="uid://dacq1q8xq2ud5" path="res://christophe/Shop/SheildIconShop.png" id="34_me02p"]
+[ext_resource type="Texture2D" uid="uid://d2j4j4csy61fm" path="res://christophe/Shop/UnitsStatsIconShop.png" id="35_me02p"]
 
 [sub_resource type="Gradient" id="Gradient_3fx2f"]
 offsets = PackedFloat32Array(0.00332226, 0.533546, 0.799107, 1)
@@ -155,13 +161,6 @@ shader_parameter/line_thickness = 1.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cx7l3"]
 size = Vector2(2560, 82)
 
-[sub_resource type="SystemFont" id="SystemFont_1do3q"]
-font_names = PackedStringArray("Bolota", "Arial Rounded MT", "Sans-Serif")
-
-[sub_resource type="LabelSettings" id="LabelSettings_u0w7i"]
-font = SubResource("SystemFont_1do3q")
-font_size = 60
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4gwui"]
 size = Vector2(148.268, 30.4367)
 
@@ -259,6 +258,7 @@ position = Vector2(0, -14)
 texture = ExtResource("7_4gwui")
 
 [node name="Ground" type="Sprite2D" parent="Map"]
+z_index = -1
 texture = ExtResource("7_dq7a4")
 
 [node name="SnowParticles" type="CPUParticles2D" parent="Map"]
@@ -281,7 +281,7 @@ color_ramp = SubResource("Gradient_0t5cr")
 unique_name_in_owner = true
 editor_description = "A portal that could also be the player's base and shop"
 clip_children = 2
-position = Vector2(0, -34)
+position = Vector2(0, -27)
 texture = ExtResource("8_n5cly")
 
 [node name="Interior" type="Node2D" parent="Map/Portal"]
@@ -366,7 +366,8 @@ position = Vector2(73.8949, 40.0446)
 texture = ExtResource("18_al3pl")
 
 [node name="Frog" type="Sprite2D" parent="Map/Portal/Interior"]
-position = Vector2(-65.9063, 58.0646)
+unique_name_in_owner = true
+position = Vector2(-65, 60)
 texture = ExtResource("19_pc07o")
 
 [node name="ShakerPortal" type="Node2D" parent="Map/Portal" node_paths=PackedStringArray("Targets")]
@@ -433,36 +434,18 @@ position = Vector2(-13, 92)
 remote_path = NodePath("../../CameraHandler")
 
 [node name="MapCollision" type="StaticBody2D" parent="."]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MapCollision"]
 position = Vector2(0, 166)
 shape = SubResource("RectangleShape2D_cx7l3")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MapCollision"]
-polygon = PackedVector2Array(-1201, -151, -1200, 135, -1107, 134, -1137, 116, -1171, 115, -1185, 103, -1173, 90, -1138, 81, -1061, 65, -1028, 57, -961, 56, -290, 66, -275, 57, -163, 58, -47, 57, -92, 17, -110, -42, -100, -71, -69, -105, -3, -122, 69, -109, 87, -69, 95, 3, 73, 36, 49, 56, 292, 59, 295, 69, 609, 65, 855, 72, 923, 68, 1038, 61, 1095, 59, 1120, 74, 1172, 76, 1189, 90, 1192, 109, 1152, 123, 1097, 132, 1059, 136, 1061, 148, 1267, 142, 1263, -144)
+polygon = PackedVector2Array(-1201, -151, -1200, 135, -1107, 134, -1137, 116, -1171, 115, -1185, 103, -1173, 90, -1138, 81, -1061, 65, -1028, 57, -961, 56, -290, 66, -224, 66, -161, 66, -51, 64, -45, 7, 49, 6, 51, 60, 225, 59, 295, 69, 609, 65, 855, 72, 923, 68, 1038, 61, 1095, 59, 1120, 74, 1172, 76, 1189, 90, 1192, 109, 1152, 123, 1097, 132, 1059, 136, 1061, 148, 1267, 142, 1263, -144)
 
 [node name="ShopUi" type="Node2D" parent="."]
 unique_name_in_owner = true
+process_mode = 4
 z_index = 4
-
-[node name="ShopLabel" type="Label" parent="ShopUi"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -78.5
-offset_top = -105.0
-offset_right = 78.5
-offset_bottom = -45.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(78.5, 30)
-text = "SHOP"
-label_settings = SubResource("LabelSettings_u0w7i")
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ShopUi"]
 anchors_preset = 8
@@ -479,7 +462,40 @@ grow_vertical = 2
 pivot_offset = Vector2(113.5, 20)
 alignment = 1
 
+[node name="ShopButtonAttack" parent="ShopUi/HBoxContainer" instance=ExtResource("30_y7jpt")]
+layout_mode = 2
+upgrade_cost = 0
+icon_path = ExtResource("31_63wid")
+
+[node name="ShopButtonLuck" parent="ShopUi/HBoxContainer" instance=ExtResource("30_y7jpt")]
+layout_mode = 2
+upgrade_type = 3
+upgrade_id = "luck_boost"
+upgrade_cost = 0
+icon_path = ExtResource("32_thoo6")
+
+[node name="ShopButtonSpeed" parent="ShopUi/HBoxContainer" instance=ExtResource("30_y7jpt")]
+layout_mode = 2
+upgrade_type = 1
+upgrade_id = "speed_boost"
+icon_path = ExtResource("33_hrtp6")
+
+[node name="ShopButtonDefense" parent="ShopUi/HBoxContainer" instance=ExtResource("30_y7jpt")]
+layout_mode = 2
+upgrade_type = 2
+upgrade_id = "defence_boost"
+icon_path = ExtResource("34_me02p")
+
+[node name="ShopButtonUnits" parent="ShopUi/HBoxContainer" instance=ExtResource("30_y7jpt")]
+layout_mode = 2
+upgrade_type = 4
+upgrade_id = "units_boost"
+upgrade_cost = 0
+max_level = 10
+icon_path = ExtResource("35_me02p")
+
 [node name="Button" type="Button" parent="ShopUi/HBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Item 3"
 icon_alignment = 1
@@ -488,6 +504,7 @@ script = ExtResource("28_6rwpi")
 icon_path = ExtResource("29_r41hh")
 
 [node name="Button2" type="Button" parent="ShopUi/HBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Item 1"
 script = ExtResource("28_6rwpi")
@@ -498,6 +515,7 @@ icon_path = ExtResource("29_dq7a4")
 upgrade_type = 3
 
 [node name="Button3" type="Button" parent="ShopUi/HBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Item 2"
 script = ExtResource("28_6rwpi")
@@ -506,6 +524,7 @@ icon_path = ExtResource("30_n5cly")
 upgrade_type = 2
 
 [node name="Button4" type="Button" parent="ShopUi/HBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Item 3"
 icon_alignment = 1
@@ -514,6 +533,7 @@ script = ExtResource("28_6rwpi")
 icon_path = ExtResource("29_r41hh")
 
 [node name="Button5" type="Button" parent="ShopUi/HBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Item 1"
 script = ExtResource("28_6rwpi")
@@ -524,6 +544,7 @@ icon_path = ExtResource("29_dq7a4")
 upgrade_type = 3
 
 [node name="Button6" type="Button" parent="ShopUi/HBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Item 2"
 script = ExtResource("28_6rwpi")
@@ -532,6 +553,7 @@ icon_path = ExtResource("30_n5cly")
 upgrade_type = 2
 
 [node name="Button7" type="Button" parent="ShopUi/HBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Item 3"
 icon_alignment = 1
@@ -540,6 +562,7 @@ script = ExtResource("28_6rwpi")
 icon_path = ExtResource("29_r41hh")
 
 [node name="Button8" type="Button" parent="ShopUi/HBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Item 3"
 icon_alignment = 1
@@ -558,6 +581,7 @@ MainBase = true
 CameraShaker = NodePath("../../CameraHandler/Camera2D/ShakerComponent2D")
 
 [node name="Core" parent="BaseContainer/AllyBase" index="0"]
+position = Vector2(2.98023e-08, 16)
 collision_layer = 0
 Sprite = ExtResource("7_4gwui")
 Shadow = Color(0, 0, 0, 0)
@@ -591,6 +615,7 @@ monitorable = false
 unique_name_in_owner = true
 
 [node name="EnemyBaseL" parent="BaseContainer" node_paths=PackedStringArray("CameraShaker") instance=ExtResource("31_wjrrt")]
+y_sort_enabled = true
 position = Vector2(-1087, 57)
 LeftBase = true
 CameraShaker = NodePath("../../CameraHandler/Camera2D/ShakerComponent2D")

@@ -91,8 +91,13 @@ func open_portal():
 	portal_tween.parallel().tween_property(player.get_node("shadow"),"modulate:a",0,0.2)
 	portal_tween.parallel().tween_property(%Portal,"scale",Vector2(5,5),0.8)
 	portal_tween.parallel().tween_property(%Portal/Interior,"scale",Vector2(0.2,0.2),0.8)
+	portal_tween.parallel().tween_property(%Frog,"position",Vector2(-120,110),1).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT).set_delay(0.2)
 	portal_tween.tween_property(%ShopUi,"modulate:a",1,0.1)
-	player.z_index = 500
+	player.z_index = 5
+	await portal_tween
+	%Portal.z_index = 3
+	%ShopUi.process_mode = Node.PROCESS_MODE_INHERIT
+
 	
 ## Close the Portal and hide shop ui
 func close_portal():
@@ -101,10 +106,13 @@ func close_portal():
 	if portal_tween:
 		portal_tween.kill()
 	# Animate the portal closing and hide stuff
+	%ShopUi.process_mode = Node.PROCESS_MODE_DISABLED
 	portal_tween = create_tween()
 	portal_tween.tween_property(%Portal,"scale",Vector2(1,1),2).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-	portal_tween.parallel().tween_property(player.get_node("shadow"),"modulate:a",1,0.2)
+	portal_tween.parallel().tween_property(player.get_node("shadow"),"modulate:a",0.5,0.2)
 	portal_tween.parallel().tween_property(%Portal/Interior,"scale",Vector2(1,1),2).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	portal_tween.parallel().tween_property(%ShopUi,"modulate:a",0,0.5)
 	portal_tween.parallel().tween_property(player.get_node("Sprite2D").material,"shader_parameter/line_thickness",0,0.2)
+	portal_tween.tween_property(%Frog,"position",Vector2(-65,50),0.5).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	player.z_index = 0
+	%Portal.z_index = -1

@@ -67,11 +67,11 @@ func jump_to_target():
 		return
 	var tween = create_tween()
 	var curr_pos = unit.global_position
-	tween.tween_property(unit, "global_position", unit.temp_target.global_position, 0.7)
+	tween.tween_property(unit, "global_position", unit.temp_target.global_position, 0.7).set_trans(Tween.TRANS_LINEAR)
 	tween.tween_callback(jump_back.bind(curr_pos))
 	pass
 
 func jump_back(_pos: Vector2):
 	var tween = create_tween()
-	tween.tween_property(unit, "global_position", _pos, 0.3)
+	tween.tween_property(unit, "global_position", _pos, 0.3).set_ease(Tween.EASE_OUT)
 	pass

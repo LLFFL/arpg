@@ -6,10 +6,13 @@ class_name State_Walk extends State
 func enter() -> void:
 	state_machine.ability_state_machine.ability_ended.connect(update_anim)
 	player.update_animation("run")
+	player.animation_player.speed_scale = 1.5
+	
 
 
 func exit() -> void:
 	state_machine.ability_state_machine.ability_ended.disconnect(update_anim)
+	player.animation_player.speed_scale = 1
 	pass
 
 func process( _delta: float ) -> State:
