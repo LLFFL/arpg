@@ -3,6 +3,7 @@ class_name PlayerMoveStateMachine extends Node
 var states: Array[State]
 var prev_state: State
 var current_state: State
+@onready var ability_state_machine: AbilityStateMachine = $"../AbilityStateMachine"
 
 #ranged, ranged, into cast ability and it knows its ranged
 
@@ -10,12 +11,18 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_DISABLED
 
 func _process(delta: float) -> void:
+	if PlayerManager.player.stats.stunned:
+		return
 	change_state( current_state.process(delta) )
 
 func _physics_process(delta: float) -> void:
+	if PlayerManager.player.stats.stunned:
+		return
 	change_state( current_state.physics(delta) )
 
 func _unhandled_input(event: InputEvent) -> void:
+	if PlayerManager.player.stats.stunned:
+		return
 	change_state(current_state.handle_input(event))
 
 

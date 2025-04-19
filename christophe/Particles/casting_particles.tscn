@@ -1,0 +1,98 @@
+[gd_scene load_steps=12 format=3 uid="uid://pw1lxkwb6b05"]
+
+[ext_resource type="Texture2D" uid="uid://be1p5u0pmxj6y" path="res://christophe/Particles/magic.png" id="1_4vb1e"]
+[ext_resource type="Texture2D" uid="uid://c4lneuscsdq11" path="res://christophe/Particles/fire.png" id="2_xp628"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6v251"]
+blend_mode = 1
+particles_animation = true
+particles_anim_h_frames = 4
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_wxv72"]
+_limits = [-200.0, 200.0, 0.0, 1.0]
+_data = [Vector2(0, -8.92856), 0.0, 1211.79, 0, 0, Vector2(0.257143, 200), 0.0, 0.0, 0, 0, Vector2(0.374603, -200), -3316.07, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_1fqpt"]
+_data = [Vector2(0.0253968, 0), 0.0, 3.77679, 0, 0, Vector2(0.219048, 0.759566), 0.0, 0.0, 0, 0, Vector2(0.469841, 0.560587), 0.0, 0.0, 0, 0, Vector2(0.730159, 0.776148), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.89142, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="Curve" id="Curve_q6230"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, -1), 0.0, 2.91023, 0, 0, Vector2(0.311111, -0.343112), 0.0, 0.0, 0, 0, Vector2(1, -0.160714), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_rh8dd"]
+light_mode = 1
+
+[sub_resource type="Curve" id="Curve_ap2b2"]
+_limits = [-200.0, 200.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.320635, 4.33676), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_rgdux"]
+_limits = [-360.0, 360.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.488889, 133.163), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_esmh8"]
+_data = [Vector2(0, 0.137755), 0.0, 6.99538, 0, 0, Vector2(0.530159, 0), -1.17364, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_453ql"]
+offsets = PackedFloat32Array(0.0865052, 0.792388, 1)
+colors = PackedColorArray(0.686275, 0.866667, 0.866667, 1, 0.562134, 0.454394, 0.466971, 1, 1, 1, 1, 0)
+
+[node name="CastingParticles" type="Node2D"]
+z_index = 6
+
+[node name="FloatingParticles" type="CPUParticles2D" parent="."]
+z_index = -1
+texture_filter = 1
+texture_repeat = 1
+material = SubResource("CanvasItemMaterial_6v251")
+position = Vector2(0, -12)
+scale = Vector2(0.999999, 1)
+amount = 15
+texture = ExtResource("1_4vb1e")
+speed_scale = 0.5
+lifetime_randomness = 0.11
+draw_order = 1
+emission_shape = 1
+emission_sphere_radius = 10.0
+direction = Vector2(0, -1)
+spread = 46.21
+gravity = Vector2(0, 0)
+initial_velocity_min = 26.25
+initial_velocity_max = 29.05
+linear_accel_max = 5.0
+linear_accel_curve = SubResource("Curve_wxv72")
+scale_amount_min = 0.1
+scale_amount_curve = SubResource("Curve_1fqpt")
+hue_variation_min = -0.2
+hue_variation_max = 0.09
+hue_variation_curve = SubResource("Curve_q6230")
+anim_offset_max = 0.3645
+
+[node name="GroundParticles" type="CPUParticles2D" parent="."]
+z_index = -1
+material = SubResource("CanvasItemMaterial_rh8dd")
+position = Vector2(-0.999999, 5)
+scale = Vector2(0.999999, 1)
+texture = ExtResource("2_xp628")
+speed_scale = 0.5
+randomness = 1.0
+direction = Vector2(0, -1)
+spread = 69.35
+gravity = Vector2(0, 0)
+initial_velocity_min = 44.12
+initial_velocity_max = 50.0
+linear_accel_max = 9.24
+linear_accel_curve = SubResource("Curve_ap2b2")
+angle_max = 1.0
+angle_curve = SubResource("Curve_rgdux")
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_esmh8")
+color_ramp = SubResource("Gradient_453ql")

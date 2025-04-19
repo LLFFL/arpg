@@ -1,31 +1,34 @@
-[gd_scene load_steps=6 format=3 uid="uid://cd1qjcbkqx7de"]
+[gd_scene load_steps=5 format=3 uid="uid://cd1qjcbkqx7de"]
 
 [ext_resource type="Script" uid="uid://dioym6i4xdkux" path="res://scenes/projectile.gd" id="1_dprbf"]
-[ext_resource type="Texture2D" uid="uid://cbccnvcjdwv6i" path="res://scenes/icon.svg" id="2_kdm4f"]
-[ext_resource type="Script" uid="uid://bwoforyfamces" path="res://scenes/components/Projectile_HurtBox.gd" id="3_13obt"]
+[ext_resource type="PackedScene" uid="uid://s01804hl3iwb" path="res://scenes/components/HitBox.tscn" id="4_13obt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_du7tx"]
 radius = 6.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_qjnh8"]
-radius = 8.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_kdm4f"]
 
-[node name="Projectile" type="CharacterBody2D" node_paths=PackedStringArray("hurtbox")]
+[node name="Projectile" type="RigidBody2D"]
+z_index = 1
 collision_layer = 0
+collision_mask = 0
+gravity_scale = 0.0
+contact_monitor = true
+max_contacts_reported = 5
 script = ExtResource("1_dprbf")
-hurtbox = NodePath("ProjectileHurtbox")
 
 [node name="Icon" type="Sprite2D" parent="."]
-scale = Vector2(0.148438, 0.148438)
-texture = ExtResource("2_kdm4f")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_du7tx")
 
-[node name="ProjectileHurtbox" type="Area2D" parent="." groups=["projectile"]]
-collision_layer = 0
+[node name="HitBox" parent="." groups=["projectile"] instance=ExtResource("4_13obt")]
 collision_mask = 8
-script = ExtResource("3_13obt")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ProjectileHurtbox"]
-shape = SubResource("CircleShape2D_qjnh8")
+[node name="CollisionShape2D" parent="HitBox" index="0"]
+shape = SubResource("CircleShape2D_kdm4f")
+
+[connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
+[connection signal="body_entered" from="HitBox" to="HitBox" method="_on_body_entered"]
+
+[editable path="HitBox"]

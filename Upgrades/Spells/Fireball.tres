@@ -1,14 +1,18 @@
-[gd_resource type="Resource" script_class="Spell" load_steps=3 format=3 uid="uid://dsuump1vwa2el"]
+[gd_resource type="Resource" script_class="FireballSpell" load_steps=4 format=3 uid="uid://dsuump1vwa2el"]
 
-[ext_resource type="Script" uid="uid://cls0w0trd5gfw" path="res://Upgrades/Spells/Spell.gd" id="1_a8re4"]
-[ext_resource type="Texture2D" uid="uid://cqt8t5pt10e1b" path="res://assets/Ninja Adventure - Asset Pack/Items/Food/Nut2.png" id="1_mwp5e"]
+[ext_resource type="Script" uid="uid://bi6iuy3dmd2kl" path="res://Upgrades/Spells/Fireball.gd" id="1_a8re4"]
+[ext_resource type="Texture2D" uid="uid://bqk42h2t05gog" path="res://assets/Ninja Adventure - Asset Pack/Items/Potion/Heart.png" id="1_mwp5e"]
+[ext_resource type="PackedScene" uid="uid://bb2kngqig5vvs" path="res://Upgrades/Spells/Particles/MagicBolt.tscn" id="3_n8f1s"]
 
 [resource]
 script = ExtResource("1_a8re4")
-name = "Fireball"
 icon_texture = ExtResource("1_mwp5e")
 icon_scale = Vector2(1, 1)
-damage = 5.0
+damage = 100.0
 speed = 150.0
 max_pierce = 1
+trail_particles_scene_cpu = ExtResource("3_n8f1s")
+y_axis_offset = 0.0
+angle_offset_deg = 0.0
+is_passive = false
 metadata/_custom_type_script = "uid://cls0w0trd5gfw"

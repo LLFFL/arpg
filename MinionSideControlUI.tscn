@@ -1,0 +1,67 @@
+[gd_scene load_steps=4 format=3 uid="uid://cghe5cfsmt5t8"]
+
+[ext_resource type="Texture2D" uid="uid://c7vonfh2x8sho" path="res://kharus room/minion_control_ui_arrow.png" id="1_gg1y0"]
+[ext_resource type="Texture2D" uid="uid://dawbdsq0pifh6" path="res://kharus room/minion_control_ui_arrow_left.png" id="1_sx7jc"]
+
+[sub_resource type="GDScript" id="GDScript_sx7jc"]
+script/source = "extends Control
+
+@onready var right = %SendLeft
+@onready var left = %SendRight
+signal left_press
+signal right_press
+
+
+func update(minion_side_select_array: Array):
+	%SendLeft.text = str(minion_side_select_array[0])
+	%SendRight.text = str(minion_side_select_array[1])
+
+func side_is_dead(left_is_dead: bool, right_is_dead: bool, minion_side_select_array: Array):
+	update(minion_side_select_array)
+	if (left_is_dead):
+		%SendLeft.disabled = true
+	if(right_is_dead):
+		%SendRight.disabled = true
+func _on_send_left_button_down() -> void:
+	self.left_press.emit(true, false)
+
+func _on_send_right_button_down() -> void:
+	self.right_press.emit(false, true)
+"
+
+[node name="MinionSideControl" type="Control"]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+script = SubResource("GDScript_sx7jc")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+offset_left = -34.0
+offset_top = -21.0
+offset_right = 34.0
+offset_bottom = -1.0
+
+[node name="SendLeft" type="Button" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "1"
+icon = ExtResource("1_sx7jc")
+
+[node name="SendRight" type="Button" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "3"
+icon = ExtResource("1_gg1y0")
+icon_alignment = 2
+
+[connection signal="button_down" from="HBoxContainer/SendLeft" to="." method="_on_send_left_button_down"]
+[connection signal="button_down" from="HBoxContainer/SendRight" to="." method="_on_send_right_button_down"]

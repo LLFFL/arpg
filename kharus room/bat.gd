@@ -12,6 +12,10 @@ const EnemyDeathEffect = preload('res://assets/Action RPG Resources/Effects/Enem
 @onready var MAGIC_ARBITRARY_NUMBER = 10
 @onready var animationPlayer = $AnimationPlayer
 var enemy_base_position: Vector2
+#Targetting System
+var targets: Array = []
+@onready var targeting: Area2D = $Targeting
+
 
 func _ready():
 	randomize()

@@ -1,6 +1,6 @@
-class_name AbilityStateMachine extends Node
+class_name AbilityStateMachine extends Node2D
 
-const GCD: float = 1
+const GCD: float = 0.1
 
 var states: Array[AbilityState]
 var prev_state: AbilityState
@@ -10,6 +10,10 @@ var cooldown_manager: CooldownManager
 
 var global_cooldown: float = GCD
 var is_on_gcd: bool = false
+
+var key_pressed: InputEvent = null
+
+signal ability_ended()
 
 @onready var cast_ability: CastAbilityState = $CastAbility
 
@@ -24,14 +28,21 @@ func _process(delta: float) -> void:
 		global_cooldown -= delta
 		if global_cooldown <= 0:
 			reset_gcd()
-	
+	if PlayerManager.player.stats.stunned:
+		return
 	change_state( current_state.process(delta) )
 
 func _physics_process(delta: float) -> void:
+	if PlayerManager.player.stats.stunned:
+		return
 	change_state( current_state.physics(delta) )
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if PlayerManager.player.stats.stunned:
+		return
+	if event is InputEventMouseButton or event is InputEventKey:
+		key_pressed = event
 	change_state(current_state.handle_input(event))
 
 
@@ -68,11 +79,18 @@ func trigger_gcd() -> void:
 func change_state( new_state: AbilityState ) -> void:
 	if new_state == current_state || new_state == null:
 		return
-
+	
+	if new_state != states[0] && (is_on_gcd || new_state.is_on_cooldown):
+		return
+	
 	if current_state:
 		current_state.exit()
+		PlayerManager.player.stats.reset_effect_damage()
+		if current_state != states[0]:
+			ability_ended.emit()
 	
 	prev_state = current_state
 	current_state = new_state
 	
 	current_state.enter()
+	#key_pressed = null

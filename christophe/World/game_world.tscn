@@ -1,0 +1,615 @@
+[gd_scene load_steps=67 format=3 uid="uid://46ic5eq5d8qa"]
+
+[ext_resource type="Script" uid="uid://dx65t4op8hlv6" path="res://christophe/World/game_world.gd" id="1_6sg4h"]
+[ext_resource type="Shader" uid="uid://v1g385vie0ti" path="res://christophe/Shaders/SpriteColorMapped.gdshader" id="2_wjrrt"]
+[ext_resource type="Texture2D" uid="uid://c6cw5sum25c6w" path="res://christophe/World/NeutralClouds.png" id="3_4gwui"]
+[ext_resource type="Texture2D" uid="uid://c6roa62v2r73o" path="res://christophe/World/Montains.png" id="4_6rwpi"]
+[ext_resource type="Texture2D" uid="uid://cx5687cgerbn2" path="res://christophe/World/Near.png" id="5_r41hh"]
+[ext_resource type="Texture2D" uid="uid://cpxns4i0ji447" path="res://christophe/Particles/snow.png" id="6_ufba3"]
+[ext_resource type="Texture2D" uid="uid://fri7rlsghp6s" path="res://christophe/Cores/PlayerCore.png" id="7_4gwui"]
+[ext_resource type="Texture2D" uid="uid://celvg3ltvpk0b" path="res://christophe/World/ground.png" id="7_dq7a4"]
+[ext_resource type="Texture2D" uid="uid://r5xy5wxip2pp" path="res://christophe/World/frogDimension/Portal.png" id="8_n5cly"]
+[ext_resource type="Texture2D" uid="uid://cf61ek826hivn" path="res://christophe/World/frogDimension/a.png" id="9_picea"]
+[ext_resource type="Texture2D" uid="uid://mw3f8bxhx6ve" path="res://christophe/World/frogDimension/b.png" id="10_y7jpt"]
+[ext_resource type="Texture2D" uid="uid://c5rum4jqogbxe" path="res://christophe/World/frogDimension/g.png" id="11_7856v"]
+[ext_resource type="Texture2D" uid="uid://l57lpdfo8whd" path="res://christophe/World/frogDimension/i.png" id="12_63wid"]
+[ext_resource type="Texture2D" uid="uid://mpl4qok2xfh3" path="res://christophe/World/frogDimension/j.png" id="13_thoo6"]
+[ext_resource type="Texture2D" uid="uid://bmn84ny5et0v8" path="res://christophe/World/frogDimension/etoiles.png" id="14_hrtp6"]
+[ext_resource type="Texture2D" uid="uid://d0pmc62pwn46b" path="res://christophe/World/frogDimension/h.png" id="15_me02p"]
+[ext_resource type="Texture2D" uid="uid://b4lsi3e6cda2x" path="res://christophe/World/frogDimension/c.png" id="16_1buh8"]
+[ext_resource type="Texture2D" uid="uid://dwoty23am4406" path="res://christophe/World/frogDimension/d.png" id="17_5uctv"]
+[ext_resource type="Texture2D" uid="uid://c85p3bw5x1uo2" path="res://christophe/World/frogDimension/f.png" id="18_al3pl"]
+[ext_resource type="Texture2D" uid="uid://eim7jimlyf2l" path="res://christophe/World/frogDimension/Frog.png" id="19_pc07o"]
+[ext_resource type="Script" uid="uid://b0fgc7bwsfxmw" path="res://addons/shaker/src/Vector2/shaker_component2D.gd" id="20_nk3or"]
+[ext_resource type="Script" uid="uid://dagb5fpxgkmgv" path="res://addons/shaker/data/Vector2/BaseShakerType2D.gd" id="21_16i4r"]
+[ext_resource type="Script" uid="uid://cyw4wdn7hi4a2" path="res://addons/shaker/data/Single/BaseShakerType1D.gd" id="22_8275v"]
+[ext_resource type="Script" uid="uid://btxaa3pjicjqn" path="res://addons/shaker/data/Vector2/ShakerTypeSineWave2D.gd" id="23_qelnb"]
+[ext_resource type="Script" uid="uid://cfh63mvp713jr" path="res://addons/shaker/data/Vector2/ShakerPreset2D.gd" id="24_bl0if"]
+[ext_resource type="PackedScene" uid="uid://cmetcwqculcdu" path="res://scenes/components/Camera.tscn" id="25_yyeeq"]
+[ext_resource type="PackedScene" uid="uid://b02g8s3f7cg4a" path="res://Player/Player.tscn" id="26_myr1t"]
+[ext_resource type="Shader" uid="uid://duocgilkxh3yq" path="res://christophe/Shaders/outline_magic.gdshader" id="27_gx05q"]
+[ext_resource type="Script" uid="uid://cxgmjqfrfwelx" path="res://addons/shaker/data/Vector2/ShakerTypeRandom2D.gd" id="27_picea"]
+[ext_resource type="Texture2D" uid="uid://c65n2wn3swyff" path="res://christophe/Cores/IceCore.png" id="29_oaplc"]
+[ext_resource type="Texture2D" uid="uid://rfoa8woep3d6" path="res://christophe/Cores/FireCore.png" id="30_lr5rs"]
+[ext_resource type="PackedScene" uid="uid://b84fble4aqave" path="res://christophe/Shop/ShopButton.tscn" id="30_y7jpt"]
+[ext_resource type="Texture2D" uid="uid://db4u2cbcfwcm2" path="res://christophe/Shop/SwordIconShop.png" id="31_63wid"]
+[ext_resource type="PackedScene" uid="uid://cqfgoae6a2efh" path="res://kharus room/base.tscn" id="31_wjrrt"]
+[ext_resource type="PackedScene" uid="uid://cghe5cfsmt5t8" path="res://MinionSideControlUI.tscn" id="32_4gwui"]
+[ext_resource type="PackedScene" uid="uid://c8dh1t5f7r5i4" path="res://enemy/fireBossModuleCaller.tscn" id="32_6rwpi"]
+[ext_resource type="Texture2D" uid="uid://dxmorelsxus68" path="res://christophe/Shop/LuckIconShop.png" id="32_thoo6"]
+[ext_resource type="Texture2D" uid="uid://4t1sumn6g60i" path="res://christophe/Shop/SpeedIconShop.png" id="33_hrtp6"]
+[ext_resource type="Texture2D" uid="uid://dacq1q8xq2ud5" path="res://christophe/Shop/SheildIconShop.png" id="34_me02p"]
+[ext_resource type="Texture2D" uid="uid://d2j4j4csy61fm" path="res://christophe/Shop/UnitsStatsIconShop.png" id="35_me02p"]
+[ext_resource type="Texture2D" uid="uid://esy21sfjhq1j" path="res://christophe/Shop/Slash1IconShop.png" id="36_nk3or"]
+[ext_resource type="PackedScene" uid="uid://dbck5ldifj5fh" path="res://Upgrades/IceBossSpellCaller.tscn" id="37_me02p"]
+[ext_resource type="Script" uid="uid://dhkmxwdl7x2fl" path="res://addons/all_projectiles/scripts/resources/projectile_blueprint_2d.gd" id="38_1buh8"]
+[ext_resource type="Resource" uid="uid://bguorcmtk2rod" path="res://Upgrades/Spells/spell2/12_burning_skies.tres" id="43_pc07o"]
+[ext_resource type="Resource" uid="uid://dpxs7aclyx0k" path="res://Upgrades/Spells/spell2/05_the_pursuer.tres" id="44_me02p"]
+
+[sub_resource type="Gradient" id="Gradient_3fx2f"]
+offsets = PackedFloat32Array(0.00332226, 0.533546, 0.799107, 1)
+colors = PackedColorArray(0.452523, 0.478498, 0.794625, 1, 0.658603, 0.648851, 0.635553, 1, 0.88, 0.726, 0.572, 1, 0.866667, 0.517647, 0.415686, 1)
+
+[sub_resource type="Gradient" id="Gradient_u0w7i"]
+offsets = PackedFloat32Array(0, 0.429319, 0.539267, 0.710963, 1)
+colors = PackedColorArray(0.568627, 0.6, 0.847059, 1, 0.688903, 0.827724, 0.918447, 1, 0.70577, 0.826009, 0.901394, 1, 1, 0.796078, 0.603922, 1, 0.861682, 0.510646, 0.409614, 1)
+
+[sub_resource type="Gradient" id="Gradient_ofr2a"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.174455, 0.520249, 0.797508)
+colors = PackedColorArray(0.418568, 0.240602, 0.61144, 1, 0.4838, 0.657503, 0.82, 1, 0.927999, 0.494287, 0.372985, 1)
+
+[sub_resource type="Gradient" id="Gradient_6fs60"]
+offsets = PackedFloat32Array(0.168224, 0.507788, 0.794393)
+colors = PackedColorArray(0.634036, 0.584836, 0.887662, 1, 0.6478, 0.7913, 0.82, 1, 0.98, 0.67179, 0.4802, 1)
+
+[sub_resource type="Gradient" id="Gradient_atopn"]
+offsets = PackedFloat32Array(0.143302, 0.538941, 0.82243)
+colors = PackedColorArray(0.987394, 0.729163, 0.865148, 1, 0.903527, 0.942155, 0.919436, 1, 1, 0.784677, 0.631423, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_atopn"]
+shader = ExtResource("2_wjrrt")
+shader_parameter/shadow = Color(0, 0, 0, 1)
+shader_parameter/base = Color(0.733005, 0.733005, 0.733005, 1)
+shader_parameter/highlight = Color(1, 1, 1, 1)
+
+[sub_resource type="Gradient" id="Gradient_15v85"]
+offsets = PackedFloat32Array(0.0903427, 0.598131, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.982343, 0.982342, 0.982342, 0.742537, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_0t5cr"]
+offsets = PackedFloat32Array(0.692308, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Resource" id="Resource_acmvf"]
+script = ExtResource("23_qelnb")
+frequency = Vector2(1.275, 1)
+phase = Vector2(1, 1)
+amplitude = Vector2(0.003, 0.01)
+offset = Vector2(0, 0)
+BlendingMode = 0
+fade_in = 0.0
+fade_out = 0.0
+start_percent = 0.0
+end_percent = 1.0
+_temp_graph = false
+bake_internal = 64
+metadata/_custom_type_script = "uid://bg0cdhui12d00"
+
+[sub_resource type="Resource" id="Resource_3ig4f"]
+script = ExtResource("24_bl0if")
+PositionShake = Array[ExtResource("21_16i4r")]([])
+RotationShake = Array[ExtResource("22_8275v")]([])
+ScaleShake = Array[ExtResource("21_16i4r")]([SubResource("Resource_acmvf")])
+bake_internal = 64
+__follow_timeline = false
+metadata/_custom_type_script = "uid://gi81blw5c6j8"
+
+[sub_resource type="Resource" id="Resource_tnyc7"]
+script = ExtResource("23_qelnb")
+frequency = Vector2(0.205, 1)
+phase = Vector2(1, 1)
+amplitude = Vector2(0.01, 0.02)
+offset = Vector2(0, 0)
+BlendingMode = 0
+fade_in = 0.0
+fade_out = 0.0
+start_percent = 0.0
+end_percent = 1.0
+_temp_graph = false
+bake_internal = 64
+metadata/_custom_type_script = "uid://bg0cdhui12d00"
+
+[sub_resource type="Resource" id="Resource_u41f8"]
+script = ExtResource("24_bl0if")
+PositionShake = Array[ExtResource("21_16i4r")]([])
+RotationShake = Array[ExtResource("22_8275v")]([])
+ScaleShake = Array[ExtResource("21_16i4r")]([SubResource("Resource_tnyc7")])
+bake_internal = 64
+__follow_timeline = false
+metadata/_custom_type_script = "uid://gi81blw5c6j8"
+
+[sub_resource type="Resource" id="Resource_y7jpt"]
+script = ExtResource("27_picea")
+seed = 0
+amplitude = Vector2(1, 1)
+offset = Vector2(0, 0)
+BlendingMode = 0
+fade_in = 0.0
+fade_out = 0.0
+start_percent = 0.0
+end_percent = 1.0
+_temp_graph = false
+bake_internal = 64
+metadata/_custom_type_script = "uid://cxgmjqfrfwelx"
+
+[sub_resource type="Resource" id="Resource_7856v"]
+script = ExtResource("24_bl0if")
+PositionShake = Array[ExtResource("21_16i4r")]([SubResource("Resource_y7jpt")])
+RotationShake = Array[ExtResource("22_8275v")]([])
+ScaleShake = Array[ExtResource("21_16i4r")]([])
+bake_internal = 64
+__follow_timeline = false
+metadata/_custom_type_script = "uid://cfh63mvp713jr"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ofr2a"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cx7l3"]
+shader = ExtResource("27_gx05q")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_thickness = 1.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cx7l3"]
+size = Vector2(2560, 82)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1buh8"]
+size = Vector2(302, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4gwui"]
+size = Vector2(148.268, 30.4367)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6rwpi"]
+size = Vector2(81, 52)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r41hh"]
+size = Vector2(90, 47)
+
+[node name="World" type="Node2D" node_paths=PackedStringArray("player")]
+y_sort_enabled = true
+script = ExtResource("1_6sg4h")
+player = NodePath("Player")
+mountains_gradient = SubResource("Gradient_3fx2f")
+sky_gradient = SubResource("Gradient_u0w7i")
+cloud_shadow = SubResource("Gradient_ofr2a")
+cloud_base = SubResource("Gradient_6fs60")
+cloud_highlight = SubResource("Gradient_atopn")
+
+[node name="Map" type="Node2D" parent="."]
+
+[node name="SkyRect" type="ColorRect" parent="Map"]
+unique_name_in_owner = true
+z_index = -10
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1254.0
+offset_top = -143.0
+offset_right = 1254.0
+offset_bottom = 143.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.596926, 0.650402, 0.805357, 1)
+
+[node name="CLOUDS" type="Parallax2D" parent="Map"]
+modulate = Color(1, 1, 1, 0.988235)
+z_index = -9
+scroll_scale = Vector2(0.3, 1)
+scroll_offset = Vector2(5, 0)
+repeat_size = Vector2(2000, 0)
+autoscroll = Vector2(15, 0)
+
+[node name="CloudSprite" type="Sprite2D" parent="Map/CLOUDS"]
+modulate = Color(1, 1, 1, 0.6)
+material = SubResource("ShaderMaterial_atopn")
+position = Vector2(0, -38)
+scale = Vector2(0.879, 0.879)
+texture = ExtResource("3_4gwui")
+
+[node name="MONTAINS" type="Parallax2D" parent="Map"]
+z_index = -8
+scroll_scale = Vector2(0.7, 1)
+scroll_offset = Vector2(30, 0)
+
+[node name="MontainsSprite" type="Sprite2D" parent="Map/MONTAINS"]
+unique_name_in_owner = true
+modulate = Color(0.277361, 0.283307, 0.431043, 1)
+texture_filter = 1
+position = Vector2(2, -6)
+texture = ExtResource("4_6rwpi")
+
+[node name="NEAR" type="Parallax2D" parent="Map"]
+z_index = -7
+scroll_scale = Vector2(0.8, 1)
+
+[node name="NearSprite" type="Sprite2D" parent="Map/NEAR"]
+position = Vector2(0, -4)
+scale = Vector2(0.915, 0.965)
+texture = ExtResource("5_r41hh")
+
+[node name="FireParticles" type="CPUParticles2D" parent="Map"]
+modulate = Color(1, 0.484443, 0.229506, 1)
+z_index = -1
+position = Vector2(944, 100)
+amount = 50
+texture = ExtResource("6_ufba3")
+lifetime = 6.0
+emission_shape = 3
+emission_rect_extents = Vector2(500, 10)
+direction = Vector2(0, 1)
+gravity = Vector2(0, -25)
+radial_accel_min = -10.0
+radial_accel_max = 10.0
+angle_min = -175.0
+angle_max = 619.2
+scale_amount_min = 0.2
+color_ramp = SubResource("Gradient_15v85")
+
+[node name="Ground" type="Sprite2D" parent="Map"]
+z_index = -1
+texture = ExtResource("7_dq7a4")
+
+[node name="SnowParticles" type="CPUParticles2D" parent="Map"]
+position = Vector2(-894, -210)
+amount = 50
+texture = ExtResource("6_ufba3")
+lifetime = 6.0
+emission_shape = 3
+emission_rect_extents = Vector2(500, 10)
+direction = Vector2(0, 1)
+gravity = Vector2(0, 25)
+radial_accel_min = -10.0
+radial_accel_max = 10.0
+angle_min = -175.0
+angle_max = 619.2
+scale_amount_min = 0.2
+color_ramp = SubResource("Gradient_0t5cr")
+
+[node name="Portal" type="Sprite2D" parent="Map"]
+unique_name_in_owner = true
+editor_description = "A portal that could also be the player's base and shop"
+clip_children = 2
+position = Vector2(0, -27)
+texture = ExtResource("8_n5cly")
+
+[node name="Interior" type="Node2D" parent="Map/Portal"]
+
+[node name="Parallax2D" type="Parallax2D" parent="Map/Portal/Interior"]
+scroll_scale = Vector2(0.8, 1)
+limit_begin = Vector2(-800, -1e+07)
+limit_end = Vector2(800, 1e+07)
+
+[node name="w" type="Sprite2D" parent="Map/Portal/Interior/Parallax2D"]
+position = Vector2(-24.9645, 45.0501)
+scale = Vector2(0.990061, 0.995509)
+texture = ExtResource("9_picea")
+
+[node name="B" type="Sprite2D" parent="Map/Portal/Interior/Parallax2D"]
+position = Vector2(-78.8878, -58.0646)
+scale = Vector2(0.998586, 1.01261)
+texture = ExtResource("10_y7jpt")
+
+[node name="B2" type="Sprite2D" parent="Map/Portal/Interior/Parallax2D"]
+position = Vector2(123, 157)
+rotation = 2.68696
+scale = Vector2(0.996307, 1.01993)
+texture = ExtResource("10_y7jpt")
+
+[node name="B3" type="Sprite2D" parent="Map/Portal/Interior/Parallax2D"]
+position = Vector2(267, -74)
+rotation = 1.01972
+scale = Vector2(0.996307, 1.01993)
+texture = ExtResource("10_y7jpt")
+
+[node name="G" type="Sprite2D" parent="Map/Portal/Interior/Parallax2D"]
+position = Vector2(-204.709, 27.0301)
+scale = Vector2(1.00986, 1.01998)
+texture = ExtResource("11_7856v")
+
+[node name="I" type="Sprite2D" parent="Map/Portal/Interior/Parallax2D"]
+position = Vector2(-31.9545, -3.00334)
+scale = Vector2(1.00199, 1.01192)
+texture = ExtResource("12_63wid")
+
+[node name="J" type="Sprite2D" parent="Map/Portal/Interior/Parallax2D"]
+position = Vector2(-204.709, 27.0301)
+scale = Vector2(0.990254, 0.994685)
+texture = ExtResource("13_thoo6")
+
+[node name="Etoiles" type="Sprite2D" parent="Map/Portal/Interior/Parallax2D"]
+position = Vector2(56.9191, 4.00445)
+texture = ExtResource("14_hrtp6")
+
+[node name="Etoiles2" type="Sprite2D" parent="Map/Portal/Interior/Parallax2D"]
+position = Vector2(47, 145)
+rotation = 2.52449
+texture = ExtResource("14_hrtp6")
+
+[node name="Etoiles3" type="Sprite2D" parent="Map/Portal/Interior/Parallax2D"]
+position = Vector2(-152, 175)
+rotation = 0.955466
+texture = ExtResource("14_hrtp6")
+
+[node name="Parallax2D2" type="Parallax2D" parent="Map/Portal/Interior"]
+scroll_scale = Vector2(0.9, 1)
+limit_begin = Vector2(-100, -1e+07)
+limit_end = Vector2(100, 1e+07)
+
+[node name="H" type="Sprite2D" parent="Map/Portal/Interior/Parallax2D2"]
+position = Vector2(-75.8921, 30.0334)
+scale = Vector2(0.997451, 0.981478)
+texture = ExtResource("15_me02p")
+
+[node name="C" type="Sprite2D" parent="Map/Portal/Interior/Parallax2D2"]
+position = Vector2(62.9105, -61.068)
+scale = Vector2(1.00958, 0.982653)
+texture = ExtResource("16_1buh8")
+
+[node name="D" type="Sprite2D" parent="Map/Portal/Interior/Parallax2D2"]
+position = Vector2(-102.854, 86.0958)
+texture = ExtResource("17_5uctv")
+
+[node name="F" type="Sprite2D" parent="Map/Portal/Interior/Parallax2D2"]
+position = Vector2(73.8949, 40.0446)
+texture = ExtResource("18_al3pl")
+
+[node name="Frog" type="Sprite2D" parent="Map/Portal/Interior"]
+unique_name_in_owner = true
+position = Vector2(-65, 60)
+texture = ExtResource("19_pc07o")
+
+[node name="ShakerPortal" type="Node2D" parent="Map/Portal" node_paths=PackedStringArray("Targets")]
+script = ExtResource("20_nk3or")
+custom_target = true
+Targets = [NodePath("..")]
+AutoPlay = true
+fade_in = 0.0167465
+fade_out = 0.013139
+shakerPreset = SubResource("Resource_3ig4f")
+
+[node name="ShakerPortalInterior" type="Node2D" parent="Map/Portal" node_paths=PackedStringArray("Targets")]
+script = ExtResource("20_nk3or")
+custom_target = true
+Targets = [NodePath("../Interior/Parallax2D/w"), NodePath("../Interior/Parallax2D/B"), NodePath("../Interior/Parallax2D/G"), NodePath("../Interior/Parallax2D/I"), NodePath("../Interior/Parallax2D/J"), NodePath("../Interior/Parallax2D2/H"), NodePath("../Interior/Parallax2D2/C")]
+randomize = true
+AutoPlay = true
+fade_in = 0.00837321
+fade_out = 0.0078125
+shakerPreset = SubResource("Resource_u41f8")
+
+[node name="CameraHandler" type="Node2D" parent="."]
+position = Vector2(846, 50)
+
+[node name="Camera2D" parent="CameraHandler" instance=ExtResource("25_yyeeq")]
+process_mode = 3
+y_sort_enabled = true
+position = Vector2(1.66893e-06, 0)
+scale = Vector2(1, 0.999999)
+zoom = Vector2(1.1, 1.1)
+limit_left = -1200
+limit_top = -134
+limit_right = 1200
+limit_bottom = 134
+limit_smoothed = true
+
+[node name="ShakerComponent2D" type="Node2D" parent="CameraHandler/Camera2D" node_paths=PackedStringArray("Targets")]
+script = ExtResource("20_nk3or")
+custom_target = true
+Targets = [NodePath("../../../Map")]
+duration = 0.4
+fade_in = 1e-05
+fade_out = 0.148651
+shakerPreset = SubResource("Resource_7856v")
+metadata/_custom_type_script = "uid://b0fgc7bwsfxmw"
+
+[node name="CloudShadows" type="Parallax2D" parent="."]
+scroll_offset = Vector2(-222, 49)
+repeat_size = Vector2(2000, 0)
+autoscroll = Vector2(5, 0)
+repeat_times = 2
+
+[node name="CloudSprite2" type="Sprite2D" parent="CloudShadows"]
+modulate = Color(0.06, 0.06, 0.06, 0.0509804)
+position = Vector2(124, 91)
+scale = Vector2(1, 0.6)
+texture = SubResource("CompressedTexture2D_ofr2a")
+
+[node name="Player" parent="." instance=ExtResource("26_myr1t")]
+material = SubResource("ShaderMaterial_cx7l3")
+position = Vector2(846, 50)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
+remote_path = NodePath("../../CameraHandler")
+
+[node name="MapCollision" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MapCollision"]
+position = Vector2(0, 166)
+shape = SubResource("RectangleShape2D_cx7l3")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MapCollision"]
+polygon = PackedVector2Array(-1201, -151, -1200, 135, -1107, 134, -1137, 116, -1171, 115, -1185, 103, -1173, 90, -1138, 81, -1061, 65, -1028, 57, -961, 56, -290, 66, -224, 66, -161, 66, -51, 64, -45, 7, 49, 6, 51, 60, 225, 59, 295, 69, 609, 65, 855, 72, 923, 68, 1038, 61, 1095, 59, 1120, 74, 1172, 76, 1189, 90, 1192, 109, 1152, 123, 1097, 132, 1059, 136, 1061, 148, 1267, 142, 1263, -144)
+
+[node name="ShopUi" type="Node2D" parent="."]
+unique_name_in_owner = true
+process_mode = 4
+z_index = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ShopUi"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -113.0
+offset_top = -50.0
+offset_right = 114.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(113.5, 20)
+alignment = 1
+
+[node name="ShopButtonAttack" parent="ShopUi/HBoxContainer" instance=ExtResource("30_y7jpt")]
+layout_mode = 2
+upgrade_cost = 0
+icon_path = ExtResource("31_63wid")
+
+[node name="ShopButtonLuck" parent="ShopUi/HBoxContainer" instance=ExtResource("30_y7jpt")]
+layout_mode = 2
+upgrade_type = 3
+upgrade_id = "luck_boost"
+upgrade_cost = 0
+icon_path = ExtResource("32_thoo6")
+
+[node name="ShopButtonSpeed" parent="ShopUi/HBoxContainer" instance=ExtResource("30_y7jpt")]
+layout_mode = 2
+upgrade_type = 1
+upgrade_id = "speed_boost"
+upgrade_cost = 0
+icon_path = ExtResource("33_hrtp6")
+
+[node name="ShopButtonDefense" parent="ShopUi/HBoxContainer" instance=ExtResource("30_y7jpt")]
+layout_mode = 2
+upgrade_type = 2
+upgrade_id = "defence_boost"
+upgrade_cost = 0
+icon_path = ExtResource("34_me02p")
+
+[node name="ShopButtonUnits" parent="ShopUi/HBoxContainer" instance=ExtResource("30_y7jpt")]
+layout_mode = 2
+upgrade_type = 4
+upgrade_id = "units_boost"
+upgrade_cost = 0
+max_level = 10
+icon_path = ExtResource("35_me02p")
+
+[node name="ShopButtonSlash" parent="ShopUi/HBoxContainer" instance=ExtResource("30_y7jpt")]
+layout_mode = 2
+upgrade_type = 5
+upgrade_id = "slash_boost"
+upgrade_cost = 0
+upgrade_value = 1
+max_level = 2
+icon_path = ExtResource("36_nk3or")
+
+[node name="BaseContainer" type="Node" parent="."]
+unique_name_in_owner = true
+
+[node name="AllyBase" parent="BaseContainer" node_paths=PackedStringArray("CameraShaker") instance=ExtResource("31_wjrrt")]
+position = Vector2(2, -32)
+MainBase = true
+CameraShaker = NodePath("../../CameraHandler/Camera2D/ShakerComponent2D")
+
+[node name="Core" parent="BaseContainer/AllyBase" index="0"]
+position = Vector2(2.98023e-08, 16)
+collision_layer = 0
+Sprite = ExtResource("7_4gwui")
+Shadow = Color(0, 0, 0, 0)
+HitColor = Color(0.581137, 0.314854, 0.332268, 1)
+is_player_core = true
+
+[node name="SpawnLocation" parent="BaseContainer/AllyBase" index="2"]
+position = Vector2(-2, 80)
+
+[node name="CollisionShape2D" parent="BaseContainer/AllyBase/HurtBox" index="0"]
+position = Vector2(-2, 67)
+shape = SubResource("RectangleShape2D_1buh8")
+
+[node name="SpawnZone" parent="BaseContainer/AllyBase" index="4"]
+scale = Vector2(0.984707, 1.9713)
+
+[node name="CollisionShape2D" parent="BaseContainer/AllyBase/SpawnZone" index="0"]
+position = Vector2(0, 61.888)
+shape = SubResource("RectangleShape2D_4gwui")
+
+[node name="TargetLocation" parent="BaseContainer/AllyBase" index="5"]
+position = Vector2(-2, 93)
+
+[node name="Area2D" parent="BaseContainer/AllyBase" index="6"]
+position = Vector2(-8, -455)
+monitoring = false
+monitorable = false
+
+[node name="CanvasLayer" type="CanvasLayer" parent="BaseContainer/AllyBase"]
+
+[node name="MinionSideControl" parent="BaseContainer/AllyBase/CanvasLayer" instance=ExtResource("32_4gwui")]
+unique_name_in_owner = true
+
+[node name="EnemyBaseL" parent="BaseContainer" node_paths=PackedStringArray("CameraShaker") instance=ExtResource("31_wjrrt")]
+y_sort_enabled = true
+position = Vector2(-1087, 57)
+LeftBase = true
+CameraShaker = NodePath("../../CameraHandler/Camera2D/ShakerComponent2D")
+
+[node name="Core" parent="BaseContainer/EnemyBaseL" index="0"]
+Sprite = ExtResource("29_oaplc")
+Shadow = Color(0.156863, 0.262745, 0.458824, 0.572549)
+HitColor = Color(0.709804, 0.898039, 0.952941, 1)
+
+[node name="SpawnLocation" parent="BaseContainer/EnemyBaseL" index="2"]
+position = Vector2(65, 32)
+
+[node name="CollisionShape2D" parent="BaseContainer/EnemyBaseL/SpawnZone" index="0"]
+position = Vector2(78.5, 35)
+shape = SubResource("RectangleShape2D_6rwpi")
+
+[node name="Area2D" parent="BaseContainer/EnemyBaseL" index="6"]
+position = Vector2(-1054, 61)
+rotation = 3.14104
+scale = Vector2(1.83054, 1.13101)
+
+[node name="ProjectileCaller2D" parent="BaseContainer/EnemyBaseL/Area2D" index="2" instance=ExtResource("37_me02p")]
+position = Vector2(-575.805, 53.4191)
+rotation = -3.1407
+scale = Vector2(0.546287, 0.884165)
+skew = -0.000553012
+
+[node name="EnemyBaseR" parent="BaseContainer" node_paths=PackedStringArray("CameraShaker") groups=["fire_base"] instance=ExtResource("31_wjrrt")]
+y_sort_enabled = true
+position = Vector2(1110, 61)
+RightBase = true
+CameraShaker = NodePath("../../CameraHandler/Camera2D/ShakerComponent2D")
+
+[node name="Core" parent="BaseContainer/EnemyBaseR" index="0"]
+Sprite = ExtResource("30_lr5rs")
+Shadow = Color(0.639216, 0.25098, 0.109804, 0.415686)
+HitColor = Color(1, 0.482353, 0.454902, 1)
+
+[node name="SpawnLocation" parent="BaseContainer/EnemyBaseR" index="2"]
+position = Vector2(-81, 27)
+
+[node name="CollisionShape2D" parent="BaseContainer/EnemyBaseR/HurtBox" index="0"]
+position = Vector2(-2.5, -11)
+
+[node name="CollisionShape2D" parent="BaseContainer/EnemyBaseR/SpawnZone" index="0"]
+position = Vector2(-81, 34.5)
+shape = SubResource("RectangleShape2D_r41hh")
+
+[node name="Area2D" parent="BaseContainer/EnemyBaseR" index="6"]
+z_index = 2
+position = Vector2(1113, 66)
+scale = Vector2(1.36845, 0.967038)
+
+[node name="ProjectileCaller2D" parent="BaseContainer/EnemyBaseR/Area2D" index="2" instance=ExtResource("32_6rwpi")]
+position = Vector2(-31.4225, -5.17042)
+projectile_resources = Array[ExtResource("38_1buh8")]([ExtResource("43_pc07o"), ExtResource("44_me02p"), null])
+
+[editable path="BaseContainer/AllyBase"]
+[editable path="BaseContainer/AllyBase/HurtBox"]
+[editable path="BaseContainer/EnemyBaseL"]
+[editable path="BaseContainer/EnemyBaseL/HurtBox"]
+[editable path="BaseContainer/EnemyBaseR"]
+[editable path="BaseContainer/EnemyBaseR/HurtBox"]

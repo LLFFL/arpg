@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://u8p537kx4tlp"]
+[gd_scene load_steps=29 format=3 uid="uid://u8p537kx4tlp"]
 
 [ext_resource type="Texture2D" uid="uid://dpyovvjl3gtjo" path="res://assets/Action RPG Resources/Enemies/Bat.png" id="1_o3dp2"]
 [ext_resource type="Shader" uid="uid://1jid57xhh638" path="res://scenes/components/white_shader.gdshader" id="1_x4yqx"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://s01804hl3iwb" path="res://scenes/components/HitBox.tscn" id="6_wduit"]
 [ext_resource type="PackedScene" uid="uid://buxuqmbof2cao" path="res://scenes/components/SoftCollision.tscn" id="7_5rmwj"]
 [ext_resource type="PackedScene" uid="uid://dkfhu1r5rdxjk" path="res://scenes/components/WanderController.tscn" id="8_scn2q"]
+[ext_resource type="Script" uid="uid://cmxuhd4104ta8" path="res://enemy/script/targeting.gd" id="10_abmhg"]
 
 [sub_resource type="GDScript" id="GDScript_br6pc"]
 script/source = "extends CharacterBody2D
@@ -68,41 +69,25 @@ func accelerate_toward_point(point):
 
 func _on_hurt_box_area_entered(area: Area2D) -> void:
 	pass
-	#hurtbox.start_invincibility(0.4)
-	#hurtbox.create_hit_effect()
-	#var direction = (position - area.owner.position).normalized()
-	#if area.is_in_group(\"projectile\"):
-		#print(\"projectile hit\")
-		#stats.health -= 
-	#stats.health -= area.damage
-	#knockback = direction * 240
-	#velocity = knockback      
-		# this knocks back the bat on damage
-		 # can ask area.owner for the knockback value or a global state script if you want it to be dynamic
-#refactored the take damage from \"_on_hurt_box_area_entered\"
 
 func damage(attack: Attack) -> void:
-	print(attack.damage)
+	#print(attack.damage)
 	stats.health -= attack.damage
 	hurtbox.start_invincibility(0.4)
 	hurtbox.create_hit_effect()
 	var direction = (position - get_global_mouse_position()).normalized()
 	knockback = direction * 240
-	velocity = knockback
+	velocity -= knockback
 
-func initialize(side: bool, enemy_base_coords: Vector2):
-	if side:
-		
-		#player side
-		enemy_base_position = enemy_base_coords
+func initialize(Ally: bool, base_position: Vector2):
+	if Ally:
+		enemy_base_position = base_position
 		$HurtBox.set_collision_layer_value(3, true)
 		$HitBox.set_collision_mask_value(4, true) # hitbox is for detecting and hitting, hurtbox is for existing and getting hurt
 		$PlayerDetectionZone.set_collision_mask_value(5, true)
 		set_collision_layer_value(2, true)
 	else:
-		
-		#enemy
-		enemy_base_position = enemy_base_coords
+		enemy_base_position = base_position
 		$HurtBox.set_collision_layer_value(4, true)
 		$HitBox.set_collision_mask_value(3, true)
 		$PlayerDetectionZone.set_collision_mask_value(2, true)
@@ -121,14 +106,17 @@ func _on_hurt_box_invincibility_started() -> void:
 
 
 func _on_hurt_box_invincibility_ended() -> void:
-	
 	animationPlayer.play('Stop')
+
+func update_target_base(coords: Vector2):
+	print('####################################', coords)
+	enemy_base_position = coords
 "
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_abmhg"]
 resource_local_to_scene = true
 shader = ExtResource("1_x4yqx")
-shader_parameter/active = false
+shader_parameter/active = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k6vl6"]
 atlas = ExtResource("1_o3dp2")
@@ -232,9 +220,11 @@ _data = {
 &"Stop": SubResource("Animation_njp2l")
 }
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x4yqx"]
+height = 42.0
+
 [node name="Bat" type="CharacterBody2D"]
 collision_layer = 0
-collision_mask = 9
 script = SubResource("GDScript_br6pc")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -288,11 +278,24 @@ libraries = {
 }
 autoplay = "Stop"
 
+[node name="Targeting" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 15
+script = ExtResource("10_abmhg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Targeting"]
+position = Vector2(9, 0)
+rotation = -1.5708
+shape = SubResource("CapsuleShape2D_x4yqx")
+
 [connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]
 [connection signal="invincibility_ended" from="HurtBox" to="." method="_on_hurt_box_invincibility_ended"]
 [connection signal="invincibility_started" from="HurtBox" to="." method="_on_hurt_box_invincibility_started"]
 [connection signal="no_health" from="Stats" to="." method="_on_stats_no_health"]
 [connection signal="area_entered" from="HitBox" to="HitBox" method="_on_area_entered"]
+[connection signal="area_exited" from="Targeting" to="Targeting" method="_on_area_exited"]
+[connection signal="body_entered" from="Targeting" to="Targeting" method="_on_body_entered"]
+[connection signal="body_exited" from="Targeting" to="Targeting" method="_on_body_exited"]
 
 [editable path="HurtBox"]
 [editable path="PlayerDetectionZone"]

@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Spell" load_steps=4 format=3 uid="uid://qeldyie1eek1"]
+
+[ext_resource type="Texture2D" uid="uid://2sn0gobqd8wl" path="res://assets/slash_proj.png" id="1_dra5k"]
+[ext_resource type="Script" uid="uid://cls0w0trd5gfw" path="res://Upgrades/Spells/Spell.gd" id="1_mpgtf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_okjql"]
+atlas = ExtResource("1_dra5k")
+region = Rect2(0, 0, 32, 48)
+
+[resource]
+script = ExtResource("1_mpgtf")
+icon_texture = SubResource("AtlasTexture_okjql")
+icon_scale = Vector2(1, 1)
+damage = 5.0
+speed = 150.0
+max_pierce = 1
+y_axis_offset = 0.0
+angle_offset_deg = 0.0
+is_passive = false
+metadata/_custom_type_script = "uid://cls0w0trd5gfw"

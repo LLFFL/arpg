@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://b880rofcl72t1"]
 
-[ext_resource type="Theme" uid="uid://be8fu88chioyx" path="res://Scenes/UIComponents/DefaultTheme.tres" id="1_00gqd"]
+[ext_resource type="Theme" uid="uid://be8fu88chioyx" path="res://scenes/UIComponents/DefaultTheme.tres" id="1_00gqd"]
 
 [sub_resource type="GDScript" id="GDScript_0sq4s"]
 script/source = "extends Control

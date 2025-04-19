@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://bb2kngqig5vvs"]
+
+[ext_resource type="Texture2D" uid="uid://df81atwnkd5eh" path="res://Upgrades/Spells/fire.png" id="1_jwa7b"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_5yt7m"]
+
+[sub_resource type="Curve" id="Curve_1htsr"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.32703, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_2v4wu"]
+offsets = PackedFloat32Array(0, 0.395122, 1)
+colors = PackedColorArray(0.837536, 0.359818, 0.248596, 1, 0.961996, 0.691636, 0.275669, 1, 0.86, 0.4945, 0.215, 0.0156863)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_5yt7m")
+rotation = 0.0167968
+amount = 9
+texture = ExtResource("1_jwa7b")
+fixed_fps = 30
+fract_delta = false
+local_coords = true
+emission_shape = 3
+emission_rect_extents = Vector2(20, 20)
+particle_flag_align_y = true
+direction = Vector2(0, 0)
+gravity = Vector2(0.05, 0.07)
+scale_amount_min = 0.1
+scale_amount_curve = SubResource("Curve_1htsr")
+color = Color(1, 0.765333, 0.56, 1)
+color_ramp = SubResource("Gradient_2v4wu")
+hue_variation_min = -0.97
+hue_variation_max = 0.78

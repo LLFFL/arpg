@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Spell" load_steps=2 format=3 uid="uid://bxdjwbipnh7"]
+
+[ext_resource type="Script" uid="uid://cls0w0trd5gfw" path="res://Upgrades/Spells/Spell.gd" id="1_76emt"]
+
+[resource]
+script = ExtResource("1_76emt")
+icon_scale = Vector2(1, 1)
+damage = 5.0
+speed = 150.0
+max_pierce = 1
+y_axis_offset = 0.0
+angle_offset_deg = 0.0
+is_passive = false
+metadata/_custom_type_script = "uid://cls0w0trd5gfw"

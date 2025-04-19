@@ -1,0 +1,173 @@
+[gd_scene load_steps=13 format=3 uid="uid://b7tqrb4ktc3ix"]
+
+[ext_resource type="Script" path="res://christophe/Particles/vfx.gd" id="1_wahke"]
+[ext_resource type="Texture2D" uid="uid://bxjba5a3u6uwu" path="res://christophe/Particles/sword.png" id="2_j5em4"]
+[ext_resource type="Texture2D" uid="uid://cli4e6dialltg" path="res://christophe/Particles/arrow_down.png" id="3_uvc0q"]
+[ext_resource type="Script" path="res://christophe/Particles/stun_effect.gd" id="4_610ow"]
+[ext_resource type="Texture2D" uid="uid://coicp6bmqn7b2" path="res://christophe/Particles/plus.png" id="5_m7msv"]
+[ext_resource type="Texture2D" uid="uid://b0xr1jgfkps6a" path="res://christophe/Particles/arrow_up.png" id="6_vp2i6"]
+
+[sub_resource type="Gradient" id="Gradient_80ye5"]
+offsets = PackedFloat32Array(0, 0.0909091, 0.497835, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_2sx60"]
+offsets = PackedFloat32Array(0, 0.0909091, 0.497835, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Curve" id="Curve_gotwt"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.4671, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_vqo8o"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_unhkb"]
+offsets = PackedFloat32Array(0, 0.0909091, 0.497835, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_py03s"]
+offsets = PackedFloat32Array(0, 0.0909091, 0.497835, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="vfx" type="Node2D" parent="."]
+position = Vector2(0, -12)
+scale = Vector2(0.999999, 1)
+script = ExtResource("1_wahke")
+free_when_finished = false
+
+[node name="debuffParticles" type="CPUParticles2D" parent="."]
+visible = false
+modulate = Color(1, 0.371661, 0.36033, 1)
+position = Vector2(0, -34)
+amount = 4
+texture = ExtResource("2_j5em4")
+lifetime = 2.0
+emission_shape = 2
+emission_sphere_radius = 10.0
+direction = Vector2(0, 1)
+spread = 2.87
+gravity = Vector2(0, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 15.0
+angle_min = 180.0
+angle_max = 180.0
+color_ramp = SubResource("Gradient_80ye5")
+
+[node name="SpeedDebuffParticles" type="CPUParticles2D" parent="."]
+visible = false
+modulate = Color(0.20774, 0.632823, 0.549572, 1)
+position = Vector2(0, -34)
+amount = 4
+texture = ExtResource("3_uvc0q")
+lifetime = 2.0
+emission_shape = 2
+emission_sphere_radius = 10.0
+direction = Vector2(0, 1)
+spread = 2.87
+gravity = Vector2(0, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 15.0
+color_ramp = SubResource("Gradient_2sx60")
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(1, -5)
+script = ExtResource("4_610ow")
+
+[node name="Plus" type="Sprite2D" parent="Node2D"]
+modulate = Color(0.947909, 0.701476, 0.373635, 1)
+position = Vector2(0, -25)
+scale = Vector2(0.666667, 0.666667)
+texture = ExtResource("5_m7msv")
+
+[node name="Trail2D" type="Line2D" parent="Node2D/Plus"]
+modulate = Color(0.95859, 0.692799, 0.410251, 1)
+z_index = -1
+texture_filter = 1
+width = 2.0
+width_curve = SubResource("Curve_gotwt")
+gradient = SubResource("Gradient_vqo8o")
+metadata/_custom_type_script = "uid://bbpgow0myqh1p"
+
+[node name="AttackBuffParticles" type="CPUParticles2D" parent="."]
+modulate = Color(0.924403, 0.386747, 0.376471, 1)
+z_index = -1
+position = Vector2(1, -15)
+emitting = false
+amount = 1
+texture = ExtResource("2_j5em4")
+lifetime = 1.5
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+emission_shape = 2
+emission_sphere_radius = 10.0
+direction = Vector2(0, -1)
+spread = 2.87
+gravity = Vector2(0, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 15.0
+scale_amount_min = 0.5
+scale_amount_max = 0.5
+color_ramp = SubResource("Gradient_unhkb")
+
+[node name="SpeedBuffParticles" type="CPUParticles2D" parent="."]
+visible = false
+modulate = Color(0.309284, 0.764049, 0.869271, 1)
+z_index = -1
+position = Vector2(1, -15)
+amount = 4
+texture = ExtResource("6_vp2i6")
+lifetime = 2.0
+local_coords = true
+emission_shape = 2
+emission_sphere_radius = 10.0
+direction = Vector2(0, -1)
+spread = 2.87
+gravity = Vector2(0, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 15.0
+scale_amount_min = 0.5
+scale_amount_max = 0.5
+color_ramp = SubResource("Gradient_unhkb")
+
+[node name="vfx2" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -12)
+scale = Vector2(0.999999, 1)
+script = ExtResource("1_wahke")
+free_when_finished = false
+
+[node name="buffParticles" type="CPUParticles2D" parent="vfx2"]
+visible = false
+modulate = Color(0.94289, 0.645547, 0.608688, 1)
+position = Vector2(0, -4)
+amount = 4
+texture = ExtResource("2_j5em4")
+lifetime = 2.0
+draw_order = 1
+emission_shape = 3
+emission_rect_extents = Vector2(10, 10)
+direction = Vector2(0, -1)
+spread = 2.87
+gravity = Vector2(0, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 15.0
+color_ramp = SubResource("Gradient_py03s")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+visible = false
+position = Vector2(1, -5)
+texture = ExtResource("5_m7msv")
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 77.21
+initial_velocity_max = 77.21
+orbit_velocity_min = 1.0
+orbit_velocity_max = 1.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(1, -25)
+zoom = Vector2(2, 2)

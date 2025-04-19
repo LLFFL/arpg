@@ -1,0 +1,137 @@
+[gd_scene load_steps=17 format=3 uid="uid://duf5lox4m3wnm"]
+
+[ext_resource type="Script" uid="uid://b0fgc7bwsfxmw" path="res://addons/shaker/src/Vector2/shaker_component2D.gd" id="1_4yy2d"]
+[ext_resource type="Script" uid="uid://bltrjvuelkefm" path="res://christophe/Cores/core.gd" id="1_hqvw5"]
+[ext_resource type="Script" uid="uid://dagb5fpxgkmgv" path="res://addons/shaker/data/Vector2/BaseShakerType2D.gd" id="2_qdgqm"]
+[ext_resource type="Script" uid="uid://btxaa3pjicjqn" path="res://addons/shaker/data/Vector2/ShakerTypeSineWave2D.gd" id="3_hqvw5"]
+[ext_resource type="Script" uid="uid://cyw4wdn7hi4a2" path="res://addons/shaker/data/Single/BaseShakerType1D.gd" id="4_he7lq"]
+[ext_resource type="Script" uid="uid://cfh63mvp713jr" path="res://addons/shaker/data/Vector2/ShakerPreset2D.gd" id="5_ep78a"]
+[ext_resource type="Script" uid="uid://cxgmjqfrfwelx" path="res://addons/shaker/data/Vector2/ShakerTypeRandom2D.gd" id="9_sin26"]
+[ext_resource type="Texture2D" uid="uid://u5wis3c6uwev" path="res://christophe/Cores/CoreShadow.png" id="10_vwx30"]
+[ext_resource type="Texture2D" uid="uid://dcxnfi3cxu0c6" path="res://christophe/Cores/NeutralCore.png" id="11_av6lv"]
+
+[sub_resource type="Gradient" id="Gradient_v0wn1"]
+offsets = PackedFloat32Array(0.444181, 0.710214)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x32ki"]
+radius = 37.0
+
+[sub_resource type="Resource" id="Resource_uxig0"]
+script = ExtResource("9_sin26")
+seed = 0
+amplitude = Vector2(0.5, 0.5)
+offset = Vector2(0, 0)
+BlendingMode = 0
+fade_in = 0.0
+fade_out = 0.0
+start_percent = 0.0
+end_percent = 1.0
+_temp_graph = false
+bake_internal = 64
+metadata/_custom_type_script = "uid://cxgmjqfrfwelx"
+
+[sub_resource type="Resource" id="Resource_5an4l"]
+script = ExtResource("5_ep78a")
+PositionShake = Array[ExtResource("2_qdgqm")]([SubResource("Resource_uxig0")])
+RotationShake = Array[ExtResource("4_he7lq")]([])
+ScaleShake = Array[ExtResource("2_qdgqm")]([])
+bake_internal = 64
+__follow_timeline = false
+metadata/_custom_type_script = "uid://cfh63mvp713jr"
+
+[sub_resource type="Resource" id="Resource_5esd8"]
+script = ExtResource("3_hqvw5")
+frequency = Vector2(1, 1)
+phase = Vector2(1, 1)
+amplitude = Vector2(0, 1)
+offset = Vector2(0, 0)
+BlendingMode = 0
+fade_in = 0.0
+fade_out = 0.0
+start_percent = 0.0
+end_percent = 1.0
+_temp_graph = false
+bake_internal = 64
+metadata/_custom_type_script = "uid://bg0cdhui12d00"
+
+[sub_resource type="Resource" id="Resource_ido4b"]
+script = ExtResource("3_hqvw5")
+frequency = Vector2(1, 1)
+phase = Vector2(1, 1)
+amplitude = Vector2(0.05, 0.05)
+offset = Vector2(0, 0)
+BlendingMode = 0
+fade_in = 0.0
+fade_out = 0.0
+start_percent = 0.0
+end_percent = 1.0
+_temp_graph = false
+bake_internal = 64
+metadata/_custom_type_script = "uid://bg0cdhui12d00"
+
+[sub_resource type="Resource" id="Resource_ep78a"]
+script = ExtResource("5_ep78a")
+PositionShake = Array[ExtResource("2_qdgqm")]([SubResource("Resource_5esd8")])
+RotationShake = Array[ExtResource("4_he7lq")]([])
+ScaleShake = Array[ExtResource("2_qdgqm")]([SubResource("Resource_ido4b")])
+bake_internal = 64
+__follow_timeline = false
+metadata/_custom_type_script = "uid://gi81blw5c6j8"
+
+[node name="Core" type="StaticBody2D"]
+position = Vector2(-8.9407e-08, 1.63913e-07)
+collision_layer = 65
+collision_mask = 0
+script = ExtResource("1_hqvw5")
+
+[node name="CoreShadow" type="Sprite2D" parent="."]
+modulate = Color(0.988235, 0.988235, 0.988235, 0.529412)
+z_index = -1
+position = Vector2(8.9407e-08, 31)
+texture = ExtResource("10_vwx30")
+offset = Vector2(-8.9407e-08, 4)
+
+[node name="CoreSprite" type="Sprite2D" parent="."]
+position = Vector2(0, 32)
+texture = ExtResource("11_av6lv")
+offset = Vector2(0, -31.7208)
+
+[node name="HitParticles" type="CPUParticles2D" parent="CoreSprite"]
+unique_name_in_owner = true
+modulate = Color(0.959234, 0.967208, 0.962454, 1)
+z_index = 1
+position = Vector2(-0.894391, -62.2568)
+scale = Vector2(0.89439, 0.972763)
+emitting = false
+one_shot = true
+explosiveness = 1.0
+direction = Vector2(0, -1)
+spread = 114.95
+gravity = Vector2(0, 420)
+initial_velocity_min = 177.86
+initial_velocity_max = 177.86
+angular_velocity_max = 79.32
+scale_amount_min = 2.0
+scale_amount_max = 4.0
+color_ramp = SubResource("Gradient_v0wn1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_x32ki")
+
+[node name="PlayerCoreShake" type="Node2D" parent="." node_paths=PackedStringArray("Targets")]
+script = ExtResource("1_4yy2d")
+custom_target = true
+Targets = [NodePath("../CoreSprite")]
+duration = 0.15
+fade_in = 5.89559e-05
+fade_out = 0.03125
+shakerPreset = SubResource("Resource_5an4l")
+metadata/_custom_type_script = "uid://b0fgc7bwsfxmw"
+
+[node name="ShakerIdle" type="Node2D" parent="." node_paths=PackedStringArray("Targets")]
+script = ExtResource("1_4yy2d")
+custom_target = true
+Targets = [NodePath("../CoreSprite")]
+shakerPreset = SubResource("Resource_ep78a")
