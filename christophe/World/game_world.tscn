@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://46ic5eq5d8qa"]
+[gd_scene load_steps=69 format=3 uid="uid://46ic5eq5d8qa"]
 
 [ext_resource type="Script" uid="uid://dx65t4op8hlv6" path="res://christophe/World/game_world.gd" id="1_6sg4h"]
 [ext_resource type="Shader" uid="uid://v1g385vie0ti" path="res://christophe/Shaders/SpriteColorMapped.gdshader" id="2_wjrrt"]
@@ -29,6 +29,7 @@
 [ext_resource type="PackedScene" uid="uid://b02g8s3f7cg4a" path="res://Player/Player.tscn" id="26_myr1t"]
 [ext_resource type="Shader" uid="uid://duocgilkxh3yq" path="res://christophe/Shaders/outline_magic.gdshader" id="27_gx05q"]
 [ext_resource type="Script" uid="uid://cxgmjqfrfwelx" path="res://addons/shaker/data/Vector2/ShakerTypeRandom2D.gd" id="27_picea"]
+[ext_resource type="Texture2D" uid="uid://b0xr1jgfkps6a" path="res://christophe/Particles/arrow_up.png" id="29_5uctv"]
 [ext_resource type="Texture2D" uid="uid://c65n2wn3swyff" path="res://christophe/Cores/IceCore.png" id="29_oaplc"]
 [ext_resource type="Texture2D" uid="uid://rfoa8woep3d6" path="res://christophe/Cores/FireCore.png" id="30_lr5rs"]
 [ext_resource type="PackedScene" uid="uid://b84fble4aqave" path="res://christophe/Shop/ShopButton.tscn" id="30_y7jpt"]
@@ -129,6 +130,30 @@ bake_internal = 64
 __follow_timeline = false
 metadata/_custom_type_script = "uid://gi81blw5c6j8"
 
+[sub_resource type="Resource" id="Resource_5uctv"]
+script = ExtResource("23_qelnb")
+frequency = Vector2(0.5, 0.5)
+phase = Vector2(1, 1)
+amplitude = Vector2(0, 1)
+offset = Vector2(0, 0)
+BlendingMode = 0
+fade_in = 0.0
+fade_out = 0.0
+start_percent = 0.0
+end_percent = 1.0
+_temp_graph = false
+bake_internal = 64
+metadata/_custom_type_script = "uid://btxaa3pjicjqn"
+
+[sub_resource type="Resource" id="Resource_al3pl"]
+script = ExtResource("24_bl0if")
+PositionShake = Array[ExtResource("21_16i4r")]([SubResource("Resource_5uctv")])
+RotationShake = Array[ExtResource("22_8275v")]([])
+ScaleShake = Array[ExtResource("21_16i4r")]([])
+bake_internal = 64
+__follow_timeline = false
+metadata/_custom_type_script = "uid://cfh63mvp713jr"
+
 [sub_resource type="Resource" id="Resource_y7jpt"]
 script = ExtResource("27_picea")
 seed = 0
@@ -151,8 +176,6 @@ ScaleShake = Array[ExtResource("21_16i4r")]([])
 bake_internal = 64
 __follow_timeline = false
 metadata/_custom_type_script = "uid://cfh63mvp713jr"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ofr2a"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cx7l3"]
 shader = ExtResource("27_gx05q")
@@ -389,8 +412,22 @@ fade_in = 0.00837321
 fade_out = 0.0078125
 shakerPreset = SubResource("Resource_u41f8")
 
+[node name="PortalArrow" type="Sprite2D" parent="."]
+position = Vector2(0, 72)
+scale = Vector2(2, 1.305)
+texture = ExtResource("29_5uctv")
+
+[node name="ShakerComponent2D" type="Node2D" parent="PortalArrow" node_paths=PackedStringArray("Targets")]
+script = ExtResource("20_nk3or")
+custom_target = true
+Targets = [NodePath("..")]
+AutoPlay = true
+fade_in = 0.0603711
+shakerPreset = SubResource("Resource_al3pl")
+metadata/_custom_type_script = "uid://b0fgc7bwsfxmw"
+
 [node name="CameraHandler" type="Node2D" parent="."]
-position = Vector2(846, 50)
+position = Vector2(-58, 77)
 
 [node name="Camera2D" parent="CameraHandler" instance=ExtResource("25_yyeeq")]
 process_mode = 3
@@ -414,26 +451,15 @@ fade_out = 0.148651
 shakerPreset = SubResource("Resource_7856v")
 metadata/_custom_type_script = "uid://b0fgc7bwsfxmw"
 
-[node name="CloudShadows" type="Parallax2D" parent="."]
-scroll_offset = Vector2(-222, 49)
-repeat_size = Vector2(2000, 0)
-autoscroll = Vector2(5, 0)
-repeat_times = 2
-
-[node name="CloudSprite2" type="Sprite2D" parent="CloudShadows"]
-modulate = Color(0.06, 0.06, 0.06, 0.0509804)
-position = Vector2(124, 91)
-scale = Vector2(1, 0.6)
-texture = SubResource("CompressedTexture2D_ofr2a")
-
 [node name="Player" parent="." instance=ExtResource("26_myr1t")]
 material = SubResource("ShaderMaterial_cx7l3")
-position = Vector2(846, 50)
+position = Vector2(-58, 77)
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../CameraHandler")
 
 [node name="MapCollision" type="StaticBody2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MapCollision"]
 position = Vector2(0, 166)
@@ -493,7 +519,6 @@ layout_mode = 2
 upgrade_type = 4
 upgrade_id = "units_boost"
 upgrade_cost = 0
-max_level = 10
 icon_path = ExtResource("35_me02p")
 
 [node name="ShopButtonSlash" parent="ShopUi/HBoxContainer" instance=ExtResource("30_y7jpt")]
