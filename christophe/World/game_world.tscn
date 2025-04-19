@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://46ic5eq5d8qa"]
+[gd_scene load_steps=66 format=3 uid="uid://46ic5eq5d8qa"]
 
 [ext_resource type="Script" uid="uid://dx65t4op8hlv6" path="res://christophe/World/game_world.gd" id="1_6sg4h"]
 [ext_resource type="Shader" uid="uid://v1g385vie0ti" path="res://christophe/Shaders/SpriteColorMapped.gdshader" id="2_wjrrt"]
@@ -29,12 +29,8 @@
 [ext_resource type="PackedScene" uid="uid://b02g8s3f7cg4a" path="res://Player/Player.tscn" id="26_myr1t"]
 [ext_resource type="Shader" uid="uid://duocgilkxh3yq" path="res://christophe/Shaders/outline_magic.gdshader" id="27_gx05q"]
 [ext_resource type="Script" uid="uid://cxgmjqfrfwelx" path="res://addons/shaker/data/Vector2/ShakerTypeRandom2D.gd" id="27_picea"]
-[ext_resource type="Script" uid="uid://b1m3jr6g016nr" path="res://christophe/World/button.gd" id="28_6rwpi"]
-[ext_resource type="Texture2D" uid="uid://c4vofs01ewlxx" path="res://assets/Ninja Adventure - Asset Pack/Ui/Icon/Spell/LuckUpgrade.png" id="29_dq7a4"]
 [ext_resource type="Texture2D" uid="uid://c65n2wn3swyff" path="res://christophe/Cores/IceCore.png" id="29_oaplc"]
-[ext_resource type="Texture2D" uid="uid://cvq2p33iqxt2i" path="res://assets/Ninja Adventure - Asset Pack/Ui/Icon/Spell/AttackUpgrade.png" id="29_r41hh"]
 [ext_resource type="Texture2D" uid="uid://rfoa8woep3d6" path="res://christophe/Cores/FireCore.png" id="30_lr5rs"]
-[ext_resource type="Texture2D" uid="uid://dhngaacpa1sp8" path="res://assets/Ninja Adventure - Asset Pack/Ui/Icon/Items&Weapon/Armor.png" id="30_n5cly"]
 [ext_resource type="PackedScene" uid="uid://b84fble4aqave" path="res://christophe/Shop/ShopButton.tscn" id="30_y7jpt"]
 [ext_resource type="Texture2D" uid="uid://db4u2cbcfwcm2" path="res://christophe/Shop/SwordIconShop.png" id="31_63wid"]
 [ext_resource type="PackedScene" uid="uid://cqfgoae6a2efh" path="res://kharus room/base.tscn" id="31_wjrrt"]
@@ -242,6 +238,7 @@ texture = ExtResource("5_r41hh")
 
 [node name="FireParticles" type="CPUParticles2D" parent="Map"]
 modulate = Color(1, 0.484443, 0.229506, 1)
+z_index = -1
 position = Vector2(944, 100)
 amount = 50
 texture = ExtResource("6_ufba3")
@@ -256,11 +253,6 @@ angle_min = -175.0
 angle_max = 619.2
 scale_amount_min = 0.2
 color_ramp = SubResource("Gradient_15v85")
-
-[node name="PlayerCore" type="Sprite2D" parent="Map"]
-visible = false
-position = Vector2(0, -14)
-texture = ExtResource("7_4gwui")
 
 [node name="Ground" type="Sprite2D" parent="Map"]
 z_index = -1
@@ -510,84 +502,6 @@ upgrade_value = 1
 max_level = 2
 icon_path = ExtResource("36_nk3or")
 
-[node name="Button" type="Button" parent="ShopUi/HBoxContainer"]
-visible = false
-layout_mode = 2
-text = "Item 3"
-icon_alignment = 1
-vertical_icon_alignment = 0
-script = ExtResource("28_6rwpi")
-icon_path = ExtResource("29_r41hh")
-
-[node name="Button2" type="Button" parent="ShopUi/HBoxContainer"]
-visible = false
-layout_mode = 2
-text = "Item 1"
-script = ExtResource("28_6rwpi")
-upgrade_cost = 100
-upgrade_value = 1
-upgrade_id = "Luck"
-icon_path = ExtResource("29_dq7a4")
-upgrade_type = 3
-
-[node name="Button3" type="Button" parent="ShopUi/HBoxContainer"]
-visible = false
-layout_mode = 2
-text = "Item 2"
-script = ExtResource("28_6rwpi")
-upgrade_id = "Defence_boost"
-icon_path = ExtResource("30_n5cly")
-upgrade_type = 2
-
-[node name="Button4" type="Button" parent="ShopUi/HBoxContainer"]
-visible = false
-layout_mode = 2
-text = "Item 3"
-icon_alignment = 1
-vertical_icon_alignment = 0
-script = ExtResource("28_6rwpi")
-icon_path = ExtResource("29_r41hh")
-
-[node name="Button5" type="Button" parent="ShopUi/HBoxContainer"]
-visible = false
-layout_mode = 2
-text = "Item 1"
-script = ExtResource("28_6rwpi")
-upgrade_cost = 100
-upgrade_value = 1
-upgrade_id = "Luck"
-icon_path = ExtResource("29_dq7a4")
-upgrade_type = 3
-
-[node name="Button6" type="Button" parent="ShopUi/HBoxContainer"]
-visible = false
-layout_mode = 2
-text = "Item 2"
-script = ExtResource("28_6rwpi")
-upgrade_id = "Defence_boost"
-icon_path = ExtResource("30_n5cly")
-upgrade_type = 2
-
-[node name="Button7" type="Button" parent="ShopUi/HBoxContainer"]
-visible = false
-layout_mode = 2
-text = "Item 3"
-icon_alignment = 1
-vertical_icon_alignment = 0
-script = ExtResource("28_6rwpi")
-icon_path = ExtResource("29_r41hh")
-
-[node name="Button8" type="Button" parent="ShopUi/HBoxContainer"]
-visible = false
-layout_mode = 2
-text = "Item 3"
-icon_alignment = 1
-vertical_icon_alignment = 0
-script = ExtResource("28_6rwpi")
-upgrade_cost = 0
-icon_path = ExtResource("29_r41hh")
-upgrade_type = 4
-
 [node name="BaseContainer" type="Node" parent="."]
 unique_name_in_owner = true
 
@@ -685,11 +599,6 @@ scale = Vector2(1.36845, 0.967038)
 [node name="ProjectileCaller2D" parent="BaseContainer/EnemyBaseR/Area2D" index="2" instance=ExtResource("32_6rwpi")]
 position = Vector2(-31.4225, -5.17042)
 projectile_resources = Array[ExtResource("38_1buh8")]([ExtResource("43_pc07o"), ExtResource("44_me02p"), null])
-
-[connection signal="pressed" from="ShopUi/HBoxContainer/Button" to="ShopUi/HBoxContainer/Button" method="_on_pressed"]
-[connection signal="pressed" from="ShopUi/HBoxContainer/Button4" to="ShopUi/HBoxContainer/Button4" method="_on_pressed"]
-[connection signal="pressed" from="ShopUi/HBoxContainer/Button7" to="ShopUi/HBoxContainer/Button7" method="_on_pressed"]
-[connection signal="pressed" from="ShopUi/HBoxContainer/Button8" to="ShopUi/HBoxContainer/Button8" method="_on_pressed"]
 
 [editable path="BaseContainer/AllyBase"]
 [editable path="BaseContainer/AllyBase/HurtBox"]
