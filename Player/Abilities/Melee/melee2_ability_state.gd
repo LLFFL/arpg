@@ -35,11 +35,6 @@ func exit() -> void:
 	player.ability_animation.animation_finished.disconnect(_on_animation_finish)
 	player.ability_active = false
 	
-	#if PlayerStats.melee_unlocks['attack_3']:
-	#combo_attack = ComboAttack.new()
-	#combo_attack.state = melee_spin
-	#combo_attack.input = "Melee"
-	
 	timer.start()
 	pass
 
@@ -67,6 +62,8 @@ func _on_enemy_damaged():
 	pass
 
 func fire_proj():
+	if !player.stats.melee_unlocks['slash_proj']:
+		return
 	projectile = player.stats.projectile_scene.instantiate() as Projectile
 	projectile.spell = SLASH
 	projectile.angle = Vector2.LEFT.angle() if player.get_local_mouse_position().x < 0 else Vector2.RIGHT.angle()

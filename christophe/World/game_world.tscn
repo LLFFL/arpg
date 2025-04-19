@@ -459,7 +459,6 @@ position = Vector2(-58, 77)
 remote_path = NodePath("../../CameraHandler")
 
 [node name="MapCollision" type="StaticBody2D" parent="."]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MapCollision"]
 position = Vector2(0, 166)
@@ -527,7 +526,6 @@ upgrade_type = 5
 upgrade_id = "slash_boost"
 upgrade_cost = 0
 upgrade_value = 1
-max_level = 2
 icon_path = ExtResource("36_nk3or")
 
 [node name="BaseContainer" type="Node" parent="."]
@@ -631,6 +629,21 @@ scale = Vector2(1.36845, 0.967038)
 [node name="ProjectileCaller2D" parent="BaseContainer/EnemyBaseR/Area2D" index="2" instance=ExtResource("32_6rwpi")]
 position = Vector2(-31.4225, -5.17042)
 projectile_resources = Array[ExtResource("38_1buh8")]([ExtResource("43_pc07o"), ExtResource("44_me02p"), null])
+
+[node name="LeftStartBound" type="StaticBody2D" parent="."]
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LeftStartBound"]
+position = Vector2(-236, 86)
+polygon = PackedVector2Array(-63, 82, 91, -41, 96, -219, -87, -223)
+
+[node name="RightStartBound" type="StaticBody2D" parent="."]
+position = Vector2(400, 15)
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RightStartBound"]
+position = Vector2(-165, 76)
+polygon = PackedVector2Array(-62, -47, 119, 84, 145, -223, -87, -223)
 
 [editable path="BaseContainer/AllyBase"]
 [editable path="BaseContainer/AllyBase/HurtBox"]

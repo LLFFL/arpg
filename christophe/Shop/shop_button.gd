@@ -77,11 +77,15 @@ func _on_pressed() -> void:
 		#TODO: Add logic for slash upgrades
 		UpgradeType.SLASH:
 			match current_level:
-				0: %ItemIcon.texture = load("res://christophe/Shop/Slash1IconShop.png")
-				1: %ItemIcon.texture = load("res://christophe/Shop/Slash2IconShop.png")
-					
-			
-			
+				1: 
+					%ItemIcon.texture = load("res://christophe/Shop/Slash2IconShop.png")
+					PlayerManager.player.stats.melee_unlocks['spin'] = true
+				2: 
+					%ItemIcon.texture = load("res://christophe/Shop/Slash3IconShop.png")
+					PlayerManager.player.stats.melee_unlocks['slash'] = true
+				3:
+					PlayerManager.player.stats.melee_unlocks['slash_proj'] = true
+
 
 	upgrade_cost = int(round(upgrade_cost * 1.2))
 	%CostLabel.text = str(upgrade_cost)

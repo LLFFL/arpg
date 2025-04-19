@@ -109,7 +109,7 @@ func upgrade_units():
 #Melee Overview
 var melee_unlocks: Dictionary = {
 	#those unlocks are for next attacks in combo chain
-	"spin": true,
-	"slash": true,
-	"slash_proj": true,
+	"spin": false,
+	"slash": false,
+	"slash_proj": false,
 }
