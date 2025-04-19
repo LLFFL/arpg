@@ -442,6 +442,7 @@ polygon = PackedVector2Array(-1201, -151, -1200, 135, -1107, 134, -1137, 116, -1
 
 [node name="ShopUi" type="Node2D" parent="."]
 unique_name_in_owner = true
+process_mode = 4
 z_index = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ShopUi"]
