@@ -467,22 +467,22 @@ icon_path = ExtResource("31_63wid")
 
 [node name="ShopButtonLuck" parent="ShopUi/HBoxContainer" instance=ExtResource("30_y7jpt")]
 layout_mode = 2
-upgrade_cost = 0
-upgrade_id = "luck_boost"
-icon_path = ExtResource("32_thoo6")
 upgrade_type = 3
+upgrade_id = "luck_boost"
+upgrade_cost = 0
+icon_path = ExtResource("32_thoo6")
 
 [node name="ShopButtonSpeed" parent="ShopUi/HBoxContainer" instance=ExtResource("30_y7jpt")]
 layout_mode = 2
+upgrade_type = 1
 upgrade_id = "speed_boost"
 icon_path = ExtResource("33_hrtp6")
-upgrade_type = 1
 
 [node name="ShopButtonDefense" parent="ShopUi/HBoxContainer" instance=ExtResource("30_y7jpt")]
 layout_mode = 2
+upgrade_type = 2
 upgrade_id = "defence_boost"
 icon_path = ExtResource("34_me02p")
-upgrade_type = 2
 
 [node name="Button" type="Button" parent="ShopUi/HBoxContainer"]
 visible = false

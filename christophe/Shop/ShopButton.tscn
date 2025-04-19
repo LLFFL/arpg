@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b84fble4aqave"]
+[gd_scene load_steps=9 format=3 uid="uid://b84fble4aqave"]
 
 [ext_resource type="Script" uid="uid://m5we6vs1810s" path="res://christophe/Shop/shop_button.gd" id="1_y5klf"]
 [ext_resource type="Texture2D" uid="uid://c04s3a32pjlab" path="res://christophe/Shop/ShopButton.png" id="2_2laji"]
@@ -10,7 +10,14 @@
 [sub_resource type="LabelSettings" id="LabelSettings_5ktu0"]
 line_spacing = 0.0
 font = ExtResource("2_15d5q")
-font_size = 12
+font_size = 13
+outline_color = Color(0.0313726, 0.141176, 0.172549, 1)
+shadow_size = 40
+
+[sub_resource type="LabelSettings" id="LabelSettings_g8ore"]
+line_spacing = 0.0
+font = ExtResource("2_15d5q")
+font_size = 7
 outline_color = Color(0.0313726, 0.141176, 0.172549, 1)
 shadow_size = 40
 
@@ -44,15 +51,33 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -33.0
-offset_top = 11.0
+offset_top = 9.0
 offset_right = 8.0
-offset_bottom = 32.0
+offset_bottom = 33.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(33, 8)
 text = "50"
 label_settings = SubResource("LabelSettings_5ktu0")
 horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="LimitLabel" type="Label" parent="BuyButton"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.5
+offset_top = -15.0
+offset_right = 20.5
+offset_bottom = 6.0
+grow_horizontal = 2
+pivot_offset = Vector2(21, 11)
+text = "0/0"
+label_settings = SubResource("LabelSettings_g8ore")
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ItemIcon" type="TextureRect" parent="BuyButton"]
