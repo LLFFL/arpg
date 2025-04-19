@@ -3,7 +3,7 @@ class_name Unit extends CharacterBody2D
 var target_location: Vector2
 var direction: Vector2 = Vector2.ZERO
 @onready var state_machine: UnitStateMachine = $StateMachine
-@onready var stats: Stats = $Stats
+@onready var stats: UnitStats = $Stats
 @onready var enemy_detection_zone: Area2D = $EnemyDetectionZone
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var label: Label = $Label
@@ -43,11 +43,12 @@ func _ready() -> void:
 	hurt_box.damaged.connect(damage)
 	pass # Replace with function body.
 
-func _initialize(Ally: bool, base_position: Vector2):
+func _initialize(Ally: bool, base_position: Vector2, _stats: BaseStats):
 	var tween = create_tween()
 	self.scale = Vector2(0,0)
 	tween.tween_property(self,"scale",Vector2(1,1),0.2).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	target_location = base_position
+	stats.set_stats(_stats)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -74,15 +75,16 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func damage2(arg: Projectile2D) -> void:
-	var dmg = arg.resource.damage
-	stats.health -= dmg
+	var dmg = arg.resource.damage - stats.defence
+	stats.health -= dmg if dmg > 0 else 0
 	hurt_box.start_invincibility(0.4)
 	hurt_box.create_hit_effect()
 	var _direction = (global_position - get_global_mouse_position()).normalized()
 	#velocity = dmg.attack_direction * 240
 
 func damage(attack: Attack) -> void:
-	stats.health -= attack.damage
+	var dmg = attack.damage - stats.defence
+	stats.health -= dmg if dmg > 0 else 0
 	hurt_box.start_invincibility(0.4)
 	hurt_box.create_hit_effect()
 	var _direction = (global_position - get_global_mouse_position()).normalized()

@@ -585,9 +585,6 @@ position = Vector2(-8, -455)
 monitoring = false
 monitorable = false
 
-[node name="Stats" parent="BaseContainer/AllyBase" index="7"]
-units_spawned = 2
-
 [node name="CanvasLayer" type="CanvasLayer" parent="BaseContainer/AllyBase"]
 
 [node name="MinionSideControl" parent="BaseContainer/AllyBase/CanvasLayer" instance=ExtResource("32_4gwui")]

@@ -5,8 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://c4w7vmhehgft8" path="res://assets/enemy_1.png" id="3_od3ae"]
 [ext_resource type="Script" uid="uid://wtbdin2o48dy" path="res://scenes/components/Hitbox.gd" id="4_bmhsd"]
 [ext_resource type="PackedScene" uid="uid://8q2xropak2sp" path="res://scenes/components/HurtBox.tscn" id="4_q5ue8"]
-[ext_resource type="Script" uid="uid://caalku31len3a" path="res://scenes/components/Stats/stats.gd" id="5_md5ic"]
 [ext_resource type="Script" uid="uid://dimmkraqjmnbn" path="res://Units/Scripts/State Machine/unit_state_machine.gd" id="6_alepv"]
+[ext_resource type="Script" uid="uid://yuj2d43rlu3o" path="res://scenes/components/Stats/unit_stats.gd" id="6_od3ae"]
 [ext_resource type="Script" uid="uid://ctn03m3vwm2c8" path="res://Units/Scripts/State Machine/Chase/chase_unit_state.gd" id="7_25wig"]
 [ext_resource type="Script" uid="uid://dvmfbb74esjex" path="res://Units/Scripts/State Machine/Attack/attack_unit_state.gd" id="8_6r8dj"]
 [ext_resource type="Shader" uid="uid://1jid57xhh638" path="res://scenes/components/white_shader.gdshader" id="9_7meyx"]
@@ -261,7 +261,7 @@ position = Vector2(0, -6)
 shape = SubResource("CapsuleShape2D_3v853")
 
 [node name="Stats" type="Node2D" parent="."]
-script = ExtResource("5_md5ic")
+script = ExtResource("6_od3ae")
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("6_alepv")

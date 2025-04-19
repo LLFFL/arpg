@@ -48,11 +48,24 @@ func _ready():
 		ally_timer.start(stats.spawn_rate)
 		PlayerManager.player.stats.baseStats = stats
 		var flag = true
-		for i in stats.units_spawned:
+		var i = 0
+		while i < stats.units_spawned:
+			i += 1
 			if flag:
 				minion_side_selection[0] += 1
+				flag = !flag
+				continue
 			else:
 				minion_side_selection[1] += 1
+				flag = !flag
+				continue
+		#for i in stats.units_spawned:
+			#if flag:
+				#minion_side_selection[0] += 1
+				#flag = !flag
+			#else:
+				#minion_side_selection[1] += 1
+				#flag = !flag
 				
 		#minion_side_selection = [0,1] # keeping this away from the other bases since its not necessary to them
 		minion_side_control.update(minion_side_selection)
@@ -99,7 +112,6 @@ func spawn_minion(player_side:bool):
 			var _x = randi_range(_rect.position.x, _rect.position.x + _rect.size.x)
 			var _y = randi_range(_rect.position.y, _rect.position.y + _rect.size.y)
 			var unit = ENEMY.instantiate()
-			#unit.stats = stats
 			if LeftBase:
 				unit.enemy = true
 			else:
@@ -108,21 +120,20 @@ func spawn_minion(player_side:bool):
 			unit.global_position = spawn_zone.global_position + Vector2(_x, _y)
 			get_tree().current_scene.add_child(unit)
 			if (is_instance_valid(bases_dictionary['ally_base'])):
-				unit._initialize(player_side, bases_dictionary['ally_base'].target_location)
+				unit._initialize(player_side, bases_dictionary['ally_base'].target_location, stats)
 			else:
-				unit._initialize(player_side, PlayerManager.player.global_position)
+				unit._initialize(player_side, PlayerManager.player.global_position, stats)
 	if MainBase:
 		for i in minion_side_selection[0]:
 			var _x = randi_range(_rect.position.x, _rect.position.x + _rect.size.x)
 			var _y = randi_range(_rect.position.y, _rect.position.y + _rect.size.y)
 			var unit = ENEMY.instantiate()
-			#unit.stats = stats
 			unit.ally = true
 			unit.global_position = spawn_zone.global_position + Vector2(_x, _y)
 			unit.add_to_group("allied_minions")
 			get_tree().current_scene.add_child(unit)
 			if bases_dictionary['enemy_base_L']: #Mark bandaid
-				unit._initialize(player_side, bases_dictionary['enemy_base_L'].target_location)
+				unit._initialize(player_side, bases_dictionary['enemy_base_L'].target_location, stats)
 		
 		for i in minion_side_selection[1]:
 			var _x = randi_range(_rect.position.x, _rect.position.x + _rect.size.x)
@@ -134,12 +145,13 @@ func spawn_minion(player_side:bool):
 			unit.add_to_group("allied_minions")
 			get_tree().current_scene.add_child(unit)
 			if bases_dictionary['enemy_base_R']: #Mark bandaid
-				unit._initialize(player_side, bases_dictionary['enemy_base_R'].target_location)
+				unit._initialize(player_side, bases_dictionary['enemy_base_R'].target_location, stats)
 
 
 func take_damage(attack: Attack) -> void:
 	#print(attack.damage)
-	stats.health -= attack.damage
+	var dmg = attack.damage - stats.defence
+	stats.health -= dmg if dmg > 0 else 0
 	#print(stats.health)
 	$Core.play_hit_animation()
 	CameraShaker.play_shake()
