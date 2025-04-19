@@ -1,10 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://b84fble4aqave"]
+[gd_scene load_steps=8 format=3 uid="uid://b84fble4aqave"]
 
-[ext_resource type="Texture2D" uid="uid://d0ltcb544aj00" path="res://christophe/Shop/SwordButton.png" id="1_15d5q"]
+[ext_resource type="Script" uid="uid://m5we6vs1810s" path="res://christophe/Shop/shop_button.gd" id="1_y5klf"]
+[ext_resource type="Texture2D" uid="uid://c04s3a32pjlab" path="res://christophe/Shop/ShopButton.png" id="2_2laji"]
 [ext_resource type="FontFile" uid="uid://c7n68l70qdk0f" path="res://christophe/Analog Whispers FREE.ttf" id="2_15d5q"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_anmtk"]
-load_path = "res://.godot/imported/SwordUpgrade.png-09df0e13b349c0c1b9c7b1af93501d79.ctex"
+[ext_resource type="AudioStream" uid="uid://kiew3u23jl5t" path="res://christophe/Shop/BoughtItemSound.wav" id="2_g8ore"]
+[ext_resource type="AudioStream" uid="uid://da18gu8ynv6ym" path="res://christophe/Shop/NotEnoughMoneySound.wav" id="3_r2u0c"]
+[ext_resource type="Texture2D" uid="uid://db4u2cbcfwcm2" path="res://christophe/Shop/SwordIconShop.png" id="4_2laji"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_5ktu0"]
 line_spacing = 0.0
@@ -13,23 +14,28 @@ font_size = 12
 outline_color = Color(0.0313726, 0.141176, 0.172549, 1)
 shadow_size = 40
 
-[node name="Control" type="Control"]
+[node name="ShopButton" type="Control"]
+custom_minimum_size = Vector2(57, 65)
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
+anchor_right = 0.117
+anchor_bottom = 0.237
+offset_right = -0.160004
+offset_bottom = 0.00999451
+pivot_offset = Vector2(28, 32)
+script = ExtResource("1_y5klf")
+buying_sound = ExtResource("2_g8ore")
+cantbuy_sound = ExtResource("3_r2u0c")
 
-[node name="TextureButton" type="TextureButton" parent="."]
+[node name="BuyButton" type="TextureButton" parent="."]
+unique_name_in_owner = true
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture_normal = ExtResource("1_15d5q")
-texture_pressed = SubResource("CompressedTexture2D_anmtk")
+offset_right = 56.0
+offset_bottom = 64.0
+pivot_offset = Vector2(28, 32)
+texture_normal = ExtResource("2_2laji")
 
-[node name="Label" type="Label" parent="TextureButton"]
+[node name="CostLabel" type="Label" parent="BuyButton"]
+unique_name_in_owner = true
 texture_filter = 3
 layout_mode = 1
 anchors_preset = 8
@@ -43,8 +49,30 @@ offset_right = 8.0
 offset_bottom = 32.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(19, 14)
+pivot_offset = Vector2(33, 8)
 text = "50"
 label_settings = SubResource("LabelSettings_5ktu0")
 horizontal_alignment = 2
 vertical_alignment = 1
+
+[node name="ItemIcon" type="TextureRect" parent="BuyButton"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -24.0
+offset_right = 20.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.568883, 0.568883)
+pivot_offset = Vector2(20, 20)
+texture = ExtResource("4_2laji")
+stretch_mode = 5
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+bus = &"SFX"

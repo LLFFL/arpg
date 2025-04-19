@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bsy8a065xgubk"
-path="res://.godot/imported/huge.png-8c9665ae5e09c89b03c2a5479b1a17c6.ctex"
+uid="uid://sisoijci6hvs"
+path="res://.godot/imported/SwordUpgrade.png-09df0e13b349c0c1b9c7b1af93501d79.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://christophe/Shop/huge.png"
-dest_files=["res://.godot/imported/huge.png-8c9665ae5e09c89b03c2a5479b1a17c6.ctex"]
+source_file="res://christophe/Shop/SwordUpgrade.png"
+dest_files=["res://.godot/imported/SwordUpgrade.png-09df0e13b349c0c1b9c7b1af93501d79.ctex"]
 
 [params]
 
