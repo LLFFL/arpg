@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://46ic5eq5d8qa"]
+[gd_scene load_steps=65 format=3 uid="uid://46ic5eq5d8qa"]
 
 [ext_resource type="Script" uid="uid://dx65t4op8hlv6" path="res://christophe/World/game_world.gd" id="1_6sg4h"]
 [ext_resource type="Shader" uid="uid://v1g385vie0ti" path="res://christophe/Shaders/SpriteColorMapped.gdshader" id="2_wjrrt"]
@@ -43,6 +43,7 @@
 [ext_resource type="Texture2D" uid="uid://dxmorelsxus68" path="res://christophe/Shop/LuckIconShop.png" id="32_thoo6"]
 [ext_resource type="Texture2D" uid="uid://4t1sumn6g60i" path="res://christophe/Shop/SpeedIconShop.png" id="33_hrtp6"]
 [ext_resource type="Texture2D" uid="uid://dacq1q8xq2ud5" path="res://christophe/Shop/SheildIconShop.png" id="34_me02p"]
+[ext_resource type="Texture2D" uid="uid://d2j4j4csy61fm" path="res://christophe/Shop/UnitsStatsIconShop.png" id="35_me02p"]
 
 [sub_resource type="Gradient" id="Gradient_3fx2f"]
 offsets = PackedFloat32Array(0.00332226, 0.533546, 0.799107, 1)
@@ -280,7 +281,7 @@ color_ramp = SubResource("Gradient_0t5cr")
 unique_name_in_owner = true
 editor_description = "A portal that could also be the player's base and shop"
 clip_children = 2
-position = Vector2(0, -34)
+position = Vector2(0, -27)
 texture = ExtResource("8_n5cly")
 
 [node name="Interior" type="Node2D" parent="Map/Portal"]
@@ -365,7 +366,8 @@ position = Vector2(73.8949, 40.0446)
 texture = ExtResource("18_al3pl")
 
 [node name="Frog" type="Sprite2D" parent="Map/Portal/Interior"]
-position = Vector2(-65.9063, 58.0646)
+unique_name_in_owner = true
+position = Vector2(-65, 60)
 texture = ExtResource("19_pc07o")
 
 [node name="ShakerPortal" type="Node2D" parent="Map/Portal" node_paths=PackedStringArray("Targets")]
@@ -483,6 +485,14 @@ layout_mode = 2
 upgrade_type = 2
 upgrade_id = "defence_boost"
 icon_path = ExtResource("34_me02p")
+
+[node name="ShopButtonUnits" parent="ShopUi/HBoxContainer" instance=ExtResource("30_y7jpt")]
+layout_mode = 2
+upgrade_type = 4
+upgrade_id = "units_boost"
+upgrade_cost = 0
+max_level = 10
+icon_path = ExtResource("35_me02p")
 
 [node name="Button" type="Button" parent="ShopUi/HBoxContainer"]
 visible = false

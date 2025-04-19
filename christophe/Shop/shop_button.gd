@@ -60,6 +60,17 @@ func _on_pressed() -> void:
 			PlayerManager.player.stats.upgrade_defence(upgrade_value)
 		UpgradeType.LUCK:
 			PlayerManager.player.stats.upgrade_luck()
+		
+		# TODO: ADD logic for icon switching when units upgrades
+		UpgradeType.UNITS:
+			if current_level%2==0:
+				%ItemIcon.texture = load("res://christophe/Shop/UnitsStatsAndAmountIconShop.png")
+			else:
+				%ItemIcon.texture = load("res://christophe/Shop/UnitsStatsIconShop.png")
+			#PlayerManager.player.stats.upgrade_units()
+			#PlayerManager.player.stats.level_upgrades
+			
+			
 
 	upgrade_cost = int(round(upgrade_cost * 1.2))
 	%CostLabel.text = str(upgrade_cost)
