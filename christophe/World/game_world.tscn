@@ -498,15 +498,6 @@ upgrade_cost = 0
 max_level = 10
 icon_path = ExtResource("35_me02p")
 
-[node name="ShopButtonSlash" parent="ShopUi/HBoxContainer" instance=ExtResource("30_y7jpt")]
-layout_mode = 2
-upgrade_type = 5
-upgrade_id = "slash_boost"
-upgrade_cost = 0
-upgrade_value = 1
-max_level = 1
-icon_path = ExtResource("36_1buh8")
-
 [node name="Button" type="Button" parent="ShopUi/HBoxContainer"]
 visible = false
 layout_mode = 2
