@@ -4,6 +4,7 @@ class_name IdleAbilityState extends AbilityState
 @onready var projectile_position: Marker2D = $"../../ProjectilePosition"
 @onready var thrust: MeleeAbilityState = $"../Thrust"
 const LeechSpell = preload("res://Upgrades/Scripts/LeechSpell.gd")
+@onready var ui: Control = $CameraHandler/Camera2D/CanvasLayer/UI
 
 func enter() -> void:
 	pass
@@ -24,6 +25,7 @@ func handle_input( _event: InputEvent ) -> AbilityState:
 		print("r_cast pressed")
 		var spell := LeechSpell.new()
 		get_tree().current_scene.add_child(spell) 
+		#spell.player_healed.connect(ui._on_player_healed)
 		spell.apply_effects(player)
 		
 	if combo_attack != null:

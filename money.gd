@@ -17,6 +17,8 @@ func _ready():
 	t.parallel().tween_property($SmallShadow,"modulate:a",0.6,1.5)
 	t.tween_property(%Sprite2D,"position:y",initial_position.y,1.5)
 	t.parallel().tween_property($SmallShadow,"modulate:a",1,1.5)
+	await get_tree().create_timer(.75).timeout	
+	picked_up()
 
 func picked_up():
 	%Sprite2D.hide()

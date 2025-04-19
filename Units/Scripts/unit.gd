@@ -14,7 +14,7 @@ var direction: Vector2 = Vector2.ZERO
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 #add laters to the ready
 @onready var gold_detection_zone: Area2D = $GoldDetectionZone
-
+const MONEY = preload("res://christophe/Shop/money.tscn")
 #var stats: UnitStats = null
 var ally: bool = false
 var enemy: bool = false
@@ -104,6 +104,10 @@ func damage(attack: Attack) -> void:
 func _on_no_health():
 	for body in gold_detection_zone.get_overlapping_bodies():
 		if body.is_in_group("player"):
+			#instanciate MONEY
+			var coin = MONEY.instantiate()
+			get_parent().get_parent().add_child(coin)
+			coin.global_position = global_position
 			body.stats.add_gold(1)
 			print("gold given")
 			#give gold

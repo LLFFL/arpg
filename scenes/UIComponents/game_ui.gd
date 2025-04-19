@@ -16,6 +16,9 @@ extends Control
 func _ready():
 	await get_tree().create_timer(1).timeout
 	PlayerManager.player.stats.onGoldChange.connect(update_gold)
+
+
+	
 	pass
 	
 func initialize_health(max_hp: float, sender: Node2D) -> void:
@@ -39,9 +42,9 @@ func initialize_health_player(max_hp: float,) -> void:
 	player_hp.max_value = max_hp
 
 func on_health_changed_player(current_hp: float) -> void:
+	print("Health changed")
 	player_hp.value = current_hp
 
 func update_gold(gold: int) -> void:
 	gold1.text = str(gold)
-	
 	
