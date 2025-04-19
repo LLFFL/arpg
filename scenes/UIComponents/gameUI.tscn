@@ -105,6 +105,7 @@ scale = Vector2(1.14773, 1.14773)
 texture = ExtResource("12_5kje6")
 
 [node name="Gold2" type="Label" parent="."]
+layout_mode = 0
 offset_left = 285.0
 offset_top = 259.0
 offset_right = 325.0
