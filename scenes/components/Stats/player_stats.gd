@@ -94,11 +94,12 @@ func upgrade_luck():
 
 func upgrade_defence(value: float):
 	base_defence += value
+	$"../UpgradeParticles/DefenseBuffParticles".amount += 1
+	$"../UpgradeParticles/DefenseBuffParticles".restart()
 
 func upgrade_units():
 	baseStats.level_up.emit()
-	$"../UpgradeParticles/DefenseBuffParticles".amount += 1
-	$"../UpgradeParticles/DefenseBuffParticles".restart()
+
 #Spell Dictionairy
 #Cast time, Base Damage, Projectile speed, ext
 

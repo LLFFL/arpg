@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://46ic5eq5d8qa"]
+[gd_scene load_steps=70 format=3 uid="uid://46ic5eq5d8qa"]
 
 [ext_resource type="Script" uid="uid://dx65t4op8hlv6" path="res://christophe/World/game_world.gd" id="1_6sg4h"]
 [ext_resource type="Shader" uid="uid://v1g385vie0ti" path="res://christophe/Shaders/SpriteColorMapped.gdshader" id="2_wjrrt"]
@@ -44,6 +44,7 @@
 [ext_resource type="Texture2D" uid="uid://4t1sumn6g60i" path="res://christophe/Shop/SpeedIconShop.png" id="33_hrtp6"]
 [ext_resource type="Texture2D" uid="uid://dacq1q8xq2ud5" path="res://christophe/Shop/SheildIconShop.png" id="34_me02p"]
 [ext_resource type="Texture2D" uid="uid://d2j4j4csy61fm" path="res://christophe/Shop/UnitsStatsIconShop.png" id="35_me02p"]
+[ext_resource type="Texture2D" uid="uid://esy21sfjhq1j" path="res://christophe/Shop/Slash1IconShop.png" id="36_nk3or"]
 [ext_resource type="PackedScene" uid="uid://dbck5ldifj5fh" path="res://Upgrades/IceBossSpellCaller.tscn" id="37_me02p"]
 [ext_resource type="Script" uid="uid://dhkmxwdl7x2fl" path="res://addons/all_projectiles/scripts/resources/projectile_blueprint_2d.gd" id="38_1buh8"]
 [ext_resource type="Resource" uid="uid://bguorcmtk2rod" path="res://Upgrades/Spells/spell2/12_burning_skies.tres" id="43_pc07o"]
@@ -394,7 +395,7 @@ fade_out = 0.0078125
 shakerPreset = SubResource("Resource_u41f8")
 
 [node name="CameraHandler" type="Node2D" parent="."]
-position = Vector2(-790, 102)
+position = Vector2(2, 52)
 
 [node name="Camera2D" parent="CameraHandler" instance=ExtResource("25_yyeeq")]
 process_mode = 3
@@ -432,7 +433,7 @@ texture = SubResource("CompressedTexture2D_ofr2a")
 
 [node name="Player" parent="." instance=ExtResource("26_myr1t")]
 material = SubResource("ShaderMaterial_cx7l3")
-position = Vector2(-790, 102)
+position = Vector2(2, 52)
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../CameraHandler")
@@ -482,12 +483,14 @@ icon_path = ExtResource("32_thoo6")
 layout_mode = 2
 upgrade_type = 1
 upgrade_id = "speed_boost"
+upgrade_cost = 0
 icon_path = ExtResource("33_hrtp6")
 
 [node name="ShopButtonDefense" parent="ShopUi/HBoxContainer" instance=ExtResource("30_y7jpt")]
 layout_mode = 2
 upgrade_type = 2
 upgrade_id = "defence_boost"
+upgrade_cost = 0
 icon_path = ExtResource("34_me02p")
 
 [node name="ShopButtonUnits" parent="ShopUi/HBoxContainer" instance=ExtResource("30_y7jpt")]
@@ -497,6 +500,15 @@ upgrade_id = "units_boost"
 upgrade_cost = 0
 max_level = 10
 icon_path = ExtResource("35_me02p")
+
+[node name="ShopButtonSlash" parent="ShopUi/HBoxContainer" instance=ExtResource("30_y7jpt")]
+layout_mode = 2
+upgrade_type = 5
+upgrade_id = "slash_boost"
+upgrade_cost = 0
+upgrade_value = 1
+max_level = 2
+icon_path = ExtResource("36_nk3or")
 
 [node name="Button" type="Button" parent="ShopUi/HBoxContainer"]
 visible = false

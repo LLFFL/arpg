@@ -92,7 +92,7 @@ func open_portal():
 	portal_tween.parallel().tween_property(%Portal,"scale",Vector2(5,5),0.8)
 	portal_tween.parallel().tween_property(%Portal/Interior,"scale",Vector2(0.2,0.2),0.8)
 	portal_tween.parallel().tween_property(%Frog,"position",Vector2(-120,110),1).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT).set_delay(0.2)
-	portal_tween.tween_property(%ShopUi,"modulate:a",1,0.1)
+	portal_tween.parallel().tween_property(%ShopUi,"modulate:a",1,0.1).set_delay(0.4)
 	player.z_index = 5
 	await portal_tween
 	%Portal.z_index = 3
