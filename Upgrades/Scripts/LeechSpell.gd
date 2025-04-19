@@ -19,14 +19,14 @@ func apply_effects(_caster: Node, _target: Node = null) -> void:
 			if minion is Unit:
 				if minion.has_method("damage"):
 					var attack := Attack.new()
-					var healthTransfer = minion.stats.health
+					var healthTransfer = minion.stats.max_health + minion.stats.defence
 					attack.damage = healthTransfer
 					#attack.crit_chance = 0
 					minion.damage(attack)
 					
 					#FIX
-					PlayerManager.player.stats.health += attack.damage
-					print("player healed", attack.damage)
+					PlayerManager.player.stats.health += minion.stats.health
+					print("player healed", minion.stats.health)
 					if FIREBALL_HEAD:
 						var fx1 = FIREBALL_HEAD.instantiate()
 						fx1.global_position = minion.global_position
