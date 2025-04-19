@@ -21,6 +21,7 @@ enum UpgradeType { DAMAGE, MOVEMENT_SPEED, DEFENCE, LUCK, UNITS, SLASH}
 @export_category("Sounds")
 @export var buying_sound:AudioStream
 @export var cantbuy_sound:AudioStream
+@onready var ui: Control = $"../../../CameraHandler/Camera2D/CanvasLayer/UI"
 
 
 
@@ -46,11 +47,12 @@ func _on_pressed() -> void:
 	if PlayerManager.player.stats.gold < upgrade_cost:
 		play_not_enough_gold_animation()
 		return
-	
 	# buy the item
 	current_level+=1
 	%LimitLabel.text = str(current_level) + "/" + str(max_level)
 	PlayerManager.player.stats.gold -= upgrade_cost
+	#Adjust the gold in UI
+	ui.update_gold(PlayerManager.player.stats.gold)
 	play_buying_animation()
 	if current_level==max_level:
 		self.modulate = Color("717171")
@@ -84,6 +86,7 @@ func _on_pressed() -> void:
 
 	upgrade_cost = int(round(upgrade_cost * 1.2))
 	%CostLabel.text = str(upgrade_cost)
+
 	print("Purchased:", upgrade_type)
 
 func play_buying_animation():
