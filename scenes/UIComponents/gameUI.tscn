@@ -1,0 +1,136 @@
+[gd_scene load_steps=17 format=3 uid="uid://brixflf8pdcaa"]
+
+[ext_resource type="Script" uid="uid://cmkdsr8qghyd5" path="res://scenes/UIComponents/game_ui.gd" id="1_nnssq"]
+[ext_resource type="Texture2D" uid="uid://b5thusqr24jhk" path="res://assets/UI/UI/FireCore_Hp_Empty.png" id="1_skjpw"]
+[ext_resource type="Texture2D" uid="uid://6laffwneoivn" path="res://assets/UI/UI/FireCore_HP_Full.png" id="2_nnssq"]
+[ext_resource type="Texture2D" uid="uid://b0snrqvel30im" path="res://assets/UI/UI/Player_HP_Empty.png" id="3_c1svj"]
+[ext_resource type="Texture2D" uid="uid://boo5etr0oa5x7" path="res://assets/UI/UI/Player_HP_Full.png" id="4_5xixu"]
+[ext_resource type="Texture2D" uid="uid://u2huecbp18kj" path="res://christophe/Particles/DangerArrow.png" id="4_iaif0"]
+[ext_resource type="Texture2D" uid="uid://iulys2kl8oec" path="res://assets/UI/UI/IceCore_HP_Empty.png" id="5_414c6"]
+[ext_resource type="Texture2D" uid="uid://or8dbmm2ql6u" path="res://assets/UI/UI/IceCore_HP_Full.png" id="6_1cblf"]
+[ext_resource type="Texture2D" uid="uid://t3kj8x32c4ew" path="res://assets/UI/UI/Portal_HP_Empty.png" id="7_5kje6"]
+[ext_resource type="Texture2D" uid="uid://d1t3gkbsfhgm6" path="res://assets/UI/UI/Portal_HP_Full.png" id="8_iaif0"]
+[ext_resource type="Texture2D" uid="uid://cicw0embs6anq" path="res://assets/UI/UI/UI_Coin.png" id="10_5xixu"]
+[ext_resource type="FontFile" uid="uid://c7n68l70qdk0f" path="res://christophe/Analog Whispers FREE.ttf" id="11_414c6"]
+[ext_resource type="Texture2D" uid="uid://82revivae011" path="res://assets/UI/UI/UI_Ally_Count.png" id="12_5kje6"]
+[ext_resource type="Texture2D" uid="uid://c46t3kxny4slh" path="res://cursor.png" id="13_iaif0"]
+[ext_resource type="Texture2D" uid="uid://87advcenrc7e" path="res://assets/Action RPG Resources/UI/HeartUIFull.png" id="14_vmjkj"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_1cblf"]
+font = ExtResource("11_414c6")
+font_size = 13
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nnssq")
+metadata/_edit_vertical_guides_ = [264.0, 216.0]
+
+[node name="PlayerHP" type="TextureProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -26.0
+offset_top = 256.0
+offset_right = -1.0
+offset_bottom = 259.0
+grow_horizontal = 2
+scale = Vector2(2.2, 2.2)
+value = 55.0
+fill_mode = 6
+texture_under = ExtResource("3_c1svj")
+texture_progress = ExtResource("4_5xixu")
+metadata/_edit_lock_ = true
+
+[node name="RightDanger" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 0, 0)
+position = Vector2(416, 16)
+texture = ExtResource("4_iaif0")
+
+[node name="LeftDanger" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 0, 0)
+position = Vector2(64, 16)
+scale = Vector2(-1, 1)
+texture = ExtResource("4_iaif0")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -163.5
+offset_right = 163.5
+offset_bottom = 34.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="LSide Core HP" type="TextureProgressBar" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+value = 40.0
+texture_under = ExtResource("5_414c6")
+texture_progress = ExtResource("6_1cblf")
+
+[node name="Player Core HP" type="TextureProgressBar" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+value = 40.0
+fill_mode = 6
+texture_under = ExtResource("7_5kje6")
+texture_progress = ExtResource("8_iaif0")
+
+[node name="RSide Core HP" type="TextureProgressBar" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+value = 40.0
+fill_mode = 1
+texture_under = ExtResource("1_skjpw")
+texture_progress = ExtResource("2_nnssq")
+
+[node name="UiCoin" type="Sprite2D" parent="."]
+position = Vector2(422.625, 260.625)
+scale = Vector2(1.47222, 1.47222)
+texture = ExtResource("10_5xixu")
+
+[node name="Gold" type="Label" parent="."]
+layout_mode = 0
+offset_left = 437.0
+offset_top = 256.0
+offset_right = 477.0
+offset_bottom = 272.0
+text = "0"
+label_settings = SubResource("LabelSettings_1cblf")
+
+[node name="UiAllyCount" type="Sprite2D" parent="."]
+position = Vector2(294, 258)
+scale = Vector2(1.14773, 1.14773)
+texture = ExtResource("12_5kje6")
+
+[node name="Gold2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 285.0
+offset_top = 259.0
+offset_right = 325.0
+offset_bottom = 275.0
+text = "R"
+label_settings = SubResource("LabelSettings_1cblf")
+
+[node name="Cursor" type="Sprite2D" parent="."]
+position = Vector2(299, 264)
+scale = Vector2(0.0239258, 0.0239258)
+texture = ExtResource("13_iaif0")
+
+[node name="HeartUiFull" type="Sprite2D" parent="."]
+position = Vector2(301, 249)
+scale = Vector2(0.590909, 0.590909)
+texture = ExtResource("14_vmjkj")

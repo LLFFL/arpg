@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://46ic5eq5d8qa"]
+[gd_scene load_steps=70 format=3 uid="uid://46ic5eq5d8qa"]
 
 [ext_resource type="Script" uid="uid://dx65t4op8hlv6" path="res://christophe/World/game_world.gd" id="1_6sg4h"]
 [ext_resource type="Shader" uid="uid://v1g385vie0ti" path="res://christophe/Shaders/SpriteColorMapped.gdshader" id="2_wjrrt"]
@@ -29,6 +29,7 @@
 [ext_resource type="PackedScene" uid="uid://b02g8s3f7cg4a" path="res://Player/Player.tscn" id="26_myr1t"]
 [ext_resource type="Shader" uid="uid://duocgilkxh3yq" path="res://christophe/Shaders/outline_magic.gdshader" id="27_gx05q"]
 [ext_resource type="Script" uid="uid://cxgmjqfrfwelx" path="res://addons/shaker/data/Vector2/ShakerTypeRandom2D.gd" id="27_picea"]
+[ext_resource type="PackedScene" uid="uid://brixflf8pdcaa" path="res://scenes/UIComponents/gameUI.tscn" id="28_al3pl"]
 [ext_resource type="Texture2D" uid="uid://b0xr1jgfkps6a" path="res://christophe/Particles/arrow_up.png" id="29_5uctv"]
 [ext_resource type="Texture2D" uid="uid://c65n2wn3swyff" path="res://christophe/Cores/IceCore.png" id="29_oaplc"]
 [ext_resource type="Texture2D" uid="uid://rfoa8woep3d6" path="res://christophe/Cores/FireCore.png" id="30_lr5rs"]
@@ -427,7 +428,7 @@ shakerPreset = SubResource("Resource_al3pl")
 metadata/_custom_type_script = "uid://b0fgc7bwsfxmw"
 
 [node name="CameraHandler" type="Node2D" parent="."]
-position = Vector2(-3, 99)
+position = Vector2(2, 98)
 
 [node name="Camera2D" parent="CameraHandler" instance=ExtResource("25_yyeeq")]
 process_mode = 3
@@ -451,9 +452,14 @@ fade_out = 0.148651
 shakerPreset = SubResource("Resource_7856v")
 metadata/_custom_type_script = "uid://b0fgc7bwsfxmw"
 
+[node name="CanvasLayer" type="CanvasLayer" parent="CameraHandler/Camera2D"]
+
+[node name="UI" parent="CameraHandler/Camera2D/CanvasLayer" instance=ExtResource("28_al3pl")]
+mouse_filter = 2
+
 [node name="Player" parent="." instance=ExtResource("26_myr1t")]
 material = SubResource("ShaderMaterial_cx7l3")
-position = Vector2(-3, 99)
+position = Vector2(2, 98)
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../CameraHandler")
@@ -567,7 +573,6 @@ scale = Vector2(0.984707, 1.9713)
 
 [node name="CollisionShape2D" parent="BaseContainer/AllyBase/SpawnZone" index="0"]
 position = Vector2(0, 61.6344)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_4gwui")
 
 [node name="TargetLocation" parent="BaseContainer/AllyBase" index="5"]
@@ -664,6 +669,9 @@ collision_mask = 0
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RightStartBound"]
 position = Vector2(-165, 76)
 polygon = PackedVector2Array(-62, -47, 119, 84, 145, -223, -87, -223)
+
+[node name="RespawnMarker" type="Marker2D" parent="."]
+position = Vector2(0, 107)
 
 [editable path="BaseContainer/AllyBase"]
 [editable path="BaseContainer/AllyBase/HurtBox"]

@@ -15,6 +15,8 @@ extends Node2D
 @onready var left_start_bound: StaticBody2D = $LeftStartBound
 @onready var right_start_bound: StaticBody2D = $RightStartBound
 @onready var portal_arrow: Sprite2D = $PortalArrow
+@onready var respawn_marker: Marker2D = $RespawnMarker
+@onready var ui: Control = $CameraHandler/Camera2D/CanvasLayer/UI
 
 var game_started: bool = false
 
@@ -28,7 +30,7 @@ var portal_tween:Tween
 @onready var base_container: Node = %BaseContainer
 var bases_dictionary: Dictionary
 func _ready():
-	
+	PlayerManager.player.player_died.connect(_on_player_death)
 	var bases = base_container.get_children()
 	bases_dictionary = {
 		'ally_base' = bases[0],
@@ -93,7 +95,7 @@ func open_portal():
 	if !game_started:
 		game_started = true
 		var timer: Timer = Timer.new()
-		timer.wait_time = 0.1
+		timer.wait_time = 3
 		timer.timeout.connect(func(): 
 			start_game()
 			timer.queue_free())
@@ -147,4 +149,13 @@ func start_game():
 	bases_dictionary.ally_base._on_game_start()
 	bases_dictionary.enemy_base_L._on_game_start()
 	bases_dictionary.enemy_base_R._on_game_start()
+	ui.flash_danger()
+	pass
+
+func _on_player_death():
+	PlayerManager.player.global_position = respawn_marker.global_position
+	PlayerManager.player.stats.health = PlayerManager.player.stats.max_health
+	PlayerManager.player.stats.gold = 0
+	PlayerManager.player.stats.stun_entity(2)
+	ui.on_health_changed_player(PlayerManager.player.stats.health)
 	pass

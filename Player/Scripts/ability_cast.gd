@@ -1,7 +1,6 @@
 class_name CastAbilityState extends AbilityState
 #import where it can go
 @onready var idle: IdleAbilityState = $"../Idle"
-@onready var projectile_position: Marker2D = $"../../ProjectilePosition"
 const LeechSpell = preload("res://Upgrades/Scripts/LeechSpell.gd")
 var spell_index: int
 var in_progress: bool
@@ -28,7 +27,7 @@ func enter() -> void:
 	#add ProjectileCaller here, replace it with the  player.stats.upgrades[spell_index]
 	#projectile_caller_2d.request_projectile(0, get_global_position(), get_global_mouse_position())
 
-	projectile_caller_2d.request_projectile(0, projectile_position.global_position, get_global_mouse_position())
+	projectile_caller_2d.request_projectile(0, $ProjectilePosition.global_position, get_global_mouse_position())
 	
 	#var spell2 = projectile_caller_2d.projectile_resources
 	#spell2 = player.stats.upgrades[spell_index]

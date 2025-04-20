@@ -26,6 +26,7 @@ var target_location: Vector2
 static var base1: bool = true
 static var base2: bool = true
 @onready var label: Label = $Label
+@onready var ui: Control = $"../../CameraHandler/Camera2D/CanvasLayer/UI"
 
 var ally_timer: Timer
 var enemy_timer: Timer
@@ -33,16 +34,21 @@ var enemy_timer: Timer
 var spawn_timer: Timer
 var upgrade_timer: Timer
 
+signal health_initialized(max_health: int, node:Node2D)
+signal health_changed(current_health: int, node:Node2D)
+
+@onready var thePlayer: Player = $"../../Player"
+
 func _ready():
-	stats.units_updated.connect(increase_allied_minions)
+	
 	spawn_timer = Timer.new()
 	spawn_timer.timeout.connect(_on_timer_timeout.bind(spawn_timer))
 	add_child(spawn_timer)
 	
 	target_location = target_marker.global_position
 	hurtbox.damaged.connect(take_damage)
-
 	if (MainBase):
+		stats.units_updated.connect(increase_allied_minions)
 		PlayerManager.player.stats.baseStats = stats
 		stats.max_health = 500
 		var flag = true
@@ -57,7 +63,6 @@ func _ready():
 				minion_side_selection[1] += 1
 				flag = !flag
 				continue
-		
 		#minion_side_selection = [0,1] # keeping this away from the other bases since its not necessary to them
 		minion_side_control.update(minion_side_selection)
 		#bat_spawn_location = Vector2(position.x, position.y - 50)
@@ -77,6 +82,10 @@ func _ready():
 			)
 		add_child(upgrade_timer)
 		hurtbox.set_collision_layer_value(18, true) 
+	
+	ui.initialize_health(stats.max_health, self)
+	ui.on_health_changed(stats.max_health, self)
+
 
 func initialize(bases_dictionaryy: Dictionary):
 	bases_dictionary = bases_dictionaryy # this is not a a typo
@@ -131,6 +140,8 @@ func take_damage(attack: Attack) -> void:
 	#print(stats.health)
 	$Core.play_hit_animation()
 	CameraShaker.play_shake()
+	#Send the change to the UI
+	ui.on_health_changed(stats.health, self)
 	#get_viewport().get_camera_2d().get_node("ShakerComponent2D").play_shake()
 	#print(camera_shaker)
 	#amera_shaker.play_shake()
@@ -157,6 +168,9 @@ func _on_stats_no_health() -> void:
 		if base1: #Mark bandaid
 			get_tree().call_group('allied_minions', 'update_target_base', bases_dictionary['enemy_base_L'].target_location)
 			redirect_minions_to_active_side() # this directs spawn to other boss automatically
+	if !base1 && !base2:
+		print("DOOT DOOT DOO DOO, DOOT DOOT DOO DOO, WINNER! GANGION!")
+		#ref the node, call the function for the transition to win screen
 	queue_free()
 
 
@@ -209,3 +223,5 @@ func send_all_minions_left():
 
 func _on_game_start():
 	spawn_timer.start(stats.spawn_rate)
+	if !MainBase:
+		upgrade_timer.start()

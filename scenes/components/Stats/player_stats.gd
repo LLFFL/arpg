@@ -70,9 +70,12 @@ var upgrades : Array = []
 func add_upgrade(upgrade):
 	#if upgrades.size() < 4:
 		upgrades.append(upgrade)
+		
+signal onGoldChange(int)
 
 func add_gold(value: int):
 	gold += int(round(value * gold_generation))
+	onGoldChange.emit(gold)
 
 func upgrade_damage(value: float):
 	base_damage += value

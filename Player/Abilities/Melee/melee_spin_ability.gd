@@ -68,7 +68,8 @@ func _on_animation_finish(name: String):
 
 func set_attack_values():
 	attack = Attack.new()
-	attack.damage = player.stats.damage
+	attack.damage = player.stats.damage * 1.3
+	attack.crit_chance = player.stats.crit_chance
 	hit_box.hit_attack = attack
 
 func _on_enemy_damaged(attack: Attack, body: Area2D):
