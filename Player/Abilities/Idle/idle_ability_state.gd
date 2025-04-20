@@ -30,9 +30,9 @@ func handle_input( _event: InputEvent ) -> AbilityState:
 		if _event.is_action_pressed(combo_attack.input):
 			return combo_attack.state
 	
-	if _event is InputEventKey and _event.pressed:
-		if _event.keycode in [KEY_1, KEY_2, KEY_3, KEY_4]:
-			return cast_ability
+#	if _event is InputEventKey and _event.pressed:
+#		if _event.keycode in [KEY_1, KEY_2, KEY_3, KEY_4]:
+#			return cast_ability
 	
 	if _event.is_action_pressed("Melee"):
 		return thrust

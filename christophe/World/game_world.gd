@@ -162,6 +162,9 @@ func start_game():
 	right_start_bound.queue_free()
 	var tween = create_tween()
 	tween.tween_property(portal_arrow, 'modulate:a', 0, 2 )
+	tween.tween_property($Sprite, "scale", Vector2(), 1)
+
+
 	tween.tween_callback(func():
 		portal_arrow.queue_free()
 		tween.kill())

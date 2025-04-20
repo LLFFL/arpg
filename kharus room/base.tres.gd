@@ -145,7 +145,7 @@ func take_damage(attack: Attack) -> void:
 	#get_viewport().get_camera_2d().get_node("ShakerComponent2D").play_shake()
 	#print(camera_shaker)
 	#amera_shaker.play_shake()
-	hurtbox.start_invincibility(0.2)
+	hurtbox.start_invincibility(0.1)
 	#hurtbox.create_hit_effect()
 
 func _on_timer_timeout(_timer: Timer):

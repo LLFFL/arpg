@@ -12,7 +12,7 @@
 [ext_resource type="Shader" uid="uid://1jid57xhh638" path="res://scenes/components/white_shader.gdshader" id="9_7meyx"]
 [ext_resource type="Script" uid="uid://b678kb3i5rusk" path="res://Units/Scripts/State Machine/Suicide/suicide_unit_state.gd" id="10_q5ue8"]
 [ext_resource type="PackedScene" uid="uid://buxuqmbof2cao" path="res://scenes/components/SoftCollision.tscn" id="11_od3ae"]
-[ext_resource type="AudioStream" uid="uid://do7avhjw0nson" path="res://christophe/Particles/UnitHitSound.wav" id="13_md5ic"]
+[ext_resource type="Script" uid="uid://b7vrc7mnpk87m" path="res://Units/cursor_box.gd" id="13_md5ic"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_od3ae"]
 size = Vector2(17, 17.5)
@@ -270,13 +270,11 @@ height = 14.0
 radius = 45.0
 height = 116.0
 
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_alepv"]
-random_pitch = 1.4
-streams_count = 1
-stream_0/stream = ExtResource("13_md5ic")
+[sub_resource type="CircleShape2D" id="CircleShape2D_md5ic"]
 
 [node name="Unit" type="CharacterBody2D"]
 collision_layer = 0
+collision_mask = 0
 motion_mode = 1
 platform_floor_layers = 4294967040
 script = ExtResource("1_q3cfo")
@@ -393,9 +391,14 @@ collision_mask = 0
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_alepv")
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = SubResource("AudioStreamRandomizer_alepv")
-bus = &"SFX"
+[node name="cursorBox" type="Area2D" parent="."]
+collision_layer = 6
+collision_mask = 0
+script = ExtResource("13_md5ic")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="cursorBox"]
+position = Vector2(0, -4)
+shape = SubResource("CircleShape2D_md5ic")
 
 [connection signal="invincibility_ended" from="HurtBox" to="." method="_on_hurt_box_invincibility_ended"]
 [connection signal="invincibility_started" from="HurtBox" to="." method="_on_hurt_box_invincibility_started"]

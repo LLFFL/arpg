@@ -7,7 +7,7 @@
 script = ExtResource("1_otdpl")
 proj_type = 2
 size = 1.0
-lifetime = 2.0
+lifetime = 8.0
 linear_speed = 200.0
 radius = 50
 collision_layer = 0
@@ -17,7 +17,7 @@ area_monitoreable = true
 collision_path = "Collision"
 instance = ExtResource("1_ay7kq")
 damage = 35
-pierce = 0
+pierce = 5
 look_at = true
 seeking = false
 seeking_mask = 0
