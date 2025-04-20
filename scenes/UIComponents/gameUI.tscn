@@ -45,6 +45,7 @@ metadata/_edit_vertical_guides_ = [264.0, 216.0]
 metadata/_edit_horizontal_guides_ = [11.0]
 
 [node name="PlayerHP" type="TextureProgressBar" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5

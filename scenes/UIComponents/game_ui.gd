@@ -43,9 +43,11 @@ func on_health_changed(current_hp: float, sender: Node2D) -> void:
 
 func initialize_health_player(max_hp: float,) -> void:
 	player_hp.max_value = max_hp
+	PlayerManager.player.get_node("%PlayerHPUi").max_value = max_hp
 
 func on_health_changed_player(current_hp: float) -> void:
 	player_hp.value = current_hp
+	PlayerManager.player.get_node("%PlayerHPUi").value = current_hp
 
 func update_gold(gold: int) -> void:
 	gold1.text = str(gold)
