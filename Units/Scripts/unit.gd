@@ -24,7 +24,7 @@ var temp_target: CharacterBody2D = null
 var struct_target: Area2D = null
 
 #Cursor textures
-const leechCursor = preload("res://Screenshot 2025-04-20 124328.jpg")
+const leechCursor = preload("res://assets/UI/UI/UI_Cursor.png")
 @export var defaultCursor: Texture
 
 	

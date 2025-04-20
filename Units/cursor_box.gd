@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var leechCursor: = preload("res://Screenshot 2025-04-20 124328.jpg")
+@export var leechCursor: = preload("res://assets/UI/UI/UI_Cursor.png")
 @export var defaultCursor: Texture
 	
 func _ready():	

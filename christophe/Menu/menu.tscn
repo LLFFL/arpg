@@ -380,7 +380,6 @@ texture = ExtResource("21_yr8uv")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-2.38419e-07, -2.38419e-07)
-scale = Vector2(1, 1)
 
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="toggled" from="VBoxContainer/ScreenShakeButton" to="." method="_on_screen_shake_button_toggled"]

@@ -509,7 +509,7 @@ alignment = 1
 
 [node name="ShopButtonAttack" parent="ShopUi/HBoxContainer" instance=ExtResource("30_y7jpt")]
 layout_mode = 2
-upgrade_cost = 50
+upgrade_cost = 5
 upgrade_value = 10
 max_level = 10
 icon_path = ExtResource("31_63wid")
@@ -518,7 +518,7 @@ icon_path = ExtResource("31_63wid")
 layout_mode = 2
 upgrade_type = 3
 upgrade_id = "luck_boost"
-upgrade_cost = 70
+upgrade_cost = 7
 upgrade_value = 1
 max_level = 15
 icon_path = ExtResource("32_thoo6")
@@ -527,7 +527,7 @@ icon_path = ExtResource("32_thoo6")
 layout_mode = 2
 upgrade_type = 1
 upgrade_id = "speed_boost"
-upgrade_cost = 30
+upgrade_cost = 3
 upgrade_value = 10
 max_level = 10
 icon_path = ExtResource("33_hrtp6")
@@ -536,7 +536,7 @@ icon_path = ExtResource("33_hrtp6")
 layout_mode = 2
 upgrade_type = 2
 upgrade_id = "defence_boost"
-upgrade_cost = 40
+upgrade_cost = 4
 max_level = 10
 icon_path = ExtResource("34_me02p")
 
@@ -544,7 +544,7 @@ icon_path = ExtResource("34_me02p")
 layout_mode = 2
 upgrade_type = 4
 upgrade_id = "units_boost"
-upgrade_cost = 40
+upgrade_cost = 4
 max_level = 20
 icon_path = ExtResource("35_5uctv")
 
@@ -552,7 +552,7 @@ icon_path = ExtResource("35_5uctv")
 layout_mode = 2
 upgrade_type = 5
 upgrade_id = "slash_boost"
-upgrade_cost = 200
+upgrade_cost = 10
 upgrade_value = 1
 icon_path = ExtResource("36_nk3or")
 
