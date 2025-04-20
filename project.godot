@@ -10,10 +10,12 @@ config_version=5
 
 [application]
 
-config/name="New Game Project"
+config/name="Leaping Realities"
+config/description="Ninja go brrrr"
 run/main_scene="uid://cu4uhjrwsffug"
 config/features=PackedStringArray("4.4", "Forward Plus")
-config/icon="res://scenes/icon.svg"
+boot_splash/image="uid://b4yu234vwoivh"
+config/icon="uid://4t4h1jt2pmcn"
 
 [autoload]
 

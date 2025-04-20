@@ -3,6 +3,12 @@ extends Node2D
 
 func _ready():
 	PlayerManager.game_won = false
+	var t = create_tween()
+	for child in $Splashes.get_children():
+		#t.tween_property(child,"modulate:a",1,3)
+		t.tween_property(child,"modulate:a",0,0.1).set_delay(2)
+		#t.tween_property(child,"modulate:a",0,1)
+		t.tween_callback(child.hide)
 	pass
 	# used to randomise frog order
 	#for child in $HBoxContainer.get_children():
