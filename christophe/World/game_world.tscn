@@ -31,8 +31,8 @@
 [ext_resource type="PackedScene" uid="uid://b02g8s3f7cg4a" path="res://Player/Player.tscn" id="26_myr1t"]
 [ext_resource type="Shader" uid="uid://duocgilkxh3yq" path="res://christophe/Shaders/outline_magic.gdshader" id="27_gx05q"]
 [ext_resource type="Script" uid="uid://cxgmjqfrfwelx" path="res://addons/shaker/data/Vector2/ShakerTypeRandom2D.gd" id="27_picea"]
+[ext_resource type="Texture2D" uid="uid://b3elqk8vtddbv" path="res://christophe/Shop/UI_Arrow.png" id="27_yyeeq"]
 [ext_resource type="PackedScene" uid="uid://brixflf8pdcaa" path="res://scenes/UIComponents/gameUI.tscn" id="28_al3pl"]
-[ext_resource type="Texture2D" uid="uid://b0xr1jgfkps6a" path="res://christophe/Particles/arrow_up.png" id="29_5uctv"]
 [ext_resource type="Texture2D" uid="uid://c65n2wn3swyff" path="res://christophe/Cores/IceCore.png" id="29_oaplc"]
 [ext_resource type="Texture2D" uid="uid://rfoa8woep3d6" path="res://christophe/Cores/FireCore.png" id="30_lr5rs"]
 [ext_resource type="PackedScene" uid="uid://b84fble4aqave" path="res://christophe/Shop/ShopButton.tscn" id="30_y7jpt"]
@@ -426,9 +426,9 @@ shakerPreset = SubResource("Resource_u41f8")
 bus = &"SFX"
 
 [node name="PortalArrow" type="Sprite2D" parent="."]
-position = Vector2(0, 72)
-scale = Vector2(2, 1.305)
-texture = ExtResource("29_5uctv")
+position = Vector2(0, 77)
+scale = Vector2(0.3, 0.2)
+texture = ExtResource("27_yyeeq")
 
 [node name="ShakerComponent2D" type="Node2D" parent="PortalArrow" node_paths=PackedStringArray("Targets")]
 script = ExtResource("20_nk3or")
