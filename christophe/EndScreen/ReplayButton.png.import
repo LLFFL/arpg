@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b0p3md4yve7oh"
-path="res://.godot/imported/MenuBackground.png-dcba2336f50075a09ac526e30bdb0fa3.ctex"
+uid="uid://b313tdxa3sne"
+path="res://.godot/imported/ReplayButton.png-29b8b69c75bbb8b49f32e6061e983d03.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://christophe/Menu/MenuBackground.png"
-dest_files=["res://.godot/imported/MenuBackground.png-dcba2336f50075a09ac526e30bdb0fa3.ctex"]
+source_file="res://christophe/EndScreen/ReplayButton.png"
+dest_files=["res://.godot/imported/ReplayButton.png-29b8b69c75bbb8b49f32e6061e983d03.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://gow1vvcnd1eg"
-path="res://.godot/imported/FireCore_Hp_full.png-8c61fb95eec367875809a797cde0d181.ctex"
+uid="uid://jgfri3s77np7"
+path="res://.godot/imported/Title.png-8fb223077e4b2f1429f3f402d7e6c451.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/UI/FireCore_Hp_full.png"
-dest_files=["res://.godot/imported/FireCore_Hp_full.png-8c61fb95eec367875809a797cde0d181.ctex"]
+source_file="res://christophe/Menu/Title.png"
+dest_files=["res://.godot/imported/Title.png-8fb223077e4b2f1429f3f402d7e6c451.ctex"]
 
 [params]
 

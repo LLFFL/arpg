@@ -19,6 +19,7 @@ config/icon="res://scenes/icon.svg"
 
 PlayerManager="*res://00_Global/player_manager.gd"
 Shaker="*res://addons/shaker/src/Shaker.gd"
+Options="*res://options.gd"
 
 [display]
 

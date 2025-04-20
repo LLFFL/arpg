@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cghe5cfsmt5t8"]
+[gd_scene load_steps=12 format=3 uid="uid://cghe5cfsmt5t8"]
 
 [ext_resource type="Texture2D" uid="uid://0xx67wm34plf" path="res://assets/UI/UI/Btn_Left.png" id="1_tggkw"]
 [ext_resource type="Texture2D" uid="uid://ck7g5eq5hprqu" path="res://assets/UI/UI/Btn_Left_Pressed.png" id="2_cn4o2"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://djsxma85eq4gf" path="res://assets/UI/UI/Btn_Right.png" id="5_7i7dx"]
 [ext_resource type="Texture2D" uid="uid://dsovqlaocklnm" path="res://assets/UI/UI/Btn_Right_Pressed.png" id="6_ubcqe"]
 [ext_resource type="Texture2D" uid="uid://uo87tcwxbqfr" path="res://assets/UI/UI/Btn_Right_Hover.png" id="7_fv17v"]
+[ext_resource type="Texture2D" uid="uid://btgkgngb5rchg" path="res://assets/UI/UI/Unit_UI.png" id="8_cn4o2"]
 
 [sub_resource type="GDScript" id="GDScript_sx7jc"]
 script/source = "extends Control
@@ -38,15 +39,21 @@ func _on_send_right_button_down() -> void:
 	self.right_press.emit(false, true)
 "
 
-[sub_resource type="LabelSettings" id="LabelSettings_g2iqj"]
-font = ExtResource("4_a8x0p")
-outline_size = 2
-outline_color = Color(0, 0, 0, 1)
-
 [sub_resource type="LabelSettings" id="LabelSettings_a7l04"]
+line_spacing = 0.0
 font = ExtResource("4_a8x0p")
-outline_size = 2
-outline_color = Color(0, 0, 0, 1)
+font_size = 13
+outline_size = 4
+outline_color = Color(0.140447, 0.140447, 0.140447, 1)
+shadow_size = 0
+
+[sub_resource type="LabelSettings" id="LabelSettings_g2iqj"]
+line_spacing = 0.0
+font = ExtResource("4_a8x0p")
+font_size = 13
+outline_size = 4
+outline_color = Color(0.141176, 0.141176, 0.141176, 1)
+shadow_size = 0
 
 [node name="MinionSideControl" type="Control"]
 layout_mode = 3
@@ -56,55 +63,73 @@ anchor_right = 0.5
 grow_horizontal = 2
 size_flags_vertical = 8
 script = SubResource("GDScript_sx7jc")
+metadata/_edit_horizontal_guides_ = [4.0]
+
+[node name="leftLabel" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = -154.0
+offset_top = 4.0
+offset_right = -117.0
+offset_bottom = 20.0
+text = "1"
+label_settings = SubResource("LabelSettings_a7l04")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="rightLabel" type="Label" parent="."]
+layout_mode = 2
+offset_left = 120.0
+offset_top = 4.0
+offset_right = 149.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "1"
+label_settings = SubResource("LabelSettings_g2iqj")
+vertical_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -34.0
-offset_right = 34.0
+offset_left = -108.5
+offset_right = 108.5
 offset_bottom = 20.0
 grow_horizontal = 2
+theme_override_constants/separation = 133
 alignment = 1
 
 [node name="SendLeft" type="TextureButton" parent="HBoxContainer"]
 unique_name_in_owner = true
+texture_filter = 1
+custom_minimum_size = Vector2(33, 0)
 layout_mode = 2
 focus_mode = 0
 texture_normal = ExtResource("1_tggkw")
 texture_pressed = ExtResource("2_cn4o2")
 texture_hover = ExtResource("3_ug4k8")
-
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
-custom_minimum_size = Vector2(59, 0)
-layout_mode = 2
+stretch_mode = 5
 
 [node name="SendRight" type="TextureButton" parent="HBoxContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(33, 0)
 layout_mode = 2
 focus_mode = 0
 texture_normal = ExtResource("5_7i7dx")
 texture_pressed = ExtResource("6_ubcqe")
 texture_hover = ExtResource("7_fv17v")
+stretch_mode = 5
 
-[node name="rightLabel" type="Label" parent="."]
-layout_mode = 0
-offset_left = 23.0
-offset_top = 1.0
-offset_right = 63.0
-offset_bottom = 24.0
-text = "0"
-label_settings = SubResource("LabelSettings_g2iqj")
+[node name="UnitUi" type="Sprite2D" parent="HBoxContainer"]
+position = Vector2(0.5, 11)
+texture = ExtResource("8_cn4o2")
+flip_h = true
 
-[node name="leftLabel" type="Label" parent="."]
-layout_mode = 0
-offset_left = -31.0
-offset_top = 2.0
-offset_right = 9.0
-offset_bottom = 25.0
-text = "0"
-label_settings = SubResource("LabelSettings_a7l04")
+[node name="UnitUi2" type="Sprite2D" parent="HBoxContainer"]
+position = Vector2(217.5, 11)
+texture = ExtResource("8_cn4o2")
 
 [connection signal="button_down" from="HBoxContainer/SendLeft" to="." method="_on_send_left_button_down"]
 [connection signal="button_down" from="HBoxContainer/SendRight" to="." method="_on_send_right_button_down"]

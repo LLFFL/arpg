@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://calb80j43ndkj"
-path="res://.godot/imported/MenuPortalInterior.png-98e3eb84992f2ffe86a87bfda279b84f.ctex"
+uid="uid://b8j8sh1mrqwbf"
+path="res://.godot/imported/cursor_hover.png-4698c539cfc9e723fc0b2fd08712be50.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://christophe/Menu/MenuPortalInterior.png"
-dest_files=["res://.godot/imported/MenuPortalInterior.png-98e3eb84992f2ffe86a87bfda279b84f.ctex"]
+source_file="res://christophe/Menu/cursor_hover.png"
+dest_files=["res://.godot/imported/cursor_hover.png-4698c539cfc9e723fc0b2fd08712be50.ctex"]
 
 [params]
 

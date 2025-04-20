@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://gow1vvcnd1eg"
-path="res://.godot/imported/FireCore_Hp_full.png-8c61fb95eec367875809a797cde0d181.ctex"
+uid="uid://1da3hauesgee"
+path="res://.godot/imported/PlayerLost.png-6ec04fc1177b7a7eb4fafc72aa310e03.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/UI/FireCore_Hp_full.png"
-dest_files=["res://.godot/imported/FireCore_Hp_full.png-8c61fb95eec367875809a797cde0d181.ctex"]
+source_file="res://christophe/EndScreen/PlayerLost.png"
+dest_files=["res://.godot/imported/PlayerLost.png-6ec04fc1177b7a7eb4fafc72aa310e03.ctex"]
 
 [params]
 

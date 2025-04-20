@@ -30,6 +30,7 @@ var portal_tween:Tween
 @onready var base_container: Node = %BaseContainer
 var bases_dictionary: Dictionary
 func _ready():
+	$CameraHandler/Camera2D/ShakerComponent2D.intensity = float(Options.screen_shake_enabled)
 	PlayerManager.player.player_died.connect(_on_player_death)
 	var bases = base_container.get_children()
 	bases_dictionary = {

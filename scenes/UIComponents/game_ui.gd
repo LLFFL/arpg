@@ -1,7 +1,7 @@
 extends Control
 @onready var l_side_core: TextureProgressBar = $"HBoxContainer/LSide Core HP"
 @onready var r_side_core: TextureProgressBar = $"HBoxContainer/RSide Core HP"
-@onready var player_core: TextureProgressBar = $"HBoxContainer/Player Core HP"
+@onready var player_core: TextureProgressBar = $"Player Core HP"
 
 
 @onready var player_hp: TextureProgressBar = $PlayerHP
@@ -32,16 +32,22 @@ func initialize_health(max_hp: float, sender: Node2D) -> void:
 func on_health_changed(current_hp: float, sender: Node2D) -> void:
 	if sender.MainBase:
 		player_core.value = current_hp
+
 	elif sender.LeftBase:
 		l_side_core.value = current_hp
-	else: r_side_core.value = current_hp
+		$"HBoxContainer/LSide Core HP/LSideLabel".text = str(int(current_hp))
+	else: 
+		r_side_core.value = current_hp
+		$"HBoxContainer/RSide Core HP/RSide Label".text = str(int(current_hp))
 
 
 func initialize_health_player(max_hp: float,) -> void:
 	player_hp.max_value = max_hp
+	PlayerManager.player.get_node("%PlayerHPUi").max_value = max_hp
 
 func on_health_changed_player(current_hp: float) -> void:
 	player_hp.value = current_hp
+	PlayerManager.player.get_node("%PlayerHPUi").value = current_hp
 
 func update_gold(gold: int) -> void:
 	gold1.text = str(gold)
