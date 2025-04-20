@@ -1,0 +1,113 @@
+[gd_scene load_steps=17 format=3 uid="uid://cu4uhjrwsffug"]
+
+[ext_resource type="Texture2D" uid="uid://r5xy5wxip2pp" path="res://christophe/World/frogDimension/Portal.png" id="1_6nagw"]
+[ext_resource type="Script" uid="uid://ccqddjie4fen2" path="res://christophe/Menu/menu.gd" id="1_oau1d"]
+[ext_resource type="PackedScene" uid="uid://ye3pnyrh04ru" path="res://christophe/Menu/frog_credit.tscn" id="2_dvf1b"]
+[ext_resource type="Texture2D" uid="uid://b0p3md4yve7oh" path="res://christophe/Menu/MenuBackground.png" id="2_t3www"]
+[ext_resource type="Texture2D" uid="uid://1jgpsrx53sah" path="res://christophe/Menu/MARK.png" id="3_a2e2w"]
+[ext_resource type="Texture2D" uid="uid://calb80j43ndkj" path="res://christophe/Menu/MenuPortalInterior.png" id="4_5mxvo"]
+[ext_resource type="Texture2D" uid="uid://dvc4rchwmh73y" path="res://christophe/Menu/CAS.png" id="4_cry8o"]
+[ext_resource type="Texture2D" uid="uid://kliutykqwxwl" path="res://christophe/Menu/YOMAG.png" id="5_oau1d"]
+[ext_resource type="Script" uid="uid://b0fgc7bwsfxmw" path="res://addons/shaker/src/Vector2/shaker_component2D.gd" id="5_s65mb"]
+[ext_resource type="Script" uid="uid://dagb5fpxgkmgv" path="res://addons/shaker/data/Vector2/BaseShakerType2D.gd" id="6_0u13r"]
+[ext_resource type="Texture2D" uid="uid://dgjd2or0vmxre" path="res://christophe/Menu/KHARUS.png" id="6_sq0ss"]
+[ext_resource type="Script" uid="uid://btxaa3pjicjqn" path="res://addons/shaker/data/Vector2/ShakerTypeSineWave2D.gd" id="7_nt1j5"]
+[ext_resource type="Script" uid="uid://cyw4wdn7hi4a2" path="res://addons/shaker/data/Single/BaseShakerType1D.gd" id="8_7nayh"]
+[ext_resource type="Script" uid="uid://cfh63mvp713jr" path="res://addons/shaker/data/Vector2/ShakerPreset2D.gd" id="9_bfsx7"]
+
+[sub_resource type="Resource" id="Resource_de574"]
+script = ExtResource("7_nt1j5")
+frequency = Vector2(1, 1)
+phase = Vector2(1, 1)
+amplitude = Vector2(0, 1)
+offset = Vector2(0, 0)
+BlendingMode = 0
+fade_in = 0.0
+fade_out = 0.0
+start_percent = 0.0
+end_percent = 1.0
+_temp_graph = false
+bake_internal = 64
+metadata/_custom_type_script = "uid://btxaa3pjicjqn"
+
+[sub_resource type="Resource" id="Resource_jqvdg"]
+script = ExtResource("9_bfsx7")
+PositionShake = Array[ExtResource("6_0u13r")]([SubResource("Resource_de574")])
+RotationShake = Array[ExtResource("8_7nayh")]([])
+ScaleShake = Array[ExtResource("6_0u13r")]([])
+bake_internal = 64
+__follow_timeline = false
+metadata/_custom_type_script = "uid://cfh63mvp713jr"
+
+[node name="Menu" type="Node2D"]
+script = ExtResource("1_oau1d")
+
+[node name="MenuBackground" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_t3www")
+
+[node name="Portal" type="Sprite2D" parent="."]
+visible = false
+clip_children = 1
+position = Vector2(1.1958e-14, 0)
+texture = ExtResource("1_6nagw")
+
+[node name="Parallax2D" type="Parallax2D" parent="Portal"]
+scroll_scale = Vector2(0.5, 1)
+
+[node name="MenuPortalInterior" type="Sprite2D" parent="Portal/Parallax2D"]
+texture = ExtResource("4_5mxvo")
+
+[node name="ShakerComponent2D" type="Node2D" parent="Portal"]
+script = ExtResource("5_s65mb")
+AutoPlay = true
+shakerPreset = SubResource("Resource_jqvdg")
+metadata/_custom_type_script = "uid://b0fgc7bwsfxmw"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -138.0
+offset_top = 98.0
+offset_right = 138.0
+offset_bottom = 138.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="FrogCredit" parent="HBoxContainer" instance=ExtResource("2_dvf1b")]
+layout_mode = 2
+size_flags_vertical = 8
+credit = "Christophe"
+
+[node name="FrogCredit2" parent="HBoxContainer" instance=ExtResource("2_dvf1b")]
+layout_mode = 2
+size_flags_vertical = 8
+texture_normal = ExtResource("3_a2e2w")
+credit = "Mark"
+
+[node name="FrogCredit3" parent="HBoxContainer" instance=ExtResource("2_dvf1b")]
+layout_mode = 2
+size_flags_vertical = 8
+texture_normal = ExtResource("4_cry8o")
+credit = "Cas"
+
+[node name="FrogCredit4" parent="HBoxContainer" instance=ExtResource("2_dvf1b")]
+layout_mode = 2
+size_flags_vertical = 8
+texture_normal = ExtResource("5_oau1d")
+credit = "Yomag"
+
+[node name="FrogCredit5" parent="HBoxContainer" instance=ExtResource("2_dvf1b")]
+layout_mode = 2
+size_flags_vertical = 8
+texture_normal = ExtResource("6_sq0ss")
+credit = "Kharus"
