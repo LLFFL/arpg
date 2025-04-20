@@ -3,7 +3,6 @@ extends Control
 @onready var r_side_core: TextureProgressBar = $"HBoxContainer/RSide Core HP"
 @onready var player_core: TextureProgressBar = $"Player Core HP"
 
-
 @onready var player_hp: TextureProgressBar = $PlayerHP
 @onready var player: Player = $"../../../../Player"
 
