@@ -40,7 +40,7 @@
 [ext_resource type="Texture2D" uid="uid://dxmorelsxus68" path="res://christophe/Shop/LuckIconShop.png" id="32_thoo6"]
 [ext_resource type="Texture2D" uid="uid://4t1sumn6g60i" path="res://christophe/Shop/SpeedIconShop.png" id="33_hrtp6"]
 [ext_resource type="Texture2D" uid="uid://dacq1q8xq2ud5" path="res://christophe/Shop/SheildIconShop.png" id="34_me02p"]
-[ext_resource type="Texture2D" uid="uid://d2j4j4csy61fm" path="res://christophe/Shop/UnitsStatsIconShop.png" id="35_me02p"]
+[ext_resource type="Texture2D" uid="uid://c5p8rbcawd7eu" path="res://christophe/Shop/UnitsStatsAndAmountIconShop.png" id="35_5uctv"]
 [ext_resource type="Texture2D" uid="uid://esy21sfjhq1j" path="res://christophe/Shop/Slash1IconShop.png" id="36_nk3or"]
 [ext_resource type="PackedScene" uid="uid://dbck5ldifj5fh" path="res://Upgrades/IceBossSpellCaller.tscn" id="37_me02p"]
 [ext_resource type="Script" uid="uid://dhkmxwdl7x2fl" path="res://addons/all_projectiles/scripts/resources/projectile_blueprint_2d.gd" id="38_1buh8"]
@@ -186,10 +186,10 @@ shader_parameter/line_thickness = 1.0
 size = Vector2(2560, 82)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1buh8"]
-size = Vector2(302, 40)
+size = Vector2(262, 99)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4gwui"]
-size = Vector2(148.268, 30.4367)
+size = Vector2(148.268, 29.9295)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6rwpi"]
 size = Vector2(81, 52)
@@ -427,7 +427,7 @@ shakerPreset = SubResource("Resource_al3pl")
 metadata/_custom_type_script = "uid://b0fgc7bwsfxmw"
 
 [node name="CameraHandler" type="Node2D" parent="."]
-position = Vector2(-58, 77)
+position = Vector2(-3, 99)
 
 [node name="Camera2D" parent="CameraHandler" instance=ExtResource("25_yyeeq")]
 process_mode = 3
@@ -453,12 +453,13 @@ metadata/_custom_type_script = "uid://b0fgc7bwsfxmw"
 
 [node name="Player" parent="." instance=ExtResource("26_myr1t")]
 material = SubResource("ShaderMaterial_cx7l3")
-position = Vector2(-58, 77)
+position = Vector2(-3, 99)
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../CameraHandler")
 
 [node name="MapCollision" type="StaticBody2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MapCollision"]
 position = Vector2(0, 166)
@@ -489,42 +490,50 @@ alignment = 1
 
 [node name="ShopButtonAttack" parent="ShopUi/HBoxContainer" instance=ExtResource("30_y7jpt")]
 layout_mode = 2
-upgrade_cost = 0
+upgrade_cost = 50
+upgrade_value = 10
+max_level = 10
 icon_path = ExtResource("31_63wid")
 
 [node name="ShopButtonLuck" parent="ShopUi/HBoxContainer" instance=ExtResource("30_y7jpt")]
 layout_mode = 2
 upgrade_type = 3
 upgrade_id = "luck_boost"
-upgrade_cost = 0
+upgrade_cost = 70
+upgrade_value = 1
+max_level = 15
 icon_path = ExtResource("32_thoo6")
 
 [node name="ShopButtonSpeed" parent="ShopUi/HBoxContainer" instance=ExtResource("30_y7jpt")]
 layout_mode = 2
 upgrade_type = 1
 upgrade_id = "speed_boost"
-upgrade_cost = 0
+upgrade_cost = 30
+upgrade_value = 10
+max_level = 10
 icon_path = ExtResource("33_hrtp6")
 
 [node name="ShopButtonDefense" parent="ShopUi/HBoxContainer" instance=ExtResource("30_y7jpt")]
 layout_mode = 2
 upgrade_type = 2
 upgrade_id = "defence_boost"
-upgrade_cost = 0
+upgrade_cost = 40
+max_level = 10
 icon_path = ExtResource("34_me02p")
 
 [node name="ShopButtonUnits" parent="ShopUi/HBoxContainer" instance=ExtResource("30_y7jpt")]
 layout_mode = 2
 upgrade_type = 4
 upgrade_id = "units_boost"
-upgrade_cost = 0
-icon_path = ExtResource("35_me02p")
+upgrade_cost = 40
+max_level = 20
+icon_path = ExtResource("35_5uctv")
 
 [node name="ShopButtonSlash" parent="ShopUi/HBoxContainer" instance=ExtResource("30_y7jpt")]
 layout_mode = 2
 upgrade_type = 5
 upgrade_id = "slash_boost"
-upgrade_cost = 0
+upgrade_cost = 200
 upgrade_value = 1
 icon_path = ExtResource("36_nk3or")
 
@@ -548,14 +557,17 @@ is_player_core = true
 position = Vector2(-2, 80)
 
 [node name="CollisionShape2D" parent="BaseContainer/AllyBase/HurtBox" index="0"]
-position = Vector2(-2, 67)
+position = Vector2(-2, 63.5)
 shape = SubResource("RectangleShape2D_1buh8")
 
 [node name="SpawnZone" parent="BaseContainer/AllyBase" index="4"]
+visible = false
+position = Vector2(-1, 5)
 scale = Vector2(0.984707, 1.9713)
 
 [node name="CollisionShape2D" parent="BaseContainer/AllyBase/SpawnZone" index="0"]
-position = Vector2(0, 61.888)
+position = Vector2(0, 61.6344)
+scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_4gwui")
 
 [node name="TargetLocation" parent="BaseContainer/AllyBase" index="5"]
@@ -584,6 +596,9 @@ HitColor = Color(0.709804, 0.898039, 0.952941, 1)
 
 [node name="SpawnLocation" parent="BaseContainer/EnemyBaseL" index="2"]
 position = Vector2(65, 32)
+
+[node name="SpawnZone" parent="BaseContainer/EnemyBaseL" index="4"]
+visible = false
 
 [node name="CollisionShape2D" parent="BaseContainer/EnemyBaseL/SpawnZone" index="0"]
 position = Vector2(78.5, 35)
@@ -617,6 +632,9 @@ position = Vector2(-81, 27)
 [node name="CollisionShape2D" parent="BaseContainer/EnemyBaseR/HurtBox" index="0"]
 position = Vector2(-2.5, -11)
 
+[node name="SpawnZone" parent="BaseContainer/EnemyBaseR" index="4"]
+visible = false
+
 [node name="CollisionShape2D" parent="BaseContainer/EnemyBaseR/SpawnZone" index="0"]
 position = Vector2(-81, 34.5)
 shape = SubResource("RectangleShape2D_r41hh")
@@ -631,6 +649,7 @@ position = Vector2(-31.4225, -5.17042)
 projectile_resources = Array[ExtResource("38_1buh8")]([ExtResource("43_pc07o"), ExtResource("44_me02p"), null])
 
 [node name="LeftStartBound" type="StaticBody2D" parent="."]
+visible = false
 collision_mask = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LeftStartBound"]
@@ -638,6 +657,7 @@ position = Vector2(-236, 86)
 polygon = PackedVector2Array(-63, 82, 91, -41, 96, -219, -87, -223)
 
 [node name="RightStartBound" type="StaticBody2D" parent="."]
+visible = false
 position = Vector2(400, 15)
 collision_mask = 0
 

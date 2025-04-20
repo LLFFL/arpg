@@ -113,6 +113,8 @@ r_cast={
 2d_physics/layer_5="EnemySide"
 2d_physics/layer_6="SoftCollision"
 2d_physics/layer_7="Environment"
+2d_physics/layer_17="AllyBase"
+2d_physics/layer_18="EnemyBase"
 
 [rendering]
 

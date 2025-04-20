@@ -93,7 +93,7 @@ func open_portal():
 	if !game_started:
 		game_started = true
 		var timer: Timer = Timer.new()
-		timer.wait_time = 5
+		timer.wait_time = 0.1
 		timer.timeout.connect(func(): 
 			start_game()
 			timer.queue_free())

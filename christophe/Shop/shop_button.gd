@@ -68,13 +68,8 @@ func _on_pressed() -> void:
 		UpgradeType.UNITS:
 			PlayerManager.player.stats.upgrade_units()
 			PlayerManager.level_upgrades
-			if current_level%2==0:
-				%ItemIcon.texture = load("res://christophe/Shop/UnitsStatsAndAmountIconShop.png")
-			else:
-				%ItemIcon.texture = load("res://christophe/Shop/UnitsStatsIconShop.png")
 			#PlayerManager.player.stats.level_upgrades
 		
-		#TODO: Add logic for slash upgrades
 		UpgradeType.SLASH:
 			match current_level:
 				1: 

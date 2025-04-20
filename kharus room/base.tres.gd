@@ -38,19 +38,13 @@ func _ready():
 	spawn_timer = Timer.new()
 	spawn_timer.timeout.connect(_on_timer_timeout.bind(spawn_timer))
 	add_child(spawn_timer)
-	#ally_timer = Timer.new()
-	#ally_timer.timeout.connect(_on_timer_timeout.bind(ally_timer))
-	#enemy_timer = Timer.new()
-	#enemy_timer.timeout.connect(_on_timer_timeout.bind(enemy_timer))
 	
 	target_location = target_marker.global_position
 	hurtbox.damaged.connect(take_damage)
-	# awkward scenario where to be detected and chase player and bat set their own personal collision to be detectable
-	#$SpawnTimer.start(minion_rate)
+
 	if (MainBase):
-		#add_child(ally_timer)
-		#ally_timer.start(stats.spawn_rate)
 		PlayerManager.player.stats.baseStats = stats
+		stats.max_health = 500
 		var flag = true
 		var i = 0
 		while i < stats.units_spawned:
@@ -63,19 +57,12 @@ func _ready():
 				minion_side_selection[1] += 1
 				flag = !flag
 				continue
-		#for i in stats.units_spawned:
-			#if flag:
-				#minion_side_selection[0] += 1
-				#flag = !flag
-			#else:
-				#minion_side_selection[1] += 1
-				#flag = !flag
-				
+		
 		#minion_side_selection = [0,1] # keeping this away from the other bases since its not necessary to them
 		minion_side_control.update(minion_side_selection)
 		#bat_spawn_location = Vector2(position.x, position.y - 50)
 		hurtbox.set_collision_layer_value(2, true)
-		hurtbox.set_collision_layer_value(3, true)
+		hurtbox.set_collision_layer_value(17, true)
 		self.add_to_group('allied_base')
 		minion_side_control.left_press.connect(change_minion_wave_side_selection)
 		minion_side_control.right_press.connect(change_minion_wave_side_selection)
@@ -85,26 +72,11 @@ func _ready():
 		upgrade_timer.timeout.connect(func():
 			if LeftBase || RightBase:
 				stats.level_up.emit()
+				stats.base_defence += 0.5
 				upgrade_timer.start()
 			)
 		add_child(upgrade_timer)
-		#upgrade_timer.start()
-	
-	if (LeftBase):
-		#add_child(enemy_timer)
-		#enemy_timer.start(stats.spawn_rate)
-		#bat_spawn_location = Vector2(position.x + 50, position.y)
-		hurtbox.set_collision_layer_value(4, true) 
-		#hurtbox.set_collision_layer_value(5, true)
-	if (RightBase):
-		#add_child(enemy_timer)
-		#enemy_timer.start(stats.spawn_rate)
-		#bat_spawn_location = Vector2(position.x - 50, position.y)
-		hurtbox.set_collision_layer_value(4, true) 
-		#hurtbox.set_collision_layer_value(5, true)
-
-func _process(delta: float) -> void:
-	label.text = str(stats.spawn_rate)
+		hurtbox.set_collision_layer_value(18, true) 
 
 func initialize(bases_dictionaryy: Dictionary):
 	bases_dictionary = bases_dictionaryy # this is not a a typo
@@ -163,11 +135,9 @@ func take_damage(attack: Attack) -> void:
 	#print(camera_shaker)
 	#amera_shaker.play_shake()
 	hurtbox.start_invincibility(0.2)
-	hurtbox.create_hit_effect()
+	#hurtbox.create_hit_effect()
 
 func _on_timer_timeout(_timer: Timer):
-	if MainBase:
-		print(stats.spawn_rate)
 	spawn_minion(MainBase)
 	_timer.start(stats.spawn_rate)
 
@@ -207,7 +177,19 @@ func change_minion_wave_side_selection(increase_left: bool, increase_right: bool
 			minion_side_control.update(minion_side_selection)
 	
 func increase_allied_minions():
-	minion_side_selection[0] += 1
+	var i = 0
+	var size = minion_side_selection[0] + minion_side_selection[1]
+	while i < stats.units_spawned - size:
+		i += 1
+		var flag = true
+		if flag:
+			minion_side_selection[0] += 1
+			flag = !flag
+			continue
+		else:
+			minion_side_selection[1] += 1
+			flag = !flag
+			continue
 	minion_side_control.update(minion_side_selection)
 
 func redirect_minions_to_active_side():

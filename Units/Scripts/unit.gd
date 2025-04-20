@@ -21,6 +21,7 @@ var enemy: bool = false
 var targets: Array[CharacterBody2D] = []
 
 var temp_target: CharacterBody2D = null
+var struct_target: Area2D = null
 
 func _ready() -> void:
 	if ally:
@@ -66,6 +67,10 @@ func _process(delta: float) -> void:
 		sprite_2d.scale.x = -1
 	if soft_collision.is_colliding():
 		velocity += soft_collision.get_push_vector() * delta * stats.movement_speed
+	
+	#if struct_target:
+		#label.text = str(struct_target)
+	#label.text = str(stats.damage)
 	#if temp_target:
 		#label.text = str(temp_target.name)
 	#label.text = str(targets)
@@ -106,13 +111,10 @@ func _on_no_health():
 		if body.is_in_group("player"):
 			body.stats.add_gold(1)
 			print("gold given")
-			#give gold
-	#for body in enemy_detection_zone.get_overlapping_bodies():
-	#	if body.is_in_group("player"):
-	#		body.stats.add_gold(1)
-	#		print("gold given")
-	queue_free()
+	kill_unit()
 
+func kill_unit():
+	queue_free()
 
 func _on_hurt_box_invincibility_ended() -> void:
 	blink.play("stop")
@@ -124,4 +126,4 @@ func _on_hurt_box_invincibility_started() -> void:
 	pass # Replace with function body.
 
 func update_target_base(_loc: Vector2):
-	print("updated_loc")
+	target_location = _loc

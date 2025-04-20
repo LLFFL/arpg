@@ -26,6 +26,7 @@ var ability_active: bool = false
 
 
 func _ready() -> void:
+	stats.add_gold(99999999)
 	PlayerManager.player = self
 	move_state_machine.initialize(self)
 	ability_state_machine.initialize(self)
@@ -50,6 +51,7 @@ func _process(delta: float) -> void:
 	var mouse_pos: Vector2 = get_global_mouse_position()
 	mouse_direction = global_position.direction_to(mouse_pos).normalized()
 	
+	#label.text = str(stats.base_damage) +'\n' + str(stats.base_defence) +'\n' + str(stats.base_movement_speed) +'\n' + str(stats.luck)
 	#label.text = str(stats.gold) + "\n" + str(stats.luck)
 	#if stats.dmg_timer:
 		#label.text = str(stats.dmg_timer.time_left)
