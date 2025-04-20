@@ -1,31 +1,26 @@
-[gd_scene load_steps=10 format=3 uid="uid://3g38d4nainky"]
+[gd_scene load_steps=9 format=3 uid="uid://3g38d4nainky"]
 
-[ext_resource type="Texture2D" uid="uid://bahr7m3dk2pq3" path="res://addons/all_projectiles/icons/Circle.png" id="1_gj247"]
-[ext_resource type="Texture2D" uid="uid://dndhi304035x0" path="res://addons/all_projectiles/demos/textures/projectiles/circle_05.png" id="3_i1fjh"]
+[ext_resource type="Script" uid="uid://b5cvqlh7cjeyt" path="res://Upgrades/Spells/spell2/scenes/SoundOnCollision.gd" id="1_heiw8"]
+[ext_resource type="AudioStream" uid="uid://cku0a4cdocgxd" path="res://christophe/Particles/Burn.wav" id="2_heiw8"]
+[ext_resource type="Texture2D" uid="uid://c4lneuscsdq11" path="res://christophe/Particles/fire.png" id="3_heiw8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_grgi5"]
 radius = 18.0
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ga5ko"]
+random_pitch = 1.3
+streams_count = 1
+stream_0/stream = ExtResource("2_heiw8")
+
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_fhsef"]
 
-[sub_resource type="Curve" id="Curve_biuo3"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.461187, 0.538462), -0.164086, -0.164086, 0, 0, Vector2(1, 0), 0.695239, 0.0, 0, 0]
+[sub_resource type="Curve" id="Curve_ga5ko"]
+_data = [Vector2(0, 0), 0.0, 6.31315, 0, 0, Vector2(0.483776, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.81102, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="Gradient" id="Gradient_auqdl"]
-offsets = PackedFloat32Array(0, 0.136126, 0.732984, 0.827225, 1)
-colors = PackedColorArray(1, 1, 1, 0, 0.54099, 0.54099, 0.54099, 1, 0, 0, 0, 1, 0.140447, 0.140447, 0.140447, 0.811765, 0.274652, 0.0195157, 0.516841, 0)
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6fs04"]
-blend_mode = 1
-
-[sub_resource type="Curve" id="Curve_754ok"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.557078, 0.604396), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="Gradient" id="Gradient_q5s7b"]
-offsets = PackedFloat32Array(0, 0.183246, 0.602094, 0.874346, 1)
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0.366595, 0.366595, 0.366595, 0.678431, 0.267117, 0.0831979, 0.481054, 0)
+[sub_resource type="Gradient" id="Gradient_uw5ko"]
+offsets = PackedFloat32Array(0, 0.527157, 0.808307, 1)
+colors = PackedColorArray(0.907914, 0.256509, 0.186314, 1, 0.960784, 0.607843, 0.0784314, 1, 0.91837, 0.432456, 0.282467, 1, 1, 0.977, 0.54, 0)
 
 [node name="BasicProjectile" type="Node2D"]
 z_index = 11
@@ -34,57 +29,69 @@ scale = Vector2(0.3, 0.3)
 [node name="Collision" type="Area2D" parent="."]
 collision_layer = 16
 collision_mask = 6
+script = ExtResource("1_heiw8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collision"]
 shape = SubResource("CircleShape2D_grgi5")
 
-[node name="Bubbling" type="CPUParticles2D" parent="."]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Collision"]
+stream = SubResource("AudioStreamRandomizer_ga5ko")
+bus = &"SFX"
+
+[node name="Bubbling3" type="CPUParticles2D" parent="."]
 material = SubResource("CanvasItemMaterial_fhsef")
-amount = 50
-texture = ExtResource("1_gj247")
-lifetime = 2.0
+amount = 10
+texture = ExtResource("3_heiw8")
 preprocess = 0.3
-speed_scale = 5.0
 randomness = 0.33
 lifetime_randomness = 0.34
-local_coords = true
 draw_order = 1
 emission_shape = 1
 emission_sphere_radius = 8.53
 direction = Vector2(0, 0)
 spread = 180.0
-gravity = Vector2(0, 0)
+gravity = Vector2(0, 5.015)
 initial_velocity_min = 6.0
 initial_velocity_max = 16.0
 linear_accel_min = 5.04
 linear_accel_max = 12.0
 radial_accel_min = -3.0
 radial_accel_max = 6.0
-scale_amount_min = 0.5
-scale_amount_max = 0.7
-scale_amount_curve = SubResource("Curve_biuo3")
-color_ramp = SubResource("Gradient_auqdl")
+scale_amount_min = 0.2
+scale_amount_max = 0.4
+scale_amount_curve = SubResource("Curve_ga5ko")
+color_ramp = SubResource("Gradient_uw5ko")
 hue_variation_min = 0.2
 hue_variation_max = 0.32
 
-[node name="Light" type="CPUParticles2D" parent="."]
-material = SubResource("CanvasItemMaterial_6fs04")
-amount = 20
-texture = ExtResource("3_i1fjh")
-lifetime = 2.6
-preprocess = 3.0
-fixed_fps = 30
+[node name="Bubbling2" type="CPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_fhsef")
+amount = 6
+texture = ExtResource("3_heiw8")
+lifetime = 2.0
+preprocess = 0.3
+speed_scale = 3.11
+randomness = 0.33
+lifetime_randomness = 0.34
 local_coords = true
 draw_order = 1
-direction = Vector2(-1, 0)
-spread = 0.0
-gravity = Vector2(0, 0)
+emission_shape = 1
+emission_sphere_radius = 8.53
+particle_flag_align_y = true
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 5.015)
 initial_velocity_min = 6.0
-initial_velocity_max = 6.6
-linear_accel_max = 3.36
-radial_accel_min = -6.0
+initial_velocity_max = 16.0
+linear_accel_min = 5.04
+linear_accel_max = 12.0
+radial_accel_min = -3.0
 radial_accel_max = 6.0
-scale_amount_min = 0.08
-scale_amount_max = 0.2
-scale_amount_curve = SubResource("Curve_754ok")
-color_ramp = SubResource("Gradient_q5s7b")
+scale_amount_min = 2.0
+scale_amount_max = 4.0
+scale_amount_curve = SubResource("Curve_ga5ko")
+color_ramp = SubResource("Gradient_uw5ko")
+hue_variation_min = 0.2
+hue_variation_max = 0.32
+
+[connection signal="body_entered" from="Collision" to="Collision" method="_on_body_entered"]

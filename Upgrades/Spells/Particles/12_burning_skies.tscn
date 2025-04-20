@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://b1cm70wimt8gm"]
+[gd_scene load_steps=28 format=3 uid="uid://b1cm70wimt8gm"]
 
 [ext_resource type="PackedScene" uid="uid://jita0hqrr0xa" path="res://Upgrades/Spells/Particles/fireballHead.tscn" id="2_6erf6"]
 [ext_resource type="Texture2D" uid="uid://bs7n3v74dwvqc" path="res://christophe/Particles/MeteorBG.png" id="2_nbkiv"]
@@ -14,6 +14,8 @@
 [ext_resource type="Texture2D" uid="uid://b11mlhs45vtq6" path="res://christophe/Particles/Meteor.png" id="8_n8lrp"]
 [ext_resource type="Script" uid="uid://cxgmjqfrfwelx" path="res://addons/shaker/data/Vector2/ShakerTypeRandom2D.gd" id="11_nai1w"]
 [ext_resource type="AudioStream" uid="uid://bn7snycad01wi" path="res://christophe/Particles/MeteorExplosionSound.wav" id="14_3ubq2"]
+[ext_resource type="AudioStream" uid="uid://d2kjm2vwsr2fi" path="res://christophe/Particles/meteor_falling_sound.wav" id="15_6d7hw"]
+[ext_resource type="AudioStream" uid="uid://bem50b1qudg8y" path="res://christophe/Particles/meteor_falling_sound2.wav" id="16_n8lrp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_grgi5"]
 radius = 18.0
@@ -59,7 +61,7 @@ point_count = 3
 
 [sub_resource type="Gradient" id="Gradient_dxt54"]
 offsets = PackedFloat32Array(0, 0.396667, 1)
-colors = PackedColorArray(0.788235, 0.376471, 0.286275, 1, 0.984711, 0.797007, 0.413327, 1, 0.86, 0.591967, 0.129, 0)
+colors = PackedColorArray(0.788235, 0.376471, 0.286275, 1, 0.98, 0.728467, 0.2254, 1, 1, 0.747, 0.31, 0)
 
 [sub_resource type="Resource" id="Resource_3ubq2"]
 script = ExtResource("11_nai1w")
@@ -83,6 +85,12 @@ ScaleShake = Array[ExtResource("4_nai1w")]([SubResource("Resource_3ubq2")])
 bake_internal = 64
 __follow_timeline = false
 metadata/_custom_type_script = "uid://cfh63mvp713jr"
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_6d7hw"]
+random_pitch = 1.5
+streams_count = 2
+stream_0/stream = ExtResource("15_6d7hw")
+stream_1/stream = ExtResource("16_n8lrp")
 
 [node name="BasicProjectile" type="Node2D"]
 z_index = 11
@@ -157,8 +165,10 @@ texture = ExtResource("8_n8lrp")
 [node name="Trail2D" type="Line2D" parent="."]
 width = 20.0
 width_curve = SubResource("Curve_wbe52")
-default_color = Color(0.788235, 0.623529, 0.286275, 1)
 gradient = SubResource("Gradient_dxt54")
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
 script = ExtResource("4_6erf6")
 length = 30
 metadata/_custom_type_script = "uid://b0at3q1gxuh41"
@@ -171,6 +181,11 @@ AutoPlay = true
 fade_in = 0.015625
 shakerPreset = SubResource("Resource_6d7hw")
 metadata/_custom_type_script = "uid://b0fgc7bwsfxmw"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_6d7hw")
+autoplay = true
+bus = &"SFX"
 
 [connection signal="area_entered" from="Collision" to="Collision" method="_on_area_entered"]
 [connection signal="body_entered" from="Collision" to="Collision" method="_on_body_entered"]
