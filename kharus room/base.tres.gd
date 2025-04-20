@@ -35,7 +35,11 @@ var upgrade_timer: Timer
 signal health_initialized(max_health: int, node:Node2D)
 signal health_changed(current_health: int, node:Node2D)
 
+@onready var thePlayer: Player = $"../../Player"
+
+
 func _ready():
+	
 	stats.units_updated.connect(increase_allied_minions)
 	
 	ally_timer = Timer.new()
@@ -74,6 +78,7 @@ func _ready():
 				#minion_side_selection[1] += 1
 				#flag = !flag
 				
+		PlayerManager.player.stats.no_health.connect(_on_player_died)
 		#minion_side_selection = [0,1] # keeping this away from the other bases since its not necessary to them
 		minion_side_control.update(minion_side_selection)
 		#bat_spawn_location = Vector2(position.x, position.y - 50)
@@ -235,3 +240,15 @@ func send_all_minions_left():
 	minion_side_selection[0] += minion_side_selection[1]
 	minion_side_selection[1] = 0
 	minion_side_control.side_is_dead(false, true, minion_side_selection)
+	
+@onready var respawn: Marker2D = $Respawn
+
+func _on_player_died() -> void:
+	print("Player died")
+	#thePlayer.global_position = respawn.global_position
+	PlayerManager.player.global_position = respawn.global_position
+	PlayerManager.player.stats.set_health(PlayerManager.player.stats.max_health)
+	PlayerManager.player.stats.gold = 0
+	PlayerManager.player.animation_player.play("death")
+	PlayerManager.player.stats.stun_entity(3)
+	
