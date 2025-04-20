@@ -1,8 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://ck15xb37n2npc"]
+[gd_scene load_steps=17 format=3 uid="uid://ck15xb37n2npc"]
 
 [ext_resource type="Script" uid="uid://dp2uuotuqir7x" path="res://Upgrades/Spells/Particles/ExplodeOnContact.gd" id="1_h1r0d"]
 [ext_resource type="Texture2D" uid="uid://d4f6t1x1tgj2" path="res://christophe/Particles/round.png" id="2_xc6cm"]
 [ext_resource type="AudioStream" uid="uid://bn7snycad01wi" path="res://christophe/Particles/MeteorExplosionSound.wav" id="3_3tpej"]
+[ext_resource type="AudioStream" uid="uid://dn7in8omqbnxa" path="res://christophe/Particles/IceSpikeLaunched.wav" id="5_ojsnn"]
 [ext_resource type="Texture2D" uid="uid://bx61ws5b5k6le" path="res://christophe/Particles/IceSpike.png" id="6_h1c8b"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_grgi5"]
@@ -38,6 +39,11 @@ colors = PackedColorArray(1, 1, 1, 1, 0.615686, 0.760784, 0.972549, 1, 0.6111, 0
 [sub_resource type="Curve" id="Curve_3tpej"]
 _data = [Vector2(0, 0.612024), 0.0, -0.0283725, 0, 0, Vector2(0.444191, 0), -2.58235, 0.0, 0, 0]
 point_count = 2
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_h1r0d"]
+random_pitch = 1.5
+streams_count = 1
+stream_0/stream = ExtResource("5_ojsnn")
 
 [node name="BasicProjectile" type="Node2D"]
 z_index = 11
@@ -118,5 +124,9 @@ initial_velocity_min = 159.48
 initial_velocity_max = 276.67
 scale_amount_curve = SubResource("Curve_3tpej")
 color_ramp = SubResource("Gradient_xc6cm")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_h1r0d")
+autoplay = true
 
 [connection signal="body_entered" from="Collision" to="Collision" method="_on_body_entered"]
