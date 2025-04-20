@@ -1,8 +1,10 @@
-[gd_scene load_steps=73 format=3 uid="uid://46ic5eq5d8qa"]
+[gd_scene load_steps=77 format=3 uid="uid://46ic5eq5d8qa"]
 
 [ext_resource type="Script" uid="uid://dx65t4op8hlv6" path="res://christophe/World/game_world.gd" id="1_6sg4h"]
 [ext_resource type="Shader" uid="uid://v1g385vie0ti" path="res://christophe/Shaders/SpriteColorMapped.gdshader" id="2_wjrrt"]
+[ext_resource type="AudioStream" uid="uid://dgp8wdil4wkoh" path="res://christophe/World/PortalOpen.wav" id="2_yyeeq"]
 [ext_resource type="Texture2D" uid="uid://c6cw5sum25c6w" path="res://christophe/World/NeutralClouds.png" id="3_4gwui"]
+[ext_resource type="AudioStream" uid="uid://dueq78yuovwdj" path="res://christophe/World/PortalCloses.wav" id="3_myr1t"]
 [ext_resource type="Texture2D" uid="uid://c6roa62v2r73o" path="res://christophe/World/Montains.png" id="4_6rwpi"]
 [ext_resource type="Texture2D" uid="uid://cx5687cgerbn2" path="res://christophe/World/Near.png" id="5_r41hh"]
 [ext_resource type="Texture2D" uid="uid://cpxns4i0ji447" path="res://christophe/Particles/snow.png" id="6_ufba3"]
@@ -50,6 +52,8 @@
 [ext_resource type="PackedScene" uid="uid://dnpor7bwy5pjt" path="res://scenes/midway_point.tscn" id="48_pc07o"]
 [ext_resource type="Texture2D" uid="uid://cuvnxmfrpli85" path="res://christophe/Cores/IceMiniCore.png" id="49_nk3or"]
 [ext_resource type="Resource" uid="uid://dt1w11wceeiv0" path="res://Upgrades/Spells/spell2/02_heavy_magic_bolt.tres" id="50_16i4r"]
+[ext_resource type="Texture2D" uid="uid://bbud43y8jmukf" path="res://christophe/Cores/MiniIceCoreHP_Empty.png" id="50_qelnb"]
+[ext_resource type="Texture2D" uid="uid://2hth5tr1mmll" path="res://christophe/Cores/MiniIceCoreHP_Full.png" id="51_bl0if"]
 
 [sub_resource type="Gradient" id="Gradient_3fx2f"]
 offsets = PackedFloat32Array(0.00332226, 0.533546, 0.799107, 1)
@@ -210,6 +214,8 @@ sky_gradient = SubResource("Gradient_u0w7i")
 cloud_shadow = SubResource("Gradient_ofr2a")
 cloud_base = SubResource("Gradient_6fs60")
 cloud_highlight = SubResource("Gradient_atopn")
+OpenPortalSound = ExtResource("2_yyeeq")
+ClosePortalSound = ExtResource("3_myr1t")
 
 [node name="Map" type="Node2D" parent="."]
 
@@ -416,6 +422,9 @@ fade_in = 0.00837321
 fade_out = 0.0078125
 shakerPreset = SubResource("Resource_u41f8")
 
+[node name="PortalAudioPlayer" type="AudioStreamPlayer2D" parent="Map/Portal"]
+bus = &"SFX"
+
 [node name="PortalArrow" type="Sprite2D" parent="."]
 position = Vector2(0, 72)
 scale = Vector2(2, 1.305)
@@ -431,7 +440,7 @@ shakerPreset = SubResource("Resource_al3pl")
 metadata/_custom_type_script = "uid://b0fgc7bwsfxmw"
 
 [node name="CameraHandler" type="Node2D" parent="."]
-position = Vector2(-7, 87)
+position = Vector2(0, 88)
 
 [node name="Camera2D" parent="CameraHandler" instance=ExtResource("25_yyeeq")]
 process_mode = 3
@@ -462,7 +471,7 @@ mouse_filter = 2
 
 [node name="Player" parent="." instance=ExtResource("26_myr1t")]
 material = SubResource("ShaderMaterial_cx7l3")
-position = Vector2(-7, 87)
+position = Vector2(0, 88)
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../CameraHandler")
@@ -633,6 +642,7 @@ RightBase = true
 CameraShaker = NodePath("../../CameraHandler/Camera2D/ShakerComponent2D")
 
 [node name="Core" parent="BaseContainer/EnemyBaseR" index="0"]
+scale = Vector2(-1, 1)
 Sprite = ExtResource("30_lr5rs")
 Shadow = Color(0.639216, 0.25098, 0.109804, 0.415686)
 HitColor = Color(1, 0.482353, 0.454902, 1)
@@ -685,6 +695,9 @@ position = Vector2(666, 80)
 [node name="CollisionPolygon2D" parent="MidwayPoint/HurtBox" index="2"]
 polygon = PackedVector2Array(-52, -38, 50, 54, 2, 55, -79, -33)
 
+[node name="TextureProgressBar" parent="MidwayPoint" index="3"]
+fill_mode = 1
+
 [node name="BossModule" parent="MidwayPoint" index="4"]
 position = Vector2(577, 96)
 
@@ -701,6 +714,11 @@ position = Vector2(25, 0)
 [node name="CollisionPolygon2D" parent="MidwayPoint2/HurtBox" index="2"]
 position = Vector2(-6, 4)
 polygon = PackedVector2Array(-52, -38, 50, 54, -10, 56, -103, -40)
+
+[node name="TextureProgressBar" parent="MidwayPoint2" index="3"]
+fill_mode = 1
+texture_under = ExtResource("50_qelnb")
+texture_progress = ExtResource("51_bl0if")
 
 [node name="CollisionShape2D" parent="MidwayPoint2/BossModule" index="0"]
 position = Vector2(-482, 82)

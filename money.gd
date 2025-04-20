@@ -21,9 +21,15 @@ func _ready():
 	picked_up()
 
 func picked_up():
-	%Sprite2D.hide()
-	%Sprite2D/AudioStreamPlayer2D.pitch_scale = randf_range(0.9,1.2)
 	t.kill()
+	t = create_tween()
+	t.tween_property(%Sprite2D,"position:y",%Sprite2D.position.y-5,0.1)
+	t.parallel().tween_property(%Sprite2D,"scale:x",0,0.1)
+	t.parallel().tween_property(%Sprite2D,"scale:y",0,0.15)
+	await t.finished
+	%Sprite2D.hide()
+	$SmallShadow.hide()
+	%Sprite2D/AudioStreamPlayer2D.pitch_scale = randf_range(0.9,1.2)
 	%Sprite2D/AudioStreamPlayer2D.play()
 	await %Sprite2D/AudioStreamPlayer2D.finished
 	queue_free()

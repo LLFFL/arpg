@@ -1,9 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://duf5lox4m3wnm"]
+[gd_scene load_steps=19 format=3 uid="uid://duf5lox4m3wnm"]
 
 [ext_resource type="Script" uid="uid://b0fgc7bwsfxmw" path="res://addons/shaker/src/Vector2/shaker_component2D.gd" id="1_4yy2d"]
 [ext_resource type="Script" uid="uid://bltrjvuelkefm" path="res://christophe/Cores/core.gd" id="1_hqvw5"]
+[ext_resource type="AudioStream" uid="uid://cpsndl2osj8xm" path="res://christophe/Cores/PlayerCoreHitSound.wav" id="2_5an4l"]
 [ext_resource type="Script" uid="uid://dagb5fpxgkmgv" path="res://addons/shaker/data/Vector2/BaseShakerType2D.gd" id="2_qdgqm"]
 [ext_resource type="Script" uid="uid://btxaa3pjicjqn" path="res://addons/shaker/data/Vector2/ShakerTypeSineWave2D.gd" id="3_hqvw5"]
+[ext_resource type="AudioStream" uid="uid://dq10t7lsj77cg" path="res://christophe/Cores/CoreHitSound3.wav" id="3_siicu"]
 [ext_resource type="Script" uid="uid://cyw4wdn7hi4a2" path="res://addons/shaker/data/Single/BaseShakerType1D.gd" id="4_he7lq"]
 [ext_resource type="Script" uid="uid://cfh63mvp713jr" path="res://addons/shaker/data/Vector2/ShakerPreset2D.gd" id="5_ep78a"]
 [ext_resource type="Script" uid="uid://cxgmjqfrfwelx" path="res://addons/shaker/data/Vector2/ShakerTypeRandom2D.gd" id="9_sin26"]
@@ -84,6 +86,8 @@ position = Vector2(-8.9407e-08, 1.63913e-07)
 collision_layer = 65
 collision_mask = 0
 script = ExtResource("1_hqvw5")
+player_core_sound = ExtResource("2_5an4l")
+core_sound = ExtResource("3_siicu")
 
 [node name="CoreShadow" type="Sprite2D" parent="."]
 modulate = Color(0.988235, 0.988235, 0.988235, 0.529412)
@@ -135,3 +139,6 @@ script = ExtResource("1_4yy2d")
 custom_target = true
 Targets = [NodePath("../CoreSprite")]
 shakerPreset = SubResource("Resource_ep78a")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+bus = &"SFX"

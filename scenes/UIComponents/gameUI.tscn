@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cmkdsr8qghyd5" path="res://scenes/UIComponents/game_ui.gd" id="1_nnssq"]
 [ext_resource type="Texture2D" uid="uid://b5thusqr24jhk" path="res://assets/UI/UI/FireCore_Hp_Empty.png" id="1_skjpw"]
-[ext_resource type="Texture2D" uid="uid://gow1vvcnd1eg" path="res://assets/UI/UI/FireCore_HP_Full.png" id="2_nnssq"]
+[ext_resource type="Texture2D" uid="uid://gow1vvcnd1eg" path="res://assets/UI/UI/FireCore_Hp_full.png" id="2_nnssq"]
 [ext_resource type="Texture2D" uid="uid://b0snrqvel30im" path="res://assets/UI/UI/Player_HP_Empty.png" id="3_c1svj"]
 [ext_resource type="Texture2D" uid="uid://boo5etr0oa5x7" path="res://assets/UI/UI/Player_HP_Full.png" id="4_5xixu"]
 [ext_resource type="Texture2D" uid="uid://u2huecbp18kj" path="res://christophe/Particles/DangerArrow.png" id="4_iaif0"]
