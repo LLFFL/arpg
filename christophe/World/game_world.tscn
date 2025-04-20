@@ -587,6 +587,8 @@ monitorable = false
 
 [node name="MinionSideControl" parent="BaseContainer/AllyBase/CanvasLayer" instance=ExtResource("32_4gwui")]
 unique_name_in_owner = true
+offset_top = 24.0
+offset_bottom = 24.0
 
 [node name="EnemyBaseL" parent="BaseContainer" node_paths=PackedStringArray("CameraShaker") instance=ExtResource("31_wjrrt")]
 y_sort_enabled = true
