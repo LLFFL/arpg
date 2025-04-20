@@ -1,6 +1,5 @@
-[gd_scene load_steps=9 format=3 uid="uid://3g38d4nainky"]
+[gd_scene load_steps=8 format=3 uid="uid://3g38d4nainky"]
 
-[ext_resource type="Script" uid="uid://b5cvqlh7cjeyt" path="res://Upgrades/Spells/spell2/scenes/SoundOnCollision.gd" id="1_heiw8"]
 [ext_resource type="AudioStream" uid="uid://cku0a4cdocgxd" path="res://christophe/Particles/Burn.wav" id="2_heiw8"]
 [ext_resource type="Texture2D" uid="uid://c4lneuscsdq11" path="res://christophe/Particles/fire.png" id="3_heiw8"]
 
@@ -29,7 +28,6 @@ scale = Vector2(0.3, 0.3)
 [node name="Collision" type="Area2D" parent="."]
 collision_layer = 16
 collision_mask = 6
-script = ExtResource("1_heiw8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collision"]
 shape = SubResource("CircleShape2D_grgi5")
@@ -95,3 +93,4 @@ hue_variation_min = 0.2
 hue_variation_max = 0.32
 
 [connection signal="body_entered" from="Collision" to="Collision" method="_on_body_entered"]
+[connection signal="body_entered" from="Collision" to="Collision/AudioStreamPlayer2D" method="play"]
