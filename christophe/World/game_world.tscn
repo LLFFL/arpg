@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=3 uid="uid://46ic5eq5d8qa"]
+[gd_scene load_steps=75 format=3 uid="uid://46ic5eq5d8qa"]
 
 [ext_resource type="Script" uid="uid://dx65t4op8hlv6" path="res://christophe/World/game_world.gd" id="1_6sg4h"]
 [ext_resource type="Shader" uid="uid://v1g385vie0ti" path="res://christophe/Shaders/SpriteColorMapped.gdshader" id="2_wjrrt"]
@@ -50,6 +50,8 @@
 [ext_resource type="PackedScene" uid="uid://dnpor7bwy5pjt" path="res://scenes/midway_point.tscn" id="48_pc07o"]
 [ext_resource type="Texture2D" uid="uid://cuvnxmfrpli85" path="res://christophe/Cores/IceMiniCore.png" id="49_nk3or"]
 [ext_resource type="Resource" uid="uid://dt1w11wceeiv0" path="res://Upgrades/Spells/spell2/02_heavy_magic_bolt.tres" id="50_16i4r"]
+[ext_resource type="Texture2D" uid="uid://bbud43y8jmukf" path="res://christophe/Cores/MiniIceCoreHP_Empty.png" id="50_qelnb"]
+[ext_resource type="Texture2D" uid="uid://2hth5tr1mmll" path="res://christophe/Cores/MiniIceCoreHP_Full.png" id="51_bl0if"]
 
 [sub_resource type="Gradient" id="Gradient_3fx2f"]
 offsets = PackedFloat32Array(0.00332226, 0.533546, 0.799107, 1)
@@ -685,6 +687,9 @@ position = Vector2(666, 80)
 [node name="CollisionPolygon2D" parent="MidwayPoint/HurtBox" index="2"]
 polygon = PackedVector2Array(-52, -38, 50, 54, 2, 55, -79, -33)
 
+[node name="TextureProgressBar" parent="MidwayPoint" index="3"]
+fill_mode = 1
+
 [node name="BossModule" parent="MidwayPoint" index="4"]
 position = Vector2(577, 96)
 
@@ -701,6 +706,11 @@ position = Vector2(25, 0)
 [node name="CollisionPolygon2D" parent="MidwayPoint2/HurtBox" index="2"]
 position = Vector2(-6, 4)
 polygon = PackedVector2Array(-52, -38, 50, 54, -10, 56, -103, -40)
+
+[node name="TextureProgressBar" parent="MidwayPoint2" index="3"]
+fill_mode = 1
+texture_under = ExtResource("50_qelnb")
+texture_progress = ExtResource("51_bl0if")
 
 [node name="CollisionShape2D" parent="MidwayPoint2/BossModule" index="0"]
 position = Vector2(-482, 82)
