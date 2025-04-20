@@ -642,6 +642,7 @@ RightBase = true
 CameraShaker = NodePath("../../CameraHandler/Camera2D/ShakerComponent2D")
 
 [node name="Core" parent="BaseContainer/EnemyBaseR" index="0"]
+scale = Vector2(-1, 1)
 Sprite = ExtResource("30_lr5rs")
 Shadow = Color(0.639216, 0.25098, 0.109804, 0.415686)
 HitColor = Color(1, 0.482353, 0.454902, 1)

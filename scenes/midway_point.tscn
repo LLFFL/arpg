@@ -126,6 +126,7 @@ texture = ExtResource("10_3ei56")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_lkpqd")
+bus = &"SFX"
 
 [node name="ShakerComponent2D" type="Node2D" parent="." node_paths=PackedStringArray("Targets")]
 script = ExtResource("12_v8tg0")
