@@ -1,7 +1,13 @@
 extends Node2D
 
+@export var player_won = true
 
 func _ready():
+	
+	if not player_won:
+		$Player.texture = load("res://christophe/EndScreen/PlayerLost.png")
+		$Frog.texture = load("res://christophe/EndScreen/FrogLost.png")
+	
 	var t = create_tween()
 	
 	%MenuButton.scale = Vector2(0,0)
@@ -18,3 +24,8 @@ func _ready():
 	t.tween_property(%MenuButton,"scale",Vector2(1,1),1).set_trans(Tween.TRANS_BACK).set_delay(0.1).set_ease(Tween.EASE_OUT)
 	
 	#await t.finished
+
+
+func _on_menu_button_pressed():
+	get_tree().change_scene_to_file("res://christophe/Menu/menu.tscn")
+	
