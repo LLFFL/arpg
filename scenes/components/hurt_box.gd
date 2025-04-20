@@ -57,5 +57,4 @@ func damage(attack: Attack) -> void:
 
 
 func damage2(projectile: InstancedProjectile2D):
-
 	damaged2.emit(projectile.resource.damage)

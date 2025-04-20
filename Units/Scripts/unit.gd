@@ -31,6 +31,7 @@ func _ready() -> void:
 		enemy_detection_zone.set_collision_mask_value(5, true)
 		set_collision_layer_value(2, true)
 		set_collision_mask_value(5, true)
+		set_collision_mask_value(19, true)
 	else:
 		if enemy:
 			sprite_2d.texture = load("res://assets/enemy_1.png")

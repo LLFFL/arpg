@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://46ic5eq5d8qa"]
+[gd_scene load_steps=73 format=3 uid="uid://46ic5eq5d8qa"]
 
 [ext_resource type="Script" uid="uid://dx65t4op8hlv6" path="res://christophe/World/game_world.gd" id="1_6sg4h"]
 [ext_resource type="Shader" uid="uid://v1g385vie0ti" path="res://christophe/Shaders/SpriteColorMapped.gdshader" id="2_wjrrt"]
@@ -47,6 +47,9 @@
 [ext_resource type="Script" uid="uid://dhkmxwdl7x2fl" path="res://addons/all_projectiles/scripts/resources/projectile_blueprint_2d.gd" id="38_1buh8"]
 [ext_resource type="Resource" uid="uid://bguorcmtk2rod" path="res://Upgrades/Spells/spell2/12_burning_skies.tres" id="43_pc07o"]
 [ext_resource type="Resource" uid="uid://dpxs7aclyx0k" path="res://Upgrades/Spells/spell2/05_the_pursuer.tres" id="44_me02p"]
+[ext_resource type="PackedScene" uid="uid://dnpor7bwy5pjt" path="res://scenes/midway_point.tscn" id="48_pc07o"]
+[ext_resource type="Texture2D" uid="uid://cuvnxmfrpli85" path="res://christophe/Cores/IceMiniCore.png" id="49_nk3or"]
+[ext_resource type="Resource" uid="uid://dt1w11wceeiv0" path="res://Upgrades/Spells/spell2/02_heavy_magic_bolt.tres" id="50_16i4r"]
 
 [sub_resource type="Gradient" id="Gradient_3fx2f"]
 offsets = PackedFloat32Array(0.00332226, 0.533546, 0.799107, 1)
@@ -428,7 +431,7 @@ shakerPreset = SubResource("Resource_al3pl")
 metadata/_custom_type_script = "uid://b0fgc7bwsfxmw"
 
 [node name="CameraHandler" type="Node2D" parent="."]
-position = Vector2(2, 98)
+position = Vector2(-7, 87)
 
 [node name="Camera2D" parent="CameraHandler" instance=ExtResource("25_yyeeq")]
 process_mode = 3
@@ -459,7 +462,7 @@ mouse_filter = 2
 
 [node name="Player" parent="." instance=ExtResource("26_myr1t")]
 material = SubResource("ShaderMaterial_cx7l3")
-position = Vector2(2, 98)
+position = Vector2(-7, 87)
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../CameraHandler")
@@ -676,9 +679,42 @@ polygon = PackedVector2Array(-62, -47, 119, 84, 145, -223, -87, -223)
 [node name="RespawnMarker" type="Marker2D" parent="."]
 position = Vector2(0, 107)
 
+[node name="MidwayPoint" parent="." groups=["fire_base"] instance=ExtResource("48_pc07o")]
+position = Vector2(666, 80)
+
+[node name="CollisionPolygon2D" parent="MidwayPoint/HurtBox" index="2"]
+polygon = PackedVector2Array(-52, -38, 50, 54, 2, 55, -79, -33)
+
+[node name="BossModule" parent="MidwayPoint" index="4"]
+position = Vector2(577, 96)
+
+[node name="MidwayPoint2" parent="." groups=["ice_base"] instance=ExtResource("48_pc07o")]
+position = Vector2(-566, 83)
+scale = Vector2(-1, 1)
+
+[node name="Sprite2D" parent="MidwayPoint2" index="0"]
+texture = ExtResource("49_nk3or")
+
+[node name="HurtBox" parent="MidwayPoint2" index="2"]
+position = Vector2(25, 0)
+
+[node name="CollisionPolygon2D" parent="MidwayPoint2/HurtBox" index="2"]
+position = Vector2(-6, 4)
+polygon = PackedVector2Array(-52, -38, 50, 54, -10, 56, -103, -40)
+
+[node name="CollisionShape2D" parent="MidwayPoint2/BossModule" index="0"]
+position = Vector2(-482, 82)
+
+[node name="ProjectileCaller2D" parent="MidwayPoint2/BossModule" index="2"]
+projectile_resources = Array[ExtResource("38_1buh8")]([ExtResource("50_16i4r"), null])
+
 [editable path="BaseContainer/AllyBase"]
 [editable path="BaseContainer/AllyBase/HurtBox"]
 [editable path="BaseContainer/EnemyBaseL"]
 [editable path="BaseContainer/EnemyBaseL/HurtBox"]
 [editable path="BaseContainer/EnemyBaseR"]
 [editable path="BaseContainer/EnemyBaseR/HurtBox"]
+[editable path="MidwayPoint"]
+[editable path="MidwayPoint/BossModule"]
+[editable path="MidwayPoint2"]
+[editable path="MidwayPoint2/BossModule"]
