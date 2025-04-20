@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://4q50d6d286ii"]
+[gd_scene load_steps=37 format=3 uid="uid://4q50d6d286ii"]
 
 [ext_resource type="Script" uid="uid://c1agn5mochq7a" path="res://Units/Scripts/unit.gd" id="1_q3cfo"]
 [ext_resource type="Texture2D" uid="uid://u5wis3c6uwev" path="res://christophe/Cores/CoreShadow.png" id="2_bmhsd"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://b678kb3i5rusk" path="res://Units/Scripts/State Machine/Suicide/suicide_unit_state.gd" id="10_q5ue8"]
 [ext_resource type="PackedScene" uid="uid://buxuqmbof2cao" path="res://scenes/components/SoftCollision.tscn" id="11_od3ae"]
 [ext_resource type="Script" uid="uid://b7vrc7mnpk87m" path="res://Units/cursor_box.gd" id="13_md5ic"]
+[ext_resource type="Texture2D" uid="uid://d4b0gijjryw85" path="res://assets/UI/UI/UI_Cursor_regular.png" id="14_25wig"]
 [ext_resource type="AudioStream" uid="uid://do7avhjw0nson" path="res://christophe/Particles/UnitHitSound.wav" id="14_alepv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_od3ae"]
@@ -325,6 +326,7 @@ shape = SubResource("CapsuleShape2D_3v853")
 
 [node name="Stats" type="Node2D" parent="."]
 script = ExtResource("6_od3ae")
+base_movement_speed = 300.0
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("6_alepv")
@@ -401,6 +403,7 @@ shape = SubResource("CapsuleShape2D_alepv")
 collision_layer = 6
 collision_mask = 0
 script = ExtResource("13_md5ic")
+defaultCursor = ExtResource("14_25wig")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="cursorBox"]
 position = Vector2(0, -4)
