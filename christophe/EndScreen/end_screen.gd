@@ -19,7 +19,8 @@ func _ready():
 	#t.tween_property($ShakerComponent2D,"intensity",0.1,4).set_trans(Tween.TRANS_QUAD)
 	t.tween_property($Frog,"global_position:y",165,2).set_trans(Tween.TRANS_BACK)
 	t.tween_property($Player,"global_position:y",226,1).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-	t.parallel().tween_property($Units,"global_position:y",213,2).set_trans(Tween.TRANS_BACK).set_delay(0.1)
+	if player_won:
+		t.parallel().tween_property($Units,"global_position:y",213,2).set_trans(Tween.TRANS_BACK).set_delay(0.1)
 	t.tween_property($TimeDecoration,"scale",Vector2(1,1),1).set_trans(Tween.TRANS_BACK).set_delay(0.1).set_ease(Tween.EASE_OUT)
 	t.tween_property(%MenuButton,"scale",Vector2(1,1),1).set_trans(Tween.TRANS_BACK).set_delay(0.1).set_ease(Tween.EASE_OUT)
 	

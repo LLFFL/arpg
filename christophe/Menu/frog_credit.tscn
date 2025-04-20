@@ -1,17 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://ye3pnyrh04ru"]
+[gd_scene load_steps=7 format=3 uid="uid://ye3pnyrh04ru"]
 
 [ext_resource type="Script" uid="uid://dow75dauqwdgv" path="res://christophe/Menu/frog_credit.gd" id="1_0mhme"]
 [ext_resource type="Texture2D" uid="uid://dtiv6vtd4rpkb" path="res://christophe/Menu/CHRISTOPHE.png" id="1_1jnr3"]
-[ext_resource type="AudioStream" uid="uid://b6h11eagjsuks" path="res://christophe/Menu/FrogClickSound1.wav" id="3_w1bka"]
-[ext_resource type="AudioStream" uid="uid://b8mfiw74wyb15" path="res://christophe/Menu/FrogClickSound2.wav" id="4_vrayx"]
-[ext_resource type="AudioStream" uid="uid://du3xg1cd2gts" path="res://christophe/Menu/FrogClickSound.wav" id="5_vrbg6"]
+[ext_resource type="AudioStream" uid="uid://dgt66f3w5017m" path="res://christophe/Menu/FrogSound.wav" id="3_ulwe4"]
 [ext_resource type="FontFile" uid="uid://c7n68l70qdk0f" path="res://christophe/Analog Whispers FREE.ttf" id="6_1jnr3"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_2xape"]
-streams_count = 3
-stream_0/stream = ExtResource("3_w1bka")
-stream_1/stream = ExtResource("4_vrayx")
-stream_2/stream = ExtResource("5_vrbg6")
+random_pitch = 1.5
+streams_count = 1
+stream_0/stream = ExtResource("3_ulwe4")
 
 [sub_resource type="LabelSettings" id="LabelSettings_0mhme"]
 font = ExtResource("6_1jnr3")
@@ -19,7 +16,6 @@ font_size = 13
 font_color = Color(0.294118, 0.803922, 0.631373, 1)
 
 [node name="FrogCredit" type="TextureButton"]
-custom_minimum_size = Vector2(0, 35)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

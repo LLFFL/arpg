@@ -1,6 +1,9 @@
-[gd_resource type="Theme" load_steps=26 format=3 uid="uid://be8fu88chioyx"]
+[gd_resource type="Theme" load_steps=29 format=3 uid="uid://be8fu88chioyx"]
 
 [ext_resource type="FontFile" uid="uid://c7n68l70qdk0f" path="res://christophe/Analog Whispers FREE.ttf" id="1_j08i8"]
+[ext_resource type="Texture2D" uid="uid://4t4h1jt2pmcn" path="res://christophe/Menu/cursor.png" id="1_kk4jr"]
+[ext_resource type="Texture2D" uid="uid://nd34vl3fd26x" path="res://christophe/Menu/cursor_disabled.png" id="2_rkhwf"]
+[ext_resource type="Texture2D" uid="uid://b8j8sh1mrqwbf" path="res://christophe/Menu/cursor_hover.png" id="3_ohofy"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rkhwf"]
 bg_color = Color(0.0352941, 0.192157, 0.239216, 1)
@@ -54,12 +57,12 @@ expand_margin_bottom = 2.0
 bg_color = Color(0.8, 0.8, 0.8, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ohofy"]
-bg_color = Color(0, 0, 0, 1)
+bg_color = Color(0.0212569, 0.135511, 0.160199, 1)
 border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 expand_margin_left = 1.0
 expand_margin_top = 1.0
 expand_margin_right = 1.0
@@ -291,9 +294,13 @@ Button/font_sizes/font_size = 10
 Button/styles/hover = SubResource("StyleBoxFlat_rkhwf")
 Button/styles/normal = SubResource("StyleBoxFlat_38xoi")
 Button/styles/pressed = SubResource("StyleBoxFlat_xmsak")
+CheckBox/font_sizes/font_size = 13
 ConversationButton/base_type = &"Button"
 ConversationButton/styles/normal = SubResource("StyleBoxFlat_4600i")
 HSlider/constants/center_grabber = 1
+HSlider/icons/grabber = ExtResource("1_kk4jr")
+HSlider/icons/grabber_disabled = ExtResource("2_rkhwf")
+HSlider/icons/grabber_highlight = ExtResource("3_ohofy")
 HSlider/styles/slider = SubResource("StyleBoxFlat_ohofy")
 ItemButton/base_type = &"Button"
 ItemButton/styles/normal = SubResource("StyleBoxFlat_q04vg")

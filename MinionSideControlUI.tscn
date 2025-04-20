@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cghe5cfsmt5t8"]
+[gd_scene load_steps=12 format=3 uid="uid://cghe5cfsmt5t8"]
 
 [ext_resource type="Texture2D" uid="uid://0xx67wm34plf" path="res://assets/UI/UI/Btn_Left.png" id="1_tggkw"]
 [ext_resource type="Texture2D" uid="uid://ck7g5eq5hprqu" path="res://assets/UI/UI/Btn_Left_Pressed.png" id="2_cn4o2"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://djsxma85eq4gf" path="res://assets/UI/UI/Btn_Right.png" id="5_7i7dx"]
 [ext_resource type="Texture2D" uid="uid://dsovqlaocklnm" path="res://assets/UI/UI/Btn_Right_Pressed.png" id="6_ubcqe"]
 [ext_resource type="Texture2D" uid="uid://uo87tcwxbqfr" path="res://assets/UI/UI/Btn_Right_Hover.png" id="7_fv17v"]
+[ext_resource type="Texture2D" uid="uid://btgkgngb5rchg" path="res://assets/UI/UI/Unit_UI.png" id="8_cn4o2"]
 
 [sub_resource type="GDScript" id="GDScript_sx7jc"]
 script/source = "extends Control
@@ -67,26 +68,25 @@ metadata/_edit_horizontal_guides_ = [4.0]
 [node name="leftLabel" type="Label" parent="."]
 texture_filter = 1
 layout_mode = 0
-offset_left = -121.0
+offset_left = -154.0
 offset_top = 4.0
-offset_right = -111.0
+offset_right = -117.0
 offset_bottom = 20.0
-text = "0"
+text = "1"
 label_settings = SubResource("LabelSettings_a7l04")
-horizontal_alignment = 1
+horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="rightLabel" type="Label" parent="."]
 layout_mode = 2
-offset_left = 112.0
+offset_left = 120.0
 offset_top = 4.0
-offset_right = 122.0
+offset_right = 149.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "0"
+text = "1"
 label_settings = SubResource("LabelSettings_g2iqj")
-horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
@@ -121,6 +121,15 @@ texture_normal = ExtResource("5_7i7dx")
 texture_pressed = ExtResource("6_ubcqe")
 texture_hover = ExtResource("7_fv17v")
 stretch_mode = 5
+
+[node name="UnitUi" type="Sprite2D" parent="HBoxContainer"]
+position = Vector2(0.5, 11)
+texture = ExtResource("8_cn4o2")
+flip_h = true
+
+[node name="UnitUi2" type="Sprite2D" parent="HBoxContainer"]
+position = Vector2(217.5, 11)
+texture = ExtResource("8_cn4o2")
 
 [connection signal="button_down" from="HBoxContainer/SendLeft" to="." method="_on_send_left_button_down"]
 [connection signal="button_down" from="HBoxContainer/SendRight" to="." method="_on_send_right_button_down"]
