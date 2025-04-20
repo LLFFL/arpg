@@ -1,9 +1,9 @@
 [gd_scene load_steps=13 format=3 uid="uid://b7tqrb4ktc3ix"]
 
-[ext_resource type="Script" path="res://christophe/Particles/vfx.gd" id="1_wahke"]
+[ext_resource type="Script" uid="uid://bxjkeksfwvyyg" path="res://christophe/Particles/vfx.gd" id="1_wahke"]
 [ext_resource type="Texture2D" uid="uid://bxjba5a3u6uwu" path="res://christophe/Particles/sword.png" id="2_j5em4"]
 [ext_resource type="Texture2D" uid="uid://cli4e6dialltg" path="res://christophe/Particles/arrow_down.png" id="3_uvc0q"]
-[ext_resource type="Script" path="res://christophe/Particles/stun_effect.gd" id="4_610ow"]
+[ext_resource type="Script" uid="uid://dl1qneg7xv2h" path="res://christophe/Particles/stun_effect.gd" id="4_610ow"]
 [ext_resource type="Texture2D" uid="uid://coicp6bmqn7b2" path="res://christophe/Particles/plus.png" id="5_m7msv"]
 [ext_resource type="Texture2D" uid="uid://b0xr1jgfkps6a" path="res://christophe/Particles/arrow_up.png" id="6_vp2i6"]
 

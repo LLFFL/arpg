@@ -1,8 +1,10 @@
-[gd_scene load_steps=67 format=3 uid="uid://46ic5eq5d8qa"]
+[gd_scene load_steps=77 format=3 uid="uid://46ic5eq5d8qa"]
 
 [ext_resource type="Script" uid="uid://dx65t4op8hlv6" path="res://christophe/World/game_world.gd" id="1_6sg4h"]
 [ext_resource type="Shader" uid="uid://v1g385vie0ti" path="res://christophe/Shaders/SpriteColorMapped.gdshader" id="2_wjrrt"]
+[ext_resource type="AudioStream" uid="uid://dgp8wdil4wkoh" path="res://christophe/World/PortalOpen.wav" id="2_yyeeq"]
 [ext_resource type="Texture2D" uid="uid://c6cw5sum25c6w" path="res://christophe/World/NeutralClouds.png" id="3_4gwui"]
+[ext_resource type="AudioStream" uid="uid://dueq78yuovwdj" path="res://christophe/World/PortalCloses.wav" id="3_myr1t"]
 [ext_resource type="Texture2D" uid="uid://c6roa62v2r73o" path="res://christophe/World/Montains.png" id="4_6rwpi"]
 [ext_resource type="Texture2D" uid="uid://cx5687cgerbn2" path="res://christophe/World/Near.png" id="5_r41hh"]
 [ext_resource type="Texture2D" uid="uid://cpxns4i0ji447" path="res://christophe/Particles/snow.png" id="6_ufba3"]
@@ -29,6 +31,8 @@
 [ext_resource type="PackedScene" uid="uid://b02g8s3f7cg4a" path="res://Player/Player.tscn" id="26_myr1t"]
 [ext_resource type="Shader" uid="uid://duocgilkxh3yq" path="res://christophe/Shaders/outline_magic.gdshader" id="27_gx05q"]
 [ext_resource type="Script" uid="uid://cxgmjqfrfwelx" path="res://addons/shaker/data/Vector2/ShakerTypeRandom2D.gd" id="27_picea"]
+[ext_resource type="Texture2D" uid="uid://b3elqk8vtddbv" path="res://christophe/Shop/UI_Arrow.png" id="27_yyeeq"]
+[ext_resource type="PackedScene" uid="uid://brixflf8pdcaa" path="res://scenes/UIComponents/gameUI.tscn" id="28_al3pl"]
 [ext_resource type="Texture2D" uid="uid://c65n2wn3swyff" path="res://christophe/Cores/IceCore.png" id="29_oaplc"]
 [ext_resource type="Texture2D" uid="uid://rfoa8woep3d6" path="res://christophe/Cores/FireCore.png" id="30_lr5rs"]
 [ext_resource type="PackedScene" uid="uid://b84fble4aqave" path="res://christophe/Shop/ShopButton.tscn" id="30_y7jpt"]
@@ -39,12 +43,17 @@
 [ext_resource type="Texture2D" uid="uid://dxmorelsxus68" path="res://christophe/Shop/LuckIconShop.png" id="32_thoo6"]
 [ext_resource type="Texture2D" uid="uid://4t1sumn6g60i" path="res://christophe/Shop/SpeedIconShop.png" id="33_hrtp6"]
 [ext_resource type="Texture2D" uid="uid://dacq1q8xq2ud5" path="res://christophe/Shop/SheildIconShop.png" id="34_me02p"]
-[ext_resource type="Texture2D" uid="uid://d2j4j4csy61fm" path="res://christophe/Shop/UnitsStatsIconShop.png" id="35_me02p"]
+[ext_resource type="Texture2D" uid="uid://c5p8rbcawd7eu" path="res://christophe/Shop/UnitsStatsAndAmountIconShop.png" id="35_5uctv"]
 [ext_resource type="Texture2D" uid="uid://esy21sfjhq1j" path="res://christophe/Shop/Slash1IconShop.png" id="36_nk3or"]
 [ext_resource type="PackedScene" uid="uid://dbck5ldifj5fh" path="res://Upgrades/IceBossSpellCaller.tscn" id="37_me02p"]
 [ext_resource type="Script" uid="uid://dhkmxwdl7x2fl" path="res://addons/all_projectiles/scripts/resources/projectile_blueprint_2d.gd" id="38_1buh8"]
 [ext_resource type="Resource" uid="uid://bguorcmtk2rod" path="res://Upgrades/Spells/spell2/12_burning_skies.tres" id="43_pc07o"]
 [ext_resource type="Resource" uid="uid://dpxs7aclyx0k" path="res://Upgrades/Spells/spell2/05_the_pursuer.tres" id="44_me02p"]
+[ext_resource type="PackedScene" uid="uid://dnpor7bwy5pjt" path="res://scenes/midway_point.tscn" id="48_pc07o"]
+[ext_resource type="Texture2D" uid="uid://cuvnxmfrpli85" path="res://christophe/Cores/IceMiniCore.png" id="49_nk3or"]
+[ext_resource type="Resource" uid="uid://dt1w11wceeiv0" path="res://Upgrades/Spells/spell2/02_heavy_magic_bolt.tres" id="50_16i4r"]
+[ext_resource type="Texture2D" uid="uid://bbud43y8jmukf" path="res://christophe/Cores/MiniIceCoreHP_Empty.png" id="50_qelnb"]
+[ext_resource type="Texture2D" uid="uid://2hth5tr1mmll" path="res://christophe/Cores/MiniIceCoreHP_Full.png" id="51_bl0if"]
 
 [sub_resource type="Gradient" id="Gradient_3fx2f"]
 offsets = PackedFloat32Array(0.00332226, 0.533546, 0.799107, 1)
@@ -129,6 +138,30 @@ bake_internal = 64
 __follow_timeline = false
 metadata/_custom_type_script = "uid://gi81blw5c6j8"
 
+[sub_resource type="Resource" id="Resource_5uctv"]
+script = ExtResource("23_qelnb")
+frequency = Vector2(0.5, 0.5)
+phase = Vector2(1, 1)
+amplitude = Vector2(0, 1)
+offset = Vector2(0, 0)
+BlendingMode = 0
+fade_in = 0.0
+fade_out = 0.0
+start_percent = 0.0
+end_percent = 1.0
+_temp_graph = false
+bake_internal = 64
+metadata/_custom_type_script = "uid://btxaa3pjicjqn"
+
+[sub_resource type="Resource" id="Resource_al3pl"]
+script = ExtResource("24_bl0if")
+PositionShake = Array[ExtResource("21_16i4r")]([SubResource("Resource_5uctv")])
+RotationShake = Array[ExtResource("22_8275v")]([])
+ScaleShake = Array[ExtResource("21_16i4r")]([])
+bake_internal = 64
+__follow_timeline = false
+metadata/_custom_type_script = "uid://cfh63mvp713jr"
+
 [sub_resource type="Resource" id="Resource_y7jpt"]
 script = ExtResource("27_picea")
 seed = 0
@@ -152,8 +185,6 @@ bake_internal = 64
 __follow_timeline = false
 metadata/_custom_type_script = "uid://cfh63mvp713jr"
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ofr2a"]
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cx7l3"]
 shader = ExtResource("27_gx05q")
 shader_parameter/line_color = Color(1, 1, 1, 1)
@@ -163,10 +194,10 @@ shader_parameter/line_thickness = 1.0
 size = Vector2(2560, 82)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1buh8"]
-size = Vector2(302, 40)
+size = Vector2(262, 99)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4gwui"]
-size = Vector2(148.268, 30.4367)
+size = Vector2(148.268, 29.9295)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6rwpi"]
 size = Vector2(81, 52)
@@ -183,6 +214,8 @@ sky_gradient = SubResource("Gradient_u0w7i")
 cloud_shadow = SubResource("Gradient_ofr2a")
 cloud_base = SubResource("Gradient_6fs60")
 cloud_highlight = SubResource("Gradient_atopn")
+OpenPortalSound = ExtResource("2_yyeeq")
+ClosePortalSound = ExtResource("3_myr1t")
 
 [node name="Map" type="Node2D" parent="."]
 
@@ -389,8 +422,25 @@ fade_in = 0.00837321
 fade_out = 0.0078125
 shakerPreset = SubResource("Resource_u41f8")
 
+[node name="PortalAudioPlayer" type="AudioStreamPlayer2D" parent="Map/Portal"]
+bus = &"SFX"
+
+[node name="PortalArrow" type="Sprite2D" parent="."]
+position = Vector2(0, 77)
+scale = Vector2(0.3, 0.2)
+texture = ExtResource("27_yyeeq")
+
+[node name="ShakerComponent2D" type="Node2D" parent="PortalArrow" node_paths=PackedStringArray("Targets")]
+script = ExtResource("20_nk3or")
+custom_target = true
+Targets = [NodePath("..")]
+AutoPlay = true
+fade_in = 0.0603711
+shakerPreset = SubResource("Resource_al3pl")
+metadata/_custom_type_script = "uid://b0fgc7bwsfxmw"
+
 [node name="CameraHandler" type="Node2D" parent="."]
-position = Vector2(846, 50)
+position = Vector2(0, 88)
 
 [node name="Camera2D" parent="CameraHandler" instance=ExtResource("25_yyeeq")]
 process_mode = 3
@@ -414,26 +464,20 @@ fade_out = 0.148651
 shakerPreset = SubResource("Resource_7856v")
 metadata/_custom_type_script = "uid://b0fgc7bwsfxmw"
 
-[node name="CloudShadows" type="Parallax2D" parent="."]
-scroll_offset = Vector2(-222, 49)
-repeat_size = Vector2(2000, 0)
-autoscroll = Vector2(5, 0)
-repeat_times = 2
+[node name="CanvasLayer" type="CanvasLayer" parent="CameraHandler/Camera2D"]
 
-[node name="CloudSprite2" type="Sprite2D" parent="CloudShadows"]
-modulate = Color(0.06, 0.06, 0.06, 0.0509804)
-position = Vector2(124, 91)
-scale = Vector2(1, 0.6)
-texture = SubResource("CompressedTexture2D_ofr2a")
+[node name="UI" parent="CameraHandler/Camera2D/CanvasLayer" instance=ExtResource("28_al3pl")]
+mouse_filter = 2
 
 [node name="Player" parent="." instance=ExtResource("26_myr1t")]
 material = SubResource("ShaderMaterial_cx7l3")
-position = Vector2(846, 50)
+position = Vector2(0, 88)
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../CameraHandler")
 
 [node name="MapCollision" type="StaticBody2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MapCollision"]
 position = Vector2(0, 166)
@@ -446,6 +490,7 @@ polygon = PackedVector2Array(-1201, -151, -1200, 135, -1107, 134, -1137, 116, -1
 unique_name_in_owner = true
 process_mode = 4
 z_index = 4
+position = Vector2(0, 8)
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ShopUi"]
 anchors_preset = 8
@@ -464,45 +509,51 @@ alignment = 1
 
 [node name="ShopButtonAttack" parent="ShopUi/HBoxContainer" instance=ExtResource("30_y7jpt")]
 layout_mode = 2
-upgrade_cost = 0
+upgrade_cost = 50
+upgrade_value = 10
+max_level = 10
 icon_path = ExtResource("31_63wid")
 
 [node name="ShopButtonLuck" parent="ShopUi/HBoxContainer" instance=ExtResource("30_y7jpt")]
 layout_mode = 2
 upgrade_type = 3
 upgrade_id = "luck_boost"
-upgrade_cost = 0
+upgrade_cost = 70
+upgrade_value = 1
+max_level = 15
 icon_path = ExtResource("32_thoo6")
 
 [node name="ShopButtonSpeed" parent="ShopUi/HBoxContainer" instance=ExtResource("30_y7jpt")]
 layout_mode = 2
 upgrade_type = 1
 upgrade_id = "speed_boost"
-upgrade_cost = 0
+upgrade_cost = 30
+upgrade_value = 10
+max_level = 10
 icon_path = ExtResource("33_hrtp6")
 
 [node name="ShopButtonDefense" parent="ShopUi/HBoxContainer" instance=ExtResource("30_y7jpt")]
 layout_mode = 2
 upgrade_type = 2
 upgrade_id = "defence_boost"
-upgrade_cost = 0
+upgrade_cost = 40
+max_level = 10
 icon_path = ExtResource("34_me02p")
 
 [node name="ShopButtonUnits" parent="ShopUi/HBoxContainer" instance=ExtResource("30_y7jpt")]
 layout_mode = 2
 upgrade_type = 4
 upgrade_id = "units_boost"
-upgrade_cost = 0
-max_level = 10
-icon_path = ExtResource("35_me02p")
+upgrade_cost = 40
+max_level = 20
+icon_path = ExtResource("35_5uctv")
 
 [node name="ShopButtonSlash" parent="ShopUi/HBoxContainer" instance=ExtResource("30_y7jpt")]
 layout_mode = 2
 upgrade_type = 5
 upgrade_id = "slash_boost"
-upgrade_cost = 0
+upgrade_cost = 200
 upgrade_value = 1
-max_level = 2
 icon_path = ExtResource("36_nk3or")
 
 [node name="BaseContainer" type="Node" parent="."]
@@ -525,14 +576,16 @@ is_player_core = true
 position = Vector2(-2, 80)
 
 [node name="CollisionShape2D" parent="BaseContainer/AllyBase/HurtBox" index="0"]
-position = Vector2(-2, 67)
+position = Vector2(-2, 63.5)
 shape = SubResource("RectangleShape2D_1buh8")
 
 [node name="SpawnZone" parent="BaseContainer/AllyBase" index="4"]
+visible = false
+position = Vector2(-1, 5)
 scale = Vector2(0.984707, 1.9713)
 
 [node name="CollisionShape2D" parent="BaseContainer/AllyBase/SpawnZone" index="0"]
-position = Vector2(0, 61.888)
+position = Vector2(0, 61.6344)
 shape = SubResource("RectangleShape2D_4gwui")
 
 [node name="TargetLocation" parent="BaseContainer/AllyBase" index="5"]
@@ -547,6 +600,8 @@ monitorable = false
 
 [node name="MinionSideControl" parent="BaseContainer/AllyBase/CanvasLayer" instance=ExtResource("32_4gwui")]
 unique_name_in_owner = true
+offset_top = 24.0
+offset_bottom = 24.0
 
 [node name="EnemyBaseL" parent="BaseContainer" node_paths=PackedStringArray("CameraShaker") instance=ExtResource("31_wjrrt")]
 y_sort_enabled = true
@@ -561,6 +616,9 @@ HitColor = Color(0.709804, 0.898039, 0.952941, 1)
 
 [node name="SpawnLocation" parent="BaseContainer/EnemyBaseL" index="2"]
 position = Vector2(65, 32)
+
+[node name="SpawnZone" parent="BaseContainer/EnemyBaseL" index="4"]
+visible = false
 
 [node name="CollisionShape2D" parent="BaseContainer/EnemyBaseL/SpawnZone" index="0"]
 position = Vector2(78.5, 35)
@@ -584,6 +642,7 @@ RightBase = true
 CameraShaker = NodePath("../../CameraHandler/Camera2D/ShakerComponent2D")
 
 [node name="Core" parent="BaseContainer/EnemyBaseR" index="0"]
+scale = Vector2(-1, 1)
 Sprite = ExtResource("30_lr5rs")
 Shadow = Color(0.639216, 0.25098, 0.109804, 0.415686)
 HitColor = Color(1, 0.482353, 0.454902, 1)
@@ -593,6 +652,9 @@ position = Vector2(-81, 27)
 
 [node name="CollisionShape2D" parent="BaseContainer/EnemyBaseR/HurtBox" index="0"]
 position = Vector2(-2.5, -11)
+
+[node name="SpawnZone" parent="BaseContainer/EnemyBaseR" index="4"]
+visible = false
 
 [node name="CollisionShape2D" parent="BaseContainer/EnemyBaseR/SpawnZone" index="0"]
 position = Vector2(-81, 34.5)
@@ -607,9 +669,70 @@ scale = Vector2(1.36845, 0.967038)
 position = Vector2(-31.4225, -5.17042)
 projectile_resources = Array[ExtResource("38_1buh8")]([ExtResource("43_pc07o"), ExtResource("44_me02p"), null])
 
+[node name="LeftStartBound" type="StaticBody2D" parent="."]
+visible = false
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LeftStartBound"]
+position = Vector2(-236, 86)
+polygon = PackedVector2Array(-63, 82, 91, -41, 96, -219, -87, -223)
+
+[node name="RightStartBound" type="StaticBody2D" parent="."]
+visible = false
+position = Vector2(400, 15)
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RightStartBound"]
+position = Vector2(-165, 76)
+polygon = PackedVector2Array(-62, -47, 119, 84, 145, -223, -87, -223)
+
+[node name="RespawnMarker" type="Marker2D" parent="."]
+position = Vector2(0, 107)
+
+[node name="MidwayPoint" parent="." groups=["fire_base"] instance=ExtResource("48_pc07o")]
+position = Vector2(666, 80)
+
+[node name="CollisionPolygon2D" parent="MidwayPoint/HurtBox" index="2"]
+polygon = PackedVector2Array(-52, -38, 50, 54, 2, 55, -79, -33)
+
+[node name="TextureProgressBar" parent="MidwayPoint" index="3"]
+fill_mode = 1
+
+[node name="BossModule" parent="MidwayPoint" index="4"]
+position = Vector2(577, 96)
+
+[node name="MidwayPoint2" parent="." groups=["ice_base"] instance=ExtResource("48_pc07o")]
+position = Vector2(-566, 83)
+scale = Vector2(-1, 1)
+
+[node name="Sprite2D" parent="MidwayPoint2" index="0"]
+texture = ExtResource("49_nk3or")
+
+[node name="HurtBox" parent="MidwayPoint2" index="2"]
+position = Vector2(25, 0)
+
+[node name="CollisionPolygon2D" parent="MidwayPoint2/HurtBox" index="2"]
+position = Vector2(-6, 4)
+polygon = PackedVector2Array(-52, -38, 50, 54, -10, 56, -103, -40)
+
+[node name="TextureProgressBar" parent="MidwayPoint2" index="3"]
+fill_mode = 1
+texture_under = ExtResource("50_qelnb")
+texture_progress = ExtResource("51_bl0if")
+
+[node name="CollisionShape2D" parent="MidwayPoint2/BossModule" index="0"]
+position = Vector2(-482, 82)
+
+[node name="ProjectileCaller2D" parent="MidwayPoint2/BossModule" index="2"]
+projectile_resources = Array[ExtResource("38_1buh8")]([ExtResource("50_16i4r"), null])
+
 [editable path="BaseContainer/AllyBase"]
 [editable path="BaseContainer/AllyBase/HurtBox"]
 [editable path="BaseContainer/EnemyBaseL"]
 [editable path="BaseContainer/EnemyBaseL/HurtBox"]
 [editable path="BaseContainer/EnemyBaseR"]
 [editable path="BaseContainer/EnemyBaseR/HurtBox"]
+[editable path="MidwayPoint"]
+[editable path="MidwayPoint/BossModule"]
+[editable path="MidwayPoint2"]
+[editable path="MidwayPoint2/BossModule"]

@@ -4,7 +4,7 @@
 script/source = "extends HSlider
 
 @export var bus_name: String
-
+@export var sound_on_end_drag:AudioStream
 var bus_index: int
 
 func _ready() -> void:
@@ -12,12 +12,22 @@ func _ready() -> void:
 	value_changed.connect(_on_value_changed)
 
 	value = db_to_linear(AudioServer.get_bus_volume_db(bus_index)) #should save values between scenes and stuff
+	$AudioStreamPlayer.bus = bus_name
+	$AudioStreamPlayer.stream = sound_on_end_drag
+	
 	
 func _on_value_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(
 		bus_index,
 		linear_to_db(value) # convert decimal to decibal
 	)
+	
+
+
+func _on_drag_ended(value_changed):
+	if sound_on_end_drag == null:
+		return
+	$AudioStreamPlayer.play()
 	
 "
 
@@ -27,3 +37,7 @@ offset_bottom = 16.0
 max_value = 1.0
 step = 0.001
 script = SubResource("GDScript_xuubq")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[connection signal="drag_ended" from="." to="." method="_on_drag_ended"]

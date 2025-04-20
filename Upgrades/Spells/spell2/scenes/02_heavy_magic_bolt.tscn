@@ -1,93 +1,132 @@
-[gd_scene load_steps=10 format=3 uid="uid://ck15xb37n2npc"]
+[gd_scene load_steps=17 format=3 uid="uid://ck15xb37n2npc"]
 
-[ext_resource type="Texture2D" uid="uid://bahr7m3dk2pq3" path="res://addons/all_projectiles/icons/Circle.png" id="1_v6rks"]
-[ext_resource type="Texture2D" uid="uid://do823aomehorb" path="res://addons/all_projectiles/demos/textures/projectiles/muzzle_02.png" id="3_5soha"]
+[ext_resource type="Script" uid="uid://dp2uuotuqir7x" path="res://Upgrades/Spells/Particles/ExplodeOnContact.gd" id="1_h1r0d"]
+[ext_resource type="Texture2D" uid="uid://d4f6t1x1tgj2" path="res://christophe/Particles/round.png" id="2_xc6cm"]
+[ext_resource type="AudioStream" uid="uid://bn7snycad01wi" path="res://christophe/Particles/MeteorExplosionSound.wav" id="3_3tpej"]
+[ext_resource type="AudioStream" uid="uid://dn7in8omqbnxa" path="res://christophe/Particles/IceSpikeLaunched.wav" id="5_ojsnn"]
+[ext_resource type="Texture2D" uid="uid://bx61ws5b5k6le" path="res://christophe/Particles/IceSpike.png" id="6_h1c8b"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_grgi5"]
 radius = 18.0
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_fhsef"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_e42ot"]
+radius = 18.0
 
-[sub_resource type="Curve" id="Curve_biuo3"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.461187, 0.538462), -0.164086, -0.164086, 0, 0, Vector2(1, 0), 0.695239, 0.0, 0, 0]
+[sub_resource type="Curve" id="Curve_oj0ff"]
+_data = [Vector2(0.00383142, 1), 0.0, 0.0, 0, 0, Vector2(0.191571, 1), 0.0580315, 0.0580315, 0, 0, Vector2(0.448276, 0), -11.0816, -11.7259, 0, 0]
 point_count = 3
 
-[sub_resource type="Gradient" id="Gradient_auqdl"]
-offsets = PackedFloat32Array(0, 0.151832, 0.659686, 0.769634, 1)
-colors = PackedColorArray(0.635543, 0.733178, 1, 0, 0.278431, 1, 0.929412, 1, 0.224006, 0.493954, 0.899099, 1, 0.0709259, 0.210945, 0.390208, 0.676923, 0.0273626, 0.226981, 0.368344, 0)
+[sub_resource type="Gradient" id="Gradient_ucec1"]
+offsets = PackedFloat32Array(0.062954, 0.2954, 0.457627, 0.706383)
+colors = PackedColorArray(0.460636, 0.758751, 0.950475, 1, 0.666355, 0.745977, 0.951368, 1, 1, 1, 1, 0.687737, 1, 1, 1, 0)
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6fs04"]
+[sub_resource type="Gradient" id="Gradient_co37r"]
+colors = PackedColorArray(0.956402, 0.941309, 0.962717, 1, 1, 1, 1, 1)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_xc6cm"]
 blend_mode = 1
 
-[sub_resource type="Curve" id="Curve_754ok"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.557078, 0.604396), 0.0, 0.0, 0, 0]
+[sub_resource type="Curve" id="Curve_h1r0d"]
+_data = [Vector2(0, 1), 0.0, -0.0283725, 0, 0, Vector2(0.528474, 0), -2.58235, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="Gradient" id="Gradient_74ww0"]
-offsets = PackedFloat32Array(0, 0.151832, 0.659686, 0.769634, 1)
-colors = PackedColorArray(0.635543, 0.733178, 1, 0, 0.278431, 1, 0.929412, 1, 0.224006, 0.493954, 0.899099, 1, 0.0709259, 0.210945, 0.390208, 0.676923, 0.0273626, 0.226981, 0.368344, 0)
+[sub_resource type="Gradient" id="Gradient_xc6cm"]
+offsets = PackedFloat32Array(0, 0.22276, 0.430993)
+colors = PackedColorArray(1, 1, 1, 1, 0.615686, 0.760784, 0.972549, 1, 0.6111, 0.75466, 0.97, 0)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_3tpej"]
+
+[sub_resource type="Curve" id="Curve_3tpej"]
+_data = [Vector2(0, 0.612024), 0.0, -0.0283725, 0, 0, Vector2(0.444191, 0), -2.58235, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_h1r0d"]
+random_pitch = 1.5
+streams_count = 1
+stream_0/stream = ExtResource("5_ojsnn")
 
 [node name="BasicProjectile" type="Node2D"]
 z_index = 11
-scale = Vector2(0.9, 0.2)
 
 [node name="Collision" type="Area2D" parent="."]
+scale = Vector2(1, 0.605)
 collision_layer = 16
 collision_mask = 6
+script = ExtResource("1_h1r0d")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collision"]
 shape = SubResource("CircleShape2D_grgi5")
 
-[node name="Bubbling" type="CPUParticles2D" parent="."]
-material = SubResource("CanvasItemMaterial_fhsef")
-amount = 50
-texture = ExtResource("1_v6rks")
-lifetime = 1.05
-preprocess = 0.55
-speed_scale = 1.5
-randomness = 0.33
-lifetime_randomness = 0.12
-fixed_fps = 30
-local_coords = true
-draw_order = 1
-emission_shape = 1
-emission_sphere_radius = 8.53
-direction = Vector2(-1, 0)
-spread = 0.0
-gravity = Vector2(0, 0)
-initial_velocity_min = 80.0
-initial_velocity_max = 200.0
-linear_accel_min = 5.04
-linear_accel_max = 12.0
-radial_accel_min = -3.0
-radial_accel_max = 6.0
-scale_amount_min = 1.2
-scale_amount_max = 1.5
-scale_amount_curve = SubResource("Curve_biuo3")
-color_ramp = SubResource("Gradient_auqdl")
-hue_variation_min = 0.2
-hue_variation_max = 0.32
-
-[node name="Light" type="CPUParticles2D" parent="."]
-material = SubResource("CanvasItemMaterial_6fs04")
-position = Vector2(-42, 0)
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Collision"]
+position = Vector2(-2, 1.445e-07)
 rotation = -1.5708
-amount = 25
-texture = ExtResource("3_5soha")
+scale = Vector2(1.65289, 1)
+shape = SubResource("CircleShape2D_e42ot")
+
+[node name="Explosition" type="CPUParticles2D" parent="Collision"]
+z_index = 3
+position = Vector2(-4, 2.89001e-07)
+rotation = -1.5708
+scale = Vector2(1.65289, 1)
+emitting = false
+amount = 30
+texture = ExtResource("2_xc6cm")
 lifetime = 2.0
-preprocess = 3.0
-fixed_fps = 30
+one_shot = true
+speed_scale = 0.8
+explosiveness = 1.0
+randomness = 0.6
+lifetime_randomness = 1.0
+spread = 180.0
+gravity = Vector2(0, 400)
+initial_velocity_min = 200.0
+initial_velocity_max = 250.0
+linear_accel_max = 12.69
+scale_amount_min = 0.5
+scale_amount_curve = SubResource("Curve_oj0ff")
+color_ramp = SubResource("Gradient_ucec1")
+color_initial_ramp = SubResource("Gradient_co37r")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Collision/Explosition"]
+position = Vector2(0, 2)
+stream = ExtResource("3_3tpej")
+bus = &"SFX"
+
+[node name="ParticlesTrail" type="CPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_xc6cm")
+position = Vector2(-8, 0)
+amount = 20
+texture = ExtResource("2_xc6cm")
+randomness = 0.2
 local_coords = true
-draw_order = 1
-direction = Vector2(0, -1)
-spread = 0.0
+direction = Vector2(-1, 0)
+spread = 4.12
+gravity = Vector2(0, 200)
+initial_velocity_min = 159.48
+initial_velocity_max = 276.67
+scale_amount_curve = SubResource("Curve_h1r0d")
+color_ramp = SubResource("Gradient_xc6cm")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = -1.5708
+texture = ExtResource("6_h1c8b")
+
+[node name="CPUParticles2D3" type="CPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_3tpej")
+position = Vector2(16, 0)
+amount = 6
+texture = ExtResource("2_xc6cm")
+lifetime = 0.25
+direction = Vector2(-1, 0)
+spread = 39.47
 gravity = Vector2(0, 0)
-initial_velocity_min = 6.0
-initial_velocity_max = 8.0
-linear_accel_max = 3.36
-radial_accel_min = -6.0
-radial_accel_max = 6.0
-scale_amount_min = 0.25
-scale_amount_max = 0.45
-scale_amount_curve = SubResource("Curve_754ok")
-color_ramp = SubResource("Gradient_74ww0")
+initial_velocity_min = 159.48
+initial_velocity_max = 276.67
+scale_amount_curve = SubResource("Curve_3tpej")
+color_ramp = SubResource("Gradient_xc6cm")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_h1r0d")
+autoplay = true
+
+[connection signal="body_entered" from="Collision" to="Collision" method="_on_body_entered"]

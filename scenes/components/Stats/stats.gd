@@ -3,7 +3,7 @@ class_name Stats extends Node2D
 var entity: CharacterBody2D
 
 #region Health
-var max_health = 100: set = set_max_health
+@export var max_health = 100: set = set_max_health
 @onready var health = max_health: set = set_health
 
 signal no_health

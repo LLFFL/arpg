@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://b02g8s3f7cg4a"]
+[gd_scene load_steps=52 format=3 uid="uid://b02g8s3f7cg4a"]
 
 [ext_resource type="Shader" uid="uid://duocgilkxh3yq" path="res://christophe/Shaders/outline_magic.gdshader" id="3_8sa4y"]
 [ext_resource type="Texture2D" uid="uid://c2qk5fanjbn8n" path="res://assets/character.png" id="4_3mea3"]
@@ -21,10 +21,12 @@
 [ext_resource type="Script" uid="uid://cx24h07ehky27" path="res://Player/Abilities/Melee/melee_spin_ability.gd" id="16_7v5gs"]
 [ext_resource type="Script" uid="uid://cipn6oewkjjas" path="res://Player/Abilities/Melee/melee2_ability_state.gd" id="16_8sa4y"]
 [ext_resource type="Script" uid="uid://cn8atuv3a4h1q" path="res://scenes/components/Stats/player_stats.gd" id="17_8sa4y"]
-[ext_resource type="Script" path="res://Player/projectile_caller_2dPlayer.gd" id="18_xu7fl"]
+[ext_resource type="Script" uid="uid://b0lmlg7nhw4sa" path="res://Player/projectile_caller_2dPlayer.gd" id="18_xu7fl"]
 [ext_resource type="Script" uid="uid://dhkmxwdl7x2fl" path="res://addons/all_projectiles/scripts/resources/projectile_blueprint_2d.gd" id="19_xu7fl"]
 [ext_resource type="Resource" uid="uid://b5ibkl8qikgvj" path="res://Upgrades/Spells/spell2/01_magic_bolt.tres" id="20_78fhc"]
 [ext_resource type="PackedScene" uid="uid://buxuqmbof2cao" path="res://scenes/components/SoftCollision.tscn" id="21_roy6y"]
+[ext_resource type="Texture2D" uid="uid://b0snrqvel30im" path="res://assets/UI/UI/Player_HP_Empty.png" id="26_hqjia"]
+[ext_resource type="Texture2D" uid="uid://boo5etr0oa5x7" path="res://assets/UI/UI/Player_HP_Full.png" id="27_x70vp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3nb2p"]
 shader = ExtResource("3_8sa4y")
@@ -62,6 +64,37 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_yifbt"]
+resource_name = "death"
+length = 1.1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [50, 59, 0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_on_death_finished"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_3mea3"]
@@ -103,13 +136,14 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_roy6y"]
 _data = {
 &"RESET": SubResource("Animation_d7xyo"),
+&"death": SubResource("Animation_yifbt"),
 &"idle": SubResource("Animation_3mea3"),
 &"run": SubResource("Animation_evw08")
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mdl7e"]
 radius = 7.0
-height = 22.0
+height = 24.0
 
 [sub_resource type="Animation" id="Animation_70d11"]
 length = 0.001
@@ -331,18 +365,20 @@ radius = 8.0
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 y_sort_enabled = true
 collision_layer = 2
+collision_mask = 262145
 motion_mode = 1
 platform_floor_layers = 4294967040
 script = ExtResource("6_s1rgi")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 y_sort_enabled = true
+texture_filter = 1
 material = SubResource("ShaderMaterial_3nb2p")
 position = Vector2(0, 5)
 texture = ExtResource("4_3mea3")
 offset = Vector2(0, -16)
 hframes = 10
-vframes = 5
+vframes = 7
 
 [node name="HitBox" parent="Sprite2D" instance=ExtResource("6_5wa8t")]
 visible = false
@@ -471,11 +507,10 @@ autoplay = "RESET"
 
 [node name="HurtBox" parent="." instance=ExtResource("7_p7tob")]
 unique_name_in_owner = true
-visible = false
 collision_layer = 4
 
 [node name="CollisionShape2D" parent="HurtBox" index="0"]
-position = Vector2(0, -5)
+position = Vector2(0, -6)
 shape = SubResource("CapsuleShape2D_mdl7e")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
@@ -512,7 +547,7 @@ cooldown = 2.0
 
 [node name="HitBox" parent="AbilityStateMachine/Thrust" instance=ExtResource("6_5wa8t")]
 visible = false
-collision_mask = 8
+collision_mask = 131080
 monitoring = false
 monitorable = false
 
@@ -526,7 +561,7 @@ script = ExtResource("16_7v5gs")
 
 [node name="HitBox" parent="AbilityStateMachine/Spin" instance=ExtResource("6_5wa8t")]
 visible = false
-collision_mask = 8
+collision_mask = 131080
 monitoring = false
 monitorable = false
 
@@ -536,12 +571,11 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_7v5gs")
 
 [node name="Slash" type="Node2D" parent="AbilityStateMachine"]
+visible = false
 script = ExtResource("16_8sa4y")
-cooldown = 2.0
 
 [node name="HitBox" parent="AbilityStateMachine/Slash" instance=ExtResource("6_5wa8t")]
-visible = false
-collision_mask = 8
+collision_mask = 131080
 monitoring = false
 monitorable = false
 
@@ -558,14 +592,14 @@ libraries = {
 }
 
 [node name="Label" type="Label" parent="."]
-offset_top = -48.0
-offset_right = 40.0
-offset_bottom = -28.0
+offset_left = 14.0
+offset_top = -52.0
+offset_right = 54.0
+offset_bottom = -32.0
 
 [node name="Stats" type="Node2D" parent="."]
 script = ExtResource("17_8sa4y")
-base_damage = 200.0
-base_movement_speed = 300.0
+base_damage = 25.0
 
 [node name="ProjectileCaller2D" type="Node2D" parent="."]
 top_level = true
@@ -578,6 +612,25 @@ metadata/_custom_type_script = "uid://dr52doktfplel"
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="SoftCollision"]
 position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_roy6y")
+
+[node name="PlayerHPUi" type="TextureProgressBar" parent="."]
+unique_name_in_owner = true
+z_index = 2
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = 13.0
+offset_right = 20.0
+offset_bottom = 18.0
+grow_horizontal = 2
+grow_vertical = 0
+value = 55.0
+fill_mode = 6
+texture_under = ExtResource("26_hqjia")
+texture_progress = ExtResource("27_x70vp")
 
 [connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]
 [connection signal="invincibility_ended" from="HurtBox" to="." method="_on_hurt_box_invincibility_ended"]

@@ -1,0 +1,388 @@
+[gd_scene load_steps=30 format=3 uid="uid://cu4uhjrwsffug"]
+
+[ext_resource type="Script" uid="uid://ccqddjie4fen2" path="res://christophe/Menu/menu.gd" id="1_oau1d"]
+[ext_resource type="PackedScene" uid="uid://ye3pnyrh04ru" path="res://christophe/Menu/frog_credit.tscn" id="2_dvf1b"]
+[ext_resource type="Texture2D" uid="uid://1jgpsrx53sah" path="res://christophe/Menu/MARK.png" id="3_a2e2w"]
+[ext_resource type="Texture2D" uid="uid://bcnolxeoj4fpp" path="res://christophe/Menu/BG2.png" id="3_de574"]
+[ext_resource type="Texture2D" uid="uid://dvc4rchwmh73y" path="res://christophe/Menu/CAS.png" id="4_cry8o"]
+[ext_resource type="Texture2D" uid="uid://bmn84ny5et0v8" path="res://christophe/World/frogDimension/etoiles.png" id="5_byqlt"]
+[ext_resource type="Texture2D" uid="uid://kliutykqwxwl" path="res://christophe/Menu/YOMAG.png" id="5_oau1d"]
+[ext_resource type="Script" uid="uid://b0fgc7bwsfxmw" path="res://addons/shaker/src/Vector2/shaker_component2D.gd" id="5_s65mb"]
+[ext_resource type="Script" uid="uid://dagb5fpxgkmgv" path="res://addons/shaker/data/Vector2/BaseShakerType2D.gd" id="6_0u13r"]
+[ext_resource type="Texture2D" uid="uid://dgjd2or0vmxre" path="res://christophe/Menu/KHARUS.png" id="6_sq0ss"]
+[ext_resource type="Script" uid="uid://btxaa3pjicjqn" path="res://addons/shaker/data/Vector2/ShakerTypeSineWave2D.gd" id="7_nt1j5"]
+[ext_resource type="Script" uid="uid://cyw4wdn7hi4a2" path="res://addons/shaker/data/Single/BaseShakerType1D.gd" id="8_7nayh"]
+[ext_resource type="Script" uid="uid://cfh63mvp713jr" path="res://addons/shaker/data/Vector2/ShakerPreset2D.gd" id="9_bfsx7"]
+[ext_resource type="PackedScene" uid="uid://doety55aaoqr4" path="res://scenes/UIComponents/VolumeSlider.tscn" id="15_nt1j5"]
+[ext_resource type="AudioStream" uid="uid://dgt66f3w5017m" path="res://christophe/Menu/FrogSound.wav" id="16_7nayh"]
+[ext_resource type="Script" uid="uid://cxgmjqfrfwelx" path="res://addons/shaker/data/Vector2/ShakerTypeRandom2D.gd" id="17_bfsx7"]
+[ext_resource type="Texture2D" uid="uid://bxcp70ryece8o" path="res://christophe/Menu/PlayButton.png" id="19_vdag2"]
+[ext_resource type="Texture2D" uid="uid://cpfwke53mqacq" path="res://christophe/Menu/Wild_Jam_Splash.png" id="20_byqlt"]
+[ext_resource type="Texture2D" uid="uid://jgfri3s77np7" path="res://christophe/Menu/Title.png" id="20_pwrgk"]
+[ext_resource type="Shader" uid="uid://d12euimcv0s0a" path="res://christophe/Menu/menu.tres" id="21_pwrgk"]
+[ext_resource type="Texture2D" uid="uid://ccumex72hqeb7" path="res://christophe/Menu/Jam_Theme_Splash.png" id="21_yr8uv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_byqlt"]
+shader = ExtResource("21_pwrgk")
+
+[sub_resource type="LabelSettings" id="LabelSettings_jqvdg"]
+font_size = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_bfsx7"]
+font_size = 13
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_bfsx7"]
+random_pitch = 1.2
+streams_count = 1
+stream_0/stream = ExtResource("16_7nayh")
+
+[sub_resource type="Resource" id="Resource_vdag2"]
+script = ExtResource("17_bfsx7")
+seed = 0
+amplitude = Vector2(0.5, 0.5)
+offset = Vector2(0, 0)
+BlendingMode = 0
+fade_in = 0.0
+fade_out = 0.0
+start_percent = 0.0
+end_percent = 1.0
+_temp_graph = false
+bake_internal = 64
+metadata/_custom_type_script = "uid://cxgmjqfrfwelx"
+
+[sub_resource type="Resource" id="Resource_pwrgk"]
+script = ExtResource("9_bfsx7")
+PositionShake = Array[ExtResource("6_0u13r")]([SubResource("Resource_vdag2")])
+RotationShake = Array[ExtResource("8_7nayh")]([])
+ScaleShake = Array[ExtResource("6_0u13r")]([])
+bake_internal = 64
+__follow_timeline = false
+metadata/_custom_type_script = "uid://cfh63mvp713jr"
+
+[sub_resource type="Resource" id="Resource_bfsx7"]
+script = ExtResource("7_nt1j5")
+frequency = Vector2(1, 1)
+phase = Vector2(1, 1)
+amplitude = Vector2(0.1, 0.2)
+offset = Vector2(0, 0)
+BlendingMode = 0
+fade_in = 0.0
+fade_out = 0.0
+start_percent = 0.0
+end_percent = 1.0
+_temp_graph = false
+bake_internal = 64
+metadata/_custom_type_script = "uid://btxaa3pjicjqn"
+
+[sub_resource type="Resource" id="Resource_byqlt"]
+script = ExtResource("9_bfsx7")
+PositionShake = Array[ExtResource("6_0u13r")]([])
+RotationShake = Array[ExtResource("8_7nayh")]([])
+ScaleShake = Array[ExtResource("6_0u13r")]([SubResource("Resource_bfsx7")])
+bake_internal = 64
+__follow_timeline = false
+metadata/_custom_type_script = "uid://cfh63mvp713jr"
+
+[node name="Menu" type="Node2D"]
+script = ExtResource("1_oau1d")
+metadata/_edit_vertical_guides_ = [240.0]
+metadata/_edit_horizontal_guides_ = [135.0]
+
+[node name="Bg2" type="Sprite2D" parent="."]
+position = Vector2(1, 0)
+scale = Vector2(1.02963, 1.02963)
+texture = ExtResource("3_de574")
+
+[node name="ShaderPortal" type="Node2D" parent="."]
+position = Vector2(1, 2)
+
+[node name="ColorRect2" type="ColorRect" parent="ShaderPortal"]
+material = SubResource("ShaderMaterial_byqlt")
+offset_left = 3.0
+offset_top = 142.0
+offset_right = 273.0
+offset_bottom = 423.0
+rotation = -3.14159
+color = Color(0.0509804, 0.262745, 0.356863, 1)
+
+[node name="ColorRect" type="ColorRect" parent="ShaderPortal"]
+material = SubResource("ShaderMaterial_byqlt")
+offset_left = -1.0
+offset_top = -139.0
+offset_right = 269.0
+offset_bottom = 144.0
+color = Color(0.0509804, 0.262745, 0.356863, 1)
+
+[node name="ers" type="Sprite2D" parent="ShaderPortal"]
+visible = false
+position = Vector2(2, 141)
+rotation = 1.57079
+texture = ExtResource("5_byqlt")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -99.0
+offset_top = 113.0
+offset_right = 177.0
+offset_bottom = 153.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.654119, 0.654119)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Node2D" type="Node2D" parent="HBoxContainer"]
+position = Vector2(263, 31)
+rotation = -6.28318
+scale = Vector2(0.727477, 0.727478)
+
+[node name="FrogCredit5" parent="HBoxContainer/Node2D" instance=ExtResource("2_dvf1b")]
+offset_left = -18.0
+offset_top = -17.5
+offset_right = 18.0
+offset_bottom = 17.5
+size_flags_vertical = 8
+texture_normal = ExtResource("6_sq0ss")
+credit = "Kharus"
+
+[node name="Node2D3" type="Node2D" parent="HBoxContainer"]
+position = Vector2(156, 28)
+scale = Vector2(0.727478, 0.727477)
+
+[node name="FrogCredit4" parent="HBoxContainer/Node2D3" instance=ExtResource("2_dvf1b")]
+offset_left = -19.0
+offset_top = -17.5
+offset_right = 19.0
+offset_bottom = 17.5
+size_flags_vertical = 8
+texture_normal = ExtResource("5_oau1d")
+credit = "Yomag"
+
+[node name="Node2D4" type="Node2D" parent="HBoxContainer"]
+position = Vector2(211, 28)
+scale = Vector2(0.727476, 0.727477)
+
+[node name="FrogCredit3" parent="HBoxContainer/Node2D4" instance=ExtResource("2_dvf1b")]
+offset_left = -19.0
+offset_top = -17.5
+offset_right = 19.0
+offset_bottom = 17.5
+size_flags_vertical = 8
+texture_normal = ExtResource("4_cry8o")
+credit = "Cas"
+
+[node name="Node2D5" type="Node2D" parent="HBoxContainer"]
+position = Vector2(93, 27)
+scale = Vector2(0.72748, 0.727477)
+
+[node name="FrogCredit2" parent="HBoxContainer/Node2D5" instance=ExtResource("2_dvf1b")]
+offset_left = -23.5
+offset_top = -17.5
+offset_right = 23.5
+offset_bottom = 17.5
+size_flags_vertical = 8
+texture_normal = ExtResource("3_a2e2w")
+credit = "Mark"
+
+[node name="Node2D2" type="Node2D" parent="HBoxContainer"]
+position = Vector2(36, 25)
+scale = Vector2(0.727478, 0.727477)
+
+[node name="FrogCredit" parent="HBoxContainer/Node2D2" instance=ExtResource("2_dvf1b")]
+offset_top = -17.5
+offset_bottom = 17.5
+size_flags_vertical = 8
+credit = "Christophe"
+
+[node name="Label" type="Label" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -89.0
+offset_top = -119.0
+offset_right = 89.0
+offset_bottom = -87.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 34
+text = "GAME TITLE"
+
+[node name="Label2" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -13.0
+offset_top = 103.0
+offset_right = 165.0
+offset_bottom = 135.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 34
+text = "Made by "
+label_settings = SubResource("LabelSettings_jqvdg")
+
+[node name="StartButton" type="Button" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.0
+offset_top = -30.0
+offset_right = 37.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "START"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -58.0
+offset_top = 30.0
+offset_right = 62.0
+offset_bottom = 86.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="ScreenShakeButton" type="CheckBox" parent="VBoxContainer"]
+visible = false
+modulate = Color(0.294118, 0.803922, 0.631373, 1)
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+button_pressed = true
+text = "Screen Shake"
+flat = true
+alignment = 1
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = "Shake"
+label_settings = SubResource("LabelSettings_bfsx7")
+
+[node name="ShakeSlider" type="HSlider" parent="VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+max_value = 1.0
+step = 0.1
+value = 1.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = "SFX"
+label_settings = SubResource("LabelSettings_bfsx7")
+
+[node name="VolumeSlider3" parent="VBoxContainer/HBoxContainer" instance=ExtResource("15_nt1j5")]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+focus_mode = 0
+bus_name = "SFX"
+sound_on_end_drag = SubResource("AudioStreamRandomizer_bfsx7")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = "Music"
+label_settings = SubResource("LabelSettings_bfsx7")
+
+[node name="VolumeSlider2" parent="VBoxContainer/HBoxContainer2" instance=ExtResource("15_nt1j5")]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+focus_mode = 0
+bus_name = "Music"
+
+[node name="ShakerComponent2D" type="Node2D" parent="." node_paths=PackedStringArray("Targets")]
+script = ExtResource("5_s65mb")
+custom_target = true
+Targets = [NodePath("../Camera2D")]
+duration = 0.2
+fade_in = 0.00248938
+fade_out = 0.03983
+shakerPreset = SubResource("Resource_pwrgk")
+metadata/_custom_type_script = "uid://b0fgc7bwsfxmw"
+
+[node name="ShakerComponent2D2" type="Node2D" parent="." node_paths=PackedStringArray("Targets")]
+script = ExtResource("5_s65mb")
+custom_target = true
+Targets = [NodePath("../HBoxContainer/Node2D"), NodePath("../HBoxContainer/Node2D3"), NodePath("../HBoxContainer/Node2D4"), NodePath("../HBoxContainer/Node2D5"), NodePath("../HBoxContainer/Node2D2"), NodePath("../Title")]
+randomize = true
+AutoPlay = true
+intensity = 0.1
+shakerPreset = SubResource("Resource_byqlt")
+metadata/_custom_type_script = "uid://b0fgc7bwsfxmw"
+
+[node name="TextureButton" type="TextureButton" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.5
+offset_top = -24.5
+offset_right = 24.5
+offset_bottom = 24.5
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("19_vdag2")
+
+[node name="Title" type="Sprite2D" parent="."]
+position = Vector2(3.8147e-06, -90.4905)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("20_pwrgk")
+
+[node name="Splashes" type="Node2D" parent="."]
+
+[node name="WildJamSplash" type="Sprite2D" parent="Splashes"]
+z_index = 2
+position = Vector2(-5.24521e-06, -5.96046e-06)
+scale = Vector2(0.125, 0.125)
+texture = ExtResource("20_byqlt")
+
+[node name="WildJamSplash3" type="Sprite2D" parent="Splashes"]
+z_index = 1
+scale = Vector2(0.125, 0.125)
+texture = ExtResource("21_yr8uv")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-2.38419e-07, -2.38419e-07)
+scale = Vector2(1, 1)
+
+[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="toggled" from="VBoxContainer/ScreenShakeButton" to="." method="_on_screen_shake_button_toggled"]
+[connection signal="drag_ended" from="VBoxContainer/HBoxContainer3/ShakeSlider" to="." method="_on_shake_slider_drag_ended"]
+[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]

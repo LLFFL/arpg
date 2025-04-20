@@ -36,10 +36,10 @@ func cast_spell() -> void:
 	else: 
 		var x_deviation_percent := randf_range(-x_deviation, x_deviation) 
 		spawn_pos = player.get_global_position()
-		spawn_pos.y +=200 
-		spawn_pos.x += (1 + x_deviation_percent)
-		direction_pos = spawn_pos
-		direction_pos.y -= 1
+		spawn_pos.x -=200 
+		#spawn_pos.y += (1 + x_deviation_percent)
+		direction_pos = player.get_global_position()
+		#direction_pos.y -= 1
 		cast_timer += 1.5
 	if get_parent().is_in_group("fire_base"):
 		projectile_caller.request_projectile(0, spawn_pos, player.get_global_position())

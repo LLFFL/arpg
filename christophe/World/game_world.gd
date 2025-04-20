@@ -12,7 +12,19 @@ extends Node2D
 @export var cloud_shadow:Gradient
 @export var cloud_base:Gradient
 @export var cloud_highlight:Gradient
+@onready var left_start_bound: StaticBody2D = $LeftStartBound
+@onready var right_start_bound: StaticBody2D = $RightStartBound
+@onready var portal_arrow: Sprite2D = $PortalArrow
+@onready var respawn_marker: Marker2D = $RespawnMarker
+@onready var ui: Control = $CameraHandler/Camera2D/CanvasLayer/UI
+@onready var portal_audio_player: AudioStreamPlayer2D = $Map/Portal/PortalAudioPlayer
 
+@export var OpenPortalSound:AudioStream
+@export var ClosePortalSound:AudioStream
+
+var game_started: bool = false
+var _game_started: bool = false
+var game_time: float = 0
 
 ## True if the player portal is open
 var portal_is_open = false
@@ -24,18 +36,22 @@ var portal_tween:Tween
 @onready var base_container: Node = %BaseContainer
 var bases_dictionary: Dictionary
 func _ready():
+	PlayerManager.game_won = false
 	
-	
+	$CameraHandler/Camera2D/ShakerComponent2D.intensity = float(Options.screen_shake_enabled)
+	PlayerManager.player.player_died.connect(_on_player_death)
 	var bases = base_container.get_children()
+	for base in bases:
+		base.game_ended.connect(end_game)
 	bases_dictionary = {
 		'ally_base' = bases[0],
 		'enemy_base_L' = bases[1],
 		'enemy_base_R' = bases[2]
 	}	# it is order of scene structure descending from top to down so [ally, right base, left base] in the array
-	give_bases_dictionary()
-	
+	give_bases_dictionary()	
 	#hide the shop ui
 	%ShopUi.modulate.a = 0
+	$CameraHandler/Camera2D/ShakerComponent2D.intensity = Options.screen_shake_intensity
 	
 func give_bases_dictionary():
 	$BaseContainer/AllyBase.initialize(bases_dictionary)
@@ -43,9 +59,10 @@ func give_bases_dictionary():
 	$BaseContainer/EnemyBaseR.initialize(bases_dictionary)
 
 func _process(delta):
-
+	if _game_started:
+		game_time += delta
 	## Player position remapped to [0.0, 1.0] where 0 is ice and 1 is fire
-	var player_mapped_position = remap(player.global_position.x, -1200, 1200, 0, 1)
+	var player_mapped_position:float = remap(player.global_position.x, -1200, 1200, 0, 1)
 	
 	# Set the background color of elements based on the player positions
 	%MontainsSprite.modulate = mountains_gradient.sample(player_mapped_position)
@@ -56,17 +73,25 @@ func _process(delta):
 	# Emits particles only when player is near the ice / fire side
 	if player_mapped_position<=0.3:
 		$Map/SnowParticles.emitting = true
+		#$PortalArrow.hide()
 		%Portal.hide()
 	elif player_mapped_position>=0.7:
 		$Map/FireParticles.emitting = true
 		%Portal.hide()
+		#$PortalArrow.hide()
 	# Poor and lazy optimisation in case
 	else:
+		#$PortalArrow.show()
 		%Portal.show()
-	
+		#$PortalArrow.modulate.a = remap(player.)
+	#$PortalArrow.look_at(%Portal.global_position)
+	#$PortalArrow.global_rotation = lerp_angle($PortalArrow.global_rotation,(%Portal.global_position - player.global_position).angle(),0.02) 
+
 		
 	
 	# Quick n dirty way to check if the player is in or out the portal
+	#if !portal_is_open and player.global_position.distance_to(%Portal.global_position+Vector2(0,30))<=80:
+		#$PortalArrow.show()
 	if !portal_is_open and player.global_position.distance_to(%Portal.global_position+Vector2(0,30))<=50:
 		open_portal()
 	if portal_is_open and  player.global_position.distance_to(%Portal.global_position)>100:
@@ -80,10 +105,22 @@ func _process(delta):
 
 ## Open the Portal and show shop ui
 func open_portal():
+	if !game_started:
+		game_started = true
+		var timer: Timer = Timer.new()
+		timer.wait_time = 3
+		timer.timeout.connect(func(): 
+			start_game()
+			timer.queue_free())
+		add_child(timer)
+		timer.start()
 	if portal_is_open:return
 	if portal_tween:
 		portal_tween.kill()	
+	
 	portal_is_open = true
+	portal_audio_player.stream = OpenPortalSound
+	portal_audio_player.play()
 	player.get_node("Sprite2D").material.set("shader_parameter/line_color",Color("1fe2a2"))
 	# Animate the scale and visibility of stuff when opening
 	portal_tween = create_tween()
@@ -103,6 +140,8 @@ func open_portal():
 func close_portal():
 	if !portal_is_open:return
 	portal_is_open = false
+	portal_audio_player.stream = ClosePortalSound
+	portal_audio_player.play()
 	if portal_tween:
 		portal_tween.kill()
 	# Animate the portal closing and hide stuff
@@ -116,3 +155,45 @@ func close_portal():
 	portal_tween.tween_property(%Frog,"position",Vector2(-65,50),0.5).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	player.z_index = 0
 	%Portal.z_index = -1
+
+func start_game():
+	_game_started = true
+	left_start_bound.queue_free()
+	right_start_bound.queue_free()
+	var tween = create_tween()
+	tween.tween_property(portal_arrow, 'modulate:a', 0, 2 )
+	tween.tween_property($Sprite, "scale", Vector2(), 1)
+
+
+	tween.tween_callback(func():
+		portal_arrow.queue_free()
+		tween.kill())
+	bases_dictionary.ally_base._on_game_start()
+	bases_dictionary.enemy_base_L._on_game_start()
+	bases_dictionary.enemy_base_R._on_game_start()
+	ui.flash_danger()
+	pass
+
+func end_game(win: bool):
+	game_started = false
+	PlayerManager.current_time = game_time
+	print(PlayerManager.game_times)
+	if win:
+		if game_time > 0:
+			PlayerManager.game_times.append(game_time)
+			PlayerManager.game_times.sort()
+			if PlayerManager.game_times.size() > 5:
+				PlayerManager.game_times.pop_back()
+		PlayerManager.game_won = true
+	else:
+		PlayerManager.game_won = false
+	PlayerManager.player = null
+	get_tree().change_scene_to_file("res://christophe/EndScreen/end_screen.tscn")
+
+func _on_player_death():
+	PlayerManager.player.global_position = respawn_marker.global_position
+	PlayerManager.player.stats.health = PlayerManager.player.stats.max_health
+	PlayerManager.player.stats.gold = 0
+	PlayerManager.player.stats.stun_entity(2)
+	ui.on_health_changed_player(PlayerManager.player.stats.health)
+	pass

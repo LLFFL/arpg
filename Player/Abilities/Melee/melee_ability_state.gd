@@ -39,10 +39,10 @@ func exit() -> void:
 	player.ability_animation.animation_finished.disconnect(_on_animation_finish)
 	player.ability_active = false
 	
-	#if PlayerStats.melee_unlocks['attack_2'] && hit_enemy:
-	combo_attack = ComboAttack.new()
-	combo_attack.state = spin
-	combo_attack.input = "Melee"
+	if player.stats.melee_unlocks['spin'] && hit_enemy:
+		combo_attack = ComboAttack.new()
+		combo_attack.state = spin
+		combo_attack.input = "Melee"
 	
 	timer.start()
 	pass

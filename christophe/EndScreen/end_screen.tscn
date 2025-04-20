@@ -1,0 +1,132 @@
+[gd_scene load_steps=18 format=3 uid="uid://c1gk73qq2uf4a"]
+
+[ext_resource type="Texture2D" uid="uid://bgt1d1noyddoe" path="res://christophe/EndScreen/Stars.png" id="1_5yesm"]
+[ext_resource type="Script" uid="uid://b3pbo1qnso3x6" path="res://christophe/EndScreen/end_screen.gd" id="1_pkp5n"]
+[ext_resource type="Texture2D" uid="uid://excws0lfql5h" path="res://christophe/EndScreen/frog.png" id="2_pkp5n"]
+[ext_resource type="Texture2D" uid="uid://cmplnxbjw4vy4" path="res://christophe/EndScreen/MenuButton.png" id="3_i4lgq"]
+[ext_resource type="Texture2D" uid="uid://dnvuwgmjbrtfp" path="res://christophe/EndScreen/Player.png" id="4_7x06e"]
+[ext_resource type="Texture2D" uid="uid://be2846v7dughi" path="res://christophe/EndScreen/Units.png" id="5_vs7w2"]
+[ext_resource type="Texture2D" uid="uid://dfym28cc2cwrr" path="res://christophe/EndScreen/TimeDecoration.png" id="6_igg35"]
+[ext_resource type="FontFile" uid="uid://c7n68l70qdk0f" path="res://christophe/Analog Whispers FREE.ttf" id="7_s0ch6"]
+[ext_resource type="Script" uid="uid://b0fgc7bwsfxmw" path="res://addons/shaker/src/Vector2/shaker_component2D.gd" id="8_ck16b"]
+[ext_resource type="Script" uid="uid://dagb5fpxgkmgv" path="res://addons/shaker/data/Vector2/BaseShakerType2D.gd" id="9_c8037"]
+[ext_resource type="Script" uid="uid://btxaa3pjicjqn" path="res://addons/shaker/data/Vector2/ShakerTypeSineWave2D.gd" id="10_o6sbo"]
+[ext_resource type="Script" uid="uid://cyw4wdn7hi4a2" path="res://addons/shaker/data/Single/BaseShakerType1D.gd" id="11_n3kuv"]
+[ext_resource type="Script" uid="uid://cfh63mvp713jr" path="res://addons/shaker/data/Vector2/ShakerPreset2D.gd" id="12_qwbdc"]
+[ext_resource type="Texture2D" uid="uid://b313tdxa3sne" path="res://christophe/EndScreen/ReplayButton.png" id="14_i4lgq"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_8bx13"]
+font = ExtResource("7_s0ch6")
+font_size = 13
+
+[sub_resource type="Resource" id="Resource_2or64"]
+script = ExtResource("10_o6sbo")
+frequency = Vector2(1, 1)
+phase = Vector2(1, 1)
+amplitude = Vector2(0.501, 10)
+offset = Vector2(0, 0)
+BlendingMode = 0
+fade_in = 0.0
+fade_out = 0.0
+start_percent = 0.0
+end_percent = 1.0
+_temp_graph = false
+bake_internal = 64
+metadata/_custom_type_script = "uid://btxaa3pjicjqn"
+
+[sub_resource type="Resource" id="Resource_4n0m7"]
+script = ExtResource("12_qwbdc")
+PositionShake = Array[ExtResource("9_c8037")]([SubResource("Resource_2or64")])
+RotationShake = Array[ExtResource("11_n3kuv")]([])
+ScaleShake = Array[ExtResource("9_c8037")]([])
+bake_internal = 64
+__follow_timeline = false
+metadata/_custom_type_script = "uid://cfh63mvp713jr"
+
+[node name="EndScreen" type="Node2D"]
+script = ExtResource("1_pkp5n")
+player_won = false
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1
+offset_right = 480.0
+offset_bottom = 270.0
+color = Color(0.0352941, 0.192157, 0.239216, 1)
+
+[node name="Stars" type="Sprite2D" parent="."]
+position = Vector2(241, 133)
+texture = ExtResource("1_5yesm")
+
+[node name="Frog" type="Sprite2D" parent="."]
+position = Vector2(318, 430)
+texture = ExtResource("2_pkp5n")
+
+[node name="Player" type="Sprite2D" parent="."]
+position = Vector2(100, 321)
+texture = ExtResource("4_7x06e")
+
+[node name="Units" type="Sprite2D" parent="."]
+position = Vector2(39, 329)
+texture = ExtResource("5_vs7w2")
+
+[node name="TimeDecoration" type="Sprite2D" parent="."]
+position = Vector2(150, 56)
+texture = ExtResource("6_igg35")
+
+[node name="PlayTimeLabel" type="Label" parent="TimeDecoration"]
+offset_left = -20.0
+offset_top = -9.0
+offset_right = 20.0
+offset_bottom = 14.0
+text = "12:00"
+label_settings = SubResource("LabelSettings_8bx13")
+horizontal_alignment = 1
+
+[node name="ShakerComponent2D" type="Node2D" parent="." node_paths=PackedStringArray("Targets")]
+script = ExtResource("8_ck16b")
+custom_target = true
+Targets = [NodePath("../Stars"), NodePath("../Frog"), NodePath("../Units"), NodePath("../TimeDecoration"), NodePath("../Player"), NodePath("../MenuHandler")]
+randomize = true
+intensity = 0.1
+fade_in = 0.00728932
+fade_out = 0.019915
+shakerPreset = SubResource("Resource_4n0m7")
+metadata/_custom_type_script = "uid://b0fgc7bwsfxmw"
+
+[node name="MenuHandler" type="Node2D" parent="."]
+position = Vector2(94, 138)
+
+[node name="MenuButton" type="TextureButton" parent="MenuHandler"]
+unique_name_in_owner = true
+texture_filter = 1
+offset_left = -50.0
+offset_top = -25.0
+offset_right = -1.0
+offset_bottom = 24.0
+pivot_offset = Vector2(25, 25)
+texture_normal = ExtResource("3_i4lgq")
+stretch_mode = 3
+
+[node name="ReplayButton" type="TextureButton" parent="MenuHandler"]
+unique_name_in_owner = true
+texture_filter = 1
+offset_left = 1.0
+offset_top = -25.0
+offset_right = 50.0
+offset_bottom = 24.0
+pivot_offset = Vector2(25, 25)
+texture_normal = ExtResource("14_i4lgq")
+stretch_mode = 3
+
+[node name="Scoreboard" type="Label" parent="."]
+offset_left = 50.0
+offset_right = 90.0
+offset_bottom = 112.0
+text = "12:00
+13:00
+14:00
+15:00
+16:00"
+
+[connection signal="pressed" from="MenuHandler/MenuButton" to="." method="_on_menu_button_pressed"]
+[connection signal="pressed" from="MenuHandler/ReplayButton" to="." method="_on_replay_button_pressed"]

@@ -1,7 +1,7 @@
 class_name UnitStats extends Stats
 
 func get_damage() -> float:
-	return damage * damage_modifier
+	return base_damage * damage_modifier
 
 func get_crit() -> float:
 	return 0

@@ -1,43 +1,191 @@
-[gd_scene load_steps=7 format=3 uid="uid://b1cm70wimt8gm"]
+[gd_scene load_steps=28 format=3 uid="uid://b1cm70wimt8gm"]
 
-[ext_resource type="Texture2D" uid="uid://dxfvafagawxcy" path="res://addons/all_projectiles/demos/textures/projectiles/star_1.png" id="1_cowl3"]
 [ext_resource type="PackedScene" uid="uid://jita0hqrr0xa" path="res://Upgrades/Spells/Particles/fireballHead.tscn" id="2_6erf6"]
+[ext_resource type="Texture2D" uid="uid://bs7n3v74dwvqc" path="res://christophe/Particles/MeteorBG.png" id="2_nbkiv"]
+[ext_resource type="Script" uid="uid://dp2uuotuqir7x" path="res://Upgrades/Spells/Particles/ExplodeOnContact.gd" id="2_s2jpm"]
+[ext_resource type="Texture2D" uid="uid://d4f6t1x1tgj2" path="res://christophe/Particles/round.png" id="3_3ubq2"]
+[ext_resource type="Script" uid="uid://b0fgc7bwsfxmw" path="res://addons/shaker/src/Vector2/shaker_component2D.gd" id="3_dxt54"]
 [ext_resource type="PackedScene" uid="uid://bb2kngqig5vvs" path="res://Upgrades/Spells/Particles/MagicBolt.tscn" id="3_wbe52"]
 [ext_resource type="Script" uid="uid://b0at3q1gxuh41" path="res://addons/trail_2d/trail_2d.gd" id="4_6erf6"]
+[ext_resource type="Script" uid="uid://dagb5fpxgkmgv" path="res://addons/shaker/data/Vector2/BaseShakerType2D.gd" id="4_nai1w"]
+[ext_resource type="Script" uid="uid://d3vpwvx46hofn" path="res://addons/shaker/data/Vector2/ShakerTypeBrownianShake2D.gd" id="5_dxt54"]
+[ext_resource type="Script" uid="uid://cyw4wdn7hi4a2" path="res://addons/shaker/data/Single/BaseShakerType1D.gd" id="6_3ubq2"]
+[ext_resource type="Script" uid="uid://cfh63mvp713jr" path="res://addons/shaker/data/Vector2/ShakerPreset2D.gd" id="7_6d7hw"]
+[ext_resource type="Texture2D" uid="uid://b11mlhs45vtq6" path="res://christophe/Particles/Meteor.png" id="8_n8lrp"]
+[ext_resource type="Script" uid="uid://cxgmjqfrfwelx" path="res://addons/shaker/data/Vector2/ShakerTypeRandom2D.gd" id="11_nai1w"]
+[ext_resource type="AudioStream" uid="uid://bn7snycad01wi" path="res://christophe/Particles/MeteorExplosionSound.wav" id="14_3ubq2"]
+[ext_resource type="AudioStream" uid="uid://d2kjm2vwsr2fi" path="res://christophe/Particles/meteor_falling_sound.wav" id="15_6d7hw"]
+[ext_resource type="AudioStream" uid="uid://bem50b1qudg8y" path="res://christophe/Particles/meteor_falling_sound2.wav" id="16_n8lrp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_grgi5"]
 radius = 18.0
 
-[sub_resource type="Curve" id="Curve_wbe52"]
-_data = [Vector2(0, 0.994506), 0.0, 0.0, 0, 0, Vector2(0.392857, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.0164835), -1.75824, 0.0, 0, 0]
+[sub_resource type="Curve" id="Curve_6d7hw"]
+_data = [Vector2(0.00383142, 1), 0.0, 0.0, 0, 0, Vector2(0.191571, 1), 0.0580315, 0.0580315, 0, 0, Vector2(0.448276, 0), -11.0816, -11.7259, 0, 0]
 point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_n8lrp"]
+offsets = PackedFloat32Array(0.107759, 0.344681, 0.706383)
+colors = PackedColorArray(0.980392, 0.74902, 0.270588, 1, 0.980392, 0.396078, 0.270588, 1, 0, 0, 0, 0)
+
+[sub_resource type="Gradient" id="Gradient_xkie0"]
+colors = PackedColorArray(0.834614, 0.834614, 0.834614, 1, 1, 1, 1, 1)
+
+[sub_resource type="Resource" id="Resource_s2jpm"]
+script = ExtResource("5_dxt54")
+roughness = Vector2(1, 1)
+persistence = Vector2(0.5, 0.5)
+amplitude = Vector2(0.1, 0.1)
+offset = Vector2(0, 0)
+BlendingMode = 0
+fade_in = 0.0
+fade_out = 0.0
+start_percent = 0.0
+end_percent = 1.0
+_temp_graph = false
+bake_internal = 64
+metadata/_custom_type_script = "uid://d3vpwvx46hofn"
+
+[sub_resource type="Resource" id="Resource_fw0c8"]
+script = ExtResource("7_6d7hw")
+PositionShake = Array[ExtResource("4_nai1w")]([])
+RotationShake = Array[ExtResource("6_3ubq2")]([])
+ScaleShake = Array[ExtResource("4_nai1w")]([SubResource("Resource_s2jpm")])
+bake_internal = 64
+__follow_timeline = false
+metadata/_custom_type_script = "uid://cfh63mvp713jr"
+
+[sub_resource type="Curve" id="Curve_wbe52"]
+_data = [Vector2(0, 0.994506), 0.0, 0.0, 0, 0, Vector2(0.142012, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.75824, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_dxt54"]
+offsets = PackedFloat32Array(0, 0.396667, 1)
+colors = PackedColorArray(0.788235, 0.376471, 0.286275, 1, 0.98, 0.728467, 0.2254, 1, 1, 0.747, 0.31, 0)
+
+[sub_resource type="Resource" id="Resource_3ubq2"]
+script = ExtResource("11_nai1w")
+seed = 0
+amplitude = Vector2(0.01, 0.01)
+offset = Vector2(0, 0)
+BlendingMode = 0
+fade_in = 0.0
+fade_out = 0.0
+start_percent = 0.0
+end_percent = 1.0
+_temp_graph = false
+bake_internal = 64
+metadata/_custom_type_script = "uid://cxgmjqfrfwelx"
+
+[sub_resource type="Resource" id="Resource_6d7hw"]
+script = ExtResource("7_6d7hw")
+PositionShake = Array[ExtResource("4_nai1w")]([])
+RotationShake = Array[ExtResource("6_3ubq2")]([])
+ScaleShake = Array[ExtResource("4_nai1w")]([SubResource("Resource_3ubq2")])
+bake_internal = 64
+__follow_timeline = false
+metadata/_custom_type_script = "uid://cfh63mvp713jr"
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_6d7hw"]
+random_pitch = 1.5
+streams_count = 2
+stream_0/stream = ExtResource("15_6d7hw")
+stream_1/stream = ExtResource("16_n8lrp")
 
 [node name="BasicProjectile" type="Node2D"]
 z_index = 11
 
+[node name="Node2D2" parent="." instance=ExtResource("3_wbe52")]
+position = Vector2(-1, 1)
+scale = Vector2(0.5, 0.5)
+
 [node name="Collision" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 6
+script = ExtResource("2_s2jpm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collision"]
 shape = SubResource("CircleShape2D_grgi5")
+
+[node name="Explosition" type="CPUParticles2D" parent="Collision"]
+z_index = 3
+position = Vector2(0, -2)
+emitting = false
+amount = 30
+texture = ExtResource("3_3ubq2")
+lifetime = 2.0
+one_shot = true
+speed_scale = 0.8
+explosiveness = 1.0
+randomness = 0.6
+lifetime_randomness = 1.0
+spread = 180.0
+gravity = Vector2(0, 400)
+initial_velocity_min = 200.0
+initial_velocity_max = 250.0
+linear_accel_max = 12.69
+scale_amount_min = 0.0
+scale_amount_max = 1.2
+scale_amount_curve = SubResource("Curve_6d7hw")
+color_ramp = SubResource("Gradient_n8lrp")
+color_initial_ramp = SubResource("Gradient_xkie0")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Collision/Explosition"]
+position = Vector2(0, 2)
+stream = ExtResource("14_3ubq2")
+bus = &"SFX"
 
 [node name="Node2D" parent="." instance=ExtResource("2_6erf6")]
 visible = false
 scale = Vector2(0.5, 0.5)
 
-[node name="Node2D2" parent="." instance=ExtResource("3_wbe52")]
-scale = Vector2(0.5, 0.5)
+[node name="ShakerComponent2D" type="Node2D" parent="." node_paths=PackedStringArray("Targets")]
+position = Vector2(0, 8)
+scale = Vector2(0.576462, 0.589565)
+script = ExtResource("3_dxt54")
+custom_target = true
+Targets = [NodePath("../MeteorBg")]
+randomize = true
+AutoPlay = true
+shakerPreset = SubResource("Resource_fw0c8")
+metadata/_custom_type_script = "uid://b0fgc7bwsfxmw"
+
+[node name="MeteorBg" type="Sprite2D" parent="."]
+position = Vector2(6, -9.09495e-13)
+rotation = -1.57079
+scale = Vector2(0.652558, 0.612851)
+texture = ExtResource("2_nbkiv")
+offset = Vector2(0, -18.3333)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0.52, 0.182, 0.1144, 1)
-scale = Vector2(0.6, 0.6)
-texture = ExtResource("1_cowl3")
+rotation = -1.57079
+scale = Vector2(0.6, 0.599999)
+texture = ExtResource("8_n8lrp")
 
 [node name="Trail2D" type="Line2D" parent="."]
-width = 5.0
+width = 20.0
 width_curve = SubResource("Curve_wbe52")
-default_color = Color(0.86, 0.344, 0.215, 0.690196)
+gradient = SubResource("Gradient_dxt54")
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
 script = ExtResource("4_6erf6")
 length = 30
 metadata/_custom_type_script = "uid://b0at3q1gxuh41"
+
+[node name="ShakerComponent2D2" type="Node2D" parent="." node_paths=PackedStringArray("Targets")]
+script = ExtResource("3_dxt54")
+custom_target = true
+Targets = [NodePath("../Sprite2D")]
+AutoPlay = true
+fade_in = 0.015625
+shakerPreset = SubResource("Resource_6d7hw")
+metadata/_custom_type_script = "uid://b0fgc7bwsfxmw"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_6d7hw")
+autoplay = true
+bus = &"SFX"
+
+[connection signal="area_entered" from="Collision" to="Collision" method="_on_area_entered"]
+[connection signal="body_entered" from="Collision" to="Collision" method="_on_body_entered"]

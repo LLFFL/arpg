@@ -23,10 +23,14 @@ var ability_active: bool = false
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var ability_animation: AnimationPlayer = $AbilityAnimation
 @onready var stats: PlayerStats = $Stats
+@onready var ui: Control = $"../CameraHandler/Camera2D/CanvasLayer/UI"
+@onready var test: Node2D
 
+var dying: bool = false
 
 func _ready() -> void:
 	PlayerManager.player = self
+	stats.no_health.connect(_on_death)
 	move_state_machine.initialize(self)
 	ability_state_machine.initialize(self)
 	hurtbox.damaged.connect(damage)
@@ -40,7 +44,8 @@ func _ready() -> void:
 			else:
 				print("debuff startd")
 		)
-	
+	ui.initialize_health_player(stats.max_health)
+	ui.on_health_changed_player(stats.max_health)
 func _process(delta: float) -> void:
 	direction = Vector2(
 		Input.get_axis("left", "right"),
@@ -49,7 +54,9 @@ func _process(delta: float) -> void:
 	direction.y *= 0.8
 	var mouse_pos: Vector2 = get_global_mouse_position()
 	mouse_direction = global_position.direction_to(mouse_pos).normalized()
-	
+	if dying:
+		velocity = Vector2.ZERO
+	#label.text = str(stats.base_damage) +'\n' + str(stats.base_defence) +'\n' + str(stats.base_movement_speed) +'\n' + str(stats.luck)
 	#label.text = str(stats.gold) + "\n" + str(stats.luck)
 	#if stats.dmg_timer:
 		#label.text = str(stats.dmg_timer.time_left)
@@ -63,6 +70,8 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func update_animation(state: String) -> void:
+	if dying:
+		return
 	if !ability_active:
 		ability_animation.stop()
 		if animation_queue == "":
@@ -75,7 +84,7 @@ func update_animation(state: String) -> void:
 		animation_queue = state
 
 func update_ability_animation(state: String) -> void:
-	if ability_active:
+	if ability_active && !dying:
 		animation_player.stop()
 		sprite_2d.scale.x = -1 if get_local_mouse_position().x < 0 else 1
 		ability_animation.play( state )
@@ -123,7 +132,8 @@ func damage(attack: Attack) -> void:
 	var _direction = (position - get_global_mouse_position()).normalized()
 	knockback = _direction * 240
 	velocity = knockback
-	
+	#health change
+	ui.on_health_changed_player(stats.health)
 	# Animate the player when they get hit
 	# Could change animation to remap intensity with attack
 	var t = create_tween()
@@ -134,12 +144,35 @@ func damage(attack: Attack) -> void:
 	$Sprite2D.scale.y = 1
 
 func damage2(projectile: InstancedProjectile2D) -> void:
-	print("Damage 2 triggered- Player current health:  ", stats.health)
+	#print("Damage 2 triggered- Player current health:  ", stats.health)
 	var dmg = projectile.resource.damage - stats.defence
 	stats.health -= dmg if dmg > 0 else 0
 	print("Damage 2 player health after hit: ", stats.health)
-	hurtbox.start_invincibility(0.4)
+	#UI change
+	ui.on_health_changed_player(stats.health)
+	hurtbox.start_invincibility(0.6)
 	hurtbox.create_hit_effect()
 	var _direction = (position - get_global_mouse_position()).normalized()
 	knockback = _direction * 240
 	velocity = knockback
+	
+	var t = create_tween()
+	t.tween_property($Sprite2D,"scale:y",1.3,0.1).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	t.tween_property($Sprite2D,"scale:y",1,0.1).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	await t.finished
+	t.kill()
+	$Sprite2D.scale.y = 1
+
+signal player_died
+func _on_death():
+	dying = true
+	hurtbox.set_deferred("monitorable", false)
+	animation_player.stop()
+	animation_player.play("death")
+	pass
+
+func _on_death_finished():
+	player_died.emit()
+	hurtbox.set_deferred("monitorable", true)
+	dying = false
+	pass

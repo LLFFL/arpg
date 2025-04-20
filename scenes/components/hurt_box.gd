@@ -38,21 +38,23 @@ func _on_timer_timeout() -> void:
 
 
 func _on_invincibility_started() -> void:
+	pass
 	#print('invincibility starts')
-	set_deferred("monitorable", false)
+	#set_deferred("monitorable", false)
 #has to be deferred to take effect on end of frame because changing it in the middle of the frame will mess up the physics
 
 func _on_invincibility_ended() -> void:
-	set_deferred("monitorable", true)
+	pass
+	#set_deferred("monitorable", true)
 
 #take damage function, to call parent and do damage
 #Added bat to layer 4 so its seen by projectile on layer 4
 
 func damage(attack: Attack) -> void:
 	#print("Player hit")
-	damaged.emit(attack)
+	if !invincible:
+		damaged.emit(attack)
 
 
 func damage2(projectile: InstancedProjectile2D):
-
 	damaged2.emit(projectile.resource.damage)

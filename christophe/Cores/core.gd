@@ -4,7 +4,8 @@ extends StaticBody2D
 @export var Shadow:Color
 @export var HitColor:Color
 @export var is_player_core = false
-
+@export var player_core_sound:AudioStream
+@export var core_sound:AudioStream
 
 var _dmg_tween:Tween
 
@@ -16,9 +17,10 @@ func _ready():
 	# wont play if its the player core
 	if not is_player_core:
 		$ShakerIdle.play_shake()
+		$AudioStreamPlayer2D.stream = core_sound
 	else:
 		self.z_index = -2
-		
+		$AudioStreamPlayer2D.stream = player_core_sound
 		
 	#$CoreShadow.modulate.a = 0.5
 
@@ -34,7 +36,7 @@ func play_hit_animation():
 		$CoreSprite.position.y = 32
 	if !%HitParticles.emitting:
 		%HitParticles.restart()
-	
+	$AudioStreamPlayer2D.play()
 	_dmg_tween = create_tween()
 	_dmg_tween.tween_property($CoreSprite,"modulate",HitColor,0.01).set_ease(Tween.EASE_OUT)
 	
@@ -54,7 +56,10 @@ func play_player_core_hit_animation():
 	#if !%HitParticles.emitting:
 	#	%HitParticles.restart()
 	
-	_dmg_tween = create_tween()
-	_dmg_tween.tween_property($CoreSprite,"modulate",HitColor,0.01).set_ease(Tween.EASE_OUT)
 
-	_dmg_tween.tween_property($CoreSprite,"modulate",Color("white"),0.2).set_ease(Tween.EASE_IN)
+	$AudioStreamPlayer2D.play()
+	_dmg_tween = create_tween()
+	_dmg_tween.tween_property($CoreSprite,"modulate",HitColor,0.01).set_trans(Tween.TRANS_LINEAR)
+
+	_dmg_tween.tween_property($CoreSprite,"modulate",Color("white"),0.2).set_ease(Tween.EASE_OUT)
+	

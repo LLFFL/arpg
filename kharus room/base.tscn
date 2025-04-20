@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://dqh3pte7cmfme" path="res://scenes/components/Stats/base_stats.gd" id="6_pjsni"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1ntxk"]
-size = Vector2(79, 70)
+size = Vector2(70, 74)
 
 [node name="Base" type="Node2D"]
 script = ExtResource("1_7qqri")
@@ -37,6 +37,7 @@ position = Vector2(0, 25)
 
 [node name="Stats" type="Node2D" parent="."]
 script = ExtResource("6_pjsni")
+max_health = 1300
 
 [node name="Label" type="Label" parent="."]
 offset_left = -21.0

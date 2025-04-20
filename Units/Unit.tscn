@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://4q50d6d286ii"]
+[gd_scene load_steps=36 format=3 uid="uid://4q50d6d286ii"]
 
 [ext_resource type="Script" uid="uid://c1agn5mochq7a" path="res://Units/Scripts/unit.gd" id="1_q3cfo"]
 [ext_resource type="Texture2D" uid="uid://u5wis3c6uwev" path="res://christophe/Cores/CoreShadow.png" id="2_bmhsd"]
@@ -10,7 +10,10 @@
 [ext_resource type="Script" uid="uid://ctn03m3vwm2c8" path="res://Units/Scripts/State Machine/Chase/chase_unit_state.gd" id="7_25wig"]
 [ext_resource type="Script" uid="uid://dvmfbb74esjex" path="res://Units/Scripts/State Machine/Attack/attack_unit_state.gd" id="8_6r8dj"]
 [ext_resource type="Shader" uid="uid://1jid57xhh638" path="res://scenes/components/white_shader.gdshader" id="9_7meyx"]
+[ext_resource type="Script" uid="uid://b678kb3i5rusk" path="res://Units/Scripts/State Machine/Suicide/suicide_unit_state.gd" id="10_q5ue8"]
 [ext_resource type="PackedScene" uid="uid://buxuqmbof2cao" path="res://scenes/components/SoftCollision.tscn" id="11_od3ae"]
+[ext_resource type="Script" uid="uid://b7vrc7mnpk87m" path="res://Units/cursor_box.gd" id="13_md5ic"]
+[ext_resource type="AudioStream" uid="uid://do7avhjw0nson" path="res://christophe/Particles/UnitHitSound.wav" id="14_alepv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_od3ae"]
 size = Vector2(17, 17.5)
@@ -85,6 +88,49 @@ tracks/2/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_25wig"]
+resource_name = "suicide"
+length = 1.1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [20, 21, 22, 23, 24, 25, 26, 27, 28, 29]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:material:shader_parameter/line_thickness")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("StateMachine/Suicide")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"jump_to_target"
+}]
+}
+
 [sub_resource type="Animation" id="Animation_od3ae"]
 resource_name = "walk"
 length = 1.6
@@ -135,6 +181,7 @@ tracks/1/keys = {
 _data = {
 &"RESET": SubResource("Animation_q5ue8"),
 &"attack": SubResource("Animation_md5ic"),
+&"suicide": SubResource("Animation_25wig"),
 &"walk": SubResource("Animation_od3ae"),
 &"wind_up": SubResource("Animation_alepv")
 }
@@ -220,8 +267,20 @@ height = 22.0
 radius = 4.0
 height = 14.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_alepv"]
+radius = 45.0
+height = 116.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_md5ic"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_25wig"]
+random_pitch = 1.4
+streams_count = 1
+stream_0/stream = ExtResource("14_alepv")
+
 [node name="Unit" type="CharacterBody2D"]
 collision_layer = 0
+collision_mask = 0
 motion_mode = 1
 platform_floor_layers = 4294967040
 script = ExtResource("1_q3cfo")
@@ -241,7 +300,6 @@ hframes = 10
 vframes = 3
 
 [node name="Hitbox" type="Area2D" parent="Sprite2D"]
-visible = false
 collision_layer = 0
 collision_mask = 0
 monitorable = false
@@ -258,6 +316,7 @@ libraries = {
 }
 
 [node name="HurtBox" parent="." instance=ExtResource("4_q5ue8")]
+visible = false
 monitoring = false
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="HurtBox"]
@@ -276,6 +335,9 @@ script = ExtResource("7_25wig")
 [node name="Attack" type="Node" parent="StateMachine"]
 script = ExtResource("8_6r8dj")
 
+[node name="Suicide" type="Node" parent="StateMachine"]
+script = ExtResource("10_q5ue8")
+
 [node name="AttackZone" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 0
@@ -286,6 +348,7 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_q5ue8")
 
 [node name="GoldDetectionZone" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 0
 monitorable = false
@@ -324,6 +387,27 @@ shape = SubResource("CapsuleShape2D_od3ae")
 visible = false
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_gr1ro")
+
+[node name="StructZone" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StructZone"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_alepv")
+
+[node name="cursorBox" type="Area2D" parent="."]
+collision_layer = 6
+collision_mask = 0
+script = ExtResource("13_md5ic")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="cursorBox"]
+position = Vector2(0, -4)
+shape = SubResource("CircleShape2D_md5ic")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_25wig")
 
 [connection signal="invincibility_ended" from="HurtBox" to="." method="_on_hurt_box_invincibility_ended"]
 [connection signal="invincibility_started" from="HurtBox" to="." method="_on_hurt_box_invincibility_started"]
