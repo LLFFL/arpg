@@ -73,7 +73,7 @@ func _ready():
 		minion_side_control.right_press.connect(change_minion_wave_side_selection)
 	else:
 		upgrade_timer = Timer.new()
-		upgrade_timer.wait_time = 3
+		upgrade_timer.wait_time = 40
 		upgrade_timer.timeout.connect(func():
 			if LeftBase || RightBase:
 				stats.level_up.emit()
