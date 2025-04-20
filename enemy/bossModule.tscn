@@ -23,7 +23,7 @@ metadata/_custom_type_script = "uid://cls0w0trd5gfw"
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xnf55"]
 radius = 60.0
-height = 290.0
+height = 204.0
 
 [node name="Area2D" type="Area2D"]
 top_level = true

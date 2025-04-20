@@ -1,0 +1,57 @@
+[gd_scene load_steps=10 format=3 uid="uid://dnpor7bwy5pjt"]
+
+[ext_resource type="Texture2D" uid="uid://cdc2xgrmbguy3" path="res://christophe/Cores/FireMiniCore.png" id="1_nnm4t"]
+[ext_resource type="Script" uid="uid://sekn714p801c" path="res://scenes/midway_point.gd" id="1_s1xic"]
+[ext_resource type="PackedScene" uid="uid://8q2xropak2sp" path="res://scenes/components/HurtBox.tscn" id="3_gvpje"]
+[ext_resource type="Texture2D" uid="uid://b0snrqvel30im" path="res://assets/UI/UI/Player_HP_Empty.png" id="4_8o8kh"]
+[ext_resource type="Texture2D" uid="uid://boo5etr0oa5x7" path="res://assets/UI/UI/Player_HP_Full.png" id="5_5d720"]
+[ext_resource type="PackedScene" uid="uid://cdk2biitbjogl" path="res://enemy/bossModule.tscn" id="6_3ei56"]
+[ext_resource type="PackedScene" uid="uid://c8dh1t5f7r5i4" path="res://enemy/fireBossModuleCaller.tscn" id="7_wxehu"]
+[ext_resource type="Script" uid="uid://dhkmxwdl7x2fl" path="res://addons/all_projectiles/scripts/resources/projectile_blueprint_2d.gd" id="8_lkpqd"]
+[ext_resource type="Resource" uid="uid://bguorcmtk2rod" path="res://Upgrades/Spells/spell2/12_burning_skies.tres" id="9_bd2ir"]
+
+[node name="MidwayPoint" type="StaticBody2D"]
+collision_layer = 393216
+collision_mask = 0
+script = ExtResource("1_s1xic")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_nnm4t")
+flip_h = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-98, -59, 75, 117, 202, -236, -56, -236)
+
+[node name="HurtBox" parent="." instance=ExtResource("3_gvpje")]
+collision_layer = 131072
+monitoring = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HurtBox"]
+polygon = PackedVector2Array(-52, -38, 50, 54, -73, 65, -73, -33)
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -22.0
+offset_top = -31.0
+offset_right = 3.0
+offset_bottom = -28.0
+grow_horizontal = 2
+scale = Vector2(1.76, 1.53819)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+value = 100.0
+fill_mode = 6
+texture_under = ExtResource("4_8o8kh")
+texture_progress = ExtResource("5_5d720")
+
+[node name="BossModule" parent="." instance=ExtResource("6_3ei56")]
+
+[node name="CollisionShape2D" parent="BossModule" index="0"]
+position = Vector2(-1, 0)
+
+[node name="ProjectileCaller2D" parent="BossModule" instance=ExtResource("7_wxehu")]
+projectile_resources = Array[ExtResource("8_lkpqd")]([ExtResource("9_bd2ir"), null])
+
+[editable path="BossModule"]
