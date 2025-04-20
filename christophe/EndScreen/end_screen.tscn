@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://c1gk73qq2uf4a"]
+[gd_scene load_steps=18 format=3 uid="uid://c1gk73qq2uf4a"]
 
 [ext_resource type="Texture2D" uid="uid://bgt1d1noyddoe" path="res://christophe/EndScreen/Stars.png" id="1_5yesm"]
 [ext_resource type="Script" uid="uid://b3pbo1qnso3x6" path="res://christophe/EndScreen/end_screen.gd" id="1_pkp5n"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://btxaa3pjicjqn" path="res://addons/shaker/data/Vector2/ShakerTypeSineWave2D.gd" id="10_o6sbo"]
 [ext_resource type="Script" uid="uid://cyw4wdn7hi4a2" path="res://addons/shaker/data/Single/BaseShakerType1D.gd" id="11_n3kuv"]
 [ext_resource type="Script" uid="uid://cfh63mvp713jr" path="res://addons/shaker/data/Vector2/ShakerPreset2D.gd" id="12_qwbdc"]
+[ext_resource type="Texture2D" uid="uid://b313tdxa3sne" path="res://christophe/EndScreen/ReplayButton.png" id="14_i4lgq"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_8bx13"]
 font = ExtResource("7_s0ch6")
@@ -69,7 +70,7 @@ position = Vector2(39, 329)
 texture = ExtResource("5_vs7w2")
 
 [node name="TimeDecoration" type="Sprite2D" parent="."]
-position = Vector2(80, 82)
+position = Vector2(95, 80)
 texture = ExtResource("6_igg35")
 
 [node name="PlayTimeLabel" type="Label" parent="TimeDecoration"]
@@ -93,17 +94,29 @@ shakerPreset = SubResource("Resource_4n0m7")
 metadata/_custom_type_script = "uid://b0fgc7bwsfxmw"
 
 [node name="MenuHandler" type="Node2D" parent="."]
-position = Vector2(72, 148)
+position = Vector2(94, 138)
 
 [node name="MenuButton" type="TextureButton" parent="MenuHandler"]
 unique_name_in_owner = true
 texture_filter = 1
-offset_left = -25.0
-offset_top = -24.0
-offset_right = 24.0
-offset_bottom = 25.0
+offset_left = -50.0
+offset_top = -25.0
+offset_right = -1.0
+offset_bottom = 24.0
 pivot_offset = Vector2(25, 25)
 texture_normal = ExtResource("3_i4lgq")
 stretch_mode = 3
 
+[node name="ReplayButton" type="TextureButton" parent="MenuHandler"]
+unique_name_in_owner = true
+texture_filter = 1
+offset_left = 1.0
+offset_top = -25.0
+offset_right = 50.0
+offset_bottom = 24.0
+pivot_offset = Vector2(25, 25)
+texture_normal = ExtResource("14_i4lgq")
+stretch_mode = 3
+
 [connection signal="pressed" from="MenuHandler/MenuButton" to="." method="_on_menu_button_pressed"]
+[connection signal="pressed" from="MenuHandler/ReplayButton" to="." method="_on_replay_button_pressed"]

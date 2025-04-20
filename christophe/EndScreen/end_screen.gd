@@ -11,6 +11,7 @@ func _ready():
 	var t = create_tween()
 	
 	%MenuButton.scale = Vector2(0,0)
+	%ReplayButton.scale = Vector2(0,0)
 	$TimeDecoration.scale = Vector2(0,0)
 	
 	# Player goes up, then the little friend
@@ -23,6 +24,7 @@ func _ready():
 		t.parallel().tween_property($Units,"global_position:y",213,2).set_trans(Tween.TRANS_BACK).set_delay(0.1)
 	t.tween_property($TimeDecoration,"scale",Vector2(1,1),1).set_trans(Tween.TRANS_BACK).set_delay(0.1).set_ease(Tween.EASE_OUT)
 	t.tween_property(%MenuButton,"scale",Vector2(1,1),1).set_trans(Tween.TRANS_BACK).set_delay(0.1).set_ease(Tween.EASE_OUT)
+	t.parallel().tween_property(%ReplayButton,"scale",Vector2(1,1),1).set_trans(Tween.TRANS_BACK).set_delay(0.1).set_ease(Tween.EASE_OUT)
 	
 	#await t.finished
 
@@ -30,3 +32,7 @@ func _ready():
 func _on_menu_button_pressed():
 	get_tree().change_scene_to_file("res://christophe/Menu/menu.tscn")
 	
+
+
+func _on_replay_button_pressed():
+	get_tree().change_scene_to_file("res://christophe/World/game_world.tscn")
