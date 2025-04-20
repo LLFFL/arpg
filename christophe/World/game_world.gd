@@ -17,6 +17,10 @@ extends Node2D
 @onready var portal_arrow: Sprite2D = $PortalArrow
 @onready var respawn_marker: Marker2D = $RespawnMarker
 @onready var ui: Control = $CameraHandler/Camera2D/CanvasLayer/UI
+@onready var portal_audio_player: AudioStreamPlayer2D = $Map/Portal/PortalAudioPlayer
+
+@export var OpenPortalSound:AudioStream
+@export var ClosePortalSound:AudioStream
 
 var game_started: bool = false
 
@@ -105,7 +109,10 @@ func open_portal():
 	if portal_is_open:return
 	if portal_tween:
 		portal_tween.kill()	
+	
 	portal_is_open = true
+	portal_audio_player.stream = OpenPortalSound
+	portal_audio_player.play()
 	player.get_node("Sprite2D").material.set("shader_parameter/line_color",Color("1fe2a2"))
 	# Animate the scale and visibility of stuff when opening
 	portal_tween = create_tween()
@@ -125,6 +132,8 @@ func open_portal():
 func close_portal():
 	if !portal_is_open:return
 	portal_is_open = false
+	portal_audio_player.stream = ClosePortalSound
+	portal_audio_player.play()
 	if portal_tween:
 		portal_tween.kill()
 	# Animate the portal closing and hide stuff
