@@ -62,12 +62,12 @@ texture_progress = ExtResource("4_5xixu")
 
 [node name="RightDanger" type="Sprite2D" parent="."]
 modulate = Color(1, 0, 0, 0)
-position = Vector2(416, 16)
+position = Vector2(416, 40.5)
 texture = ExtResource("4_iaif0")
 
 [node name="LeftDanger" type="Sprite2D" parent="."]
 modulate = Color(1, 0, 0, 0)
-position = Vector2(64, 16)
+position = Vector2(64, 40.5)
 scale = Vector2(-1, 1)
 texture = ExtResource("4_iaif0")
 
