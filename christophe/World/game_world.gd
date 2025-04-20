@@ -51,7 +51,7 @@ func _ready():
 	give_bases_dictionary()	
 	#hide the shop ui
 	%ShopUi.modulate.a = 0
-	
+	$CameraHandler/Camera2D/ShakerComponent2D.intensity = Options.screen_shake_intensity
 	
 func give_bases_dictionary():
 	$BaseContainer/AllyBase.initialize(bases_dictionary)

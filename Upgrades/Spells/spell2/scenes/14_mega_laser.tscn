@@ -91,7 +91,6 @@ shape = SubResource("CapsuleShape2D_0a64g")
 
 [node name="Back" type="Line2D" parent="."]
 material = SubResource("CanvasItemMaterial_7dllf")
-scale = Vector2(1, 1)
 points = PackedVector2Array(0, 0, 1000, 0)
 width = 220.0
 width_curve = SubResource("Curve_g14xq")
@@ -102,7 +101,6 @@ antialiased = true
 
 [node name="Front" type="Line2D" parent="."]
 material = SubResource("CanvasItemMaterial_3ett6")
-scale = Vector2(1, 1)
 points = PackedVector2Array(0, 0, 1000, 0)
 width = 175.0
 width_curve = SubResource("Curve_g14xq")
