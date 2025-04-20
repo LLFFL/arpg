@@ -366,3 +366,4 @@ texture = ExtResource("20_pwrgk")
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="toggled" from="VBoxContainer/ScreenShakeButton" to="." method="_on_screen_shake_button_toggled"]
 [connection signal="drag_ended" from="VBoxContainer/HBoxContainer3/ShakeSlider" to="." method="_on_shake_slider_drag_ended"]
+[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]

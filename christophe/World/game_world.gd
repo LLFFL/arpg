@@ -23,6 +23,8 @@ extends Node2D
 @export var ClosePortalSound:AudioStream
 
 var game_started: bool = false
+var _game_started: bool = false
+var game_time: float = 0
 
 ## True if the player portal is open
 var portal_is_open = false
@@ -34,9 +36,13 @@ var portal_tween:Tween
 @onready var base_container: Node = %BaseContainer
 var bases_dictionary: Dictionary
 func _ready():
+	PlayerManager.game_won = false
+	
 	$CameraHandler/Camera2D/ShakerComponent2D.intensity = float(Options.screen_shake_enabled)
 	PlayerManager.player.player_died.connect(_on_player_death)
 	var bases = base_container.get_children()
+	for base in bases:
+		base.game_ended.connect(end_game)
 	bases_dictionary = {
 		'ally_base' = bases[0],
 		'enemy_base_L' = bases[1],
@@ -46,13 +52,15 @@ func _ready():
 	#hide the shop ui
 	%ShopUi.modulate.a = 0
 	
+	
 func give_bases_dictionary():
 	$BaseContainer/AllyBase.initialize(bases_dictionary)
 	$BaseContainer/EnemyBaseL.initialize(bases_dictionary)
 	$BaseContainer/EnemyBaseR.initialize(bases_dictionary)
 
 func _process(delta):
-
+	if _game_started:
+		game_time += delta
 	## Player position remapped to [0.0, 1.0] where 0 is ice and 1 is fire
 	var player_mapped_position:float = remap(player.global_position.x, -1200, 1200, 0, 1)
 	
@@ -149,10 +157,14 @@ func close_portal():
 	%Portal.z_index = -1
 
 func start_game():
+	_game_started = true
 	left_start_bound.queue_free()
 	right_start_bound.queue_free()
 	var tween = create_tween()
 	tween.tween_property(portal_arrow, 'modulate:a', 0, 2 )
+	tween.tween_property($Sprite, "scale", Vector2(), 1)
+
+
 	tween.tween_callback(func():
 		portal_arrow.queue_free()
 		tween.kill())
@@ -161,6 +173,22 @@ func start_game():
 	bases_dictionary.enemy_base_R._on_game_start()
 	ui.flash_danger()
 	pass
+
+func end_game(win: bool):
+	game_started = false
+	PlayerManager.current_time = game_time
+	print(PlayerManager.game_times)
+	if win:
+		if game_time > 0:
+			PlayerManager.game_times.append(game_time)
+			PlayerManager.game_times.sort()
+			if PlayerManager.game_times.size() > 5:
+				PlayerManager.game_times.pop_back()
+		PlayerManager.game_won = true
+	else:
+		PlayerManager.game_won = false
+	PlayerManager.player = null
+	get_tree().change_scene_to_file("res://christophe/EndScreen/end_screen.tscn")
 
 func _on_player_death():
 	PlayerManager.player.global_position = respawn_marker.global_position

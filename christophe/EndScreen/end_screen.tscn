@@ -70,7 +70,7 @@ position = Vector2(39, 329)
 texture = ExtResource("5_vs7w2")
 
 [node name="TimeDecoration" type="Sprite2D" parent="."]
-position = Vector2(95, 80)
+position = Vector2(150, 56)
 texture = ExtResource("6_igg35")
 
 [node name="PlayTimeLabel" type="Label" parent="TimeDecoration"]
@@ -117,6 +117,16 @@ offset_bottom = 24.0
 pivot_offset = Vector2(25, 25)
 texture_normal = ExtResource("14_i4lgq")
 stretch_mode = 3
+
+[node name="Scoreboard" type="Label" parent="."]
+offset_left = 50.0
+offset_right = 90.0
+offset_bottom = 112.0
+text = "12:00
+13:00
+14:00
+15:00
+16:00"
 
 [connection signal="pressed" from="MenuHandler/MenuButton" to="." method="_on_menu_button_pressed"]
 [connection signal="pressed" from="MenuHandler/ReplayButton" to="." method="_on_replay_button_pressed"]

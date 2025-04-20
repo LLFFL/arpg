@@ -1,6 +1,38 @@
 extends Node
 
 var player : Player
+var game_won: bool = false
+var game_times: Array[float] = []
+var current_time: float = 0
+
+func _ready() -> void:
+	tree_exited.connect(_end_game)
+	_load_game()
+
+func _end_game():
+	if game_times.size() <= 0:
+		return
+	var save_file = FileAccess.open("user://savegametime.save", FileAccess.WRITE)
+	var json_string = JSON.stringify(game_times)
+	
+	save_file.store_line(json_string)
+	pass
+
+func _load_game():
+	if not FileAccess.file_exists("user://savegametime.save"):
+		return
+	var save_file = FileAccess.open("user://savegametime.save", FileAccess.READ)
+	while save_file.get_position() < save_file.get_length():
+		var json_string = save_file.get_line()
+		var json = JSON.new()
+		
+		var parse_result = json.parse(json_string)
+		if not parse_result == OK:
+			print("JSON Parse Error: ", json.get_error_message(), " in ", json_string)
+			continue
+		for item in json.data:
+			game_times.append(item)
+		game_times.sort()
 
 var level_upgrades: Array[Dictionary] =[
 	{

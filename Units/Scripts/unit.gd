@@ -23,8 +23,15 @@ var targets: Array[CharacterBody2D] = []
 var temp_target: CharacterBody2D = null
 var struct_target: Area2D = null
 
+#Cursor textures
+const leechCursor = preload("res://Screenshot 2025-04-20 124328.jpg")
+@export var defaultCursor: Texture
+
+	
 func _ready() -> void:
 	if ally:
+		#cursor connect
+		
 		sprite_2d.texture = load("res://assets/ally_unit.png")
 		hurt_box.set_collision_layer_value(3, true)
 		hitbox.set_collision_mask_value(4, true)
@@ -96,7 +103,7 @@ func damage2(arg: Projectile2D) -> void:
 func damage(attack: Attack) -> void:
 	var dmg = attack.damage - stats.defence
 	stats.health -= dmg if dmg > 0 else 0
-	hurt_box.start_invincibility(0.4)
+	#hurt_box.start_invincibility(0.4)
 	hurt_box.create_hit_effect()
 	var _direction = (global_position - get_global_mouse_position()).normalized()
 	velocity = attack.attack_direction * 240

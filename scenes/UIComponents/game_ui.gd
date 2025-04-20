@@ -3,13 +3,13 @@ extends Control
 @onready var r_side_core: TextureProgressBar = $"HBoxContainer/RSide Core HP"
 @onready var player_core: TextureProgressBar = $"Player Core HP"
 
-
 @onready var player_hp: TextureProgressBar = $PlayerHP
 @onready var player: Player = $"../../../../Player"
 
 @onready var gold1: Label = $Gold
 @onready var right_danger: Sprite2D = $RightDanger
 @onready var left_danger: Sprite2D = $LeftDanger
+
 
 
 func _ready():
@@ -58,3 +58,5 @@ func flash_danger():
 	tween.tween_property(right_danger, 'modulate:a', 0, 0.3)
 	tween.tween_property(left_danger, 'modulate:a', 1, 0.3)
 	tween.tween_property(left_danger, 'modulate:a', 0, 0.3)
+	
+	

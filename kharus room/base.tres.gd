@@ -145,14 +145,14 @@ func take_damage(attack: Attack) -> void:
 	#get_viewport().get_camera_2d().get_node("ShakerComponent2D").play_shake()
 	#print(camera_shaker)
 	#amera_shaker.play_shake()
-	hurtbox.start_invincibility(0.2)
+	hurtbox.start_invincibility(0.1)
 	#hurtbox.create_hit_effect()
 
 func _on_timer_timeout(_timer: Timer):
 	spawn_minion(MainBase)
 	_timer.start(stats.spawn_rate)
 
-
+signal game_ended(bool)
 func _on_stats_no_health() -> void:
 	await get_tree().create_timer(0.3).timeout
 	var enemyDeathEffect = EnemyDeathEffect.instantiate()
@@ -169,8 +169,11 @@ func _on_stats_no_health() -> void:
 			get_tree().call_group('allied_minions', 'update_target_base', bases_dictionary['enemy_base_L'].target_location)
 			redirect_minions_to_active_side() # this directs spawn to other boss automatically
 	if !base1 && !base2:
+		game_ended.emit(true)
 		print("DOOT DOOT DOO DOO, DOOT DOOT DOO DOO, WINNER! GANGION!")
 		#ref the node, call the function for the transition to win screen
+	if MainBase:
+		game_ended.emit(false)
 	queue_free()
 
 
