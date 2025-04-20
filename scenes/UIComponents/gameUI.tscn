@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://brixflf8pdcaa"]
+[gd_scene load_steps=17 format=3 uid="uid://brixflf8pdcaa"]
 
 [ext_resource type="Script" uid="uid://cmkdsr8qghyd5" path="res://scenes/UIComponents/game_ui.gd" id="1_nnssq"]
 [ext_resource type="Texture2D" uid="uid://b5thusqr24jhk" path="res://assets/UI/UI/FireCore_Hp_Empty.png" id="1_skjpw"]
@@ -13,8 +13,6 @@
 [ext_resource type="Texture2D" uid="uid://cicw0embs6anq" path="res://assets/UI/UI/UI_Coin.png" id="10_5xixu"]
 [ext_resource type="FontFile" uid="uid://c7n68l70qdk0f" path="res://christophe/Analog Whispers FREE.ttf" id="11_414c6"]
 [ext_resource type="Texture2D" uid="uid://82revivae011" path="res://assets/UI/UI/UI_Ally_Count.png" id="12_5kje6"]
-[ext_resource type="Texture2D" uid="uid://c46t3kxny4slh" path="res://cursor.png" id="13_iaif0"]
-[ext_resource type="Texture2D" uid="uid://87advcenrc7e" path="res://assets/Action RPG Resources/UI/HeartUIFull.png" id="14_vmjkj"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_iaif0"]
 font = ExtResource("11_414c6")
@@ -167,11 +165,13 @@ text = "0"
 label_settings = SubResource("LabelSettings_1cblf")
 
 [node name="UiAllyCount" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(294, 258)
 scale = Vector2(1.14773, 1.14773)
 texture = ExtResource("12_5kje6")
 
 [node name="Gold2" type="Label" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 285.0
 offset_top = 259.0
@@ -179,13 +179,3 @@ offset_right = 325.0
 offset_bottom = 275.0
 text = "R"
 label_settings = SubResource("LabelSettings_1cblf")
-
-[node name="Cursor" type="Sprite2D" parent="."]
-position = Vector2(299, 264)
-scale = Vector2(0.0239258, 0.0239258)
-texture = ExtResource("13_iaif0")
-
-[node name="HeartUiFull" type="Sprite2D" parent="."]
-position = Vector2(301, 249)
-scale = Vector2(0.590909, 0.590909)
-texture = ExtResource("14_vmjkj")
