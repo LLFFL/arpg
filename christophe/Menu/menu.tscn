@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cu4uhjrwsffug"]
+[gd_scene load_steps=18 format=3 uid="uid://cu4uhjrwsffug"]
 
 [ext_resource type="Texture2D" uid="uid://r5xy5wxip2pp" path="res://christophe/World/frogDimension/Portal.png" id="1_6nagw"]
 [ext_resource type="Script" uid="uid://ccqddjie4fen2" path="res://christophe/Menu/menu.gd" id="1_oau1d"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://btxaa3pjicjqn" path="res://addons/shaker/data/Vector2/ShakerTypeSineWave2D.gd" id="7_nt1j5"]
 [ext_resource type="Script" uid="uid://cyw4wdn7hi4a2" path="res://addons/shaker/data/Single/BaseShakerType1D.gd" id="8_7nayh"]
 [ext_resource type="Script" uid="uid://cfh63mvp713jr" path="res://addons/shaker/data/Vector2/ShakerPreset2D.gd" id="9_bfsx7"]
+[ext_resource type="PackedScene" uid="uid://doety55aaoqr4" path="res://scenes/UIComponents/VolumeSlider.tscn" id="15_nt1j5"]
 
 [sub_resource type="Resource" id="Resource_de574"]
 script = ExtResource("7_nt1j5")
@@ -111,3 +112,63 @@ layout_mode = 2
 size_flags_vertical = 8
 texture_normal = ExtResource("6_sq0ss")
 credit = "Kharus"
+
+[node name="VolumeSlider" parent="." instance=ExtResource("15_nt1j5")]
+visible = false
+custom_minimum_size = Vector2(70, 0)
+offset_left = -134.0
+offset_top = 63.0
+offset_right = -64.0
+offset_bottom = 79.0
+focus_mode = 0
+bus_name = "Master"
+
+[node name="VolumeSlider3" parent="." instance=ExtResource("15_nt1j5")]
+custom_minimum_size = Vector2(100, 0)
+offset_left = -51.0
+offset_top = 69.0
+offset_right = 49.0
+offset_bottom = 85.0
+focus_mode = 0
+bus_name = "SFX"
+
+[node name="VolumeSlider2" parent="." instance=ExtResource("15_nt1j5")]
+custom_minimum_size = Vector2(100, 0)
+offset_left = -52.0
+offset_top = 49.0
+offset_right = 48.0
+offset_bottom = 65.0
+focus_mode = 0
+bus_name = "Music"
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -89.0
+offset_top = -84.0
+offset_right = 89.0
+offset_bottom = -52.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 34
+text = "GAME TITLE"
+
+[node name="Button" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.5
+offset_top = -7.0
+offset_right = 16.5
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "START"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

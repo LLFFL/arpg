@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=26 format=3 uid="uid://be8fu88chioyx"]
 
-[ext_resource type="FontFile" uid="uid://lgbpc5nssamq" path="res://christophe/Daydream.ttf" id="1_j08i8"]
+[ext_resource type="FontFile" uid="uid://c7n68l70qdk0f" path="res://christophe/Analog Whispers FREE.ttf" id="1_j08i8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rkhwf"]
 bg_color = Color(0.0352941, 0.192157, 0.239216, 1)
@@ -282,6 +282,7 @@ corner_radius_bottom_left = 5
 
 [resource]
 default_font = ExtResource("1_j08i8")
+default_font_size = 13
 Button/colors/font_color = Color(1, 1, 1, 1)
 Button/colors/font_focus_color = Color(1, 1, 1, 1)
 Button/colors/font_hover_color = Color(1, 1, 1, 1)
