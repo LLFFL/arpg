@@ -26,27 +26,31 @@ var target_location: Vector2
 static var base1: bool = true
 static var base2: bool = true
 @onready var label: Label = $Label
+@onready var ui: Control = $"../../CameraHandler/Camera2D/CanvasLayer/UI"
 
 var ally_timer: Timer
 var enemy_timer: Timer
+
+var spawn_timer: Timer
 var upgrade_timer: Timer
 
+signal health_initialized(max_health: int, node:Node2D)
+signal health_changed(current_health: int, node:Node2D)
+
+@onready var thePlayer: Player = $"../../Player"
+
 func _ready():
-	stats.units_updated.connect(increase_allied_minions)
 	
-	ally_timer = Timer.new()
-	ally_timer.timeout.connect(_on_timer_timeout.bind(ally_timer))
-	enemy_timer = Timer.new()
-	enemy_timer.timeout.connect(_on_timer_timeout.bind(enemy_timer))
+	spawn_timer = Timer.new()
+	spawn_timer.timeout.connect(_on_timer_timeout.bind(spawn_timer))
+	add_child(spawn_timer)
 	
 	target_location = target_marker.global_position
 	hurtbox.damaged.connect(take_damage)
-	# awkward scenario where to be detected and chase player and bat set their own personal collision to be detectable
-	#$SpawnTimer.start(minion_rate)
 	if (MainBase):
-		add_child(ally_timer)
-		ally_timer.start(stats.spawn_rate)
+		stats.units_updated.connect(increase_allied_minions)
 		PlayerManager.player.stats.baseStats = stats
+		stats.max_health = 500
 		var flag = true
 		var i = 0
 		while i < stats.units_spawned:
@@ -59,48 +63,29 @@ func _ready():
 				minion_side_selection[1] += 1
 				flag = !flag
 				continue
-		#for i in stats.units_spawned:
-			#if flag:
-				#minion_side_selection[0] += 1
-				#flag = !flag
-			#else:
-				#minion_side_selection[1] += 1
-				#flag = !flag
-				
 		#minion_side_selection = [0,1] # keeping this away from the other bases since its not necessary to them
 		minion_side_control.update(minion_side_selection)
 		#bat_spawn_location = Vector2(position.x, position.y - 50)
 		hurtbox.set_collision_layer_value(2, true)
-		hurtbox.set_collision_layer_value(3, true)
+		hurtbox.set_collision_layer_value(17, true)
 		self.add_to_group('allied_base')
 		minion_side_control.left_press.connect(change_minion_wave_side_selection)
 		minion_side_control.right_press.connect(change_minion_wave_side_selection)
 	else:
 		upgrade_timer = Timer.new()
-		upgrade_timer.wait_time = 3
+		upgrade_timer.wait_time = 40
 		upgrade_timer.timeout.connect(func():
 			if LeftBase || RightBase:
 				stats.level_up.emit()
+				stats.base_defence += 0.5
 				upgrade_timer.start()
 			)
 		add_child(upgrade_timer)
-		#upgrade_timer.start()
+		hurtbox.set_collision_layer_value(18, true) 
 	
-	if (LeftBase):
-		add_child(enemy_timer)
-		enemy_timer.start(stats.spawn_rate)
-		#bat_spawn_location = Vector2(position.x + 50, position.y)
-		hurtbox.set_collision_layer_value(4, true) 
-		#hurtbox.set_collision_layer_value(5, true)
-	if (RightBase):
-		add_child(enemy_timer)
-		enemy_timer.start(stats.spawn_rate)
-		#bat_spawn_location = Vector2(position.x - 50, position.y)
-		hurtbox.set_collision_layer_value(4, true) 
-		#hurtbox.set_collision_layer_value(5, true)
+	ui.initialize_health(stats.max_health, self)
+	ui.on_health_changed(stats.max_health, self)
 
-func _process(delta: float) -> void:
-	label.text = str(stats.spawn_rate)
 
 func initialize(bases_dictionaryy: Dictionary):
 	bases_dictionary = bases_dictionaryy # this is not a a typo
@@ -155,15 +140,15 @@ func take_damage(attack: Attack) -> void:
 	#print(stats.health)
 	$Core.play_hit_animation()
 	CameraShaker.play_shake()
+	#Send the change to the UI
+	ui.on_health_changed(stats.health, self)
 	#get_viewport().get_camera_2d().get_node("ShakerComponent2D").play_shake()
 	#print(camera_shaker)
 	#amera_shaker.play_shake()
 	hurtbox.start_invincibility(0.2)
-	hurtbox.create_hit_effect()
+	#hurtbox.create_hit_effect()
 
 func _on_timer_timeout(_timer: Timer):
-	if MainBase:
-		print(stats.spawn_rate)
 	spawn_minion(MainBase)
 	_timer.start(stats.spawn_rate)
 
@@ -183,6 +168,9 @@ func _on_stats_no_health() -> void:
 		if base1: #Mark bandaid
 			get_tree().call_group('allied_minions', 'update_target_base', bases_dictionary['enemy_base_L'].target_location)
 			redirect_minions_to_active_side() # this directs spawn to other boss automatically
+	if !base1 && !base2:
+		print("DOOT DOOT DOO DOO, DOOT DOOT DOO DOO, WINNER! GANGION!")
+		#ref the node, call the function for the transition to win screen
 	queue_free()
 
 
@@ -203,7 +191,19 @@ func change_minion_wave_side_selection(increase_left: bool, increase_right: bool
 			minion_side_control.update(minion_side_selection)
 	
 func increase_allied_minions():
-	minion_side_selection[0] += 1
+	var i = 0
+	var size = minion_side_selection[0] + minion_side_selection[1]
+	while i < stats.units_spawned - size:
+		i += 1
+		var flag = true
+		if flag:
+			minion_side_selection[0] += 1
+			flag = !flag
+			continue
+		else:
+			minion_side_selection[1] += 1
+			flag = !flag
+			continue
 	minion_side_control.update(minion_side_selection)
 
 func redirect_minions_to_active_side():
@@ -220,3 +220,8 @@ func send_all_minions_left():
 	minion_side_selection[0] += minion_side_selection[1]
 	minion_side_selection[1] = 0
 	minion_side_control.side_is_dead(false, true, minion_side_selection)
+
+func _on_game_start():
+	spawn_timer.start(stats.spawn_rate)
+	if !MainBase:
+		upgrade_timer.start()

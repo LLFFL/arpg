@@ -21,6 +21,7 @@ enum UpgradeType { DAMAGE, MOVEMENT_SPEED, DEFENCE, LUCK, UNITS, SLASH}
 @export_category("Sounds")
 @export var buying_sound:AudioStream
 @export var cantbuy_sound:AudioStream
+@onready var ui: Control = $"../../../CameraHandler/Camera2D/CanvasLayer/UI"
 
 
 
@@ -46,11 +47,12 @@ func _on_pressed() -> void:
 	if PlayerManager.player.stats.gold < upgrade_cost:
 		play_not_enough_gold_animation()
 		return
-	
 	# buy the item
 	current_level+=1
 	%LimitLabel.text = str(current_level) + "/" + str(max_level)
 	PlayerManager.player.stats.gold -= upgrade_cost
+	#Adjust the gold in UI
+	ui.update_gold(PlayerManager.player.stats.gold)
 	play_buying_animation()
 	if current_level==max_level:
 		self.modulate = Color("717171")
@@ -68,23 +70,23 @@ func _on_pressed() -> void:
 		UpgradeType.UNITS:
 			PlayerManager.player.stats.upgrade_units()
 			PlayerManager.level_upgrades
-			if current_level%2==0:
-				%ItemIcon.texture = load("res://christophe/Shop/UnitsStatsAndAmountIconShop.png")
-			else:
-				%ItemIcon.texture = load("res://christophe/Shop/UnitsStatsIconShop.png")
 			#PlayerManager.player.stats.level_upgrades
 		
-		#TODO: Add logic for slash upgrades
 		UpgradeType.SLASH:
 			match current_level:
-				0: %ItemIcon.texture = load("res://christophe/Shop/Slash1IconShop.png")
-				1: %ItemIcon.texture = load("res://christophe/Shop/Slash2IconShop.png")
-					
-			
-			
+				1: 
+					%ItemIcon.texture = load("res://christophe/Shop/Slash2IconShop.png")
+					PlayerManager.player.stats.melee_unlocks['spin'] = true
+				2: 
+					%ItemIcon.texture = load("res://christophe/Shop/Slash3IconShop.png")
+					PlayerManager.player.stats.melee_unlocks['slash'] = true
+				3:
+					PlayerManager.player.stats.melee_unlocks['slash_proj'] = true
+
 
 	upgrade_cost = int(round(upgrade_cost * 1.2))
 	%CostLabel.text = str(upgrade_cost)
+
 	print("Purchased:", upgrade_type)
 
 func play_buying_animation():

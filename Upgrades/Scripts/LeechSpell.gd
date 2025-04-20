@@ -2,6 +2,8 @@ extends Node2D
 const FIREBALL_HEAD = preload("res://Upgrades/Spells/Particles/fireballHead.tscn")
 @export var leech_particles_scene: PackedScene
 @export var heal_particles_scene: PackedScene
+signal player_healed()
+
 
 func apply_effects(_caster: Node, _target: Node = null) -> void:
 	var cursor_pos = get_global_mouse_position()
@@ -20,13 +22,14 @@ func apply_effects(_caster: Node, _target: Node = null) -> void:
 				if minion.has_method("damage"):
 					var attack := Attack.new()
 					var healthTransfer = minion.stats.max_health + minion.stats.defence
+					var _h = minion.stats.health
 					attack.damage = healthTransfer
 					#attack.crit_chance = 0
 					minion.damage(attack)
 					
 					#FIX
-					PlayerManager.player.stats.health += minion.stats.health
-					print("player healed", minion.stats.health)
+					PlayerManager.player.stats.health += _h
+					print("player healed", _h)
 					if FIREBALL_HEAD:
 						var fx1 = FIREBALL_HEAD.instantiate()
 						fx1.global_position = minion.global_position
@@ -34,6 +37,10 @@ func apply_effects(_caster: Node, _target: Node = null) -> void:
 						if fx1.has_method("restart"):
 							fx1.restart()
 						await get_tree().create_timer(0.5).timeout
+						var ui = get_tree().current_scene.get_node_or_null("CameraHandler/Camera2D/CanvasLayer/UI")
+						if ui:
+							player_healed.connect(ui.on_health_changed_player)
+						emit_signal("player_healed", PlayerManager.player.stats.health)
 						if is_instance_valid(fx1):
 							fx1.queue_free()
 

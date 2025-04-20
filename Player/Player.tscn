@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://b02g8s3f7cg4a"]
+[gd_scene load_steps=50 format=3 uid="uid://b02g8s3f7cg4a"]
 
 [ext_resource type="Shader" uid="uid://duocgilkxh3yq" path="res://christophe/Shaders/outline_magic.gdshader" id="3_8sa4y"]
 [ext_resource type="Texture2D" uid="uid://c2qk5fanjbn8n" path="res://assets/character.png" id="4_3mea3"]
@@ -64,6 +64,37 @@ tracks/0/keys = {
 "values": [0]
 }
 
+[sub_resource type="Animation" id="Animation_yifbt"]
+resource_name = "death"
+length = 1.1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [50, 59, 0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_on_death_finished"
+}]
+}
+
 [sub_resource type="Animation" id="Animation_3mea3"]
 resource_name = "idle"
 length = 0.8
@@ -103,6 +134,7 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_roy6y"]
 _data = {
 &"RESET": SubResource("Animation_d7xyo"),
+&"death": SubResource("Animation_yifbt"),
 &"idle": SubResource("Animation_3mea3"),
 &"run": SubResource("Animation_evw08")
 }
@@ -337,12 +369,13 @@ script = ExtResource("6_s1rgi")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 y_sort_enabled = true
+texture_filter = 1
 material = SubResource("ShaderMaterial_3nb2p")
 position = Vector2(0, 5)
 texture = ExtResource("4_3mea3")
 offset = Vector2(0, -16)
 hframes = 10
-vframes = 5
+vframes = 7
 
 [node name="HitBox" parent="Sprite2D" instance=ExtResource("6_5wa8t")]
 visible = false
@@ -512,7 +545,7 @@ cooldown = 2.0
 
 [node name="HitBox" parent="AbilityStateMachine/Thrust" instance=ExtResource("6_5wa8t")]
 visible = false
-collision_mask = 8
+collision_mask = 131080
 monitoring = false
 monitorable = false
 
@@ -526,7 +559,7 @@ script = ExtResource("16_7v5gs")
 
 [node name="HitBox" parent="AbilityStateMachine/Spin" instance=ExtResource("6_5wa8t")]
 visible = false
-collision_mask = 8
+collision_mask = 131080
 monitoring = false
 monitorable = false
 
@@ -536,12 +569,11 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_7v5gs")
 
 [node name="Slash" type="Node2D" parent="AbilityStateMachine"]
+visible = false
 script = ExtResource("16_8sa4y")
-cooldown = 2.0
 
 [node name="HitBox" parent="AbilityStateMachine/Slash" instance=ExtResource("6_5wa8t")]
-visible = false
-collision_mask = 8
+collision_mask = 131080
 monitoring = false
 monitorable = false
 
@@ -558,14 +590,14 @@ libraries = {
 }
 
 [node name="Label" type="Label" parent="."]
-offset_top = -48.0
-offset_right = 40.0
-offset_bottom = -28.0
+offset_left = 14.0
+offset_top = -52.0
+offset_right = 54.0
+offset_bottom = -32.0
 
 [node name="Stats" type="Node2D" parent="."]
 script = ExtResource("17_8sa4y")
-base_damage = 200.0
-base_movement_speed = 300.0
+base_damage = 25.0
 
 [node name="ProjectileCaller2D" type="Node2D" parent="."]
 top_level = true

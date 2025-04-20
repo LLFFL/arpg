@@ -19,7 +19,10 @@ func process( _delta: float ) -> State:
 	if player.direction == Vector2.ZERO:
 		return idle
 	
-	player.velocity = player.direction * player.stats.movement_speed
+	if !player.dying:
+		player.velocity = player.direction * player.stats.movement_speed
+	else:
+		return idle
 	
 	if player.set_direction():
 		player.update_animation("run")

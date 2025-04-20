@@ -14,13 +14,14 @@ var direction: Vector2 = Vector2.ZERO
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 #add laters to the ready
 @onready var gold_detection_zone: Area2D = $GoldDetectionZone
-
+const MONEY = preload("res://christophe/Shop/money.tscn")
 #var stats: UnitStats = null
 var ally: bool = false
 var enemy: bool = false
 var targets: Array[CharacterBody2D] = []
 
 var temp_target: CharacterBody2D = null
+var struct_target: Area2D = null
 
 func _ready() -> void:
 	if ally:
@@ -44,6 +45,7 @@ func _ready() -> void:
 	state_machine.initialize(self)
 	stats.no_health.connect(_on_no_health)
 	hurt_box.damaged.connect(damage)
+	hitbox.hit_attack = Attack.new()
 	pass # Replace with function body.
 
 func _initialize(Ally: bool, base_position: Vector2, _stats: BaseStats):
@@ -66,6 +68,11 @@ func _process(delta: float) -> void:
 		sprite_2d.scale.x = -1
 	if soft_collision.is_colliding():
 		velocity += soft_collision.get_push_vector() * delta * stats.movement_speed
+	
+	hitbox.hit_attack.damage = stats.damage
+	#if struct_target:
+		#label.text = str(struct_target)
+	#label.text = str(stats.damage)
 	#if temp_target:
 		#label.text = str(temp_target.name)
 	#label.text = str(targets)
@@ -104,15 +111,16 @@ func damage(attack: Attack) -> void:
 func _on_no_health():
 	for body in gold_detection_zone.get_overlapping_bodies():
 		if body.is_in_group("player"):
+			#instanciate MONEY
+			var coin = MONEY.instantiate()
+			get_parent().get_parent().add_child(coin)
+			coin.global_position = global_position
 			body.stats.add_gold(1)
 			print("gold given")
-			#give gold
-	#for body in enemy_detection_zone.get_overlapping_bodies():
-	#	if body.is_in_group("player"):
-	#		body.stats.add_gold(1)
-	#		print("gold given")
-	queue_free()
+	kill_unit()
 
+func kill_unit():
+	queue_free()
 
 func _on_hurt_box_invincibility_ended() -> void:
 	blink.play("stop")
@@ -124,4 +132,4 @@ func _on_hurt_box_invincibility_started() -> void:
 	pass # Replace with function body.
 
 func update_target_base(_loc: Vector2):
-	print("updated_loc")
+	target_location = _loc

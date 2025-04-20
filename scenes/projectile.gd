@@ -35,6 +35,7 @@ func _ready():
 		#print("Projectile is a spell")
 		icon.texture = spell.icon_texture
 		icon.scale = spell.icon_scale
+		damage = spell.damage
 		spell.setup_particles(self)
 	direction = Vector2.RIGHT.rotated(angle)
 	icon.scale.x = -1 if direction.x < 0 else 1
@@ -72,9 +73,7 @@ func _physics_process(delta: float) -> void:
 	apply_force(linear_velocity*delta)
 
 func on_enemy_hit(_attack: Attack, hit_target: Node):
-	print(hit_target, "hit with Projectile")
 	if spell:
-		print("Spell type:", spell.get_class())
 		spell.apply_effects(self, hit_target)
 		spell.apply_particle_effects(self, hit_target)
 	current_pierce_count += 1

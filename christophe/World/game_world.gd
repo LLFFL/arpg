@@ -12,7 +12,13 @@ extends Node2D
 @export var cloud_shadow:Gradient
 @export var cloud_base:Gradient
 @export var cloud_highlight:Gradient
+@onready var left_start_bound: StaticBody2D = $LeftStartBound
+@onready var right_start_bound: StaticBody2D = $RightStartBound
+@onready var portal_arrow: Sprite2D = $PortalArrow
+@onready var respawn_marker: Marker2D = $RespawnMarker
+@onready var ui: Control = $CameraHandler/Camera2D/CanvasLayer/UI
 
+var game_started: bool = false
 
 ## True if the player portal is open
 var portal_is_open = false
@@ -24,16 +30,14 @@ var portal_tween:Tween
 @onready var base_container: Node = %BaseContainer
 var bases_dictionary: Dictionary
 func _ready():
-	
-	
+	PlayerManager.player.player_died.connect(_on_player_death)
 	var bases = base_container.get_children()
 	bases_dictionary = {
 		'ally_base' = bases[0],
 		'enemy_base_L' = bases[1],
 		'enemy_base_R' = bases[2]
 	}	# it is order of scene structure descending from top to down so [ally, right base, left base] in the array
-	give_bases_dictionary()
-	
+	give_bases_dictionary()	
 	#hide the shop ui
 	%ShopUi.modulate.a = 0
 	
@@ -56,15 +60,15 @@ func _process(delta):
 	# Emits particles only when player is near the ice / fire side
 	if player_mapped_position<=0.3:
 		$Map/SnowParticles.emitting = true
-		$PortalArrow.hide()
+		#$PortalArrow.hide()
 		%Portal.hide()
 	elif player_mapped_position>=0.7:
 		$Map/FireParticles.emitting = true
 		%Portal.hide()
-		$PortalArrow.hide()
+		#$PortalArrow.hide()
 	# Poor and lazy optimisation in case
 	else:
-		$PortalArrow.show()
+		#$PortalArrow.show()
 		%Portal.show()
 		#$PortalArrow.modulate.a = remap(player.)
 	#$PortalArrow.look_at(%Portal.global_position)
@@ -73,8 +77,8 @@ func _process(delta):
 		
 	
 	# Quick n dirty way to check if the player is in or out the portal
-	if !portal_is_open and player.global_position.distance_to(%Portal.global_position+Vector2(0,30))<=80:
-		$PortalArrow.show()
+	#if !portal_is_open and player.global_position.distance_to(%Portal.global_position+Vector2(0,30))<=80:
+		#$PortalArrow.show()
 	if !portal_is_open and player.global_position.distance_to(%Portal.global_position+Vector2(0,30))<=50:
 		open_portal()
 	if portal_is_open and  player.global_position.distance_to(%Portal.global_position)>100:
@@ -88,6 +92,15 @@ func _process(delta):
 
 ## Open the Portal and show shop ui
 func open_portal():
+	if !game_started:
+		game_started = true
+		var timer: Timer = Timer.new()
+		timer.wait_time = 3
+		timer.timeout.connect(func(): 
+			start_game()
+			timer.queue_free())
+		add_child(timer)
+		timer.start()
 	if portal_is_open:return
 	if portal_tween:
 		portal_tween.kill()	
@@ -124,3 +137,25 @@ func close_portal():
 	portal_tween.tween_property(%Frog,"position",Vector2(-65,50),0.5).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	player.z_index = 0
 	%Portal.z_index = -1
+
+func start_game():
+	left_start_bound.queue_free()
+	right_start_bound.queue_free()
+	var tween = create_tween()
+	tween.tween_property(portal_arrow, 'modulate:a', 0, 2 )
+	tween.tween_callback(func():
+		portal_arrow.queue_free()
+		tween.kill())
+	bases_dictionary.ally_base._on_game_start()
+	bases_dictionary.enemy_base_L._on_game_start()
+	bases_dictionary.enemy_base_R._on_game_start()
+	ui.flash_danger()
+	pass
+
+func _on_player_death():
+	PlayerManager.player.global_position = respawn_marker.global_position
+	PlayerManager.player.stats.health = PlayerManager.player.stats.max_health
+	PlayerManager.player.stats.gold = 0
+	PlayerManager.player.stats.stun_entity(2)
+	ui.on_health_changed_player(PlayerManager.player.stats.health)
+	pass

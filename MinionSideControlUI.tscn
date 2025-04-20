@@ -1,7 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://cghe5cfsmt5t8"]
+[gd_scene load_steps=11 format=3 uid="uid://cghe5cfsmt5t8"]
 
-[ext_resource type="Texture2D" uid="uid://c7vonfh2x8sho" path="res://kharus room/minion_control_ui_arrow.png" id="1_gg1y0"]
-[ext_resource type="Texture2D" uid="uid://dawbdsq0pifh6" path="res://kharus room/minion_control_ui_arrow_left.png" id="1_sx7jc"]
+[ext_resource type="Texture2D" uid="uid://0xx67wm34plf" path="res://assets/UI/UI/Btn_Left.png" id="1_tggkw"]
+[ext_resource type="Texture2D" uid="uid://ck7g5eq5hprqu" path="res://assets/UI/UI/Btn_Left_Pressed.png" id="2_cn4o2"]
+[ext_resource type="Texture2D" uid="uid://cuku6t11unn8n" path="res://assets/UI/UI/Btn_Left_Hover.png" id="3_ug4k8"]
+[ext_resource type="FontFile" uid="uid://c7n68l70qdk0f" path="res://christophe/Analog Whispers FREE.ttf" id="4_a8x0p"]
+[ext_resource type="Texture2D" uid="uid://djsxma85eq4gf" path="res://assets/UI/UI/Btn_Right.png" id="5_7i7dx"]
+[ext_resource type="Texture2D" uid="uid://dsovqlaocklnm" path="res://assets/UI/UI/Btn_Right_Pressed.png" id="6_ubcqe"]
+[ext_resource type="Texture2D" uid="uid://uo87tcwxbqfr" path="res://assets/UI/UI/Btn_Right_Hover.png" id="7_fv17v"]
 
 [sub_resource type="GDScript" id="GDScript_sx7jc"]
 script/source = "extends Control
@@ -10,11 +15,13 @@ script/source = "extends Control
 @onready var left = %SendRight
 signal left_press
 signal right_press
+@onready var right_label: Label = $rightLabel
+@onready var left_label: Label = $leftLabel
 
 
 func update(minion_side_select_array: Array):
-	%SendLeft.text = str(minion_side_select_array[0])
-	%SendRight.text = str(minion_side_select_array[1])
+	left_label.text = str(minion_side_select_array[0])
+	right_label.text = str(minion_side_select_array[1])
 
 func side_is_dead(left_is_dead: bool, right_is_dead: bool, minion_side_select_array: Array):
 	update(minion_side_select_array)
@@ -22,6 +29,8 @@ func side_is_dead(left_is_dead: bool, right_is_dead: bool, minion_side_select_ar
 		%SendLeft.disabled = true
 	if(right_is_dead):
 		%SendRight.disabled = true
+
+
 func _on_send_left_button_down() -> void:
 	self.left_press.emit(true, false)
 
@@ -29,39 +38,73 @@ func _on_send_right_button_down() -> void:
 	self.right_press.emit(false, true)
 "
 
+[sub_resource type="LabelSettings" id="LabelSettings_g2iqj"]
+font = ExtResource("4_a8x0p")
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_a7l04"]
+font = ExtResource("4_a8x0p")
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
 [node name="MinionSideControl" type="Control"]
 layout_mode = 3
-anchors_preset = 7
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 1.0
 grow_horizontal = 2
-grow_vertical = 0
 size_flags_vertical = 8
 script = SubResource("GDScript_sx7jc")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
 offset_left = -34.0
-offset_top = -21.0
 offset_right = 34.0
-offset_bottom = -1.0
+offset_bottom = 20.0
+grow_horizontal = 2
+alignment = 1
 
-[node name="SendLeft" type="Button" parent="HBoxContainer"]
+[node name="SendLeft" type="TextureButton" parent="HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 0
-text = "1"
-icon = ExtResource("1_sx7jc")
+texture_normal = ExtResource("1_tggkw")
+texture_pressed = ExtResource("2_cn4o2")
+texture_hover = ExtResource("3_ug4k8")
 
-[node name="SendRight" type="Button" parent="HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+custom_minimum_size = Vector2(59, 0)
+layout_mode = 2
+
+[node name="SendRight" type="TextureButton" parent="HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 0
-text = "3"
-icon = ExtResource("1_gg1y0")
-icon_alignment = 2
+texture_normal = ExtResource("5_7i7dx")
+texture_pressed = ExtResource("6_ubcqe")
+texture_hover = ExtResource("7_fv17v")
+
+[node name="rightLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 1.0
+offset_right = 63.0
+offset_bottom = 24.0
+text = "0"
+label_settings = SubResource("LabelSettings_g2iqj")
+
+[node name="leftLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = -31.0
+offset_top = 2.0
+offset_right = 9.0
+offset_bottom = 25.0
+text = "0"
+label_settings = SubResource("LabelSettings_a7l04")
 
 [connection signal="button_down" from="HBoxContainer/SendLeft" to="." method="_on_send_left_button_down"]
 [connection signal="button_down" from="HBoxContainer/SendRight" to="." method="_on_send_right_button_down"]

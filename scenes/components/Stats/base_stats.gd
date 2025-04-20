@@ -21,10 +21,13 @@ func get_damage():
 func _on_level_up():
 	level += 1
 	var index = level -1
-	unit_damage = PlayerManager.level_upgrades[index].base_damage
-	unit_defence = PlayerManager.level_upgrades[index].base_defence
-	unit_movement_speed = PlayerManager.level_upgrades[index].base_movement_speed
-	spawn_rate = PlayerManager.level_upgrades[index].spawn_rate
-	units_spawned = PlayerManager.level_upgrades[index].units_spawned
-	unit_health = PlayerManager.level_upgrades[index].unit_health 
+	var _list = PlayerManager.level_upgrades
+	if level > _list.size():
+		return
+	unit_damage = _list[index].base_damage
+	unit_defence = _list[index].base_defence
+	unit_movement_speed = _list[index].base_movement_speed
+	spawn_rate = _list[index].spawn_rate
+	units_spawned = _list[index].units_spawned
+	unit_health = _list[index].unit_health 
 	units_updated.emit()
