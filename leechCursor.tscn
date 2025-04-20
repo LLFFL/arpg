@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://cik478qsau7a6"]
+
+[ext_resource type="Texture2D" uid="uid://82revivae011" path="res://assets/UI/UI/UI_Ally_Count.png" id="1_thpit"]
+[ext_resource type="Texture2D" uid="uid://xiulugixebfw" path="res://assets/Action RPG Resources/UI/HeartUIEmpty.png" id="2_02fms"]
+[ext_resource type="FontFile" uid="uid://c7n68l70qdk0f" path="res://christophe/Analog Whispers FREE.ttf" id="3_jludh"]
+
+[node name="Node2D" type="Node2D"]
+position = Vector2(33, 33)
+
+[node name="UiAllyCount" type="Sprite2D" parent="."]
+position = Vector2(-3, 1)
+texture = ExtResource("1_thpit")
+
+[node name="HeartUiEmpty" type="Sprite2D" parent="UiAllyCount"]
+position = Vector2(8, -6)
+texture = ExtResource("2_02fms")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 14.0
+theme_override_constants/outline_size = 3
+theme_override_constants/shadow_outline_size = 1
+theme_override_fonts/font = ExtResource("3_jludh")
+text = "R"
+metadata/_edit_use_anchors_ = true

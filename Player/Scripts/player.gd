@@ -144,13 +144,13 @@ func damage(attack: Attack) -> void:
 	$Sprite2D.scale.y = 1
 
 func damage2(projectile: InstancedProjectile2D) -> void:
-	print("Damage 2 triggered- Player current health:  ", stats.health)
+	#print("Damage 2 triggered- Player current health:  ", stats.health)
 	var dmg = projectile.resource.damage - stats.defence
 	stats.health -= dmg if dmg > 0 else 0
 	print("Damage 2 player health after hit: ", stats.health)
 	#UI change
 	ui.on_health_changed_player(stats.health)
-	hurtbox.start_invincibility(0.4)
+	hurtbox.start_invincibility(0.6)
 	hurtbox.create_hit_effect()
 	var _direction = (position - get_global_mouse_position()).normalized()
 	knockback = _direction * 240

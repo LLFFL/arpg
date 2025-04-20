@@ -12,6 +12,7 @@ extends Control
 @onready var left_danger: Sprite2D = $LeftDanger
 
 
+
 func _ready():
 	await get_tree().create_timer(1).timeout
 	PlayerManager.player.stats.onGoldChange.connect(update_gold)
@@ -58,3 +59,5 @@ func flash_danger():
 	tween.tween_property(right_danger, 'modulate:a', 0, 0.3)
 	tween.tween_property(left_danger, 'modulate:a', 1, 0.3)
 	tween.tween_property(left_danger, 'modulate:a', 0, 0.3)
+	
+	

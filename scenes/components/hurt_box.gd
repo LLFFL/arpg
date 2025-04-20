@@ -14,7 +14,7 @@ thing and checking it then giving the specific enemy its own hitbox"""
 
 var invincible = false:
 	get():
-		return false
+		return invincible
 	set(value):
 		invincible = value
 		if invincible:
