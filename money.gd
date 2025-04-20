@@ -22,6 +22,7 @@ func _ready():
 
 func picked_up():
 	%Sprite2D.hide()
+	$SmallShadow.hide()
 	%Sprite2D/AudioStreamPlayer2D.pitch_scale = randf_range(0.9,1.2)
 	t.kill()
 	%Sprite2D/AudioStreamPlayer2D.play()
