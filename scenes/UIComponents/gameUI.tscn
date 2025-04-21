@@ -161,7 +161,7 @@ offset_left = 243.0
 offset_top = 47.0
 offset_right = 283.0
 offset_bottom = 63.0
-text = "0"
+text = "20"
 label_settings = SubResource("LabelSettings_1cblf")
 
 [node name="UiAllyCount" type="Sprite2D" parent="."]
