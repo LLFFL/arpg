@@ -62,7 +62,7 @@ func give_bases_dictionary():
 	$BaseContainer/EnemyBaseR.initialize(bases_dictionary)
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("tilde"):
+	if event.is_action_pressed("pause_game"):
 		var menu = MENU.instantiate()
 		%MinionSideControl.hide()
 		player.player_hp_ui.hide()
