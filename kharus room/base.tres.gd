@@ -233,6 +233,6 @@ func send_all_minions_left():
 	minion_side_control.side_is_dead(false, true, minion_side_selection)
 
 func _on_game_start():
-	spawn_timer.start(stats.spawn_rate)
+	spawn_timer.start(1)
 	if !MainBase:
 		upgrade_timer.start()

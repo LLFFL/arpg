@@ -25,6 +25,7 @@ var ability_active: bool = false
 @onready var stats: PlayerStats = $Stats
 @onready var ui: Control = $"../CameraHandler/Camera2D/CanvasLayer/UI"
 @onready var test: Node2D
+@onready var player_hp_ui: TextureProgressBar = %PlayerHPUi
 
 var dying: bool = false
 
@@ -34,7 +35,7 @@ func _ready() -> void:
 	move_state_machine.initialize(self)
 	ability_state_machine.initialize(self)
 	hurtbox.damaged.connect(damage)
-	hurtbox.damaged2.connect(damage)
+	hurtbox.damaged2.connect(damage2)
 	stats.dmg_status_changed.connect(func(active: bool, buff: bool):
 		if !active:
 			print('status ended')
@@ -56,6 +57,8 @@ func _process(delta: float) -> void:
 	mouse_direction = global_position.direction_to(mouse_pos).normalized()
 	if dying:
 		velocity = Vector2.ZERO
+	
+	label.text = str(ability_state_machine.current_state.name) + "\n" + str(move_state_machine.current_state.name)
 	#label.text = str(stats.base_damage) +'\n' + str(stats.base_defence) +'\n' + str(stats.base_movement_speed) +'\n' + str(stats.luck)
 	#label.text = str(stats.gold) + "\n" + str(stats.luck)
 	#if stats.dmg_timer:

@@ -13,13 +13,12 @@ extends Control
 
 
 func _ready():
-	await get_tree().create_timer(1).timeout
+	#await get_tree().create_timer(1).timeout
+	await get_tree().process_frame
 	PlayerManager.player.stats.onGoldChange.connect(update_gold)
+	update_gold(PlayerManager.player.stats.gold)
 
 
-	
-	pass
-	
 func initialize_health(max_hp: float, sender: Node2D) -> void:
 	if sender.MainBase:
 		player_core.max_value = max_hp

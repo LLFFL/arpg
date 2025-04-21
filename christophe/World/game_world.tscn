@@ -448,7 +448,7 @@ shakerPreset = SubResource("Resource_al3pl")
 metadata/_custom_type_script = "uid://b0fgc7bwsfxmw"
 
 [node name="CameraHandler" type="Node2D" parent="."]
-position = Vector2(0, 70)
+position = Vector2(-5, 84)
 
 [node name="Camera2D" parent="CameraHandler" instance=ExtResource("25_yyeeq")]
 process_mode = 3
@@ -479,7 +479,7 @@ mouse_filter = 2
 
 [node name="Player" parent="." instance=ExtResource("26_myr1t")]
 material = SubResource("ShaderMaterial_cx7l3")
-position = Vector2(0, 70)
+position = Vector2(-5, 84)
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../CameraHandler")
@@ -710,6 +710,7 @@ polygon = PackedVector2Array(-52, -38, 50, 54, 2, 55, -79, -33)
 fill_mode = 1
 
 [node name="BossModule" parent="MidwayPoint" index="4"]
+visible = true
 position = Vector2(577, 96)
 
 [node name="MidwayPoint2" parent="." groups=["ice_base"] instance=ExtResource("48_pc07o")]
@@ -730,6 +731,9 @@ polygon = PackedVector2Array(-52, -38, 50, 54, -10, 56, -103, -40)
 fill_mode = 1
 texture_under = ExtResource("50_qelnb")
 texture_progress = ExtResource("51_bl0if")
+
+[node name="BossModule" parent="MidwayPoint2" index="4"]
+visible = true
 
 [node name="CollisionShape2D" parent="MidwayPoint2/BossModule" index="0"]
 position = Vector2(-482, 82)

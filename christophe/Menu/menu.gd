@@ -1,16 +1,20 @@
 extends Node2D
+@onready var bg_2: Sprite2D = $Bg2
 
 
 func _ready():
 	PlayerManager.game_won = false
 	$TextureButton.disabled = true
-	var t = create_tween()
-	for child in $Splashes.get_children():
-		#t.tween_property(child,"modulate:a",1,3)
-		t.tween_property(child,"modulate:a",0,0.1).set_delay(2)
-		#t.tween_property(child,"modulate:a",0,1)
-		t.tween_callback(child.hide)
-	await t.finished
+	if !PlayerManager.game_started:
+		var t = create_tween()
+		for child in $Splashes.get_children():
+			#t.tween_property(child,"modulate:a",1,3)
+			t.tween_property(child,"modulate:a",0,0.1).set_delay(2)
+			#t.tween_property(child,"modulate:a",0,1)
+			t.tween_callback(child.hide)
+		await t.finished
+	else:
+		$Splashes.visible = false
 	$TextureButton.disabled = false
 	pass
 	# used to randomise frog order
@@ -31,5 +35,13 @@ func _on_shake_slider_drag_ended(value_changed):
 
 
 func _on_texture_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://christophe/World/game_world.tscn")
+	
+	if !PlayerManager.game_started:
+		get_tree().change_scene_to_file("res://christophe/World/game_world.tscn")
+	else:
+		var nodes = get_tree().root.get_children()
+		for node in nodes:
+			if node.has_method("resume"):
+				node.resume()
+		queue_free()
 	pass # Replace with function body.
