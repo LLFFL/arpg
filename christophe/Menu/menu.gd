@@ -1,4 +1,5 @@
 extends Node2D
+@onready var bg_2: Sprite2D = $Bg2
 
 
 func _ready():

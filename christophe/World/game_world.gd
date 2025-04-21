@@ -66,6 +66,7 @@ func _input(event: InputEvent) -> void:
 		%ShopUi.hide()
 		%Portal.hide()
 		get_tree().root.add_child(menu)
+		menu.bg_2.hide()
 		player.visible = false
 		$CameraHandler/Camera2D.enabled = false
 		ui.hide()
@@ -118,18 +119,18 @@ func _process(delta):
 
 ## Open the Portal and show shop ui
 func open_portal():
-	if !game_started:
-		game_started = true
-		var timer: Timer = Timer.new()
-		timer.wait_time = 3
-		timer.timeout.connect(func(): 
-			start_game()
-			timer.queue_free())
-		add_child(timer)
-		timer.start()
+	#if !game_started:
+		#game_started = true
+		#var timer: Timer = Timer.new()
+		#timer.wait_time = 3
+		#timer.timeout.connect(func(): 
+			#
+			#timer.queue_free())
+		#add_child(timer)
+		#timer.start()
 	if portal_is_open:return
 	if portal_tween:
-		portal_tween.kill()	
+		portal_tween.kill()
 	
 	portal_is_open = true
 	portal_audio_player.stream = OpenPortalSound
@@ -151,6 +152,9 @@ func open_portal():
 	
 ## Close the Portal and hide shop ui
 func close_portal():
+	if !game_started:
+		game_started = true
+		start_game()
 	if !portal_is_open:return
 	portal_is_open = false
 	portal_audio_player.stream = ClosePortalSound
@@ -175,7 +179,7 @@ func start_game():
 	right_start_bound.queue_free()
 	var tween = create_tween()
 	tween.tween_property(portal_arrow, 'modulate:a', 0, 2 )
-	tween.tween_property($Sprite, "scale", Vector2(), 1)
+	#tween.tween_property($Sprite, "scale", Vector2(), 1)
 	tween.tween_callback(func():
 		portal_arrow.queue_free()
 		tween.kill())

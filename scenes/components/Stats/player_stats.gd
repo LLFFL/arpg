@@ -3,7 +3,7 @@ class_name PlayerStats extends Stats
 var baseStats: BaseStats
 
 #region Gold Generation
-var gold: int = 7: set = add_gold
+var gold: int = 20: set = add_gold
 
 signal gold_generation_status_changed(active: bool, buff: bool)
 var base_gold_generation_modifier: float = 1
