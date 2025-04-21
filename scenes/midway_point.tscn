@@ -10,7 +10,7 @@
 [ext_resource type="Script" uid="uid://dhkmxwdl7x2fl" path="res://addons/all_projectiles/scripts/resources/projectile_blueprint_2d.gd" id="8_lkpqd"]
 [ext_resource type="Resource" uid="uid://bguorcmtk2rod" path="res://Upgrades/Spells/spell2/12_burning_skies.tres" id="9_bd2ir"]
 [ext_resource type="Texture2D" uid="uid://u5wis3c6uwev" path="res://christophe/Cores/CoreShadow.png" id="10_3ei56"]
-[ext_resource type="AudioStream" uid="uid://dwxohyxhwwekt" path="res://christophe/Cores/CoreHitSound2.wav" id="11_v8tg0"]
+[ext_resource type="AudioStream" uid="uid://cglg8ugmtp3m0" path="res://christophe/Cores/CoreHitSound4.wav" id="11_v8tg0"]
 [ext_resource type="Script" uid="uid://b0fgc7bwsfxmw" path="res://addons/shaker/src/Vector2/shaker_component2D.gd" id="12_v8tg0"]
 [ext_resource type="Script" uid="uid://dagb5fpxgkmgv" path="res://addons/shaker/data/Vector2/BaseShakerType2D.gd" id="13_rf1h7"]
 [ext_resource type="Script" uid="uid://cyw4wdn7hi4a2" path="res://addons/shaker/data/Single/BaseShakerType1D.gd" id="14_di1ol"]
@@ -126,6 +126,7 @@ texture = ExtResource("10_3ei56")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_lkpqd")
+volume_db = 1.0
 bus = &"SFX"
 
 [node name="ShakerComponent2D" type="Node2D" parent="." node_paths=PackedStringArray("Targets")]
