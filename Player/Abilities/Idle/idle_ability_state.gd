@@ -19,6 +19,8 @@ func physics( _delta: float ) -> AbilityState:
 
 #If in combo attack, check if in combo attack then decide if Ability is melee or ability
 func handle_input( _event: InputEvent ) -> AbilityState:
+	if player.dying:
+		return null
 	if Input.is_action_just_pressed("r_cast"):
 		#print("r_cast pressed")
 		var spell := LeechSpell.new()

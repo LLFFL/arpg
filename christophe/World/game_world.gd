@@ -37,7 +37,7 @@ var portal_tween:Tween
 var bases_dictionary: Dictionary
 func _ready():
 	PlayerManager.game_won = false
-	
+	PlayerManager.game_started = true
 	$CameraHandler/Camera2D/ShakerComponent2D.intensity = float(Options.screen_shake_enabled)
 	PlayerManager.player.player_died.connect(_on_player_death)
 	var bases = base_container.get_children()
@@ -61,7 +61,13 @@ func give_bases_dictionary():
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("tilde"):
 		var menu = MENU.instantiate()
+		%MinionSideControl.hide()
+		player.player_hp_ui.hide()
+		%ShopUi.hide()
+		%Portal.hide()
 		get_tree().root.add_child(menu)
+		player.visible = false
+		$CameraHandler/Camera2D.enabled = false
 		ui.hide()
 		self.process_mode = Node.PROCESS_MODE_DISABLED
 
@@ -170,8 +176,6 @@ func start_game():
 	var tween = create_tween()
 	tween.tween_property(portal_arrow, 'modulate:a', 0, 2 )
 	tween.tween_property($Sprite, "scale", Vector2(), 1)
-
-
 	tween.tween_callback(func():
 		portal_arrow.queue_free()
 		tween.kill())
@@ -183,6 +187,7 @@ func start_game():
 
 func end_game(win: bool):
 	game_started = false
+	PlayerManager.game_started = false
 	PlayerManager.current_time = game_time
 	print(PlayerManager.game_times)
 	if win:
@@ -204,3 +209,13 @@ func _on_player_death():
 	PlayerManager.player.stats.stun_entity(2)
 	ui.on_health_changed_player(PlayerManager.player.stats.health)
 	pass
+
+func resume():
+	$CameraHandler/Camera2D.enabled = true
+	player.player_hp_ui.show()
+	%ShopUi.show()
+	%Portal.show()
+	player.visible = true
+	ui.show()
+	%MinionSideControl.show()
+	self.process_mode = Node.PROCESS_MODE_INHERIT

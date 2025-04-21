@@ -5,6 +5,9 @@ var game_won: bool = false
 var game_times: Array[float] = []
 var current_time: float = 0
 
+var game_started: bool = false
+var game_paused: bool = false
+
 func _ready() -> void:
 	tree_exited.connect(_end_game)
 	_load_game()
