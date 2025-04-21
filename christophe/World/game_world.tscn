@@ -1,4 +1,4 @@
-[gd_scene load_steps=78 format=3 uid="uid://46ic5eq5d8qa"]
+[gd_scene load_steps=79 format=3 uid="uid://46ic5eq5d8qa"]
 
 [ext_resource type="Script" uid="uid://dx65t4op8hlv6" path="res://christophe/World/game_world.gd" id="1_6sg4h"]
 [ext_resource type="Shader" uid="uid://v1g385vie0ti" path="res://christophe/Shaders/SpriteColorMapped.gdshader" id="2_wjrrt"]
@@ -201,6 +201,10 @@ size = Vector2(148.268, 29.9295)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6rwpi"]
 size = Vector2(81, 52)
+
+[sub_resource type="Gradient" id="Gradient_myr1t"]
+offsets = PackedFloat32Array(0.107759, 0.508264, 0.706383)
+colors = PackedColorArray(0.974842, 0.977513, 0.989216, 1, 0.460753, 0.589798, 0.955948, 1, 0, 0, 0, 0)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r41hh"]
 size = Vector2(90, 47)
@@ -444,7 +448,7 @@ shakerPreset = SubResource("Resource_al3pl")
 metadata/_custom_type_script = "uid://b0fgc7bwsfxmw"
 
 [node name="CameraHandler" type="Node2D" parent="."]
-position = Vector2(0, 88)
+position = Vector2(0, 70)
 
 [node name="Camera2D" parent="CameraHandler" instance=ExtResource("25_yyeeq")]
 process_mode = 3
@@ -475,7 +479,7 @@ mouse_filter = 2
 
 [node name="Player" parent="." instance=ExtResource("26_myr1t")]
 material = SubResource("ShaderMaterial_cx7l3")
-position = Vector2(0, 88)
+position = Vector2(0, 70)
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../CameraHandler")
@@ -600,6 +604,9 @@ position = Vector2(-8, -455)
 monitoring = false
 monitorable = false
 
+[node name="Explosition" parent="BaseContainer/AllyBase" index="9"]
+emitting = false
+
 [node name="CanvasLayer" type="CanvasLayer" parent="BaseContainer/AllyBase"]
 
 [node name="MinionSideControl" parent="BaseContainer/AllyBase/CanvasLayer" instance=ExtResource("32_4gwui")]
@@ -639,6 +646,10 @@ rotation = -3.1407
 scale = Vector2(0.546287, 0.884165)
 skew = -0.000553012
 
+[node name="Explosition" parent="BaseContainer/EnemyBaseL" index="9"]
+emitting = false
+color_ramp = SubResource("Gradient_myr1t")
+
 [node name="EnemyBaseR" parent="BaseContainer" node_paths=PackedStringArray("CameraShaker") groups=["fire_base"] instance=ExtResource("31_wjrrt")]
 y_sort_enabled = true
 position = Vector2(1110, 61)
@@ -672,6 +683,9 @@ scale = Vector2(1.36845, 0.967038)
 [node name="ProjectileCaller2D" parent="BaseContainer/EnemyBaseR/Area2D" index="2" instance=ExtResource("32_6rwpi")]
 position = Vector2(-31.4225, -5.17042)
 projectile_resources = Array[ExtResource("38_1buh8")]([ExtResource("43_pc07o"), ExtResource("44_me02p"), null])
+
+[node name="Explosition" parent="BaseContainer/EnemyBaseR" index="9"]
+emitting = false
 
 [node name="LeftStartBound" type="StaticBody2D" parent="."]
 visible = false
