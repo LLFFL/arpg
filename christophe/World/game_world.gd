@@ -4,7 +4,7 @@ extends Node2D
 ## The player sprite2D.use_parent_material should be set to true
 ## And the player instance in this scene uses a material that adds an outline
 
-
+const MENU = preload("res://christophe/Menu/menu.tscn")
 @export var player:Player
 @export var mountains_gradient:Gradient
 @export var sky_gradient:Gradient
@@ -57,6 +57,13 @@ func give_bases_dictionary():
 	$BaseContainer/AllyBase.initialize(bases_dictionary)
 	$BaseContainer/EnemyBaseL.initialize(bases_dictionary)
 	$BaseContainer/EnemyBaseR.initialize(bases_dictionary)
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("tilde"):
+		var menu = MENU.instantiate()
+		get_tree().root.add_child(menu)
+		ui.hide()
+		self.process_mode = Node.PROCESS_MODE_DISABLED
 
 func _process(delta):
 	if _game_started:

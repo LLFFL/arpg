@@ -3,7 +3,7 @@ class_name PlayerStats extends Stats
 var baseStats: BaseStats
 
 #region Gold Generation
-var gold: int = 20
+var gold: int = 7: set = add_gold
 
 signal gold_generation_status_changed(active: bool, buff: bool)
 var base_gold_generation_modifier: float = 1
@@ -74,7 +74,7 @@ func add_upgrade(upgrade):
 signal onGoldChange(int)
 
 func add_gold(value: int):
-	gold += int(round(value * gold_generation))
+	gold = int(round(value * gold_generation))
 	onGoldChange.emit(gold)
 
 func upgrade_damage(value: float):
