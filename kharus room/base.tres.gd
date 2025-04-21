@@ -73,7 +73,7 @@ func _ready():
 		minion_side_control.right_press.connect(change_minion_wave_side_selection)
 	else:
 		upgrade_timer = Timer.new()
-		upgrade_timer.wait_time = 30
+		upgrade_timer.wait_time = 25
 		upgrade_timer.timeout.connect(func():
 			if LeftBase || RightBase:
 				stats.level_up.emit()
@@ -94,6 +94,7 @@ func spawn_minion(player_side:bool):
 	var _rect: Rect2 = spawn_zone.shape.get_rect()
 	if(LeftBase or RightBase):
 		for i in stats.units_spawned:
+			await get_tree().create_timer(randf_range(0.1,0.3)).timeout
 			var _x = randi_range(_rect.position.x, _rect.position.x + _rect.size.x)
 			var _y = randi_range(_rect.position.y, _rect.position.y + _rect.size.y)
 			var unit = ENEMY.instantiate()
