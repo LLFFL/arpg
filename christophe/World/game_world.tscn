@@ -448,7 +448,7 @@ shakerPreset = SubResource("Resource_al3pl")
 metadata/_custom_type_script = "uid://b0fgc7bwsfxmw"
 
 [node name="CameraHandler" type="Node2D" parent="."]
-position = Vector2(0, 70)
+position = Vector2(-5, 84)
 
 [node name="Camera2D" parent="CameraHandler" instance=ExtResource("25_yyeeq")]
 process_mode = 3
@@ -479,7 +479,7 @@ mouse_filter = 2
 
 [node name="Player" parent="." instance=ExtResource("26_myr1t")]
 material = SubResource("ShaderMaterial_cx7l3")
-position = Vector2(0, 70)
+position = Vector2(-5, 84)
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../CameraHandler")
@@ -518,7 +518,7 @@ alignment = 1
 [node name="ShopButtonAttack" parent="ShopUi/HBoxContainer" instance=ExtResource("30_y7jpt")]
 layout_mode = 2
 upgrade_cost = 5
-upgrade_value = 10
+upgrade_value = 5
 max_level = 10
 icon_path = ExtResource("31_63wid")
 
@@ -604,9 +604,6 @@ position = Vector2(-8, -455)
 monitoring = false
 monitorable = false
 
-[node name="Explosition" parent="BaseContainer/AllyBase" index="9"]
-emitting = false
-
 [node name="CanvasLayer" type="CanvasLayer" parent="BaseContainer/AllyBase"]
 
 [node name="MinionSideControl" parent="BaseContainer/AllyBase/CanvasLayer" instance=ExtResource("32_4gwui")]
@@ -647,7 +644,6 @@ scale = Vector2(0.546287, 0.884165)
 skew = -0.000553012
 
 [node name="Explosition" parent="BaseContainer/EnemyBaseL" index="9"]
-emitting = false
 color_ramp = SubResource("Gradient_myr1t")
 
 [node name="EnemyBaseR" parent="BaseContainer" node_paths=PackedStringArray("CameraShaker") groups=["fire_base"] instance=ExtResource("31_wjrrt")]
@@ -684,9 +680,6 @@ scale = Vector2(1.36845, 0.967038)
 position = Vector2(-31.4225, -5.17042)
 projectile_resources = Array[ExtResource("38_1buh8")]([ExtResource("43_pc07o"), ExtResource("44_me02p"), null])
 
-[node name="Explosition" parent="BaseContainer/EnemyBaseR" index="9"]
-emitting = false
-
 [node name="LeftStartBound" type="StaticBody2D" parent="."]
 visible = false
 collision_mask = 0
@@ -717,6 +710,7 @@ polygon = PackedVector2Array(-52, -38, 50, 54, 2, 55, -79, -33)
 fill_mode = 1
 
 [node name="BossModule" parent="MidwayPoint" index="4"]
+visible = true
 position = Vector2(577, 96)
 
 [node name="MidwayPoint2" parent="." groups=["ice_base"] instance=ExtResource("48_pc07o")]
@@ -737,6 +731,9 @@ polygon = PackedVector2Array(-52, -38, 50, 54, -10, 56, -103, -40)
 fill_mode = 1
 texture_under = ExtResource("50_qelnb")
 texture_progress = ExtResource("51_bl0if")
+
+[node name="BossModule" parent="MidwayPoint2" index="4"]
+visible = true
 
 [node name="CollisionShape2D" parent="MidwayPoint2/BossModule" index="0"]
 position = Vector2(-482, 82)
