@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=3 uid="uid://46ic5eq5d8qa"]
+[gd_scene load_steps=83 format=3 uid="uid://46ic5eq5d8qa"]
 
 [ext_resource type="Script" uid="uid://dx65t4op8hlv6" path="res://christophe/World/game_world.gd" id="1_6sg4h"]
 [ext_resource type="Shader" uid="uid://v1g385vie0ti" path="res://christophe/Shaders/SpriteColorMapped.gdshader" id="2_wjrrt"]
@@ -51,9 +51,11 @@
 [ext_resource type="Resource" uid="uid://dpxs7aclyx0k" path="res://Upgrades/Spells/spell2/05_the_pursuer.tres" id="44_me02p"]
 [ext_resource type="PackedScene" uid="uid://dnpor7bwy5pjt" path="res://scenes/midway_point.tscn" id="48_pc07o"]
 [ext_resource type="Texture2D" uid="uid://cuvnxmfrpli85" path="res://christophe/Cores/IceMiniCore.png" id="49_nk3or"]
-[ext_resource type="Resource" uid="uid://dt1w11wceeiv0" path="res://Upgrades/Spells/spell2/02_heavy_magic_bolt.tres" id="50_16i4r"]
 [ext_resource type="Texture2D" uid="uid://bbud43y8jmukf" path="res://christophe/Cores/MiniIceCoreHP_Empty.png" id="50_qelnb"]
 [ext_resource type="Texture2D" uid="uid://2hth5tr1mmll" path="res://christophe/Cores/MiniIceCoreHP_Full.png" id="51_bl0if"]
+[ext_resource type="PackedScene" uid="uid://b1cm70wimt8gm" path="res://Upgrades/Spells/Particles/12_burning_skies.tscn" id="51_myr1t"]
+[ext_resource type="PackedScene" uid="uid://ck15xb37n2npc" path="res://Upgrades/Spells/spell2/scenes/02_heavy_magic_bolt.tscn" id="54_yyeeq"]
+[ext_resource type="AudioStream" uid="uid://ev55r0t5ky7g" path="res://christophe/World/bullfrogdungeon.wav" id="56_gx05q"]
 
 [sub_resource type="Gradient" id="Gradient_3fx2f"]
 offsets = PackedFloat32Array(0.00332226, 0.533546, 0.799107, 1)
@@ -208,6 +210,70 @@ colors = PackedColorArray(0.974842, 0.977513, 0.989216, 1, 0.460753, 0.589798, 0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r41hh"]
 size = Vector2(90, 47)
+
+[sub_resource type="Resource" id="Resource_gx05q"]
+script = ExtResource("38_1buh8")
+proj_type = 2
+size = 1.0
+lifetime = 8.0
+linear_speed = 250.0
+radius = 50
+collision_layer = 0
+collision_mask = 24
+on_hit_call = "damage2"
+area_monitoreable = true
+collision_path = "Collision"
+instance = ExtResource("51_myr1t")
+damage = 20
+pierce = 2
+look_at = true
+seeking = false
+seeking_mask = 0
+angular_speed = 45.0
+after_hit_angular_speed = 180.0
+cast_radius = 200.0
+lock_to_target = false
+allow_rehit = false
+rehit_cooldown = 0.1
+instances = 1
+proj_directionality = 2
+proj_spread = 1
+angular_spread = 0.0
+vertical_spread = 200.0
+randomize_positions = false
+linear_deviation = 250.0
+
+[sub_resource type="Resource" id="Resource_myr1t"]
+script = ExtResource("38_1buh8")
+proj_type = 2
+size = 1.0
+lifetime = 8.0
+linear_speed = 200.0
+radius = 50
+collision_layer = 0
+collision_mask = 24
+on_hit_call = "damage2"
+area_monitoreable = true
+collision_path = "Collision"
+instance = ExtResource("54_yyeeq")
+damage = 30
+pierce = 1
+look_at = true
+seeking = false
+seeking_mask = 0
+angular_speed = 0.0
+after_hit_angular_speed = 0.0
+cast_radius = 200.0
+lock_to_target = false
+allow_rehit = false
+rehit_cooldown = 0.1
+instances = 1
+proj_directionality = 2
+proj_spread = 0
+angular_spread = 0.0
+vertical_spread = 0.0
+randomize_positions = false
+linear_deviation = 0.0
 
 [sub_resource type="Gradient" id="Gradient_yyeeq"]
 offsets = PackedFloat32Array(0, 0.376033, 0.545455, 0.706383)
@@ -448,7 +514,7 @@ shakerPreset = SubResource("Resource_al3pl")
 metadata/_custom_type_script = "uid://b0fgc7bwsfxmw"
 
 [node name="CameraHandler" type="Node2D" parent="."]
-position = Vector2(-5, 84)
+position = Vector2(0, 93)
 
 [node name="Camera2D" parent="CameraHandler" instance=ExtResource("25_yyeeq")]
 process_mode = 3
@@ -479,7 +545,7 @@ mouse_filter = 2
 
 [node name="Player" parent="." instance=ExtResource("26_myr1t")]
 material = SubResource("ShaderMaterial_cx7l3")
-position = Vector2(-5, 84)
+position = Vector2(0, 93)
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../CameraHandler")
@@ -713,6 +779,9 @@ fill_mode = 1
 visible = true
 position = Vector2(577, 96)
 
+[node name="ProjectileCaller2D" parent="MidwayPoint/BossModule" index="2"]
+projectile_resources = Array[ExtResource("38_1buh8")]([SubResource("Resource_gx05q"), null])
+
 [node name="MidwayPoint2" parent="." groups=["ice_base"] instance=ExtResource("48_pc07o")]
 position = Vector2(-566, 83)
 scale = Vector2(-1, 1)
@@ -739,10 +808,15 @@ visible = true
 position = Vector2(-482, 82)
 
 [node name="ProjectileCaller2D" parent="MidwayPoint2/BossModule" index="2"]
-projectile_resources = Array[ExtResource("38_1buh8")]([ExtResource("50_16i4r"), null])
+projectile_resources = Array[ExtResource("38_1buh8")]([SubResource("Resource_myr1t"), null])
 
 [node name="Explosition" parent="MidwayPoint2" index="8"]
 color_ramp = SubResource("Gradient_yyeeq")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("56_gx05q")
+autoplay = true
+bus = &"Music"
 
 [editable path="BaseContainer/AllyBase"]
 [editable path="BaseContainer/AllyBase/HurtBox"]

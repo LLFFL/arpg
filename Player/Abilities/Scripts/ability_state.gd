@@ -18,13 +18,14 @@ class ComboAttack:
 	var state: AbilityState
 	var input: String
 
-static var combo_attack: ComboAttack
+static var combo_attack: ComboAttack = null
 
 func _ready() -> void:
 	pass # Replace with function body.
 
 func init() -> void:
 	base_cooldown = cooldown
+	combo_attack = null
 	pass
 
 func enter() -> void:

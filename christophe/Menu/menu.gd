@@ -3,6 +3,7 @@ extends Node2D
 
 
 func _ready():
+	$VBoxContainer/HBoxContainer3/ShakeSlider.value = Options.screen_shake_intensity
 	PlayerManager.game_won = false
 	$TextureButton.disabled = true
 	if !PlayerManager.game_started:
@@ -17,6 +18,7 @@ func _ready():
 		$Splashes.visible = false
 	$TextureButton.disabled = false
 	pass
+	$AudioStreamPlayerMusic.play()
 	# used to randomise frog order
 	#for child in $HBoxContainer.get_children():
 		#$HBoxContainer.move_child(child,randi_range(0,5))

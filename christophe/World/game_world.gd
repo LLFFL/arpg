@@ -18,6 +18,8 @@ const MENU = preload("res://christophe/Menu/menu.tscn")
 @onready var respawn_marker: Marker2D = $RespawnMarker
 @onready var ui: Control = $CameraHandler/Camera2D/CanvasLayer/UI
 @onready var portal_audio_player: AudioStreamPlayer2D = $Map/Portal/PortalAudioPlayer
+@onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
+
 
 @export var OpenPortalSound:AudioStream
 @export var ClosePortalSound:AudioStream
@@ -36,6 +38,7 @@ var portal_tween:Tween
 @onready var base_container: Node = %BaseContainer
 var bases_dictionary: Dictionary
 func _ready():
+	
 	PlayerManager.game_won = false
 	PlayerManager.game_started = true
 	$CameraHandler/Camera2D/ShakerComponent2D.intensity = float(Options.screen_shake_enabled)
@@ -193,7 +196,6 @@ func end_game(win: bool):
 	game_started = false
 	PlayerManager.game_started = false
 	PlayerManager.current_time = game_time
-	print(PlayerManager.game_times)
 	if win:
 		if game_time > 0:
 			PlayerManager.game_times.append(game_time)
@@ -216,6 +218,7 @@ func _on_player_death():
 
 func resume():
 	$CameraHandler/Camera2D.enabled = true
+	$CameraHandler/Camera2D/ShakerComponent2D.intensity = float(Options.screen_shake_enabled)
 	player.player_hp_ui.show()
 	%ShopUi.show()
 	%Portal.show()
