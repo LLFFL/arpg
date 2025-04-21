@@ -8,7 +8,7 @@ func _ready():
 	%Sprite2D.scale = Vector2.ZERO
 	
 	t = create_tween()
-	t.tween_property(%Sprite2D,"scale",Vector2(1,1),0.3).set_trans(Tween.TRANS_QUAD)
+	t.tween_property(%Sprite2D,"scale",Vector2(1,1),0.1).set_trans(Tween.TRANS_QUAD)
 	
 	await t.finished
 	t.kill()
@@ -17,7 +17,7 @@ func _ready():
 	t.parallel().tween_property($SmallShadow,"modulate:a",0.6,1.5)
 	t.tween_property(%Sprite2D,"position:y",initial_position.y,1.5)
 	t.parallel().tween_property($SmallShadow,"modulate:a",1,1.5)
-	await get_tree().create_timer(.75).timeout	
+	await get_tree().create_timer(.1).timeout
 	picked_up()
 
 func picked_up():

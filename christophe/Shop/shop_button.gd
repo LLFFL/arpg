@@ -36,7 +36,7 @@ func _ready():
 	%BuyButton.pressed.connect(_on_pressed)
 	%CostLabel.text = str(upgrade_cost)
 	%ItemIcon.texture = icon_path
-	%LimitLabel.text = str(current_level) + "I" + str(max_level)
+	%LimitLabel.text = str(current_level) + "-" + str(max_level)
 	
 
 func _on_pressed() -> void:
@@ -49,7 +49,7 @@ func _on_pressed() -> void:
 		return
 	# buy the item
 	current_level+=1
-	%LimitLabel.text = str(current_level) + "I" + str(max_level)
+	%LimitLabel.text = str(current_level) + "-" + str(max_level)
 	PlayerManager.player.stats.gold -= upgrade_cost
 	#Adjust the gold in UI
 	ui.update_gold(PlayerManager.player.stats.gold)

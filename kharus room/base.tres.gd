@@ -154,10 +154,16 @@ func _on_timer_timeout(_timer: Timer):
 
 signal game_ended(bool)
 func _on_stats_no_health() -> void:
+	CameraShaker.play_shake()
+	$Explosition/AudioStreamPlayer2D.play()
+	$Explosition.restart()
+	$Explosition.reparent(get_parent())
+	self.hide()
 	await get_tree().create_timer(0.3).timeout
-	var enemyDeathEffect = EnemyDeathEffect.instantiate()
-	get_parent().add_child(enemyDeathEffect)
-	enemyDeathEffect.position = position
+	
+	#var enemyDeathEffect = EnemyDeathEffect.instantiate()
+	#get_parent().add_child(enemyDeathEffect)
+	#enemyDeathEffect.position = position
 	if (LeftBase):
 		base1 = false
 		if base2:#Mark bandaid
