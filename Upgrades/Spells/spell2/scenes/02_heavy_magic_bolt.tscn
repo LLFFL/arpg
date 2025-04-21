@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://ck15xb37n2npc"]
+[gd_scene load_steps=16 format=3 uid="uid://ck15xb37n2npc"]
 
 [ext_resource type="Script" uid="uid://dp2uuotuqir7x" path="res://Upgrades/Spells/Particles/ExplodeOnContact.gd" id="1_h1r0d"]
 [ext_resource type="Texture2D" uid="uid://d4f6t1x1tgj2" path="res://christophe/Particles/round.png" id="2_xc6cm"]
@@ -7,10 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bx61ws5b5k6le" path="res://christophe/Particles/IceSpike.png" id="6_h1c8b"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_grgi5"]
-radius = 18.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_e42ot"]
-radius = 18.0
+radius = 17.0
 
 [sub_resource type="Curve" id="Curve_oj0ff"]
 _data = [Vector2(0.00383142, 1), 0.0, 0.0, 0, 0, Vector2(0.191571, 1), 0.0580315, 0.0580315, 0, 0, Vector2(0.448276, 0), -11.0816, -11.7259, 0, 0]
@@ -49,19 +46,14 @@ stream_0/stream = ExtResource("5_ojsnn")
 z_index = 11
 
 [node name="Collision" type="Area2D" parent="."]
-scale = Vector2(1, 0.605)
+scale = Vector2(1, 0.45)
 collision_layer = 16
-collision_mask = 6
+collision_mask = 4
 script = ExtResource("1_h1r0d")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collision"]
+position = Vector2(-2, 0)
 shape = SubResource("CircleShape2D_grgi5")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Collision"]
-position = Vector2(-2, 1.445e-07)
-rotation = -1.5708
-scale = Vector2(1.65289, 1)
-shape = SubResource("CircleShape2D_e42ot")
 
 [node name="Explosition" type="CPUParticles2D" parent="Collision"]
 z_index = 3

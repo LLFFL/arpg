@@ -2,7 +2,7 @@ extends Area2D
 
 @export var leechCursor: = preload("res://assets/UI/UI/UI_Cursor.png")
 @export var defaultCursor: Texture
-	
+
 func _ready():	
 	if get_parent().is_in_group("allied_minions"):
 		mouse_entered.connect(_on_mouse_entered)

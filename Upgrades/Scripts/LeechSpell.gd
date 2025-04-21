@@ -3,7 +3,7 @@ const FIREBALL_HEAD = preload("res://Upgrades/Spells/Particles/fireballHead.tscn
 @export var leech_particles_scene: PackedScene
 @export var heal_particles_scene: PackedScene
 signal player_healed()
-
+@export var defaultCursor: Texture
 
 func apply_effects(_caster: Node, _target: Node = null) -> void:
 	var cursor_pos = get_global_mouse_position()
@@ -20,6 +20,8 @@ func apply_effects(_caster: Node, _target: Node = null) -> void:
 			var minion = hit.collider.get_parent()
 			if minion is Unit:
 				if minion.has_method("damage"):
+					if !minion.ally:
+						return
 					var attack := Attack.new()
 					var healthTransfer = minion.stats.max_health + minion.stats.defence
 					var _h = minion.stats.health
@@ -34,6 +36,7 @@ func apply_effects(_caster: Node, _target: Node = null) -> void:
 						var fx1 = FIREBALL_HEAD.instantiate()
 						fx1.global_position = minion.global_position
 						get_tree().current_scene.add_child(fx1)
+						Input.set_custom_mouse_cursor(defaultCursor)
 						if fx1.has_method("restart"):
 							fx1.restart()
 						await get_tree().create_timer(0.5).timeout

@@ -13,13 +13,12 @@ extends Control
 
 
 func _ready():
-	await get_tree().create_timer(1).timeout
+	#await get_tree().create_timer(1).timeout
+	await get_tree().process_frame
 	PlayerManager.player.stats.onGoldChange.connect(update_gold)
+	update_gold(PlayerManager.player.stats.gold)
 
 
-	
-	pass
-	
 func initialize_health(max_hp: float, sender: Node2D) -> void:
 	if sender.MainBase:
 		player_core.max_value = max_hp
@@ -35,10 +34,10 @@ func on_health_changed(current_hp: float, sender: Node2D) -> void:
 
 	elif sender.LeftBase:
 		l_side_core.value = current_hp
-		$"HBoxContainer/LSide Core HP/LSideLabel".text = str(int(current_hp))
+		$"HBoxContainer/LSide Core HP/LSideLabel".text = str(int(max(0,current_hp)))
 	else: 
 		r_side_core.value = current_hp
-		$"HBoxContainer/RSide Core HP/RSide Label".text = str(int(current_hp))
+		$"HBoxContainer/RSide Core HP/RSide Label".text = str(int(max(0,current_hp)))
 
 
 func initialize_health_player(max_hp: float,) -> void:

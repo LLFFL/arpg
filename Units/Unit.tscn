@@ -411,6 +411,7 @@ shape = SubResource("CircleShape2D_md5ic")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_25wig")
+bus = &"SFX"
 
 [connection signal="invincibility_ended" from="HurtBox" to="." method="_on_hurt_box_invincibility_ended"]
 [connection signal="invincibility_started" from="HurtBox" to="." method="_on_hurt_box_invincibility_started"]
