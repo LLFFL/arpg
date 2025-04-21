@@ -7,6 +7,10 @@ class_name MidwayPoint extends StaticBody2D
 		health = value
 		texture_progress_bar.value = health
 		if health <= 0:
+			$Explosition/AudioStreamPlayer2D.play()
+			$Explosition.restart()
+			$Explosition.reparent(get_parent())
+			self.hide()
 			queue_free()
 	get():
 		return health
@@ -29,6 +33,9 @@ func damage(_attack: Attack):
 	var dmg = _attack.damage
 	health -= dmg if dmg > 0 else 0
 	
+	# sorry idk where u handle dying
+	#if health == 0 :
+
 	var t = create_tween()
 	t.tween_property($Sprite2D,"scale:y",1.3,0.05).set_trans(Tween.TRANS_LINEAR)
 	t.parallel().tween_property($Sprite2D,"modulate",Color("faa6c6"),0.05).set_trans(Tween.TRANS_LINEAR)
