@@ -518,7 +518,7 @@ alignment = 1
 [node name="ShopButtonAttack" parent="ShopUi/HBoxContainer" instance=ExtResource("30_y7jpt")]
 layout_mode = 2
 upgrade_cost = 5
-upgrade_value = 10
+upgrade_value = 5
 max_level = 10
 icon_path = ExtResource("31_63wid")
 
@@ -604,9 +604,6 @@ position = Vector2(-8, -455)
 monitoring = false
 monitorable = false
 
-[node name="Explosition" parent="BaseContainer/AllyBase" index="9"]
-emitting = false
-
 [node name="CanvasLayer" type="CanvasLayer" parent="BaseContainer/AllyBase"]
 
 [node name="MinionSideControl" parent="BaseContainer/AllyBase/CanvasLayer" instance=ExtResource("32_4gwui")]
@@ -647,7 +644,6 @@ scale = Vector2(0.546287, 0.884165)
 skew = -0.000553012
 
 [node name="Explosition" parent="BaseContainer/EnemyBaseL" index="9"]
-emitting = false
 color_ramp = SubResource("Gradient_myr1t")
 
 [node name="EnemyBaseR" parent="BaseContainer" node_paths=PackedStringArray("CameraShaker") groups=["fire_base"] instance=ExtResource("31_wjrrt")]
@@ -683,9 +679,6 @@ scale = Vector2(1.36845, 0.967038)
 [node name="ProjectileCaller2D" parent="BaseContainer/EnemyBaseR/Area2D" index="2" instance=ExtResource("32_6rwpi")]
 position = Vector2(-31.4225, -5.17042)
 projectile_resources = Array[ExtResource("38_1buh8")]([ExtResource("43_pc07o"), ExtResource("44_me02p"), null])
-
-[node name="Explosition" parent="BaseContainer/EnemyBaseR" index="9"]
-emitting = false
 
 [node name="LeftStartBound" type="StaticBody2D" parent="."]
 visible = false
