@@ -1,4 +1,4 @@
-[gd_scene load_steps=83 format=3 uid="uid://46ic5eq5d8qa"]
+[gd_scene load_steps=84 format=3 uid="uid://46ic5eq5d8qa"]
 
 [ext_resource type="Script" uid="uid://dx65t4op8hlv6" path="res://christophe/World/game_world.gd" id="1_6sg4h"]
 [ext_resource type="Shader" uid="uid://v1g385vie0ti" path="res://christophe/Shaders/SpriteColorMapped.gdshader" id="2_wjrrt"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://cpxns4i0ji447" path="res://christophe/Particles/snow.png" id="6_ufba3"]
 [ext_resource type="Texture2D" uid="uid://fri7rlsghp6s" path="res://christophe/Cores/PlayerCore.png" id="7_4gwui"]
 [ext_resource type="Texture2D" uid="uid://celvg3ltvpk0b" path="res://christophe/World/ground.png" id="7_dq7a4"]
+[ext_resource type="Texture2D" uid="uid://chbqt3jluobki" path="res://christophe/World/AlmostGround.png" id="8_0mng6"]
 [ext_resource type="Texture2D" uid="uid://r5xy5wxip2pp" path="res://christophe/World/frogDimension/Portal.png" id="8_n5cly"]
 [ext_resource type="Texture2D" uid="uid://cf61ek826hivn" path="res://christophe/World/frogDimension/a.png" id="9_picea"]
 [ext_resource type="Texture2D" uid="uid://mw3f8bxhx6ve" path="res://christophe/World/frogDimension/b.png" id="10_y7jpt"]
@@ -345,6 +346,15 @@ scroll_scale = Vector2(0.8, 1)
 position = Vector2(0, -4)
 scale = Vector2(0.915, 0.965)
 texture = ExtResource("5_r41hh")
+
+[node name="NEAR2" type="Parallax2D" parent="Map"]
+z_index = -7
+scroll_scale = Vector2(0.96, 1)
+
+[node name="NearSprite" type="Sprite2D" parent="Map/NEAR2"]
+position = Vector2(229, 41)
+scale = Vector2(0.915, 0.965)
+texture = ExtResource("8_0mng6")
 
 [node name="FireParticles" type="CPUParticles2D" parent="Map"]
 modulate = Color(1, 0.484443, 0.229506, 1)
