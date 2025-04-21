@@ -34,10 +34,10 @@ func on_health_changed(current_hp: float, sender: Node2D) -> void:
 
 	elif sender.LeftBase:
 		l_side_core.value = current_hp
-		$"HBoxContainer/LSide Core HP/LSideLabel".text = str(int(current_hp))
+		$"HBoxContainer/LSide Core HP/LSideLabel".text = str(int(max(0,current_hp)))
 	else: 
 		r_side_core.value = current_hp
-		$"HBoxContainer/RSide Core HP/RSide Label".text = str(int(current_hp))
+		$"HBoxContainer/RSide Core HP/RSide Label".text = str(int(max(0,current_hp)))
 
 
 func initialize_health_player(max_hp: float,) -> void:
