@@ -2,6 +2,7 @@ extends Node2D
 
 
 var t:Tween
+var _time: float = 0.1
 
 func _ready():
 	var initial_position = %Sprite2D.position
@@ -17,7 +18,7 @@ func _ready():
 	t.parallel().tween_property($SmallShadow,"modulate:a",0.6,1.5)
 	t.tween_property(%Sprite2D,"position:y",initial_position.y,1.5)
 	t.parallel().tween_property($SmallShadow,"modulate:a",1,1.5)
-	await get_tree().create_timer(.1).timeout
+	await get_tree().create_timer(_time).timeout
 	picked_up()
 
 func picked_up():
@@ -32,4 +33,6 @@ func picked_up():
 	%Sprite2D/AudioStreamPlayer2D.pitch_scale = randf_range(0.9,1.2)
 	%Sprite2D/AudioStreamPlayer2D.play()
 	await %Sprite2D/AudioStreamPlayer2D.finished
+	if PlayerManager.player:
+		PlayerManager.player.stats.gold += 1
 	queue_free()

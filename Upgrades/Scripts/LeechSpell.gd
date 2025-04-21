@@ -20,6 +20,8 @@ func apply_effects(_caster: Node, _target: Node = null) -> void:
 			var minion = hit.collider.get_parent()
 			if minion is Unit:
 				if minion.has_method("damage"):
+					if !minion.ally:
+						return
 					var attack := Attack.new()
 					var healthTransfer = minion.stats.max_health + minion.stats.defence
 					var _h = minion.stats.health

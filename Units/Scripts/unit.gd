@@ -124,8 +124,6 @@ func _on_no_health():
 			var coin = MONEY.instantiate()
 			get_parent().get_parent().add_child(coin)
 			coin.global_position = global_position
-			body.stats.add_gold(1)
-			print("gold given")
 	kill_unit()
 
 func kill_unit():

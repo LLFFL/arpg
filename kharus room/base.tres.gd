@@ -7,6 +7,7 @@ var enemy_minions_per_wave: int = 0
 var minion_side_selection: Array = [0,0] # this array will serve as number of minions to spawn per wave
 #const BAT = preload("res://scenes/Bat.tscn")
 const ENEMY = preload("res://Units/Unit.tscn")
+const MONEY = preload("res://christophe/Shop/money.tscn")
 #@onready var stats = $StatsComponent
 #@onready var stats: UnitStats = $Stats
 @onready var stats: BaseStats = $Stats
@@ -44,7 +45,8 @@ func _ready():
 	spawn_timer = Timer.new()
 	spawn_timer.timeout.connect(_on_timer_timeout.bind(spawn_timer))
 	add_child(spawn_timer)
-	
+	base1 = true
+	base2 = true
 	target_location = target_marker.global_position
 	hurtbox.damaged.connect(take_damage)
 	if (MainBase):
@@ -157,10 +159,18 @@ signal game_ended(bool)
 func _on_stats_no_health() -> void:
 	if !MainBase:
 		CameraShaker.play_shake()
-		$Explosition/AudioStreamPlayer2D.play()
-		$Explosition.restart()
-		$Explosition.reparent(get_parent())
+		if $Explosition/AudioStreamPlayer2D:
+			$Explosition/AudioStreamPlayer2D.play()
+			$Explosition.restart()
+			$Explosition.reparent(get_parent())
 		self.hide()
+		for i in 20:
+			var coin = MONEY.instantiate()
+			coin._time = randf_range(0.1, 0.7)
+			var x = randf_range(-25, 25)
+			var y = randf_range(-20, 20) + 40
+			get_parent().add_child(coin)
+			coin.global_position = global_position + Vector2(x, y)
 	await get_tree().create_timer(0.3).timeout
 	
 	#var enemyDeathEffect = EnemyDeathEffect.instantiate()
