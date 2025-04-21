@@ -5,7 +5,7 @@ var resource_rate: int = 10
 var minion_rate: int = 3
 var enemy_minions_per_wave: int = 0
 var minion_side_selection: Array = [0,0] # this array will serve as number of minions to spawn per wave
-const BAT = preload("res://scenes/Bat.tscn")
+#const BAT = preload("res://scenes/Bat.tscn")
 const ENEMY = preload("res://Units/Unit.tscn")
 #@onready var stats = $StatsComponent
 #@onready var stats: UnitStats = $Stats
@@ -13,7 +13,7 @@ const ENEMY = preload("res://Units/Unit.tscn")
 
 @onready var hurtbox = $HurtBox
 @export var SpawnOver: bool = false
-@onready var bat_spawn_location = $SpawnLocation.position
+#@onready var bat_spawn_location = $SpawnLocation.position
 @export var MainBase: bool
 @export var LeftBase:bool
 @export var RightBase:bool
@@ -73,7 +73,7 @@ func _ready():
 		minion_side_control.right_press.connect(change_minion_wave_side_selection)
 	else:
 		upgrade_timer = Timer.new()
-		upgrade_timer.wait_time = 40
+		upgrade_timer.wait_time = 30
 		upgrade_timer.timeout.connect(func():
 			if LeftBase || RightBase:
 				stats.level_up.emit()
@@ -154,11 +154,12 @@ func _on_timer_timeout(_timer: Timer):
 
 signal game_ended(bool)
 func _on_stats_no_health() -> void:
-	CameraShaker.play_shake()
-	$Explosition/AudioStreamPlayer2D.play()
-	$Explosition.restart()
-	$Explosition.reparent(get_parent())
-	self.hide()
+	if !MainBase:
+		CameraShaker.play_shake()
+		$Explosition/AudioStreamPlayer2D.play()
+		$Explosition.restart()
+		$Explosition.reparent(get_parent())
+		self.hide()
 	await get_tree().create_timer(0.3).timeout
 	
 	#var enemyDeathEffect = EnemyDeathEffect.instantiate()
@@ -176,7 +177,7 @@ func _on_stats_no_health() -> void:
 			redirect_minions_to_active_side() # this directs spawn to other boss automatically
 	if !base1 && !base2:
 		game_ended.emit(true)
-		print("DOOT DOOT DOO DOO, DOOT DOOT DOO DOO, WINNER! GANGION!")
+		#print("DOOT DOOT DOO DOO, DOOT DOOT DOO DOO, WINNER! GANGION!")
 		#ref the node, call the function for the transition to win screen
 	if MainBase:
 		game_ended.emit(false)

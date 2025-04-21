@@ -544,7 +544,7 @@ script = ExtResource("14_3mea3")
 
 [node name="Thrust" type="Node2D" parent="AbilityStateMachine"]
 script = ExtResource("15_7v5gs")
-cooldown = 2.0
+cooldown = 0.1
 
 [node name="HitBox" parent="AbilityStateMachine/Thrust" instance=ExtResource("6_5wa8t")]
 visible = false
@@ -600,7 +600,6 @@ offset_bottom = -32.0
 
 [node name="Stats" type="Node2D" parent="."]
 script = ExtResource("17_8sa4y")
-base_damage = 25.0
 base_movement_speed = 180.0
 
 [node name="ProjectileCaller2D" type="Node2D" parent="."]
