@@ -1,13 +1,26 @@
-[gd_scene load_steps=7 format=3 uid="uid://cqfgoae6a2efh"]
+[gd_scene load_steps=12 format=3 uid="uid://cqfgoae6a2efh"]
 
 [ext_resource type="Script" uid="uid://cjk8a2sb5gqfu" path="res://kharus room/base.tres.gd" id="1_7qqri"]
 [ext_resource type="PackedScene" uid="uid://duf5lox4m3wnm" path="res://christophe/Cores/core.tscn" id="2_wnjqk"]
 [ext_resource type="PackedScene" uid="uid://8q2xropak2sp" path="res://scenes/components/HurtBox.tscn" id="3_7qqri"]
 [ext_resource type="PackedScene" uid="uid://cdk2biitbjogl" path="res://enemy/bossModule.tscn" id="5_1ntxk"]
+[ext_resource type="Texture2D" uid="uid://d4f6t1x1tgj2" path="res://christophe/Particles/round.png" id="6_g474p"]
 [ext_resource type="Script" uid="uid://dqh3pte7cmfme" path="res://scenes/components/Stats/base_stats.gd" id="6_pjsni"]
+[ext_resource type="AudioStream" uid="uid://bn7snycad01wi" path="res://christophe/Particles/MeteorExplosionSound.wav" id="7_pkb53"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1ntxk"]
 size = Vector2(70, 74)
+
+[sub_resource type="Curve" id="Curve_djle1"]
+_data = [Vector2(0.00383142, 1), 0.0, 0.0, 0, 0, Vector2(0.191571, 1), 0.0580315, 0.0580315, 0, 0, Vector2(0.448276, 0), -11.0816, -11.7259, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_bp2ht"]
+offsets = PackedFloat32Array(0.107759, 0.344681, 0.706383)
+colors = PackedColorArray(0.980392, 0.74902, 0.270588, 1, 0.980392, 0.396078, 0.270588, 1, 0, 0, 0, 0)
+
+[sub_resource type="Gradient" id="Gradient_hah2j"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
 
 [node name="Base" type="Node2D"]
 script = ExtResource("1_7qqri")
@@ -44,6 +57,33 @@ offset_left = -21.0
 offset_top = 14.0
 offset_right = 19.0
 offset_bottom = 34.0
+
+[node name="Explosition" type="CPUParticles2D" parent="."]
+z_index = 3
+position = Vector2(0, -2)
+amount = 40
+texture = ExtResource("6_g474p")
+lifetime = 3.0
+one_shot = true
+explosiveness = 1.0
+randomness = 0.6
+lifetime_randomness = 1.0
+spread = 180.0
+gravity = Vector2(0, 200)
+initial_velocity_min = 61.22
+initial_velocity_max = 260.48
+linear_accel_max = 46.26
+scale_amount_min = 2.0
+scale_amount_max = 3.0
+scale_amount_curve = SubResource("Curve_djle1")
+color_ramp = SubResource("Gradient_bp2ht")
+color_initial_ramp = SubResource("Gradient_hah2j")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Explosition"]
+position = Vector2(0, 2)
+stream = ExtResource("7_pkb53")
+volume_db = 4.0
+bus = &"SFX"
 
 [connection signal="no_health" from="Stats" to="." method="_on_stats_no_health"]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://cu4uhjrwsffug"]
+[gd_scene load_steps=31 format=3 uid="uid://cu4uhjrwsffug"]
 
 [ext_resource type="Script" uid="uid://ccqddjie4fen2" path="res://christophe/Menu/menu.gd" id="1_oau1d"]
 [ext_resource type="PackedScene" uid="uid://ye3pnyrh04ru" path="res://christophe/Menu/frog_credit.tscn" id="2_dvf1b"]
@@ -21,6 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://jgfri3s77np7" path="res://christophe/Menu/Title.png" id="20_pwrgk"]
 [ext_resource type="Shader" uid="uid://d12euimcv0s0a" path="res://christophe/Menu/menu.tres" id="21_pwrgk"]
 [ext_resource type="Texture2D" uid="uid://ccumex72hqeb7" path="res://christophe/Menu/Jam_Theme_Splash.png" id="21_yr8uv"]
+[ext_resource type="AudioStream" uid="uid://de4n0nfhekwfp" path="res://christophe/Menu/outer_space.mp3" id="22_byqlt"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_byqlt"]
 shader = ExtResource("21_pwrgk")
@@ -156,16 +157,16 @@ position = Vector2(156, 28)
 scale = Vector2(0.727478, 0.727477)
 
 [node name="FrogCredit4" parent="HBoxContainer/Node2D3" instance=ExtResource("2_dvf1b")]
-offset_left = -19.0
-offset_top = -17.5
-offset_right = 19.0
-offset_bottom = 17.5
+offset_left = 50.3458
+offset_top = -17.4745
+offset_right = 88.3458
+offset_bottom = 17.5255
 size_flags_vertical = 8
 texture_normal = ExtResource("5_oau1d")
 credit = "Yomag"
 
 [node name="Node2D4" type="Node2D" parent="HBoxContainer"]
-position = Vector2(211, 28)
+position = Vector2(151.349, 27.5179)
 scale = Vector2(0.727476, 0.727477)
 
 [node name="FrogCredit3" parent="HBoxContainer/Node2D4" instance=ExtResource("2_dvf1b")]
@@ -199,22 +200,6 @@ offset_top = -17.5
 offset_bottom = 17.5
 size_flags_vertical = 8
 credit = "Christophe"
-
-[node name="Label" type="Label" parent="."]
-visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -89.0
-offset_top = -119.0
-offset_right = 89.0
-offset_bottom = -87.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 34
-text = "GAME TITLE"
 
 [node name="Label2" type="Label" parent="."]
 anchors_preset = 8
@@ -290,7 +275,7 @@ label_settings = SubResource("LabelSettings_bfsx7")
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 max_value = 1.0
-step = 0.1
+step = 0.001
 value = 1.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
@@ -380,6 +365,11 @@ texture = ExtResource("21_yr8uv")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-2.38419e-07, -2.38419e-07)
+
+[node name="AudioStreamPlayerMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("22_byqlt")
+autoplay = true
+bus = &"Music"
 
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="toggled" from="VBoxContainer/ScreenShakeButton" to="." method="_on_screen_shake_button_toggled"]

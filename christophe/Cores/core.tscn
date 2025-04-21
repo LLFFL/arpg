@@ -141,4 +141,5 @@ Targets = [NodePath("../CoreSprite")]
 shakerPreset = SubResource("Resource_ep78a")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+volume_db = 2.0
 bus = &"SFX"
