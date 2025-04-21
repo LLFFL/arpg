@@ -211,7 +211,6 @@ func end_game(win: bool):
 func _on_player_death():
 	PlayerManager.player.global_position = respawn_marker.global_position
 	PlayerManager.player.stats.health = PlayerManager.player.stats.max_health
-	PlayerManager.player.stats.gold = 0
 	PlayerManager.player.stats.stun_entity(2)
 	ui.on_health_changed_player(PlayerManager.player.stats.health)
 	pass
